@@ -666,7 +666,8 @@ img {
 
 .img-comp-slider {
   position: absolute;
-  z-index: 9;
+  z-index: 20;
+  /* Must be higher than overlay (10) */
   cursor: ew-resize;
   width: 40px;
   height: 40px;
