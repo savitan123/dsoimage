@@ -1,0 +1,729 @@
+/* =========================
+   Global defaults
+   ========================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Outfit', sans-serif;
+  background: #000;
+  color: #fff;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Prevent scroll when menu/lightbox open */
+body.no-scroll {
+  overflow: hidden;
+}
+
+/* Make sure images never overflow the viewport */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* =========================
+   Layout container
+   ========================= */
+
+.container {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* =========================
+   Mobile top bar
+   ========================= */
+
+.topbar {
+  display: none;
+  /* enabled on mobile */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background: rgba(11, 11, 11, 0.92);
+  border-bottom: 1px solid #222;
+  z-index: 200;
+  align-items: center;
+  padding: 0 12px;
+  gap: 12px;
+  backdrop-filter: blur(8px);
+}
+
+.topbar-title {
+  font-size: 14px;
+  color: #bbb;
+  letter-spacing: 0.4px;
+}
+
+/* Button that opens the menu (hamburger) */
+.menu-toggle {
+  appearance: none;
+  border: 1px solid #333;
+  background: #111;
+  color: #fff;
+  border-radius: 8px;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+.menu-toggle:hover {
+  border-color: #555;
+}
+
+/* =========================
+   Overlay behind mobile sidebar
+   ========================= */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 150;
+
+  opacity: 0;
+  pointer-events: none;
+  /* IMPORTANT: don’t block taps when hidden */
+  transition: opacity 0.15s ease;
+}
+
+.overlay.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* =========================
+   Sidebar
+   ========================= */
+
+.sidebar {
+  width: 200px;
+  background: #111;
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  overflow-y: auto;
+  z-index: 180;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sidebar h2 {
+  margin: 0 0 12px 0;
+}
+
+.sidebar-subtitle {
+  margin-top: 28px;
+}
+
+/* Optional close button (only shown on mobile) */
+.menu-close {
+  display: none;
+  /* enabled on mobile */
+  appearance: none;
+  border: 1px solid #333;
+  background: #111;
+  color: #fff;
+  border-radius: 8px;
+  padding: 2px 10px;
+  cursor: pointer;
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.menu-close:hover {
+  border-color: #555;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  margin: 12px 0;
+}
+
+.sidebar a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.sidebar a:hover {
+  color: #1e90ff;
+}
+
+.sidebar a.active {
+  color: #1e90ff;
+  font-weight: bold;
+}
+
+/* =========================
+   Main content
+   ========================= */
+
+.main-content {
+  margin-left: 220px;
+  width: calc(100% - 220px);
+  padding: 20px;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.main-content * {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.subtitle {
+  color: #ccc;
+  max-width: 900px;
+  line-height: 1.5;
+  margin-top: 18px;
+}
+
+/* =========================
+   Hero
+   ========================= */
+
+.hero {
+  border-radius: 14px;
+  overflow: hidden;
+  min-height: 52vh;
+  background-size: cover;
+  background-position: center;
+  border: 1px solid #222;
+  animation: fadeIn 0.8s ease-out backwards;
+}
+
+.hero-overlay {
+  min-height: 52vh;
+  padding: 34px;
+  background: linear-gradient(90deg,
+      rgba(0, 0, 0, 0.78) 0%,
+      rgba(0, 0, 0, 0.55) 55%,
+      rgba(0, 0, 0, 0.35) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero-title {
+  margin: 0 0 10px 0;
+}
+
+.hero-text {
+  max-width: 820px;
+  color: #d0d0d0;
+  font-size: 18px;
+  line-height: 1.6;
+  margin: 0 0 18px 0;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.hero-button {
+  display: inline-block;
+  text-decoration: none;
+  color: #fff;
+  background: rgba(17, 17, 17, 0.85);
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 600;
+  transition: transform 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+}
+
+.hero-button:hover {
+  transform: translateY(-1px);
+  background: #1e90ff;
+  border-color: #1e90ff;
+}
+
+.hero-button.secondary {
+  /* Inherits base styles, no override needed unless distinct */
+}
+
+/* =========================
+   Color header
+   ========================= */
+
+.color-header {
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+}
+
+.color-header .red {
+  color: #ff3333;
+}
+
+.color-header .green {
+  color: #33cc66;
+}
+
+.color-header .blue {
+  color: #3399ff;
+}
+
+/* =========================
+   Landing page category cards
+   ========================= */
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(220px, 1fr));
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.category-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid #222;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #0a0a0a;
+  transition: transform 0.15s, border-color 0.15s;
+}
+
+.category-card:hover {
+  transform: translateY(-2px);
+  border-color: #444;
+}
+
+.category-card img {
+  width: 100%;
+  height: auto;
+}
+
+.category-card-text {
+  padding: 14px;
+}
+
+.category-card-text h2 {
+  margin: 0 0 6px 0;
+  font-size: 18px;
+}
+
+.category-card-text p {
+  margin: 0;
+  color: #bbb;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* =========================
+   Gallery grid (preview pages)
+   ========================= */
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+
+  align-items: start;
+  grid-auto-rows: min-content;
+}
+
+.gallery-item {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.6s ease-out backwards;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+  border: 2px solid #444;
+  border-radius: 6px;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.gallery-item img:hover {
+  transform: scale(1.02);
+  border-color: #fff;
+}
+
+/* =========================
+   About / Equipment hero preview
+   ========================= */
+
+.page-hero {
+  margin: 10px 0 18px;
+  max-width: 900px;
+}
+
+.page-hero img {
+  width: 100%;
+  border: 1px solid #222;
+  border-radius: 8px;
+}
+
+.page-hero figcaption {
+  color: #aaa;
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+.page-text {
+  max-width: 900px;
+  line-height: 1.6;
+}
+
+/* =========================
+   Equipment gallery
+   ========================= */
+
+.equipment-gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  margin-top: 10px;
+}
+
+.equipment-item {
+  width: 100%;
+  max-width: 900px;
+  margin: 0;
+  text-align: center;
+  min-width: 0;
+}
+
+.equipment-item img {
+  width: 100%;
+  border: 2px solid #444;
+  border-radius: 8px;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.equipment-item img:hover {
+  transform: scale(1.01);
+  border-color: #fff;
+}
+
+.equipment-item figcaption {
+  color: #ccc;
+  font-size: 14px;
+  line-height: 1.4;
+  margin-top: 10px;
+}
+
+.equipment-item figcaption strong {
+  color: #ffeb3b;
+  font-size: 16px;
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+/* =========================
+   Lightbox overlay
+   ========================= */
+
+#lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 1000;
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 40px 20px;
+  overflow-y: auto;
+}
+
+#lightbox-img {
+  max-width: 95vw;
+  max-height: 65vh;
+  margin-bottom: 15px;
+  border: 1px solid #333;
+}
+
+#lightbox-caption {
+  width: min(900px, 92vw);
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: left;
+  white-space: pre-wrap;
+  word-break: break-word;
+
+  max-height: 30vh;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+#lightbox-caption strong {
+  display: block;
+  font-size: 18px;
+  color: yellow;
+  margin-bottom: 8px;
+}
+
+#lightbox-caption a {
+  color: #1e90ff;
+  text-decoration: underline;
+}
+
+#lightbox-caption a:hover {
+  color: #66b2ff;
+}
+
+#close {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  font-size: 40px;
+  cursor: pointer;
+  color: #fff;
+  user-select: none;
+}
+
+#close:hover {
+  color: #ff3333;
+}
+
+/* =========================
+   Footer
+   ========================= */
+
+.site-footer {
+  text-align: center;
+  padding: 40px 0 20px;
+  margin-top: auto;
+  border-top: 1px solid #222;
+  color: #777;
+  font-size: 14px;
+}
+
+/* =========================
+   Responsive
+   ========================= */
+
+@media (max-width: 900px) {
+  .category-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile: topbar + slide-in sidebar */
+@media (max-width: 768px) {
+  .topbar {
+    display: flex;
+  }
+
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+    padding: 76px 15px 15px;
+    /* space for fixed topbar */
+  }
+
+  .sidebar {
+    width: 260px;
+    max-width: 82vw;
+    transform: translateX(-110%);
+    transition: transform 0.18s ease;
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.45);
+  }
+
+  .sidebar.is-open {
+    transform: translateX(0);
+  }
+
+  .menu-close {
+    display: inline-block;
+  }
+
+  .hero {
+    min-height: 48vh;
+  }
+
+  .hero-overlay {
+    min-height: 48vh;
+    padding: 22px;
+    background: rgba(0, 0, 0, 0.68);
+  }
+
+  .hero-text {
+    font-size: 16px;
+  }
+
+  .gallery {
+    grid-template-columns: 1fr;
+  }
+
+  #lightbox-img {
+    max-height: 55vh;
+  }
+
+
+  #lightbox-caption {
+    max-height: 40vh;
+  }
+}
+
+/* =========================
+   Comparison Slider
+   ========================= */
+.img-comp-container {
+  position: relative;
+  height: 500px;
+  /* Adjust as needed */
+  overflow: hidden;
+  margin: 20px 0;
+  border-radius: 8px;
+  border: 1px solid #333;
+}
+
+.img-comp-img {
+  position: absolute;
+  width: auto;
+  height: auto;
+  overflow: hidden;
+}
+
+.img-comp-img img {
+  display: block;
+  vertical-align: middle;
+  height: 500px;
+  /* Match container height */
+  width: auto;
+  max-width: none;
+  /* Allows image to be wider than container */
+}
+
+.img-comp-slider {
+  position: absolute;
+  z-index: 9;
+  cursor: ew-resize;
+  width: 40px;
+  height: 40px;
+  background-color: #1e90ff;
+  opacity: 0.7;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #fff;
+}
+
+.img-comp-slider::before {
+  content: '<>';
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* =========================
+   Lightbox Zoom & SkyMap
+   ========================= */
+.lightbox-zoom-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: 1px solid #555;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  z-index: 1001;
+  font-family: inherit;
+}
+
+.lightbox-zoom-btn:hover {
+  background: rgba(30, 144, 255, 0.4);
+  border-color: #1e90ff;
+}
+
+#lightbox-img.can-zoom {
+  cursor: zoom-in;
+}
+
+#lightbox-img.is-zoomed {
+  cursor: grab;
+  max-width: none;
+  max-height: none;
+  width: auto;
+  height: auto;
+}
+
+#lightbox-img.is-zoomed:active {
+  cursor: grabbing;
+}
+
+.skymap-link {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 4px 10px;
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 4px;
+  color: #777;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.skymap-link:hover {
+  border-color: #555;
+  color: #fff;
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

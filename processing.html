@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processing Comparison — Shimon Avitan</title>
+    <meta name="description" content="Before and after processing comparison of deep sky astrophotography.">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js" defer></script>
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- TOPBAR (mobile) -->
+        <header class="topbar">
+            <button class="menu-toggle" type="button" aria-label="Open menu">
+                Menu
+            </button>
+            <div class="topbar-title">dsoimage.com</div>
+        </header>
+
+        <!-- Overlay -->
+        <div class="overlay" id="overlay" hidden></div>
+
+        <!-- SIDEBAR -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>Menu</h2>
+                <button class="menu-close" type="button" aria-label="Close menu">×</button>
+            </div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="galaxies.html">Galaxies</a></li>
+                <li><a href="nebulae.html">Nebulae</a></li>
+                <li><a href="clusters.html">Star Clusters</a></li>
+                <li><a href="equipment.html">Equipment</a></li>
+                <li><a href="processing.html" class="active">Processing</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <h2 class="sidebar-subtitle">Follow Me</h2>
+            <ul>
+                <li><a href="https://www.instagram.com/avitan_shimon/" target="_blank" rel="noopener">Instagram</a></li>
+                <li><a href="https://www.facebook.com/shimon.avitan.79" target="_blank" rel="noopener">Facebook</a></li>
+            </ul>
+        </nav>
+
+        <!-- MAIN -->
+        <main class="main-content">
+            <h1>Processing Examples</h1>
+            <p class="subtitle">
+                Astrophotography requires extensive post-processing to reveal faint details hidden in the raw data.
+                Drag the slider to compare different stages of the image.
+            </p>
+
+            <!-- SLIDER DEMO 1 -->
+            <div class="comparison-block">
+                <h2>Helix Nebula: Raw vs. Final</h2>
+                <p>Comparison between a single raw frame (simulated grayscale) and the final stacked & processed image.
+                </p>
+
+                <div class="img-comp-container">
+                    <div class="img-comp-img">
+                        <img src="images/full/helix_nebula.jpg" alt="Final Processed">
+                    </div>
+                    <div class="img-comp-img img-comp-overlay">
+                        <!-- Using same image with grayscale filter to simulate 'raw' for demo purposes -->
+                        <img src="images/full/helix_nebula.jpg"
+                            style="filter: grayscale(100%) contrast(1.2) brightness(0.8);" alt="Raw Data">
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDER DEMO 2 -->
+            <div class="comparison-block" style="margin-top: 60px;">
+                <h2>M13: Zoomed Crop</h2>
+                <p>Comparing detail in the core.</p>
+
+                <div class="img-comp-container">
+                    <div class="img-comp-img">
+                        <img src="images/full/M13.jpg" alt="Final Processed">
+                    </div>
+                    <div class="img-comp-img img-comp-overlay">
+                        <!-- Using same image with different filter to simulate 'before' -->
+                        <img src="images/full/M13.jpg" style="filter: sepia(100%) hue-rotate(180deg);"
+                            alt="Different Channel">
+                    </div>
+                </div>
+            </div>
+
+            <footer class="site-footer">
+                <p>&copy; 2026 Shimon Avitan | dsoimage.com</p>
+            </footer>
+        </main>
+    </div>
+</body>
+
+</html>

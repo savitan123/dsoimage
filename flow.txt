@@ -1,0 +1,153 @@
+Now we will re-architect the site navigation and pages so that:
+
+• The main Gallery is split into:
+– Galaxies
+– Nebulae
+– Star Clusters
+
+• Each category page loads preview images only (fast)
+
+• Clicking a preview opens your existing full-image viewer/lightbox page with:
+– Full-size image
+– Description
+– High-resolution link
+
+Because you are on GitHub Pages, everything must remain static HTML + JS, which is fine.
+
+✅ STEP 1 — Directory Layout
+
+Confirm you now have:
+
+images/
+  ├── full/
+  │     M31.jpg
+  │     M33.jpg
+  │     M16.jpg
+  ├── preview/
+  │     M31.jpg
+  │     M33.jpg
+  │     M16.jpg
+
+
+Good.
+
+✅ STEP 2 — Decide Page Model
+
+We will:
+
+Option A (cleanest):
+
+Category pages open the lightbox directly (no separate page)
+
+Option B:
+
+Category pages link to your current index.html style viewer
+
+👉 I strongly recommend Option A:
+
+Reuse the same gallery/lightbox system on each category page.
+
+So:
+
+• galaxies.html → previews + lightbox
+• nebulae.html → previews + lightbox
+• clusters.html → previews + lightbox
+
+No duplication.
+
+✅ STEP 3 — Sidebar Menu Update
+
+Add:
+
+Galaxies
+Nebulae
+Star Clusters
+
+
+in all pages:
+
+<li><a href="galaxies.html">Galaxies</a></li>
+<li><a href="nebulae.html">Nebulae</a></li>
+<li><a href="clusters.html">Star Clusters</a></li>
+
+✅ STEP 4 — Modify Gallery HTML to Use Preview + Full
+
+Instead of:
+
+<img src="images/M31.jpg">
+
+
+You will do:
+
+<img 
+  src="images/preview/M31.jpg"
+  data-full="images/full/M31.jpg"
+  alt="Andromeda Galaxy">
+
+✅ STEP 5 — Modify JS (script.js)
+
+In your click handler change:
+
+FROM:
+
+img.src
+
+
+TO:
+
+item.querySelector("img").dataset.full
+
+
+Example:
+
+document.querySelectorAll(".gallery-item").forEach(item => {
+  item.addEventListener("click", () => {
+
+    const img = item.querySelector("img");
+
+    lightboxImg.src = img.dataset.full;
+    caption.innerHTML =
+      "<strong>" + item.dataset.title + "</strong><br>" +
+      item.dataset.notes;
+
+    lightbox.style.display = "flex";
+  });
+});
+
+✅ STEP 6 — Create galaxies.html
+
+Copy your existing index.html gallery section.
+
+Rename file → galaxies.html.
+
+Replace:
+
+• Sidebar active link
+• Only galaxy objects
+• Preview paths
+
+✅ STEP 7 — Grid Layout Per Device
+
+Your CSS already supports responsive grids:
+
+Desktop → auto-fill columns
+Mobile → 1 column (or 2 if you want)
+
+If you want 2 columns on phone, modify:
+
+@media (max-width: 768px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+🧠 Architecture Summary
+
+You now have:
+
+Page	Loads	Click Opens
+galaxies.html	preview	full + lightbox
+nebulae.html	preview	full + lightbox
+clusters.html	preview	full + lightbox
+
+Fast, clean, scalable.

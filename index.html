@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="author" content="Shimon Avitan">
+  <meta name="description" content="Deep Sky Object astrophotography gallery by Shimon Avitan.">
+
+  <meta property="og:title" content="Shimon Avitan — Deep Sky Gallery">
+  <meta property="og:description"
+    content="Explore high-resolution astrophotography of galaxies, nebulae and star clusters.">
+  <meta property="og:image" content="images/preview/HorseHead_Flame_Nebula.jpg">
+  <meta property="og:url" content="https://dsoimage.com/">
+  <meta property="og:type" content="website">
+
+  <title>Shimon Avitan — Deep Sky Gallery</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- Mobile top bar (only visible on small screens) -->
+    <div class="topbar">
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-controls="sidebar" aria-expanded="false">
+        Menu
+      </button>
+      <div class="topbar-title">dsoimage.com</div>
+    </div>
+
+    <!-- Dim background overlay for mobile menu -->
+    <div class="overlay" id="overlay" hidden></div>
+
+    <nav class="sidebar" id="sidebar" aria-label="Site menu">
+      <div class="sidebar-header">
+        <h2>Menu</h2>
+        <button class="menu-close" type="button" aria-label="Close menu">×</button>
+      </div>
+
+      <ul>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="galaxies.html">Galaxies</a></li>
+        <li><a href="nebulae.html">Nebulae</a></li>
+        <li><a href="clusters.html">Star Clusters</a></li>
+        <li><a href="equipment.html">Equipment</a></li>
+        <li><a href="processing.html">Processing</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+
+      <h2 class="sidebar-subtitle">Follow Me</h2>
+      <ul>
+        <li><a href="https://www.instagram.com/avitan_shimon/" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://www.facebook.com/shimon.avitan.79" target="_blank" rel="noopener">Facebook</a></li>
+      </ul>
+    </nav>
+
+    <main class="main-content">
+
+      <!-- HERO -->
+      <section class="hero" style="background-image:url('images/preview/helix_nebula.jpg');">
+        <div class="hero-overlay">
+          <h1 class="color-header hero-title">
+            <span class="red">D</span>eep
+            <span class="green">S</span>ky
+            <span class="blue">O</span>bject Imaging
+          </h1>
+
+          <p class="hero-text">
+            A curated collection of deep-sky astrophotography captured under dark skies, revealing
+            galaxies, nebulae, and star clusters far beyond our solar system.
+          </p>
+
+          <div class="hero-actions">
+            <a class="hero-button" href="galaxies.html">Browse Galaxies</a>
+            <a class="hero-button secondary" href="nebulae.html">Browse Nebulae</a>
+            <a class="hero-button secondary" href="clusters.html">Browse Clusters</a>
+          </div>
+        </div>
+      </section>
+
+      <p class="subtitle">
+        Choose a category to browse preview images. Click any preview to open the full resolution with notes and links.
+      </p>
+
+      <section class="category-grid">
+
+        <a class="category-card" href="galaxies.html">
+          <img src="images/preview/Triangulum_Galaxy.jpg" alt="Galaxies preview" loading="lazy">
+          <div class="category-card-text">
+            <h2>Galaxies</h2>
+            <p>M31, M33, M81/M82, M101, M77 and more.</p>
+          </div>
+        </a>
+
+        <a class="category-card" href="nebulae.html">
+          <img src="images/preview/HorseHead_Flame_Nebula.jpg" alt="Nebulae preview" loading="lazy">
+          <div class="category-card-text">
+            <h2>Nebulae</h2>
+            <p>Emission, reflection and narrowband targets.</p>
+          </div>
+        </a>
+
+        <a class="category-card" href="clusters.html">
+          <img src="images/preview/M13.jpg" alt="Star clusters preview" loading="lazy">
+          <div class="category-card-text">
+            <h2>Star Clusters</h2>
+            <p>Globular and open clusters.</p>
+          </div>
+        </a>
+
+      </section>
+
+      <footer class="site-footer">
+        <p>&copy; 2026 Shimon Avitan | dsoimage.com</p>
+      </footer>
+
+    </main>
+  </div>
+
+  <script src="js/script.js"></script>
+
+</body>
+
+</html>
