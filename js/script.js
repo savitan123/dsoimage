@@ -220,36 +220,77 @@ document.addEventListener("keydown", (e) => {
 // ===============================
 // Comparison Slider Logic
 // ===============================
+// ===============================
+// Comparison Slider Logic (Responsive)
+// ===============================
 function initComparisons() {
-  const x = document.getElementsByClassName("img-comp-overlay");
-  for (let i = 0; i < x.length; i++) {
-    compareImages(x[i]);
+  const overlays = document.getElementsByClassName("img-comp-overlay");
+
+  // We iterate backwards or safely because simple loop is fine here
+  // But each instance needs its own handlers
+  for (let i = 0; i < overlays.length; i++) {
+    // Determine the base image (sibling)
+    // The overlay is the separate div. The base image is the previous sibling div.
+    const overlayDiv = overlays[i];
+    const container = overlayDiv.parentElement;
+    // Base img is the one NOT overlay
+    const baseImgDiv = container.querySelector('.img-comp-img:not(.img-comp-overlay)');
+    const baseImg = baseImgDiv ? baseImgDiv.querySelector('img') : null;
+    const overlayImg = overlayDiv.querySelector('img');
+
+    if (baseImg && overlayImg) {
+      setupSlider(overlayDiv, overlayImg, baseImg, container);
+    }
   }
 
-  function compareImages(img) {
-    let clicked = 0, w, h;
+  function setupSlider(overlayDiv, overlayImg, baseImg, container) {
+    let slider, clicked = 0, w, h;
 
-    // Get the width and height of the img element
-    w = img.offsetWidth;
-    h = img.offsetHeight;
+    // We need to wait for image load to get dimensions if not ready
+    if (!baseImg.complete) {
+      baseImg.onload = () => init();
+    } else {
+      init();
+    }
 
-    // Set the width of the img element to 50%
-    img.style.width = (w / 2) + "px";
+    function init() {
+      // Create slider knob
+      slider = document.createElement("DIV");
+      slider.setAttribute("class", "img-comp-slider");
+      container.appendChild(slider); // Append to container, so it floats over both
 
-    // Create slider
-    const slider = document.createElement("DIV");
-    slider.setAttribute("class", "img-comp-slider");
-    img.parentElement.insertBefore(slider, img);
+      // Initial sizing
+      updateDimensions();
 
-    // Position slider
-    slider.style.top = (h / 2) - (slider.offsetHeight / 2) + "px";
-    slider.style.left = (w / 2) - (slider.offsetWidth / 2) + "px";
+      // Events
+      slider.addEventListener("mousedown", slideReady);
+      window.addEventListener("mouseup", slideFinish);
+      slider.addEventListener("touchstart", slideReady);
+      window.addEventListener("touchend", slideFinish);
 
-    // Events
-    slider.addEventListener("mousedown", slideReady);
-    window.addEventListener("mouseup", slideFinish);
-    slider.addEventListener("touchstart", slideReady);
-    window.addEventListener("touchend", slideFinish);
+      // Update on resize
+      window.addEventListener('resize', updateDimensions);
+    }
+
+    function updateDimensions() {
+      // Get current displayed dimensions of base image
+      w = baseImg.offsetWidth;
+      h = baseImg.offsetHeight;
+
+      // Force overlay image to match base image dimensions exactly
+      overlayImg.style.width = w + "px";
+      overlayImg.style.height = h + "px";
+
+      // Center slider knob vertically
+      slider.style.top = (h / 2) - (slider.offsetHeight / 2) + "px";
+
+      // Reset slider to center or keep percentage? Center is safest for resize reset
+      // Or keep current position relative to width
+      const currentWidth = overlayDiv.offsetWidth;
+      // If first run (currentWidth is maybe 50% from css), keep it
+      // actually, just ensuring slider position matches overlay width
+      slider.style.left = (currentWidth) - (slider.offsetWidth / 2) + "px";
+    }
 
     function slideReady(e) {
       e.preventDefault();
@@ -266,23 +307,27 @@ function initComparisons() {
       let pos;
       if (clicked == 0) return false;
       pos = getCursorPos(e);
+      // Limits
       if (pos < 0) pos = 0;
       if (pos > w) pos = w;
+
       slide(pos);
     }
 
     function getCursorPos(e) {
       let a, x = 0;
       e = (e.changedTouches) ? e.changedTouches[0] : e;
-      a = img.getBoundingClientRect();
+      a = baseImg.getBoundingClientRect();
       x = e.pageX - a.left;
       x = x - window.pageXOffset;
       return x;
     }
 
     function slide(x) {
-      img.style.width = x + "px";
-      slider.style.left = img.offsetWidth - (slider.offsetWidth / 2) + "px";
+      // Resize overlay DIV
+      overlayDiv.style.width = x + "px";
+      // Move slider
+      slider.style.left = x - (slider.offsetWidth / 2) + "px";
     }
   }
 }

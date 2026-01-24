@@ -608,31 +608,60 @@ img {
 /* =========================
    Comparison Slider
    ========================= */
+/* =========================
+   Comparison Slider
+   ========================= */
 .img-comp-container {
   position: relative;
-  height: 500px;
-  /* Adjust as needed */
-  overflow: hidden;
-  margin: 20px 0;
+  width: 100%;
+  /* Full width of parent */
+  max-width: 900px;
+  /* Or whatever max width you want */
+  margin: 20px auto;
+  /* Center it */
   border-radius: 8px;
   border: 1px solid #333;
+  /* Remove fixed height */
+  overflow: hidden;
 }
 
 .img-comp-img {
-  position: absolute;
-  width: auto;
+  width: 100%;
   height: auto;
-  overflow: hidden;
+  position: relative;
 }
 
 .img-comp-img img {
   display: block;
-  vertical-align: middle;
-  height: 500px;
-  /* Match container height */
+  width: 100%;
+  /* Responsive base image */
+  height: auto;
+}
+
+/* Overlay specific - sits on top */
+.img-comp-img.img-comp-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  /* Initial split */
+  height: 100%;
+  overflow: hidden;
+  z-index: 10;
+  margin: 0;
+  /* Reset any defaults */
+}
+
+/* The image INSIDE the overlay must NOT shrink to the overlay width.
+   It must match the base image size. We will handle width via JS or max-width: none. */
+.img-comp-img.img-comp-overlay img {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: auto;
+  /* Will be set by JS usually, or max-width none */
   max-width: none;
-  /* Allows image to be wider than container */
+  height: 100%;
 }
 
 .img-comp-slider {
