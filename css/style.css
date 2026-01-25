@@ -15,7 +15,10 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Outfit', sans-serif;
-  background: #000;
+  /* Deep Cosmic Gradient instead of plain black */
+  background: radial-gradient(circle at top center, #1a1a2e 0%, #16213e 40%, #000000 100%);
+  background-attachment: fixed;
+  /* Parallax-like effect */
   color: #fff;
   overflow-x: hidden;
   overflow-y: auto;
