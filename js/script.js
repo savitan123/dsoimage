@@ -788,6 +788,45 @@ function initTools() {
   }
 }
 
+// 7. Carousel Logic
+function initCarousel() {
+  const containers = document.querySelectorAll('.carousel-container');
+
+  containers.forEach(container => {
+    const track = container.querySelector('.carousel-track');
+    // Determine slides from children (li elements)
+    const slides = Array.from(track.children);
+    const nextBtn = container.querySelector('.next-btn');
+    const prevBtn = container.querySelector('.prev-btn');
+
+    if (slides.length === 0) return;
+
+    let currentIndex = 0;
+
+    // Move to slide function
+    const moveToSlide = (index) => {
+      // Ensure index is within bounds (circular)
+      if (index < 0) index = slides.length - 1;
+      if (index >= slides.length) index = 0;
+
+      currentIndex = index;
+      const amount = -(currentIndex * 100);
+      track.style.transform = `translateX(${amount}%)`;
+    };
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => moveToSlide(currentIndex + 1));
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => moveToSlide(currentIndex - 1));
+    }
+
+    // Optional: Keyboard navigation if container is in focus or generally
+    // But might conflict with lightbox, so skipping for now.
+  });
+}
+
 // Hook into main init
 const originalInit = window.onload; // or the event listener
 // We act inside DOMContentLoaded in main block, so let's just call it if we are on tools page
@@ -795,3 +834,6 @@ if (window.location.pathname.includes("tools.html")) {
   // Add to specific listener or just run calculation
   document.addEventListener("DOMContentLoaded", initTools);
 }
+
+// Call Carousel Init globally (it checks for existence internally)
+document.addEventListener("DOMContentLoaded", initCarousel);
