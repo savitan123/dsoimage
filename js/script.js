@@ -101,6 +101,16 @@ function initDSOImage() {
     lightbox.style.display = "flex";
     if (zoomBtn) zoomBtn.style.display = "block";
     document.body.classList.add("no-scroll");
+
+    // History Push Logic
+    // Only push if we aren't already there (to avoid loops if called by popstate)
+    const cleanName = aliases ? aliases.split(',')[0].trim() : title.replace(/\(.*\)/, "").trim();
+    const newUrl = window.location.pathname + "?object=" + encodeURIComponent(cleanName);
+
+    // Check if current state is already this lightbox to avoid double push
+    if (!history.state || !history.state.lightboxOpen) {
+      history.pushState({ lightboxOpen: true, object: cleanName }, "", newUrl);
+    }
   }
 
   function closeLightbox() {
@@ -110,6 +120,22 @@ function initDSOImage() {
     lightboxImg.classList.remove("is-zoomed");
     isZoomed = false;
   }
+
+  // Handle Back Button (Popstate)
+  window.addEventListener("popstate", (e) => {
+    // If we popped back to a state that doesn't have lightboxOpen, close it
+    if (lightbox && lightbox.style.display === "flex") {
+      if (!e.state || !e.state.lightboxOpen) {
+        closeLightbox();
+      }
+    } else if (e.state && e.state.lightboxOpen) {
+      // If we popped forward to an open state, re-open (optional, but good)
+      // Typically deep link check handles load, but popstate needs to handle forward/back
+      // For simplicity, we mostly care about BACK closing the modal.
+      // To fully support Forward re-opening, we'd need to find the item again.
+      // Let's rely on the URL param check if needed, or just let users click again.
+    }
+  });
 
   function toggleZoom(e) {
     e.stopPropagation();
@@ -168,28 +194,17 @@ function initDSOImage() {
       const notes = item.getAttribute("data-notes") || "";
       const aliases = item.getAttribute("data-aliases") || "";
 
-      // Push history state so deep linking works if user copies URL
-      // But only if we are not already there
-      const cleanTitle = title.replace(/\(.*\)/, "").trim();
-      const newUrl = window.location.pathname + "?object=" + encodeURIComponent(cleanTitle);
-      window.history.replaceState(null, null, newUrl);
-
       if (src) openLightbox({ src, title, notes, aliases });
     });
   });
 
   if (closeBtnLightbox) {
     closeBtnLightbox.addEventListener("click", () => {
-      closeLightbox();
-      // Remove query param on close
-      const cleanUrl = window.location.pathname;
-      window.history.replaceState(null, null, cleanUrl);
-    });
-  }
-
-  if (lightbox) {
-    lightbox.addEventListener("click", (e) => {
-      if (e.target === lightbox) {
+      // Logic: If we have a history state for the lightbox, go back.
+      // Else (deep link load), just close and replaceState.
+      if (history.state && history.state.lightboxOpen) {
+        history.back();
+      } else {
         closeLightbox();
         const cleanUrl = window.location.pathname;
         window.history.replaceState(null, null, cleanUrl);
@@ -197,11 +212,30 @@ function initDSOImage() {
     });
   }
 
+  if (lightbox) {
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) {
+        // Same logic as Close Button
+        if (history.state && history.state.lightboxOpen) {
+          history.back();
+        } else {
+          closeLightbox();
+          const cleanUrl = window.location.pathname;
+          window.history.replaceState(null, null, cleanUrl);
+        }
+      }
+    });
+  }
+
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && lightbox && lightbox.style.display === "flex") {
-      closeLightbox();
-      const cleanUrl = window.location.pathname;
-      window.history.replaceState(null, null, cleanUrl);
+      if (history.state && history.state.lightboxOpen) {
+        history.back();
+      } else {
+        closeLightbox();
+        const cleanUrl = window.location.pathname;
+        window.history.replaceState(null, null, cleanUrl);
+      }
     }
   });
 
@@ -233,7 +267,50 @@ function initDSOImage() {
         // Trigger click to open lightbox
         // Use a small timeout to ensure DOM is ready-ready
         setTimeout(() => {
-          foundItem.click();
+          // Manually open to avoid double pushState if the click handler does it
+          // Actually, we WANT consistent state.
+          // IF we trigger click, it pushes state.
+          // BUT on page load, we don't want to push state on top of the deep link URL?
+          // Actually: Load Page -> URL has ?object=M81.
+          // If we click(), it pushes ?object=M81 (same URL).
+          // Browsers handle same-URL pushState differently, often creating a duplicate.
+          // Better: Call openLightbox directly WITHOUT pushing state, OR `replaceState`.
+
+          const img = foundItem.querySelector("img");
+          const fullSrc = foundItem.getAttribute("data-full");
+          const src = fullSrc || (img ? img.src : "");
+          const title = foundItem.getAttribute("data-title") || "";
+          const notes = foundItem.getAttribute("data-notes") || "";
+          const aliases = foundItem.getAttribute("data-aliases") || "";
+
+          // Open VISUALLY but manually manage state to avoid dupes
+          if (!lightbox || !lightboxImg || !lightboxCaption) return;
+
+          lightboxImg.src = src;
+          lightboxImg.classList.remove("is-zoomed");
+          isZoomed = false;
+          if (zoomBtn) zoomBtn.innerHTML = "Enable Pan/Zoom";
+          lightboxImg.style.transform = "none";
+
+          let captionHtml = `<strong>${title || ""}</strong><br>${notes || ""}`;
+          if (title) {
+            let cleanTitle = title.replace(/\(.*\)/, "").trim();
+            const skyMapUrl = `https://wikisky.org/?object=${encodeURIComponent(cleanTitle)}`;
+            captionHtml += `<br><a href="${skyMapUrl}" target="_blank" class="skymap-link">✨ Find in Sky Map (WikiSky)</a>`;
+          }
+          lightboxCaption.innerHTML = captionHtml;
+          lightbox.style.display = "flex";
+          if (zoomBtn) zoomBtn.style.display = "block";
+          document.body.classList.add("no-scroll");
+
+          // Set initial state without pushing new entry
+          const cleanName = aliases ? aliases.split(',')[0].trim() : title.replace(/\(.*\)/, "").trim();
+          // We use replaceState so "Back" goes to previous page (outside site), 
+          // BUT "Close" will need to just empty the URL.
+          // Wait, if I load deep link, I want "Close" to stay on Galaxy page.
+          // If I hit Back, I leave Galaxy page.
+          history.replaceState({ lightboxOpen: true, object: cleanName }, "", window.location.href);
+
         }, 100);
       }
     }
@@ -355,7 +432,7 @@ function initDSOImage() {
     { title: "M101 Pinwheel Galaxy", aliases: "M101, NGC 5457", url: "galaxies.html", img: "images/preview/M101.jpg" },
     { title: "M77 Galaxy", aliases: "M77, NGC 1068", url: "galaxies.html", img: "images/preview/M77.jpg" },
     { title: "Hercules Galaxy Cluster (Abell 2151)", aliases: "Abell 2151", url: "galaxies.html", img: "images/preview/Abell2151.jpg" },
-    { title: "Bode's & Cigar Galaxy (M81/M82)", aliases: "M81, NGC 3031, M82, NGC 3034", url: "galaxies.html", img: "images/preview/M81_M82_Galaxies.jpg" },
+    { title: "Bode's Galaxy and Cigar Galaxy", aliases: "M81, NGC 3031, M82, NGC 3034", url: "galaxies.html", img: "images/preview/M81_M82_Galaxies.jpg" },
     { title: "HorseHead and Flame Nebulae", aliases: "IC 434, Barnard 33, NGC 2024", url: "nebulae.html", img: "images/preview/HorseHead_Flame_Nebula.jpg" },
     { title: "Flaming Star, Tadpole & Spider", aliases: "IC 405, IC 410, IC 417", url: "nebulae.html", img: "images/preview/ic405_410_417.jpg" },
     { title: "NGC 1333", aliases: "NGC 1333", url: "nebulae.html", img: "images/preview/ngc_1333.jpg" },
@@ -429,8 +506,8 @@ function initDSOImage() {
       const div = document.createElement("div");
       div.className = "search-result-item";
 
-      // Extract a clean name for the URL param (remove parentheses)
-      let cleanName = item.title.replace(/\(.*\)/, "").trim();
+      // Fix: Use Alias First for Robust Linking if available
+      let cleanName = item.aliases ? item.aliases.split(',')[0].trim() : item.title.replace(/\(.*\)/, "").trim();
 
       div.innerHTML = `
             <img src="${item.img}" class="search-result-thumb" alt="${item.title}">
@@ -666,12 +743,44 @@ window.convertDmsToDec = function () {
   document.getElementById("result-dec").innerText = dec.toFixed(5) + "°";
 }
 
+// 6. VirtualSky Init
+function initSkyMap() {
+  const mapContainer = document.getElementById("starmap");
+  if (!mapContainer) return;
+
+  // VirtualSky must be loaded
+  if (typeof jQuery !== 'undefined' && typeof VirtualSky !== 'undefined') {
+    const planetarium = jQuery.virtualsky({
+      id: 'starmap',
+      projection: 'stereo',
+      latitude: 31.046, // Israel
+      longitude: 34.851,
+      ground: false,
+      constellations: true, // Show lines
+      constellationlabels: true,
+      gridlines_az: true,
+      live: true,
+      az: 180, // Facing South default
+      fov: 60, // Field of view
+      showdate: false,
+      showposition: false,
+      colors: {
+        background: 'rgba(0,0,0,0)', // Transparent to match theme
+        base: '#fff',
+        stars: '#fff',
+        letters: '#1e90ff'
+      }
+    });
+  }
+}
+
 // Run Tools
 function initTools() {
   updateMoonPhase();
   updateISS();
   updateTwilight();
   updatePlanets();
+  initSkyMap();
 
   // Refresh ISS every 10s
   if (document.getElementById("iss-lat")) {
