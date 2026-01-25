@@ -1087,6 +1087,11 @@ body.red-mode img {
     display: none !important;
   }
 
+  /* HIDE the desktop virtualsky button on mobile */
+  .desktop-only-btn {
+    display: none !important;
+  }
+
   .mobile-hint {
     display: block !important;
   }
