@@ -404,13 +404,15 @@ const searchData = [
 const searchOverlay = document.getElementById("search-overlay");
 const searchInput = document.getElementById("search-input");
 const searchResults = document.getElementById("search-results");
-const searchTrigger = document.querySelector(".search-trigger");
-const searchClose = document.querySelector(".search-close");
+// Select ALL search triggers (Desktop + Mobile if we add one)
+const searchTriggers = document.querySelectorAll(".search-trigger");
 
 function openSearch() {
   if (searchOverlay) {
     searchOverlay.classList.add("is-active");
-    setTimeout(() => searchInput.focus(), 100);
+    setTimeout(() => {
+      if (searchInput) searchInput.focus();
+    }, 100);
   }
 }
 
@@ -436,7 +438,7 @@ function performSearch(query) {
   });
 
   if (matches.length === 0) {
-    searchResults.innerHTML = '<div style="color:#777; padding:10px;">No results found.</div>';
+    searchResults.innerHTML = '<div style="color:#aaa; padding:15px; font-size:16px;">No results found. Try another name (e.g., M31).</div>';
     return;
   }
 
@@ -457,9 +459,10 @@ function performSearch(query) {
   });
 }
 
-if (searchTrigger) {
-  searchTrigger.addEventListener("click", openSearch);
-}
+// Attach event to ALL search triggers
+searchTriggers.forEach(btn => {
+  btn.addEventListener("click", openSearch);
+});
 
 if (searchClose) {
   searchClose.addEventListener("click", closeSearch);
