@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="canonical" href="https://dsoimage.com/processing.html">
-    <title>Processing Comparison — Shimon Avitan</title>
-    <meta name="description" content="Before and after processing comparison of deep sky astrophotography.">
+    <link rel="canonical" href="https://dsoimage.com/contact.html">
+
+    <title>Contact — Shimon Avitan</title>
+    <meta name="description" content="Contact Shimon Avitan.">
+
     <link rel="stylesheet" href="css/style.css?v=2">
-    <script src="js/script.js?v=7"></script>
 </head>
 
 <body>
@@ -17,38 +18,38 @@
 
         <!-- TOPBAR (mobile) -->
         <header class="topbar">
-            <button class="menu-toggle" type="button" aria-label="Open menu">
+            <button class="menu-btn menu-toggle" type="button" aria-label="Open menu" aria-controls="sidebar"
+                aria-expanded="false">
                 Menu
             </button>
             <div class="topbar-title">dsoimage.com</div>
         </header>
 
-        <!-- Overlay -->
-        <div class="overlay" id="overlay" hidden></div>
+        <!-- Overlay for slide-in sidebar -->
+        <div class="sidebar-overlay overlay" hidden></div>
 
         <!-- SIDEBAR -->
-        <nav class="sidebar" id="sidebar">
+        <nav class="sidebar" id="sidebar" aria-label="Site menu">
             <div class="sidebar-header">
                 <h2>Menu</h2>
                 <button class="menu-close" type="button" aria-label="Close menu">×</button>
             </div>
+
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="galaxies.html">Galaxies</a></li>
                 <li><a href="nebulae.html">Nebulae</a></li>
                 <li><a href="clusters.html">Star Clusters</a></li>
                 <li><a href="equipment.html">Equipment</a></li>
-                <li><a href="processing.html" class="active">Processing</a></li>
+                <li><a href="processing.html">Processing</a></li>
                 <li><a href="weather.html">Weather</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
             </ul>
 
             <button id="red-mode-toggle" class="mode-toggle-btn">
                 <span class="circle-icon"></span> Night Vision
             </button>
-
-            <!-- Sidebar search removed -->
 
             <div class="sidebar-footer">
                 <h2 class="sidebar-subtitle">Follow Me</h2>
@@ -63,52 +64,44 @@
 
         <!-- MAIN -->
         <main class="main-content">
-            <h1>Processing Examples</h1>
-            <p class="subtitle">
-                Astrophotography requires extensive post-processing to reveal faint details hidden in the raw data.
-                Drag the slider to compare different stages of the image.
-            </p>
 
-            <!-- SLIDER DEMO 1 -->
-            <div class="comparison-block">
-                <h2>Helix Nebula: Raw vs. Final</h2>
-                <p>Comparison between a single raw frame (simulated grayscale) and the final stacked & processed image.
+            <h1>Contact Me</h1>
+
+            <div class="page-text">
+                <p>
+                    Have a question about my imaging process, equipment, or potential prints?
+                    Feel free to reach out using the form below.
                 </p>
 
-                <div class="img-comp-container">
-                    <div class="img-comp-img">
-                        <img src="images/full/helix_nebula.jpg" alt="Final Processed">
+                <form action="mailto:avitanshimon@gmail.com" method="post" enctype="text/plain" class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" placeholder="Your Name" required>
                     </div>
-                    <div class="img-comp-img img-comp-overlay">
-                        <!-- Using 'raw' image -->
-                        <img src="images/full/helix_raw.jpg" alt="Raw Data">
 
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Your Email" required>
                     </div>
-                </div>
-            </div>
 
-            <!-- SLIDER DEMO 2 -->
-            <div class="comparison-block" style="margin-top: 60px;">
-                <h2>M13: Zoomed Crop</h2>
-                <p>Comparing detail in the core.</p>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" placeholder="Write your message here..." rows="6"
+                            required></textarea>
+                    </div>
 
-                <div class="img-comp-container">
-                    <div class="img-comp-img">
-                        <img src="images/full/M13.jpg" alt="Final Processed">
-                    </div>
-                    <div class="img-comp-img img-comp-overlay">
-                        <!-- Using same image with different filter to simulate 'before' -->
-                        <img src="images/full/M13.jpg" style="filter: sepia(100%) hue-rotate(180deg);"
-                            alt="Different Channel">
-                    </div>
-                </div>
+                    <button type="submit" class="hero-button">Send Email</button>
+                </form>
+
             </div>
 
             <footer class="site-footer">
                 <p>&copy; 2026 Shimon Avitan | dsoimage.com</p>
             </footer>
+
         </main>
     </div>
+
     <!-- Search Overlay -->
     <div id="search-overlay" class="search-overlay">
         <div class="search-box">
@@ -118,6 +111,8 @@
             <div id="search-results" class="search-results"></div>
         </div>
     </div>
+
+    <script src="js/script.js?v=7"></script>
 </body>
 
 </html>
