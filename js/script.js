@@ -438,7 +438,7 @@ function performSearch(query) {
   });
 
   if (matches.length === 0) {
-    searchResults.innerHTML = '<div style="color:#aaa; padding:15px; font-size:16px;">No results found. Try another name (e.g., M31).</div>';
+    searchResults.innerHTML = '<div style="color:#aaa; padding:15px; font-size:16px;">I haven\'t imaged this object yet.</div>';
     return;
   }
 
