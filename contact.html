@@ -73,7 +73,13 @@
                     Feel free to reach out using the form below.
                 </p>
 
-                <form action="mailto:avitanshimon@gmail.com" method="post" enctype="text/plain" class="contact-form">
+                <form action="https://formsubmit.co/avitanshimon@gmail.com" method="POST" class="contact-form">
+                    <!-- Hidden configuration fields -->
+                    <input type="hidden" name="_subject" value="New submission from dsoimage.com">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="text" name="_honey" style="display:none">
+                    <input type="hidden" name="_next" value="https://dsoimage.com/contact.html">
+
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" id="name" name="name" placeholder="Your Name" required>
