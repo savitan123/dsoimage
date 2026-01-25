@@ -1217,6 +1217,8 @@ body.red-mode img {
   .carousel-slide {
     padding: 0;
     /* Maximize space on mobile */
+    justify-content: flex-start;
+    /* Align image to top */
   }
 
   .carousel-slide img {
@@ -1232,8 +1234,8 @@ body.red-mode img {
     font-size: 1.5rem;
     background: rgba(0, 0, 0, 0.5);
     /* Semi-transparent */
-    top: 25vh;
-    /* Center relative to max-height 50vh image */
+    top: 130px;
+    /* Fixed pixel value approx middle of landscape image */
     transform: translateY(-50%);
     border-radius: 5px;
     /* Square-ish for better touch */
