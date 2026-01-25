@@ -908,45 +908,39 @@ body.red-mode img {
   box-shadow: 0 0 5px #ff3333;
 }
 
-/* Search Icon in Header */
-.search-trigger {
-  background: none;
-  border: none;
-  color: #ccc;
-  font-size: 20px;
-  cursor: pointer;
-  padding: 8px;
-  margin-left: auto;
-}
-
-.search-trigger:hover {
+/* =========================
+   Floating Search Button
+   ========================= */
+.floating-search {
+  position: fixed;
+  top: 15px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  background: rgba(34, 34, 34, 0.9);
+  border: 1px solid #444;
+  border-radius: 50%;
   color: #fff;
-}
-
-/* Add search button to Sidebar for Desktop */
-.sidebar .search-trigger {
+  font-size: 20px;
   display: flex;
   align-items: center;
-  gap: 10px;
-  width: 100%;
-  padding: 10px;
-  margin: 0;
-  text-align: left;
-  font-size: 16px;
-  color: #fff;
-  border-radius: 6px;
-  transition: background 0.15s;
-  background: #222;
-  /* Default background */
   justify-content: center;
-  /* Center for the top button */
+  cursor: pointer;
+  z-index: 2000;
+  /* Above sidebar (180) and topbar (200) */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  transition: transform 0.2s, background 0.2s, border-color 0.2s;
 }
 
-.sidebar .search-trigger:hover {
+.floating-search:hover {
+  transform: scale(1.1);
   background: #333;
+  border-color: #1e90ff;
   color: #1e90ff;
 }
 
-.sidebar .search-trigger span {
-  font-size: 18px;
+/* Hide the old search triggers in topbar/sidebar */
+.topbar .search-trigger,
+.sidebar .search-trigger {
+  display: none !important;
 }
