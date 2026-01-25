@@ -1224,6 +1224,8 @@ body.red-mode img {
       font-size: 1.5rem;
       background: rgba(0, 0, 0, 0.6);
       /* Darker bg for visibility */
+      top: 40%;
+      /* Move up slightly to account for caption text below image */
     }
 
     .carousel-btn.prev-btn {
