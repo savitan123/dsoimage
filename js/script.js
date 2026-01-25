@@ -1,6 +1,6 @@
 // Main initialization function
 function initDSOImage() {
-  console.log("Initializing DSO Image Scripts..."); // Debug
+  console.log("Initializing DSO Image Scripts...");
 
   // ===============================
   // Mobile topbar + slide-in sidebar
@@ -41,14 +41,12 @@ function initDSOImage() {
     overlay.addEventListener("click", closeSidebar);
   }
 
-  // Close sidebar on ESC
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
       if (sidebar && sidebar.classList.contains("is-open")) closeSidebar();
     }
   });
 
-  // Close sidebar when a link is clicked (mobile UX)
   if (sidebar) {
     sidebar.addEventListener("click", (e) => {
       const target = e.target;
@@ -85,10 +83,8 @@ function initDSOImage() {
     lightboxImg.classList.remove("is-zoomed");
     isZoomed = false;
     if (zoomBtn) zoomBtn.innerHTML = "Enable Pan/Zoom";
-
     lightboxImg.style.transform = "none";
 
-    // Build caption
     let captionHtml = `<strong>${title || ""}</strong><br>${notes || ""}`;
     if (title) {
       let cleanTitle = title.replace(/\(.*\)/, "").trim();
@@ -132,7 +128,6 @@ function initDSOImage() {
       if (isZoomed) e.stopPropagation();
     });
 
-    // Pan logic
     let isDown = false;
     let startX, startY, scrollLeft, scrollTop;
 
@@ -173,28 +168,79 @@ function initDSOImage() {
       const notes = item.getAttribute("data-notes") || "";
       const aliases = item.getAttribute("data-aliases") || "";
 
+      // Push history state so deep linking works if user copies URL
+      // But only if we are not already there
+      const cleanTitle = title.replace(/\(.*\)/, "").trim();
+      const newUrl = window.location.pathname + "?object=" + encodeURIComponent(cleanTitle);
+      window.history.replaceState(null, null, newUrl);
+
       if (src) openLightbox({ src, title, notes, aliases });
     });
   });
 
   if (closeBtnLightbox) {
-    closeBtnLightbox.addEventListener("click", closeLightbox);
+    closeBtnLightbox.addEventListener("click", () => {
+      closeLightbox();
+      // Remove query param on close
+      const cleanUrl = window.location.pathname;
+      window.history.replaceState(null, null, cleanUrl);
+    });
   }
 
   if (lightbox) {
     lightbox.addEventListener("click", (e) => {
-      if (e.target === lightbox) closeLightbox();
+      if (e.target === lightbox) {
+        closeLightbox();
+        const cleanUrl = window.location.pathname;
+        window.history.replaceState(null, null, cleanUrl);
+      }
     });
   }
-
-  const menuClose = document.querySelector(".menu-close");
-  if (menuClose) menuClose.addEventListener("click", closeSidebar);
 
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && lightbox && lightbox.style.display === "flex") {
       closeLightbox();
+      const cleanUrl = window.location.pathname;
+      window.history.replaceState(null, null, cleanUrl);
     }
   });
+
+  // ===============================
+  // Deep Linking Handler
+  // ===============================
+  function checkDeepLink() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const objectName = urlParams.get('object');
+
+    if (objectName) {
+      const decodeObj = decodeURIComponent(objectName).toLowerCase();
+
+      // Find matching gallery item
+      // We check data-title or data-aliases
+      let foundItem = null;
+
+      // Convert NodeList to Array to use find
+      const items = Array.from(galleryItems);
+      foundItem = items.find(item => {
+        const t = (item.getAttribute("data-title") || "").toLowerCase();
+        const a = (item.getAttribute("data-aliases") || "").toLowerCase();
+        // Check loose match
+        return t.includes(decodeObj) || a.includes(decodeObj);
+      });
+
+      if (foundItem) {
+        console.log("Deep link found for:", objectName);
+        // Trigger click to open lightbox
+        // Use a small timeout to ensure DOM is ready-ready
+        setTimeout(() => {
+          foundItem.click();
+        }, 100);
+      }
+    }
+  }
+
+  // Run deep link check on load
+  checkDeepLink();
 
 
   // ===============================
@@ -278,7 +324,7 @@ function initDSOImage() {
   }
 
   // ===============================
-  // Red Mode (Night Vision)
+  // Red Mode
   // ===============================
   const redModeToggle = document.getElementById("red-mode-toggle");
 
@@ -348,7 +394,7 @@ function initDSOImage() {
     }
   }
 
-  // Attach event to ALL search triggers
+  // Bind to triggers
   searchTriggers.forEach(btn => {
     btn.addEventListener("click", openSearch);
   });
@@ -382,6 +428,10 @@ function initDSOImage() {
     matches.forEach(item => {
       const div = document.createElement("div");
       div.className = "search-result-item";
+
+      // Extract a clean name for the URL param (remove parentheses)
+      let cleanName = item.title.replace(/\(.*\)/, "").trim();
+
       div.innerHTML = `
             <img src="${item.img}" class="search-result-thumb" alt="${item.title}">
             <div class="search-result-text">
@@ -390,7 +440,9 @@ function initDSOImage() {
             </div>
         `;
       div.addEventListener("click", () => {
-        window.location.href = item.url;
+        // Navigate to specific object
+        // Appending ?object=Name
+        window.location.href = item.url + "?object=" + encodeURIComponent(cleanName);
       });
       searchResults.appendChild(div);
     });
@@ -399,12 +451,9 @@ function initDSOImage() {
   if (searchInput) {
     searchInput.addEventListener("input", (e) => performSearch(e.target.value));
 
-    // Keydown for Escape AND Enter
     searchInput.addEventListener("keydown", (e) => {
       if (e.key === "Escape") closeSearch();
-
       if (e.key === "Enter") {
-        // If results exist, click the first one
         if (searchResults && searchResults.firstChild) {
           searchResults.firstChild.click();
         }
@@ -413,11 +462,10 @@ function initDSOImage() {
   }
 }
 
-// Robust loading
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initDSOImage);
 } else {
   initDSOImage();
 }
 
-// Last updated: 2026-01-25 (Fixing Search/Night Vision v6)
+// Last updated: 2026-01-25 (Fixing Deep Linking v8)
