@@ -1081,9 +1081,10 @@ body.red-mode img {
 
 /* Tools Mobile Adjustments */
 @media (max-width: 768px) {
+
+  /* HIDE the heavy iframe on mobile */
   .iframe-container {
-    height: 350px;
-    /* Mobile Height */
+    display: none !important;
   }
 
   .mobile-hint {
