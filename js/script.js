@@ -95,7 +95,15 @@ function openLightbox({ src, title, notes }) {
 
   // Add Sky Map link if title exists
   if (title) {
-    const cleanTitle = title.replace(/\(.*\)/, "").trim(); // Remove () for cleaner search
+    let cleanTitle = title.replace(/\(.*\)/, "").trim(); // Remove () for cleaner search
+    if (Object.keys(arguments[0]).includes('aliases') && arguments[0].aliases) {
+      const aliasList = arguments[0].aliases.split(',').map(s => s.trim());
+      if (aliasList.length > 0) {
+        cleanTitle = aliasList[0]; // Use first alias for search
+        captionHtml += `<br><span class="alias-list"><strong>Aliases:</strong> ${aliasList.join(', ')}</span>`;
+      }
+    }
+
     const skyMapUrl = `https://wikisky.org/?object=${encodeURIComponent(cleanTitle)}`;
     captionHtml += `<br><a href="${skyMapUrl}" target="_blank" class="skymap-link">✨ Find in Sky Map (WikiSky)</a>`;
   }
@@ -190,8 +198,9 @@ galleryItems.forEach((item) => {
 
     const title = item.getAttribute("data-title") || "";
     const notes = item.getAttribute("data-notes") || "";
+    const aliases = item.getAttribute("data-aliases") || "";
 
-    if (src) openLightbox({ src, title, notes });
+    if (src) openLightbox({ src, title, notes, aliases });
   });
 });
 
