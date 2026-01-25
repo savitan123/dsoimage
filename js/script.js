@@ -346,3 +346,137 @@ if (document.querySelectorAll(".img-comp-overlay").length > 0) {
   initComparisons();
 }
 
+
+// ===============================
+// Red Mode (Night Vision)
+// ===============================
+
+const redModeToggle = document.getElementById("red-mode-toggle");
+const body = document.body;
+
+// Check local storage
+if (localStorage.getItem("redMode") === "true") {
+  body.classList.add("red-mode");
+  if (redModeToggle) redModeToggle.classList.add("active");
+}
+
+function toggleRedMode() {
+  body.classList.toggle("red-mode");
+  const isActive = body.classList.contains("red-mode");
+
+  if (redModeToggle) {
+    redModeToggle.classList.toggle("active");
+  }
+
+  localStorage.setItem("redMode", isActive);
+}
+
+if (redModeToggle) {
+  redModeToggle.addEventListener("click", toggleRedMode);
+}
+
+// ===============================
+// Search Functionality
+// ===============================
+
+const searchData = [
+  { title: "Andromeda Galaxy (M31)", aliases: "M31, NGC 224", url: "galaxies.html", img: "images/preview/Andromeda_Galaxy.jpg" },
+  { title: "Triangulum Galaxy (M33)", aliases: "M33, NGC 598", url: "galaxies.html", img: "images/preview/Triangulum_Galaxy.jpg" },
+  { title: "M101 Pinwheel Galaxy", aliases: "M101, NGC 5457", url: "galaxies.html", img: "images/preview/M101.jpg" },
+  { title: "M77 Galaxy", aliases: "M77, NGC 1068", url: "galaxies.html", img: "images/preview/M77.jpg" },
+  { title: "Hercules Galaxy Cluster (Abell 2151)", aliases: "Abell 2151", url: "galaxies.html", img: "images/preview/Abell2151.jpg" },
+  { title: "Bode's & Cigar Galaxy (M81/M82)", aliases: "M81, NGC 3031, M82, NGC 3034", url: "galaxies.html", img: "images/preview/M81_M82_Galaxies.jpg" },
+  { title: "HorseHead and Flame Nebulae", aliases: "IC 434, Barnard 33, NGC 2024", url: "nebulae.html", img: "images/preview/HorseHead_Flame_Nebula.jpg" },
+  { title: "Flaming Star, Tadpole & Spider", aliases: "IC 405, IC 410, IC 417", url: "nebulae.html", img: "images/preview/ic405_410_417.jpg" },
+  { title: "NGC 1333", aliases: "NGC 1333", url: "nebulae.html", img: "images/preview/ngc_1333.jpg" },
+  { title: "Eagle Nebula (M16)", aliases: "M16, NGC 6611", url: "nebulae.html", img: "images/preview/M16_hubble_pallete.jpg" },
+  { title: "Tulip Nebula", aliases: "Sh2-101", url: "nebulae.html", img: "images/preview/Tulip_Nebula.jpg" },
+  { title: "Bubble Nebula", aliases: "NGC 7635", url: "nebulae.html", img: "images/preview/Bubble_Nebula_HOO.jpg" },
+  { title: "Wizard Nebula", aliases: "NGC 7380", url: "nebulae.html", img: "images/preview/wizard_nebula_1.jpg" },
+  { title: "North America Nebula", aliases: "NGC 7000", url: "nebulae.html", img: "images/preview/north_america_nebula.jpg" },
+  { title: "Helix Nebula", aliases: "NGC 7293", url: "nebulae.html", img: "images/preview/helix_nebula.jpg" },
+  { title: "Veil Nebula", aliases: "NGC 6960, NGC 6992", url: "nebulae.html", img: "images/preview/veil_nebula.jpg" },
+  { title: "Trifid Nebula", aliases: "M20, NGC 6514", url: "nebulae.html", img: "images/preview/Trifid_Nebula.jpg" },
+  { title: "Jellyfish Nebula", aliases: "IC 443", url: "nebulae.html", img: "images/preview/Jellyfish_Nebula.jpg" },
+  { title: "Great Hercules Cluster (M13)", aliases: "M13, NGC 6205", url: "clusters.html", img: "images/preview/M13.jpg" }
+];
+
+const searchOverlay = document.getElementById("search-overlay");
+const searchInput = document.getElementById("search-input");
+const searchResults = document.getElementById("search-results");
+const searchTrigger = document.querySelector(".search-trigger");
+const searchClose = document.querySelector(".search-close");
+
+function openSearch() {
+  if (searchOverlay) {
+    searchOverlay.classList.add("is-active");
+    setTimeout(() => searchInput.focus(), 100);
+  }
+}
+
+function closeSearch() {
+  if (searchOverlay) {
+    searchOverlay.classList.remove("is-active");
+    if (searchInput) searchInput.value = "";
+    if (searchResults) searchResults.innerHTML = "";
+  }
+}
+
+function performSearch(query) {
+  if (!searchResults) return;
+  searchResults.innerHTML = "";
+
+  if (!query || query.length < 2) return;
+
+  const lowerQuery = query.toLowerCase();
+
+  const matches = searchData.filter(item => {
+    return item.title.toLowerCase().includes(lowerQuery) ||
+      item.aliases.toLowerCase().includes(lowerQuery);
+  });
+
+  if (matches.length === 0) {
+    searchResults.innerHTML = '<div style="color:#777; padding:10px;">No results found.</div>';
+    return;
+  }
+
+  matches.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "search-result-item";
+    div.innerHTML = `
+      <img src="${item.img}" class="search-result-thumb" alt="${item.title}">
+      <div class="search-result-text">
+        <h4>${item.title}</h4>
+        <p>${item.aliases}</p>
+      </div>
+    `;
+    div.addEventListener("click", () => {
+      window.location.href = item.url;
+    });
+    searchResults.appendChild(div);
+  });
+}
+
+if (searchTrigger) {
+  searchTrigger.addEventListener("click", openSearch);
+}
+
+if (searchClose) {
+  searchClose.addEventListener("click", closeSearch);
+}
+
+if (searchOverlay) {
+  searchOverlay.addEventListener("click", (e) => {
+    if (e.target === searchOverlay) closeSearch();
+  });
+}
+
+if (searchInput) {
+  searchInput.addEventListener("input", (e) => performSearch(e.target.value));
+
+  // Close on ESC
+  searchInput.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeSearch();
+  });
+}
+
