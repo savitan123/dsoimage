@@ -1095,8 +1095,6 @@ body.red-mode img {
   .mobile-hint {
     display: block !important;
   }
-
-}
 }
 
 /* =========================
@@ -1104,6 +1102,13 @@ body.red-mode img {
    ========================= */
 
 .carousel-container {
+  position: relative;
+  /* ... no change to these lines but ensuring context ... */
+  /* skipping to mobile media query changes */
+
+  /* ... */
+  /* We need to use multi_replace or targeted replace because the file is large */
+  /* I will target the specific blocks separately to be safe */
   position: relative;
   width: 100%;
   max-width: 1000px;
@@ -1227,7 +1232,8 @@ body.red-mode img {
     font-size: 1.5rem;
     background: rgba(0, 0, 0, 0.5);
     /* Semi-transparent */
-    top: 50%;
+    top: 25vh;
+    /* Center relative to max-height 50vh image */
     transform: translateY(-50%);
     border-radius: 5px;
     /* Square-ish for better touch */
