@@ -776,8 +776,7 @@ body.red-mode img {
    ========================= */
 .search-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.9);
@@ -785,7 +784,9 @@ body.red-mode img {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 100px;
+  justify-content: flex-start;
+  /* Ensure top alignment */
+  padding-top: 80px;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.2s ease;
@@ -951,25 +952,4 @@ body.red-mode img {
 
 .sidebar .search-trigger span {
   font-size: 18px;
-}
-
-/* =========================
-   Search Overlay
-   ========================= */
-.search-overlay {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.9);
-  z-index: 2000;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  /* Ensure top alignment */
-  padding-top: 80px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s ease;
 }
