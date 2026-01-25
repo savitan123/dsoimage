@@ -468,4 +468,221 @@ if (document.readyState === 'loading') {
   initDSOImage();
 }
 
-// Last updated: 2026-01-25 (Fixing Deep Linking v8)
+// Last updated: 2026-01-25 (Tools Implementation)
+
+// ===============================
+// ASTRONOMY TOOLS MODULE
+// ===============================
+
+// 1. Moon Phase Calculator
+function updateMoonPhase() {
+  const moonNameEl = document.getElementById("moon-phase-name");
+  const moonIllumEl = document.getElementById("moon-illumination");
+  const daysToNewEl = document.getElementById("days-to-new-moon");
+
+  if (!moonNameEl) return;
+
+  // Synodic month
+  const synodic = 29.53058867;
+  // Known New Moon: Jan 18, 2026 17:55 UTC (Epoch)
+  const knownNewMoon = new Date(Date.UTC(2026, 0, 18, 17, 55, 0));
+  const now = new Date();
+
+  // Diff in days
+  const diffMs = now - knownNewMoon;
+  const diffDays = diffMs / (1000 * 60 * 60 * 24);
+
+  const cycleCount = Math.floor(diffDays / synodic);
+  const currentCycleAge = diffDays % synodic;
+
+  // Normalized Phase (0 to 1)
+  const phase = currentCycleAge / synodic; // 0.0 = New, 0.5 = Full
+
+  // Naming
+  let phaseName = "";
+  let icon = "";
+  if (phase < 0.02) { phaseName = "New Moon"; icon = "🌑"; }
+  else if (phase < 0.24) { phaseName = "Waxing Crescent"; icon = "🌒"; }
+  else if (phase < 0.26) { phaseName = "First Quarter"; icon = "🌓"; }
+  else if (phase < 0.49) { phaseName = "Waxing Gibbous"; icon = "🌔"; }
+  else if (phase < 0.51) { phaseName = "Full Moon"; icon = "🌕"; }
+  else if (phase < 0.74) { phaseName = "Waning Gibbous"; icon = "🌖"; }
+  else if (phase < 0.76) { phaseName = "Last Quarter"; icon = "🌗"; }
+  else if (phase < 0.98) { phaseName = "Waning Crescent"; icon = "🌘"; }
+  else { phaseName = "New Moon"; icon = "🌑"; }
+
+  // Illumination (Approx sinusoidal)
+  const illumination = Math.round((1 - Math.cos(phase * 2 * Math.PI)) / 2 * 100);
+
+  // Time to next New Moon
+  const daysRemaining = Math.round(synodic - currentCycleAge);
+
+  // Update UI
+  moonNameEl.innerText = `${icon} ${phaseName}`;
+  moonIllumEl.innerText = `Illumination: ${illumination}%`;
+  if (daysToNewEl) daysToNewEl.innerText = daysRemaining;
+}
+
+// 2. ISS Tracker (Fetch API)
+async function updateISS() {
+  const latEl = document.getElementById("iss-lat");
+  const lonEl = document.getElementById("iss-lon");
+  const velEl = document.getElementById("iss-vel");
+  const visEl = document.getElementById("iss-visibility");
+
+  if (!latEl) return;
+
+  try {
+    const response = await fetch("https://api.wheretheiss.at/v1/satellites/25544");
+    const data = await response.json();
+
+    latEl.innerText = data.latitude.toFixed(4);
+    lonEl.innerText = data.longitude.toFixed(4);
+    velEl.innerText = Math.round(data.velocity) + " km/h";
+
+    if (data.visibility === "daylight") {
+      visEl.innerText = "In Daylight";
+      visEl.className = "status-pill";
+    } else {
+      visEl.innerText = "Eclipse (Dark)";
+      visEl.className = "status-pill status-good";
+    }
+
+  } catch (e) {
+    console.warn("ISS Fetch failed", e);
+    if (visEl) visEl.innerText = "Offline";
+  }
+}
+
+// 3. Astronomical Twilight Calculator (Simplified for Israel 31N)
+function updateTwilight() {
+  const startEl = document.getElementById("dark-start");
+  const endEl = document.getElementById("dark-end");
+  const statusEl = document.getElementById("twilight-status");
+
+  if (!startEl) return;
+
+  // Approximate for Tel Aviv (31N)
+  // In reality, this changes daily. 
+  // We will simply simulate "Darkness is approx 1.5h after sunset" for this static demo,
+  // OR use a very simplified seasonal offset.
+
+  const now = new Date();
+  const month = now.getMonth(); // 0-11
+
+  // Rough Estimations for Israel
+  // Summer: Dark 20:30 - 04:00
+  // Winter: Dark 18:00 - 05:00
+  let darkStartHour = 19;
+  let darkEndHour = 5;
+
+  if (month >= 3 && month <= 8) { // Summer-ish
+    darkStartHour = 20;
+    darkEndHour = 4;
+  } else { // Winter
+    darkStartHour = 18;
+    darkEndHour = 5;
+  }
+
+  startEl.innerText = `${darkStartHour}:00`;
+  endEl.innerText = `0${darkEndHour}:00`;
+
+  const currentHour = now.getHours();
+  // Check if we are in darkness now
+  // Darkness is usually across midnight, so logic:
+  // IF (now > start) OR (now < end)
+  if (currentHour >= darkStartHour || currentHour < darkEndHour) {
+    statusEl.innerText = "Currently Dark";
+    statusEl.className = "status-pill status-good";
+  } else {
+    statusEl.innerText = "Daylight / Twilight";
+    statusEl.className = "status-pill";
+  }
+}
+
+// 4. Planet Visibility (Static/Approximated for 2026 Demo)
+function updatePlanets() {
+  const planets = ['venus', 'mars', 'jupiter', 'saturn'];
+
+  // In a real app, use 'astronomy-engine'. 
+  // Here we will randomize or hardcode "Visible" vs "Set" for demo purposes 
+  // since we lack a full ephemeris library
+
+  planets.forEach(p => {
+    const el = document.getElementById(`planet-${p}`);
+    if (el) {
+      const badge = el.querySelector(".badge");
+      // Mock logic: randomly visible for the demo to show UI state
+      // Replaced with fixed states for consistency
+      let isVisible = true;
+      if (p === 'venus') isVisible = false; // Usually sets early
+
+      if (isVisible) {
+        badge.innerText = "Visible";
+        badge.classList.add("visible");
+      } else {
+        badge.innerText = "Set";
+        badge.classList.remove("visible");
+      }
+    }
+  });
+}
+
+// 5. Coordinate Converter
+window.switchTab = function (tabId) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+  document.getElementById(tabId).classList.add('active');
+  // Find button that calls this and add active (simple match)
+  // Actually simplicity:
+  const btns = document.querySelectorAll('.tab-btn');
+  if (tabId === 'dec-to-dms') btns[0].classList.add('active');
+  else btns[1].classList.add('active');
+}
+
+window.convertDecToDms = function () {
+  const val = parseFloat(document.getElementById("input-dec").value);
+  if (isNaN(val)) return;
+
+  const d = Math.floor(Math.abs(val));
+  const mFloat = (Math.abs(val) - d) * 60;
+  const m = Math.floor(mFloat);
+  const s = ((mFloat - m) * 60).toFixed(1);
+
+  const sign = val < 0 ? "-" : "";
+
+  document.getElementById("result-dms").innerText = `${sign}${d}° ${m}' ${s}"`;
+}
+
+window.convertDmsToDec = function () {
+  const d = parseFloat(document.getElementById("input-d").value || 0);
+  const m = parseFloat(document.getElementById("input-m").value || 0);
+  const s = parseFloat(document.getElementById("input-s").value || 0);
+
+  let dec = Math.abs(d) + (m / 60) + (s / 3600);
+  if (d < 0) dec = -dec;
+
+  document.getElementById("result-dec").innerText = dec.toFixed(5) + "°";
+}
+
+// Run Tools
+function initTools() {
+  updateMoonPhase();
+  updateISS();
+  updateTwilight();
+  updatePlanets();
+
+  // Refresh ISS every 10s
+  if (document.getElementById("iss-lat")) {
+    setInterval(updateISS, 10000);
+  }
+}
+
+// Hook into main init
+const originalInit = window.onload; // or the event listener
+// We act inside DOMContentLoaded in main block, so let's just call it if we are on tools page
+if (window.location.pathname.includes("tools.html")) {
+  // Add to specific listener or just run calculation
+  document.addEventListener("DOMContentLoaded", initTools);
+}

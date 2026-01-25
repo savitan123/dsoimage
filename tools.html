@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="https://dsoimage.com/tools.html">
+
+    <title>Astronomy Tools — Shimon Avitan</title>
+    <meta name="description"
+        content="Useful tools for astrophotography: Moon Phase, Twilight Clock, ISS Tracker, and more.">
+
+    <link rel="stylesheet" href="css/style.css?v=2">
+</head>
+
+<body>
+    <div class="container">
+        <button class="search-trigger floating-search" aria-label="Search site">🔍</button>
+
+        <!-- TOPBAR (mobile) -->
+        <header class="topbar">
+            <button class="menu-btn menu-toggle" type="button" aria-label="Open menu" aria-controls="sidebar"
+                aria-expanded="false">
+                Menu
+            </button>
+            <div class="topbar-title">dsoimage.com</div>
+        </header>
+
+        <!-- Overlay for slide-in sidebar -->
+        <div class="sidebar-overlay overlay" hidden></div>
+
+        <!-- SIDEBAR -->
+        <nav class="sidebar" id="sidebar" aria-label="Site menu">
+            <div class="sidebar-header">
+                <h2>Menu</h2>
+                <button class="menu-close" type="button" aria-label="Close menu">×</button>
+            </div>
+
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="galaxies.html">Galaxies</a></li>
+                <li><a href="nebulae.html">Nebulae</a></li>
+                <li><a href="clusters.html">Star Clusters</a></li>
+                <li><a href="equipment.html">Equipment</a></li>
+                <li><a href="processing.html">Processing</a></li>
+                <li><a href="weather.html">Weather</a></li>
+                <li><a href="tools.html" class="active">Tools</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+
+            <button id="red-mode-toggle" class="mode-toggle-btn">
+                <span class="circle-icon"></span> Night Vision
+            </button>
+
+            <div class="sidebar-footer">
+                <h2 class="sidebar-subtitle">Follow Me</h2>
+                <ul>
+                    <li><a href="https://www.instagram.com/avitan_shimon/" target="_blank" rel="noopener">Instagram</a>
+                    </li>
+                    <li><a href="https://www.facebook.com/shimon.avitan.79" target="_blank" rel="noopener">Facebook</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- MAIN -->
+        <main class="main-content">
+
+            <h1>Astronomy Tools</h1>
+            <p class="subtitle">
+                Utilities to plan your imaging session.
+                <br>
+                <small style="color:#888;">Calculations default to Israel (31°N, 35°E).</small>
+            </p>
+
+            <div class="tools-grid">
+
+                <!-- 1. Moon Phase -->
+                <div class="tool-card" id="moon-tool">
+                    <div class="tool-icon">🌑</div>
+                    <h2>Moon Status</h2>
+                    <div class="tool-content">
+                        <div id="moon-phase-name" class="highlight-value">Loading...</div>
+                        <div id="moon-illumination">Illumination: --%</div>
+                        <div class="countdown-box">
+                            <span id="days-to-new-moon" class="big-number">--</span>
+                            <span class="small-label">Days to New Moon</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Twilight Clock -->
+                <div class="tool-card" id="twilight-tool">
+                    <div class="tool-icon">🌙</div>
+                    <h2>Astro Darkness</h2>
+                    <div class="tool-content">
+                        <p>Imaging Window (Sun < -18°):</p>
+                                <div class="time-range">
+                                    <div class="time-box">
+                                        <span class="label">Starts</span>
+                                        <span id="dark-start" class="value">--:--</span>
+                                    </div>
+                                    <div class="time-box">
+                                        <span class="label">Ends</span>
+                                        <span id="dark-end" class="value">--:--</span>
+                                    </div>
+                                </div>
+                                <div id="twilight-status" class="status-pill">Calculating...</div>
+                    </div>
+                </div>
+
+                <!-- 3. ISS Tracker -->
+                <div class="tool-card" id="iss-tool">
+                    <div class="tool-icon">🛰️</div>
+                    <h2>ISS Tracker</h2>
+                    <div class="tool-content">
+                        <div class="data-row">
+                            <span>Lat:</span> <span id="iss-lat" class="mono">--</span>
+                        </div>
+                        <div class="data-row">
+                            <span>Lon:</span> <span id="iss-lon" class="mono">--</span>
+                        </div>
+                        <div class="data-row">
+                            <span>Vel:</span> <span id="iss-vel" class="mono">-- km/h</span>
+                        </div>
+                        <div id="iss-visibility" class="status-pill">Checking...</div>
+                    </div>
+                </div>
+
+                <!-- 4. Planet Visibility -->
+                <div class="tool-card" id="planet-tool">
+                    <div class="tool-icon">🪐</div>
+                    <h2>Planets Tonight</h2>
+                    <div class="tool-content">
+                        <ul class="planet-list">
+                            <li id="planet-venus"><span>Venus</span> <span class="badge">--</span></li>
+                            <li id="planet-mars"><span>Mars</span> <span class="badge">--</span></li>
+                            <li id="planet-jupiter"><span>Jupiter</span> <span class="badge">--</span></li>
+                            <li id="planet-saturn"><span>Saturn</span> <span class="badge">--</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 5. Coordinate Converter -->
+                <div class="tool-card wide-card" id="coord-tool">
+                    <div class="tool-icon">🌐</div>
+                    <h2>Coordinate Converter</h2>
+
+                    <div class="tabs">
+                        <button class="tab-btn active" onclick="switchTab('dec-to-dms')">Dec to DMS</button>
+                        <button class="tab-btn" onclick="switchTab('dms-to-dec')">DMS to Dec</button>
+                    </div>
+
+                    <!-- Dec to DMS Form -->
+                    <div id="dec-to-dms" class="tab-content active">
+                        <div class="converter-row">
+                            <input type="number" id="input-dec" placeholder="Decimal Degrees (e.g. 34.56)" step="any">
+                            <button class="action-btn" onclick="convertDecToDms()">Convert</button>
+                        </div>
+                        <div class="result-box" id="result-dms">Result: --° --' --"</div>
+                    </div>
+
+                    <!-- DMS to Dec Form -->
+                    <div id="dms-to-dec" class="tab-content">
+                        <div class="converter-row multi-input">
+                            <input type="number" id="input-d" placeholder="Deg" class="small-input">
+                            <input type="number" id="input-m" placeholder="Min" class="small-input">
+                            <input type="number" id="input-s" placeholder="Sec" class="small-input">
+                            <button class="action-btn" onclick="convertDmsToDec()">Convert</button>
+                        </div>
+                        <div class="result-box" id="result-dec">Result: --</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <footer class="site-footer">
+                <p>&copy; 2026 Shimon Avitan | dsoimage.com</p>
+            </footer>
+
+        </main>
+    </div>
+
+    <!-- Search Overlay -->
+    <div id="search-overlay" class="search-overlay">
+        <div class="search-box">
+            <span class="search-close">&times;</span>
+            <input type="search" id="search-input" class="search-input" placeholder="Search objects (e.g., M31)..."
+                autocomplete="off">
+            <div id="search-results" class="search-results"></div>
+        </div>
+    </div>
+
+    <script src="js/script.js?v=8"></script>
+</body>
+
+</html>

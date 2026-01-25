@@ -955,8 +955,83 @@ body.red-mode img {
 
 .contact-form input:focus,
 .contact-form textarea:focus {
+  font-size: 14px;
+}
+
+.mono {
+  font-family: monospace;
+  color: #aaa;
+}
+
+/* Converter */
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  justify-content: center;
+}
+
+.tab-btn {
+  background: #222;
+  border: 1px solid #333;
+  color: #ccc;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.tab-btn.active {
+  background: #1e90ff;
+  color: #fff;
   border-color: #1e90ff;
-  outline: none;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.converter-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.multi-input {
+  gap: 5px;
+}
+
+.small-input {
+  width: 60px !important;
+  text-align: center;
+}
+
+.action-btn {
+  background: #333;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.action-btn:hover {
+  background: #444;
+}
+
+.result-box {
+  background: #000;
+  border: 1px solid #333;
+  padding: 15px;
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 18px;
+  color: #0f0;
 }
 
 /* =========================
