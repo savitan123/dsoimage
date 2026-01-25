@@ -480,3 +480,5 @@ if (searchInput) {
   });
 }
 
+
+// Last updated: 2026-01-25 (Fixing Search/Night Vision)
