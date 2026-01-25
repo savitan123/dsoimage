@@ -780,7 +780,7 @@ function initTools() {
   updateISS();
   updateTwilight();
   updatePlanets();
-  initSkyMap();
+  // Sky Map is handled via Iframe now
 
   // Refresh ISS every 10s
   if (document.getElementById("iss-lat")) {
