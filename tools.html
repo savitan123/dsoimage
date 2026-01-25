@@ -10,7 +10,8 @@
     <meta name="description"
         content="Useful tools for astrophotography: Moon Phase, Twilight Clock, ISS Tracker, and more.">
 
-    <link rel="stylesheet" href="css/style.css?v=5">
+    <!-- FORCE NEW VERSION v=10 -->
+    <link rel="stylesheet" href="css/style.css?v=10">
 </head>
 
 <body>
@@ -173,7 +174,7 @@
                     </div>
                 </div>
 
-                <!-- 6. VirtualSky Interactive Map (Desktop) / Stellarium Link (Mobile) -->
+                <!-- 6. VirtualSky Interactive Map (Desktop) / Stellarium + TheSkyLive (Mobile) -->
                 <div class="tool-card wide-card" id="skymap-tool">
                     <div class="tool-icon">🌌</div>
                     <h2>Live Sky Map (Interactive)</h2>
@@ -182,9 +183,19 @@
 
                         <!-- Mobile Text (Replaces map on phone) -->
                         <div class="mobile-hint"
-                            style="margin-bottom:10px; font-size:14px; display:none; text-align:center;">
-                            <p style="color:#1e90ff; margin-bottom:10px;">For the best experience on mobile, launch the
-                                external app:</p>
+                            style="margin-bottom:15px; font-size:14px; display:none; text-align:center;">
+                            <p style="color:#1e90ff; margin-bottom:15px;">Launch external map App:</p>
+
+                            <div style="display:flex; flex-direction:column; gap:10px; align-items:center;">
+                                <a href="https://theskylive.com/planetarium" target="_blank" class="action-btn"
+                                    style="text-decoration:none; display:inline-block; width:100%; max-width:300px; background:#222; border:1px solid #444;">
+                                    Open TheSkyLive ↗
+                                </a>
+                                <a href="https://stellarium-web.org/" target="_blank" class="action-btn"
+                                    style="text-decoration:none; display:inline-block; width:100%; max-width:300px; background:#222; border:1px solid #444;">
+                                    Open Stellarium Web ↗
+                                </a>
+                            </div>
                         </div>
 
                         <!-- Iframe Container (Hidden on Mobile) -->
@@ -196,11 +207,11 @@
                             </iframe>
                         </div>
 
-                        <!-- Mobile Button (Points to Stellarium Web) -->
-                        <div style="margin-top:10px; text-align:center;">
-                            <a href="https://stellarium-web.org/" target="_blank" class="action-btn"
-                                style="text-decoration:none; display:inline-block; width:100%; max-width:300px;">
-                                Open Stellarium Web ↗
+                        <!-- Desktop Button -->
+                        <div class="desktop-only-btn" style="margin-top:10px; text-align:center;">
+                            <a href="https://virtualsky.lco.global/embed/index.html?longitude=34.851&latitude=31.046&projection=stereo&constellations=true&constellationlabels=true&sho=false&showstarlabels=true&live=true&az=180"
+                                target="_blank" class="action-btn" style="text-decoration:none; display:inline-block;">
+                                Open Full Screen Map ↗
                             </a>
                         </div>
                     </div>
