@@ -19,6 +19,9 @@
     <loc>https://dsoimage.com/about.html</loc>
   </url>
   <url>
+    <loc>https://dsoimage.com/weather.html</loc>
+  </url>
+  <url>
     <loc>https://dsoimage.com/processing.html</loc>
   </url>
 </urlset>
