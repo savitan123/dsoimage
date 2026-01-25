@@ -792,38 +792,83 @@ function initTools() {
 function initCarousel() {
   const containers = document.querySelectorAll('.carousel-container');
 
+  // If we have a carousel, we want the Dynamic Background feature
+  if (containers.length > 0) {
+    let bgLayer = document.getElementById('dynamic-bg');
+    if (!bgLayer) {
+      bgLayer = document.createElement('div');
+      bgLayer.id = 'dynamic-bg';
+      document.body.prepend(bgLayer);
+    }
+  }
+
   containers.forEach(container => {
     const track = container.querySelector('.carousel-track');
-    // Determine slides from children (li elements)
     const slides = Array.from(track.children);
     const nextBtn = container.querySelector('.next-btn');
     const prevBtn = container.querySelector('.prev-btn');
 
-    if (slides.length === 0) return;
+    // We assume 1 carousel per page for the background logic to make sense
+    const bgLayer = document.getElementById('dynamic-bg');
 
     let currentIndex = 0;
 
-    // Move to slide function
-    const moveToSlide = (index) => {
-      // Ensure index is within bounds (circular)
-      if (index < 0) index = slides.length - 1;
-      if (index >= slides.length) index = 0;
+    const updateCarousel = () => {
+      const slideWidth = slides[0].getBoundingClientRect().width;
+      // Use percentage for reliability
+      track.style.transform = `translateX(-${currentIndex * 100}%)`;
 
-      currentIndex = index;
-      const amount = -(currentIndex * 100);
-      track.style.transform = `translateX(${amount}%)`;
+      // Update Dynamic Background
+      if (bgLayer) {
+        const currentImg = slides[currentIndex].querySelector('img');
+        if (currentImg) {
+          bgLayer.style.backgroundImage = `url('${currentImg.src}')`;
+        }
+      }
     };
 
-    if (nextBtn) {
-      nextBtn.addEventListener('click', () => moveToSlide(currentIndex + 1));
-    }
+    // Initialize background
+    updateCarousel();
 
-    if (prevBtn) {
-      prevBtn.addEventListener('click', () => moveToSlide(currentIndex - 1));
-    }
+    nextBtn.addEventListener('click', () => {
+      currentIndex++;
+      if (currentIndex >= slides.length) {
+        currentIndex = 0; // Loop back
+      }
+      updateCarousel();
+    });
 
-    // Optional: Keyboard navigation if container is in focus or generally
-    // But might conflict with lightbox, so skipping for now.
+    prevBtn.addEventListener('click', () => {
+      currentIndex--;
+      if (currentIndex < 0) {
+        currentIndex = slides.length - 1; // Loop to end
+      }
+      updateCarousel();
+    });
+
+    // Swipe Support (Basic)
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    container.addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    container.addEventListener('touchend', e => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    });
+
+    function handleSwipe() {
+      if (touchEndX < touchStartX - 50) {
+        // Swipe Left -> Next
+        nextBtn.click();
+      }
+      if (touchEndX > touchStartX + 50) {
+        // Swipe Right -> Prev
+        prevBtn.click();
+      }
+    }
   });
 }
 

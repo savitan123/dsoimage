@@ -12,16 +12,36 @@
 
 html,
 body {
+  font-family: 'Outfit', sans-serif;
+  line-height: 1.6;
   margin: 0;
   padding: 0;
-  font-family: 'Outfit', sans-serif;
-  /* Deep Cosmic Gradient instead of plain black */
-  background: radial-gradient(circle at top center, #1a1a2e 0%, #16213e 40%, #000000 100%);
-  background-attachment: fixed;
-  /* Parallax-like effect */
+  /* Default: Matte Coal Black */
+  background: #121212;
   color: #fff;
   overflow-x: hidden;
-  overflow-y: auto;
+  position: relative;
+  /* For fixed bg context */
+}
+
+/* Dynamic Background Layer (for Galleries) */
+#dynamic-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  /* Behind everything */
+  background-color: #121212;
+  /* Fallback */
+  background-size: cover;
+  background-position: center;
+  filter: blur(30px) brightness(0.4);
+  /* Strong blur + darken */
+  transition: background-image 0.5s ease-in-out;
+  transform: scale(1.1);
+  /* Prevent blurred edges showing white/transparency */
 }
 
 html {
