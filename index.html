@@ -24,13 +24,13 @@
   <div class="container">
 
     <!-- Mobile top bar (only visible on small screens) -->
-    <div class="topbar">
+    <header class="topbar">
       <button class="menu-toggle" type="button" aria-label="Open menu" aria-controls="sidebar" aria-expanded="false">
         Menu
       </button>
       <button class="search-trigger" aria-label="Search site">🔍</button>
       <div class="topbar-title">dsoimage.com</div>
-    </div>
+    </header>
 
     <!-- Dim background overlay for mobile menu -->
     <div class="overlay" id="overlay" hidden></div>
@@ -99,7 +99,7 @@
       <section class="category-grid">
 
         <a class="category-card" href="galaxies.html">
-          <img src="images/preview/Triangulum_Galaxy.jpg" alt="Galaxies preview" loading="lazy">
+          <img src="images/preview/Triangulum_Galaxy.jpg" alt="Galaxies preview" loading="lazy" decoding="async">
           <div class="category-card-text">
             <h2>Galaxies</h2>
             <p>M31, M33, M81/M82, M101, M77 and more.</p>
@@ -107,7 +107,7 @@
         </a>
 
         <a class="category-card" href="nebulae.html">
-          <img src="images/preview/HorseHead_Flame_Nebula.jpg" alt="Nebulae preview" loading="lazy">
+          <img src="images/preview/HorseHead_Flame_Nebula.jpg" alt="Nebulae preview" loading="lazy" decoding="async">
           <div class="category-card-text">
             <h2>Nebulae</h2>
             <p>Emission, reflection and narrowband targets.</p>
@@ -115,7 +115,7 @@
         </a>
 
         <a class="category-card" href="clusters.html">
-          <img src="images/preview/M13.jpg" alt="Star clusters preview" loading="lazy">
+          <img src="images/preview/M13.jpg" alt="Star clusters preview" loading="lazy" decoding="async">
           <div class="category-card-text">
             <h2>Star Clusters</h2>
             <p>Globular and open clusters.</p>
@@ -135,13 +135,13 @@
   <div id="search-overlay" class="search-overlay">
     <div class="search-box">
       <span class="search-close">&times;</span>
-      <input type="text" id="search-input" class="search-input" placeholder="Search objects (e.g., M31)..."
+      <input type="search" id="search-input" class="search-input" placeholder="Search objects (e.g., M31)..."
         autocomplete="off">
       <div id="search-results" class="search-results"></div>
     </div>
   </div>
 
-  <script src="js/script.js?v=6"></script>
+  <script src="js/script.js?v=7"></script>
 
 </body>
 

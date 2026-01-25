@@ -16,12 +16,12 @@
 <body>
   <div class="container">
 
-    <div class="topbar">
+    <header class="topbar">
       <button class="menu-toggle" type="button" aria-label="Open menu" aria-controls="sidebar" aria-expanded="false">
         Menu
       </button>
       <div class="topbar-title">dsoimage.com</div>
-    </div>
+    </header>
 
     <div class="overlay" id="overlay" hidden></div>
 
@@ -127,7 +127,17 @@ The image was taken using FLT 132 and AP Mach2 with LRGB and HA filters. Total o
     <div id="lightbox-caption"></div>
   </div>
 
-  <script src="js/script.js?v=6"></script>
+  <!-- Search Overlay -->
+  <div id="search-overlay" class="search-overlay">
+    <div class="search-box">
+      <span class="search-close">&times;</span>
+      <input type="search" id="search-input" class="search-input" placeholder="Search objects (e.g., M31)..."
+        autocomplete="off">
+      <div id="search-results" class="search-results"></div>
+    </div>
+  </div>
+
+  <script src="js/script.js?v=7"></script>
 
 
 
