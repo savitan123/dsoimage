@@ -1071,10 +1071,19 @@ body.red-mode img {
   display: none !important;
 }
 
+/* Tools Mobile/Desktop Iframe Heights */
+.iframe-container {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  /* Default Desktop Height */
+}
+
 /* Tools Mobile Adjustments */
 @media (max-width: 768px) {
-  .tool-card iframe {
-    height: 350px !important;
+  .iframe-container {
+    height: 350px;
+    /* Mobile Height */
   }
 
   .mobile-hint {

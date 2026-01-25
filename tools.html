@@ -10,7 +10,8 @@
     <meta name="description"
         content="Useful tools for astrophotography: Moon Phase, Twilight Clock, ISS Tracker, and more.">
 
-    <link rel="stylesheet" href="css/style.css?v=2">
+    <!-- Bump version to v=3 to force mobile cache refresh -->
+    <link rel="stylesheet" href="css/style.css?v=3">
 </head>
 
 <body>
@@ -186,7 +187,7 @@
                             Tap "Open Full Screen" below if map is blue/blank.
                         </div>
 
-                        <div style="position:relative; width:100%; height:350px;">
+                        <div class="iframe-container">
                             <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0"
                                 marginwidth="0"
                                 src="https://virtualsky.lco.global/embed/index.html?longitude=34.851&latitude=31.046&projection=stereo&constellations=true&constellationlabels=true&sho=false&showstarlabels=true&live=true&az=180"
@@ -211,8 +212,8 @@
                     <div class="tool-content">
                         <p style="margin-bottom:15px; color:#aaa; font-size:14px;">Static Reference Map (Always
                             Visible).</p>
-                        <!-- Reliable Wikimedia Image -->
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Northern_Hemisphere_Constellations.svg/1024px-Northern_Hemisphere_Constellations.svg.png"
+                        <!-- Use PNG Thumbnail of Wikimedia File. Guaranteed to load. -->
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Northern_Hemisphere_Constellations.svg/800px-Northern_Hemisphere_Constellations.svg.png"
                             alt="Northern Hemisphere Constellations"
                             style="width:100%; height:auto; border-radius:8px; filter: invert(0.9) hue-rotate(180deg) brightness(1.2);">
                     </div>
