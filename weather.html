@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="https://dsoimage.com/weather.html">
+
+    <title>Astronomy Weather — Shimon Avitan</title>
+    <meta name="description" content="Real-time astronomy weather forecast, cloud cover, and seeing conditions.">
+
+    <link rel="stylesheet" href="css/style.css?v=2">
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- TOPBAR (mobile) -->
+        <header class="topbar">
+            <button class="menu-btn menu-toggle" type="button" aria-label="Open menu" aria-controls="sidebar"
+                aria-expanded="false">
+                ☰
+            </button>
+            <button class="search-trigger" aria-label="Search site">🔍</button>
+            <div class="topbar-title">dsoimage.com</div>
+        </header>
+
+        <!-- Overlay for slide-in sidebar -->
+        <div class="sidebar-overlay overlay" hidden></div>
+
+        <!-- SIDEBAR -->
+        <nav class="sidebar" id="sidebar" aria-label="Site menu">
+            <div class="sidebar-header">
+                <h2>Menu</h2>
+                <button class="menu-close" type="button" aria-label="Close menu">×</button>
+            </div>
+
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="galaxies.html">Galaxies</a></li>
+                <li><a href="nebulae.html">Nebulae</a></li>
+                <li><a href="clusters.html">Star Clusters</a></li>
+                <li><a href="equipment.html">Equipment</a></li>
+                <li><a href="processing.html">Processing</a></li>
+                <li><a href="weather.html" class="active">Weather</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+
+            <button id="red-mode-toggle" class="mode-toggle-btn">
+                <span class="circle-icon"></span> Night Vision
+            </button>
+
+            <h2 class="sidebar-subtitle">Follow Me</h2>
+            <ul>
+                <li><a href="https://www.instagram.com/avitan_shimon/" target="_blank" rel="noopener">Instagram</a></li>
+                <li><a href="https://www.facebook.com/shimon.avitan.79" target="_blank" rel="noopener">Facebook</a></li>
+            </ul>
+        </nav>
+
+        <!-- MAIN -->
+        <main class="main-content">
+
+            <h1>Astronomy Weather</h1>
+            <p class="subtitle">
+                Current cloud cover and forecast to help plan imaging sessions.
+            </p>
+
+            <div class="weather-container" style="margin-top:20px;">
+                <h2>Windy.com Cloud Cover</h2>
+                <p>Interactive map showing cloud cover. Click the map to check specific locations.</p>
+                <!-- Windy Embed -->
+                <iframe width="100%" height="600"
+                    src="https://embed.windy.com/embed2.html?lat=31.046&lon=34.851&detailLat=31.046&detailLon=34.851&width=650&height=450&zoom=7&level=surface&overlay=clouds&product=ecmwf&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1"
+                    frameborder="0" style="border-radius:10px; border:1px solid #333;"></iframe>
+
+                <br><br>
+                <h2>Clear Outside</h2>
+                <p>Detailed astronomical weather forecast including seeing, transparency, and darkness.</p>
+                <a href="https://clearoutside.com/forecast/30.6000/34.8000" target="_blank" class="hero-button">
+                    Open Clear Outside (Negev)
+                </a>
+            </div>
+
+            <footer class="site-footer">
+                <p>&copy; 2026 Shimon Avitan | dsoimage.com</p>
+            </footer>
+
+        </main>
+    </div>
+
+    <!-- Search Overlay -->
+    <div id="search-overlay" class="search-overlay">
+        <div class="search-box">
+            <span class="search-close">&times;</span>
+            <input type="text" id="search-input" class="search-input" placeholder="Search objects (e.g., M31)..."
+                autocomplete="off">
+            <div id="search-results" class="search-results"></div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>

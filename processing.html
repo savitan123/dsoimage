@@ -19,6 +19,7 @@
             <button class="menu-toggle" type="button" aria-label="Open menu">
                 Menu
             </button>
+            <button class="search-trigger" aria-label="Search site">🔍</button>
             <div class="topbar-title">dsoimage.com</div>
         </header>
 
@@ -38,8 +39,14 @@
                 <li><a href="clusters.html">Star Clusters</a></li>
                 <li><a href="equipment.html">Equipment</a></li>
                 <li><a href="processing.html" class="active">Processing</a></li>
+                <li><a href="weather.html">Weather</a></li>
                 <li><a href="about.html">About</a></li>
             </ul>
+
+            <button id="red-mode-toggle" class="mode-toggle-btn">
+                <span class="circle-icon"></span> Night Vision
+            </button>
+
             <h2 class="sidebar-subtitle">Follow Me</h2>
             <ul>
                 <li><a href="https://www.instagram.com/avitan_shimon/" target="_blank" rel="noopener">Instagram</a></li>
@@ -68,7 +75,7 @@
                     <div class="img-comp-img img-comp-overlay">
                         <!-- Using 'raw' image -->
                         <img src="images/full/helix_raw.jpg" alt="Raw Data">
-                           
+
                     </div>
                 </div>
             </div>
@@ -94,6 +101,15 @@
                 <p>&copy; 2026 Shimon Avitan | dsoimage.com</p>
             </footer>
         </main>
+    </div>
+    <!-- Search Overlay -->
+    <div id="search-overlay" class="search-overlay">
+        <div class="search-box">
+            <span class="search-close">&times;</span>
+            <input type="text" id="search-input" class="search-input" placeholder="Search objects (e.g., M31)..."
+                autocomplete="off">
+            <div id="search-results" class="search-results"></div>
+        </div>
     </div>
 </body>
 

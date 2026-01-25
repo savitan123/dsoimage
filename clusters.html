@@ -19,6 +19,7 @@
       <button class="menu-toggle" type="button" aria-label="Open menu" aria-controls="sidebar" aria-expanded="false">
         Menu
       </button>
+      <button class="search-trigger" aria-label="Search site">🔍</button>
       <div class="topbar-title">dsoimage.com</div>
     </div>
 
@@ -37,8 +38,13 @@
         <li><a href="clusters.html" class="active">Star Clusters</a></li>
         <li><a href="equipment.html">Equipment</a></li>
         <li><a href="processing.html">Processing</a></li>
+        <li><a href="weather.html">Weather</a></li>
         <li><a href="about.html">About</a></li>
       </ul>
+
+      <button id="red-mode-toggle" class="mode-toggle-btn">
+        <span class="circle-icon"></span> Night Vision
+      </button>
 
       <h2 class="sidebar-subtitle">Follow Me</h2>
       <ul>
@@ -77,6 +83,16 @@ The age of the cluster is estimated at about 12 billion years, nearly the age of
     <span id="close">&times;</span>
     <img id="lightbox-img" src="" alt="Zoomed view">
     <div id="lightbox-caption"></div>
+  </div>
+
+  <!-- Search Overlay -->
+  <div id="search-overlay" class="search-overlay">
+    <div class="search-box">
+      <span class="search-close">&times;</span>
+      <input type="text" id="search-input" class="search-input" placeholder="Search objects (e.g., M31)..."
+        autocomplete="off">
+      <div id="search-results" class="search-results"></div>
+    </div>
   </div>
 
   <script src="js/script.js"></script>
