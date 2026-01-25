@@ -10,7 +10,7 @@
     <meta name="description"
         content="Useful tools for astrophotography: Moon Phase, Twilight Clock, ISS Tracker, and more.">
 
-    <link rel="stylesheet" href="css/style.css?v=4">
+    <link rel="stylesheet" href="css/style.css?v=5">
 </head>
 
 <body>
@@ -173,18 +173,18 @@
                     </div>
                 </div>
 
-                <!-- 6. VirtualSky Interactive Map -->
+                <!-- 6. VirtualSky Interactive Map (Desktop) / Stellarium Link (Mobile) -->
                 <div class="tool-card wide-card" id="skymap-tool">
                     <div class="tool-icon">🌌</div>
                     <h2>Live Sky Map (Interactive)</h2>
                     <div class="tool-content">
                         <p style="margin-bottom:15px; color:#aaa; font-size:14px;">Interactive view (Drag to pan).</p>
 
-                        <!-- Mobile Overlay Hint (Replaces map on phone) -->
+                        <!-- Mobile Text (Replaces map on phone) -->
                         <div class="mobile-hint"
                             style="margin-bottom:10px; font-size:14px; display:none; text-align:center;">
                             <p style="color:#1e90ff; margin-bottom:10px;">For the best experience on mobile, launch the
-                                full-screen map:</p>
+                                external app:</p>
                         </div>
 
                         <!-- Iframe Container (Hidden on Mobile) -->
@@ -196,28 +196,13 @@
                             </iframe>
                         </div>
 
-                        <!-- Button (Always visible) -->
+                        <!-- Mobile Button (Points to Stellarium Web) -->
                         <div style="margin-top:10px; text-align:center;">
-                            <a href="https://virtualsky.lco.global/embed/index.html?longitude=34.851&latitude=31.046&projection=stereo&constellations=true&constellationlabels=true&sho=false&showstarlabels=true&live=true&az=180"
-                                target="_blank" class="action-btn"
+                            <a href="https://stellarium-web.org/" target="_blank" class="action-btn"
                                 style="text-decoration:none; display:inline-block; width:100%; max-width:300px;">
-                                Open Full Screen Map ↗
+                                Open Stellarium Web ↗
                             </a>
                         </div>
-                    </div>
-                </div>
-
-                <!-- 7. Static Sky Chart (Fallback) -->
-                <div class="tool-card wide-card" id="static-map-tool">
-                    <div class="tool-icon">🗺️</div>
-                    <h2>Reference Map</h2>
-                    <div class="tool-content">
-                        <p style="margin-bottom:15px; color:#aaa; font-size:14px;">Northern Hemisphere Constellations.
-                        </p>
-                        <!-- Verified Wikimedia PNG -->
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/North_Hemisphere.png/600px-North_Hemisphere.png"
-                            alt="Northern Hemisphere Constellations"
-                            style="width:100%; height:auto; border-radius:8px; filter: invert(0.9) hue-rotate(180deg) brightness(1.2);">
                     </div>
                 </div>
 
