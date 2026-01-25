@@ -1070,3 +1070,14 @@ body.red-mode img {
 .sidebar .search-trigger {
   display: none !important;
 }
+
+/* Tools Mobile Adjustments */
+@media (max-width: 768px) {
+  .tool-card iframe {
+    height: 350px !important;
+  }
+
+  .mobile-hint {
+    display: block !important;
+  }
+}
