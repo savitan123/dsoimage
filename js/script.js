@@ -827,12 +827,219 @@ function initCarousel() {
   });
 }
 
+// 8. Target Suggester (NGC/IC/Messier)
+let targetDatabase = [];
+
+async function initSuggester() {
+  const btn = document.getElementById("suggester-btn");
+  if (!btn) return;
+
+  btn.addEventListener("click", async () => {
+    const resultsDiv = document.getElementById("suggester-results");
+    const loadingDiv = document.getElementById("suggester-loading");
+
+    // UI Loading State
+    loadingDiv.style.display = "block";
+    resultsDiv.innerHTML = "";
+    btn.disabled = true;
+
+    // Load DB if not loaded
+    if (targetDatabase.length === 0) {
+      try {
+        const resp = await fetch('data/targets.json');
+        if (!resp.ok) throw new Error("DB Load Failed");
+        targetDatabase = await resp.json();
+        console.log(`Loaded ${targetDatabase.length} targets.`);
+      } catch (e) {
+        loadingDiv.style.display = "none";
+        resultsDiv.innerHTML = `<div style="color:red; text-align:center;">Error loading database: ${e.message}</div>`;
+        btn.disabled = false;
+        return;
+      }
+    }
+
+    // Run Calculation (Allow UI to update first)
+    setTimeout(() => {
+      runSuggesterLogic();
+    }, 100);
+  });
+}
+
+function runSuggesterLogic() {
+  const resultsDiv = document.getElementById("suggester-results");
+  const loadingDiv = document.getElementById("suggester-loading");
+  const btn = document.getElementById("suggester-btn");
+
+  const minAlt = parseFloat(document.getElementById("suggester-alt").value) || 30;
+  const sortType = document.getElementById("suggester-sort").value;
+  const filterType = document.getElementById("suggester-type").value;
+
+  // Location (Tel Aviv Default)
+  const lat = 32.0853;
+  const lon = 34.7818;
+  const now = new Date(); // Right now
+
+  // Process
+  const candidates = [];
+
+  // Cache math constants
+  const gmst = getGMST(now);
+  const lst = gmst + (lon / 15.0); // Hours
+  const latRad = lat * (Math.PI / 180.0);
+  const sinLat = Math.sin(latRad);
+  const cosLat = Math.cos(latRad);
+
+  for (let i = 0; i < targetDatabase.length; i++) {
+    const obj = targetDatabase[i];
+
+    // Type Filter (Rough mapping from OpenNGC types)
+    // Galaxies: G, Gx, ... 
+    // Nebulae: Nb, Pn (Planetary), ...
+    // Clusters: Cl, OCl, GCl ...
+    if (filterType !== 'all') {
+      let match = false;
+      const t = (obj.t || "").toUpperCase();
+      if (filterType === 'G' && t.includes('G')) match = true;
+      else if (filterType === 'Nb' && (t.includes('N') || t.includes('BN'))) match = true;
+      else if (filterType === 'Pn' && t.includes('PN')) match = true;
+      else if (filterType === 'Cl' && (t.includes('C') || t.includes('CL'))) match = true;
+
+      if (!match) continue;
+    }
+
+    // Parse RA/Dec
+    // DB Format: RA="00:42:44.31", Dec="+41:16:07.5"
+    // Need to convert to Decimal Degrees (or Hours for RA)
+    const raH = parseHMS(obj.r); // Hours
+    const decD = parseDMS(obj.d); // Degrees
+
+    if (isNaN(raH) || isNaN(decD)) continue;
+
+    // Calc Altitude
+    // HA (Hours) = LST - RA
+    let ha = lst - raH;
+    // Normalize HA to -12 to +12
+    while (ha < -12) ha += 24;
+    while (ha >= 12) ha -= 24;
+
+    const haRad = ha * 15.0 * (Math.PI / 180.0);
+    const decRad = decD * (Math.PI / 180.0);
+    const sinDec = Math.sin(decRad);
+    const cosDec = Math.cos(decRad);
+    const cosHA = Math.cos(haRad);
+
+    const sinAlt = (sinDec * sinLat) + (cosDec * cosLat * cosHA);
+    const altRad = Math.asin(sinAlt);
+    const altDeg = altRad * (180.0 / Math.PI);
+
+    if (altDeg >= minAlt) {
+      candidates.push({
+        obj: obj,
+        alt: altDeg,
+        mag: parseFloat(obj.m) || 99
+      });
+    }
+  }
+
+  // Sort
+  if (sortType === 'alt_desc') {
+    candidates.sort((a, b) => b.alt - a.alt);
+  } else {
+    candidates.sort((a, b) => a.mag - b.mag);
+  }
+
+  // Limit Results
+  const topResults = candidates.slice(0, 100);
+
+  // Render
+  if (topResults.length === 0) {
+    resultsDiv.innerHTML = `<div style="padding:20px; text-align:center;">No targets found matching criteria.</div>`;
+  } else {
+    let html = `<table style="width:100%; border-collapse:collapse; font-size:13px;">
+                <tr style="border-bottom:1px solid #444; color:#888;">
+                    <th style="padding:5px; text-align:left;">Name</th>
+                    <th style="padding:5px;">Type</th>
+                    <th style="padding:5px;">Mag</th>
+                    <th style="padding:5px;">Alt</th>
+                    <th style="padding:5px;">Cons</th>
+                </tr>`;
+
+    topResults.forEach(item => {
+      const o = item.obj;
+      // Color code high altitude
+      const altColor = item.alt > 60 ? "#4caf50" : (item.alt > 40 ? "#ffeb3b" : "#aaa");
+
+      // Link to WikiSky
+      const searchName = o.n; // e.g. NGC 224
+
+      html += `<tr style="border-bottom:1px solid #333;">
+                    <td style="padding:8px 5px;"><a href="https://wikisky.org/?object=${searchName}" target="_blank" style="color:#1e90ff; text-decoration:none;">${o.n}</a></td>
+                    <td style="padding:8px 5px; color:#ccc;">${o.t}</td>
+                    <td style="padding:8px 5px; color:#ccc;">${o.m === 99 ? '-' : o.m}</td>
+                    <td style="padding:8px 5px; color:${altColor}; font-weight:bold;">${item.alt.toFixed(1)}°</td>
+                    <td style="padding:8px 5px; color:#aaa;">${o.c}</td>
+                 </tr>`;
+    });
+    html += `</table>`;
+    resultsDiv.innerHTML = html;
+  }
+
+  loadingDiv.style.display = "none";
+  btn.disabled = false;
+}
+
+// Math Helpers
+function parseHMS(hmsStr) {
+  if (!hmsStr) return NaN;
+  const parts = hmsStr.split(':');
+  if (parts.length < 2) return NaN;
+  // H + M/60 + S/3600
+  const h = parseFloat(parts[0]);
+  const m = parseFloat(parts[1]);
+  const s = parseFloat(parts[2] || 0);
+  return h + (m / 60.0) + (s / 3600.0);
+}
+
+function parseDMS(dmsStr) {
+  if (!dmsStr) return NaN;
+  const parts = dmsStr.split(':');
+  if (parts.length < 2) return NaN;
+
+  // Degrees can be negative
+  let d = parseFloat(parts[0]);
+  let m = parseFloat(parts[1]);
+  let s = parseFloat(parts[2] || 0);
+
+  let sign = Math.sign(d);
+  if (d === 0 && dmsStr.startsWith('-')) sign = -1; // Handle -0 case
+  if (sign === 0) sign = 1;
+
+  // Convert all to positive for math then apply sign
+  return sign * (Math.abs(d) + (m / 60.0) + (s / 3600.0));
+}
+
+function getGMST(date) {
+  // Julian Date
+  const time = date.getTime();
+  const jd = (time / 86400000.0) + 2440587.5;
+  const D = jd - 2451545.0;
+
+  // GMST in degrees? No, usually typical formula gives Degrees or Hours.
+  // GMST = 18.697374558 + 24.06570982441908 D
+  let gmst = 18.697374558 + 24.06570982441908 * D;
+  gmst = gmst % 24;
+  if (gmst < 0) gmst += 24;
+
+  return gmst; // Hours
+}
+
 // Hook into main init
 const originalInit = window.onload; // or the event listener
 // We act inside DOMContentLoaded in main block, so let's just call it if we are on tools page
 if (window.location.pathname.includes("tools.html")) {
   // Add to specific listener or just run calculation
   document.addEventListener("DOMContentLoaded", initTools);
+  document.addEventListener("DOMContentLoaded", initSuggester);
 }
 
 // Call Carousel Init globally (it checks for existence internally)

@@ -174,7 +174,68 @@
                     </div>
                 </div>
 
-                <!-- 6. VirtualSky Interactive Map (Desktop) / Stellarium + TheSkyLive (Mobile) -->
+                <!-- 6. Target Suggester (New) -->
+                <div class="tool-card wide-card" id="suggester-tool">
+                    <div class="tool-icon">🔭</div>
+                    <h2>What to Shoot Tonight?</h2>
+                    <div class="tool-content">
+                        <p style="margin-bottom:15px; color:#aaa; font-size:14px;">Find the best Deep Sky Objects
+                            visible right now from your location. Database: <strong>14,000+ items</strong> (Messier,
+                            Caldwell, NGC, IC).</p>
+
+                        <div class="suggester-controls"
+                            style="display:flex; flex-wrap:wrap; gap:15px; justify-content:center; margin-bottom:20px;">
+
+                            <div class="control-group">
+                                <label style="display:block; font-size:12px; color:#888; margin-bottom:5px;">Min
+                                    Altitude:</label>
+                                <select id="suggester-alt" class="small-input" style="width:120px;">
+                                    <option value="10">10° (Horizon)</option>
+                                    <option value="20">20°</option>
+                                    <option value="30" selected>30° (Good)</option>
+                                    <option value="45">45° (High)</option>
+                                    <option value="60">60° (Zenith)</option>
+                                </select>
+                            </div>
+
+                            <div class="control-group">
+                                <label style="display:block; font-size:12px; color:#888; margin-bottom:5px;">Sort
+                                    By:</label>
+                                <select id="suggester-sort" class="small-input" style="width:120px;">
+                                    <option value="alt_desc" selected>Highest Altitude</option>
+                                    <option value="mag_asc">Brightest (Mag)</option>
+                                </select>
+                            </div>
+
+                            <div class="control-group">
+                                <label style="display:block; font-size:12px; color:#888; margin-bottom:5px;">Filter
+                                    Type:</label>
+                                <select id="suggester-type" class="small-input" style="width:120px;">
+                                    <option value="all" selected>Everything</option>
+                                    <option value="G">Galaxies</option>
+                                    <option value="Nb">Nebulae</option>
+                                    <option value="Cl">Clusters</option>
+                                    <option value="Pn">Planetary Nebs</option>
+                                </select>
+                            </div>
+
+                            <button class="action-btn" id="suggester-btn" style="height:38px; margin-top:18px;">Find
+                                Targets 🚀</button>
+                        </div>
+
+                        <div id="suggester-loading" style="display:none; color:#1e90ff; margin-bottom:10px;">Searching
+                            heavens...</div>
+                        <div id="suggester-results"
+                            style="max-height:400px; overflow-y:auto; text-align:left; background:rgba(0,0,0,0.2); border-radius:8px; padding:10px; border:1px solid #333;">
+                            <div style="text-align:center; color:#666; padding:20px;">
+                                Click "Find Targets" to load database.<br>
+                                (Location: Tel Aviv, IL estimated)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. VirtualSky Interactive Map (Desktop) / Stellarium + TheSkyLive (Mobile) -->
                 <div class="tool-card wide-card" id="skymap-tool">
                     <div class="tool-icon">🌌</div>
                     <h2>Live Sky Map (Interactive)</h2>
