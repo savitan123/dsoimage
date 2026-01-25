@@ -799,6 +799,8 @@ function initCarousel() {
       bgLayer = document.createElement('div');
       bgLayer.id = 'dynamic-bg';
       document.body.prepend(bgLayer);
+      // CRITICAL: Make body transparent so the fixed layer behind it is visible
+      document.body.style.background = 'transparent';
     }
   }
 
