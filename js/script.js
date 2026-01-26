@@ -891,6 +891,9 @@ async function initSuggester() {
         const resp = await fetch('data/targets.json');
         if (!resp.ok) throw new Error("DB Load Failed");
         targetDatabase = await resp.json();
+        // Debug: Check if Common Names are loaded
+        const m13 = targetDatabase.find(x => x.n === 'NGC6205');
+        console.log('Loaded Targets. Check M13:', m13); // Should show cn: "Hercules..."
       } catch (e) {
         if (loadingDiv) loadingDiv.innerText = "Error loading DB.";
         return false;

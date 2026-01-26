@@ -47,12 +47,15 @@ for ($i = 1; $i -lt $lines.Count; $i++) {
     if ($mag -eq "") { $mag = $cols[8] } # Fallback B-Mag
     if ($mag -eq "") { $mag = "99" }
     
-    # Common Names (Col 28 in standard OpenNGC CSV)
-    # Warning: Check index if CSV changes.
-    # Usually: ... M-Abs;Common names;
+    # Common Names (Col 28)
     $commonName = ""
     if ($cols.Count -gt 28) {
         $commonName = $cols[28]
+    }
+
+    # DEBUG: Print specific object check
+    if ($name -eq "NGC6205") {
+        Write-Host "DEBUG: Found NGC6205. Col Count: $($cols.Count). Common Name Raw: '$commonName'"
     }
 
     # Basic Object Structure
