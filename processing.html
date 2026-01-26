@@ -8,7 +8,7 @@
     <title>Processing Comparison — Shimon Avitan</title>
     <meta name="description" content="Before and after processing comparison of deep sky astrophotography.">
     <link rel="stylesheet" href="css/style.css?v=2">
-    <script src="js/script.js?v=33"></script>
+    <script src="js/script.js?v=34"></script>
 </head>
 
 <body>
@@ -132,6 +132,58 @@
                     for calibration and heavy processing, followed by <strong>Adobe Photoshop</strong> for final
                     artistic touches, color grading, and selective sharpening.
                 </p>
+
+                <!-- SNR SECTION -->
+                <h2
+                    style="color: #fff; margin-top: 60px; margin-bottom: 30px; font-size: 2.2rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; line-height: 1.2;">
+                    Signal To Noise Ratio (SNR):<br>
+                    <span style="color: #1e90ff; font-size: 1.5rem;">The Science of Deep-Sky Imaging</span>
+                </h2>
+                <p style="margin-bottom: 20px;">
+                    One of the most common questions in astrophotography is: "Why do we need to collect so many hours of
+                    data? Why can't we just take one photo and brighten it?"
+                </p>
+                <p style="margin-bottom: 20px;">
+                    The answer lies in the <strong>Signal-to-Noise Ratio (SNR)</strong>. In our hobby, the "Signal" is
+                    the light from the distant galaxy or nebula, while the "Noise" is everything else—electronic
+                    interference, thermal heat, and most importantly, the inherent randomness of light itself.
+                </p>
+
+                <h3 style="color: #1e90ff; margin-top: 30px; margin-bottom: 10px;">The Poisson Reality</h3>
+                <p>
+                    Light arrival is not a constant stream; it is a stochastic (random) process that follows a
+                    <strong>Poisson Distribution</strong>. This means that "Shot Noise" is actually a property of the
+                    light itself. The only way to overcome this uncertainty is to collect more photons.
+                </p>
+
+                <h3 style="color: #1e90ff; margin-top: 30px; margin-bottom: 10px;">Why We Must Collect Many Frames</h3>
+                <p>
+                    To achieve a high SNR and produce a clean, "smooth" image that can withstand the heavy stretching we
+                    do in PixInsight, we must collect as many frames as possible.
+                </p>
+                <ul style="list-style-type: none; margin-left: 10px; margin-bottom: 20px;">
+                    <li style="margin-bottom: 15px;">❌ <strong>Simple Addition vs. Integration:</strong> If you simply
+                        take a single frame and add it to itself or "brighten" it, you are scaling the noise along with
+                        the signal. The statistical uncertainty of that specific moment is "frozen" in the frame.</li>
+                    <li style="margin-bottom: 15px;">✅ <strong>The Power of Averaging:</strong> When we integrate
+                        (stack) many independent frames, we are taking multiple independent samples of that Poisson
+                        process. Because the signal is constant and the noise is random, the noise cancels itself out
+                        over time while the signal builds up.</li>
+                </ul>
+
+                <h3 style="color: #1e90ff; margin-top: 30px; margin-bottom: 10px;">The Square Root Rule</h3>
+                <p>
+                    There is a mathematical "tax" on our time: to double the clarity (SNR) of your image, you must
+                    <strong>quadruple</strong> your total exposure time.
+                </p>
+                <p
+                    style="margin-top: 20px; font-style: italic; color: #aaa; border-left: 3px solid #1e90ff; padding-left: 15px;">
+                    <strong>The Bottom Line:</strong> To reveal the faint outer arms of a galaxy like M106 or the
+                    delicate tendrils of a nebula, there is no substitute for total integration time. The more frames we
+                    collect, the more we "narrow the distribution" and find the true, beautiful signal hidden in the
+                    darkness.
+                </p>
+
             </div>
             <hr style="border: 0; border-top: 1px solid #333; margin: 40px auto; max-width: 800px;">
 
