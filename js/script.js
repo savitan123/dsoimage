@@ -1028,13 +1028,13 @@ function runSuggesterLogic(isBestMode) {
     if (resultsDiv) resultsDiv.innerHTML = `<div style="padding:20px; text-align:center;">No targets found matching criteria.</div>`;
   } else {
     // START TABLE
-    let html = `<table style="width:100%; border-collapse:collapse; font-size:13px;">
-                <tr style="border-bottom:1px solid #444; color:#888;">
-                    <th style="padding:5px; text-align:left;">Name</th>
-                    <th style="padding:5px;">Type</th>
-                    <th style="padding:5px;">Mag</th>
-                    <th style="padding:5px;">Size (')</th> <!-- NEW COLUMN -->
-                    <th style="padding:5px;">Alt</th>
+    let html = `<table style="width:100%; border-collapse:collapse; font-size:13px; table-layout: auto;">
+                <tr style="border-bottom:1px solid #444; color:#888; font-size:11px;">
+                    <th style="padding:4px 2px; text-align:left;">Name</th>
+                    <th style="padding:4px 2px; white-space:nowrap;">Type</th>
+                    <th style="padding:4px 2px; white-space:nowrap;">Mag</th>
+                    <th style="padding:4px 2px; white-space:nowrap;">Size</th>
+                    <th style="padding:4px 2px; text-align:right; white-space:nowrap;">Alt</th>
                 </tr>`;
 
     topResults.forEach(item => {
@@ -1050,11 +1050,11 @@ function runSuggesterLogic(isBestMode) {
       const searchName = o.n;
 
       html += `<tr style="border-bottom:1px solid #333;">
-                    <td style="padding:8px 5px;"><a href="https://wikisky.org/?object=${searchName}" target="_blank" style="color:#1e90ff; text-decoration:none;">${displayName}</a></td>
-                    <td style="padding:8px 5px; color:#ccc;">${o.t}</td>
-                    <td style="padding:8px 5px; color:#ccc;">${o.m === 99 ? '-' : o.m}</td>
-                    <td style="padding:8px 5px; color:#aaa; font-family:monospace;">${sizeStr}</td>
-                    <td style="padding:8px 5px; color:${altColor}; font-weight:bold;">${item.alt.toFixed(1)}°</td>
+                    <td style="padding:6px 2px;"><a href="https://wikisky.org/?object=${searchName}" target="_blank" style="color:#1e90ff; text-decoration:none;">${displayName}</a></td>
+                    <td style="padding:6px 2px; color:#ccc; text-align:center;">${o.t}</td>
+                    <td style="padding:6px 2px; color:#ccc; text-align:center;">${o.m === 99 ? '-' : o.m}</td>
+                    <td style="padding:6px 2px; color:#aaa; font-family:monospace; font-size:11px; text-align:center;">${sizeStr}</td>
+                    <td style="padding:6px 2px; color:${altColor}; font-weight:bold; text-align:right;">${item.alt.toFixed(1)}°</td>
                  </tr>`;
     });
     html += `</table>`;
