@@ -79,71 +79,77 @@
 
             <div class="tools-grid">
 
-                <!-- 1. Moon Phase -->
-                <div class="tool-card" id="moon-tool">
-                    <div class="tool-icon">🌑</div>
-                    <h2>Moon Status</h2>
-                    <div class="tool-content">
-                        <div id="moon-phase-name" class="highlight-value">Loading...</div>
-                        <div id="moon-illumination">Illumination: --%</div>
-                        <div class="countdown-box">
-                            <span id="days-to-new-moon" class="big-number">--</span>
-                            <span class="small-label">Days to New Moon</span>
+                <!-- TOP GRID CONTAINER -->
+                <div class="tools-top-grid">
+
+                    <!-- 1. Moon Phase -->
+                    <div class="tool-card" id="moon-tool">
+                        <div class="tool-icon">🌑</div>
+                        <h2>Moon Status</h2>
+                        <div class="tool-content">
+                            <div id="moon-phase-name" class="highlight-value">Loading...</div>
+                            <div id="moon-illumination">Illumination: --%</div>
+                            <div class="countdown-box">
+                                <span id="days-to-new-moon" class="big-number">--</span>
+                                <span class="small-label">Days to New Moon</span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- 2. Twilight Clock -->
-                <div class="tool-card" id="twilight-tool">
-                    <div class="tool-icon">🌙</div>
-                    <h2>Astro Darkness</h2>
-                    <div class="tool-content">
-                        <p>Imaging Window (Sun < -18°):</p>
-                                <div class="time-range">
-                                    <div class="time-box">
-                                        <span class="label">Starts</span>
-                                        <span id="dark-start" class="value">--:--</span>
+                    <!-- 2. Twilight Clock -->
+                    <div class="tool-card" id="twilight-tool">
+                        <div class="tool-icon">🌙</div>
+                        <h2>Astro Darkness</h2>
+                        <div class="tool-content">
+                            <p>Imaging Window (Sun < -18°):</p>
+                                    <div class="time-range">
+                                        <div class="time-box">
+                                            <span class="label">Starts</span>
+                                            <span id="dark-start" class="value">--:--</span>
+                                        </div>
+                                        <div class="time-box">
+                                            <span class="label">Ends</span>
+                                            <span id="dark-end" class="value">--:--</span>
+                                        </div>
                                     </div>
-                                    <div class="time-box">
-                                        <span class="label">Ends</span>
-                                        <span id="dark-end" class="value">--:--</span>
-                                    </div>
-                                </div>
-                                <div id="twilight-status" class="status-pill">Calculating...</div>
+                                    <div id="twilight-status" class="status-pill">Calculating...</div>
+                        </div>
                     </div>
-                </div>
 
-                <!-- 3. ISS Tracker -->
-                <div class="tool-card" id="iss-tool">
-                    <div class="tool-icon">🛰️</div>
-                    <h2>ISS Tracker</h2>
-                    <div class="tool-content">
-                        <div class="data-row">
-                            <span>Lat:</span> <span id="iss-lat" class="mono">--</span>
+                    <!-- 3. ISS Tracker -->
+                    <div class="tool-card" id="iss-tool">
+                        <div class="tool-icon">🛰️</div>
+                        <h2>ISS Tracker</h2>
+                        <div class="tool-content">
+                            <div class="data-row">
+                                <span>Lat:</span> <span id="iss-lat" class="mono">--</span>
+                            </div>
+                            <div class="data-row">
+                                <span>Lon:</span> <span id="iss-lon" class="mono">--</span>
+                            </div>
+                            <div class="data-row">
+                                <span>Vel:</span> <span id="iss-vel" class="mono">-- km/h</span>
+                            </div>
+                            <div id="iss-visibility" class="status-pill">Checking...</div>
                         </div>
-                        <div class="data-row">
-                            <span>Lon:</span> <span id="iss-lon" class="mono">--</span>
-                        </div>
-                        <div class="data-row">
-                            <span>Vel:</span> <span id="iss-vel" class="mono">-- km/h</span>
-                        </div>
-                        <div id="iss-visibility" class="status-pill">Checking...</div>
                     </div>
-                </div>
 
-                <!-- 4. Planet Visibility -->
-                <div class="tool-card" id="planet-tool">
-                    <div class="tool-icon">🪐</div>
-                    <h2>Planets Tonight</h2>
-                    <div class="tool-content">
-                        <ul class="planet-list">
-                            <li id="planet-venus"><span>Venus</span> <span class="badge">--</span></li>
-                            <li id="planet-mars"><span>Mars</span> <span class="badge">--</span></li>
-                            <li id="planet-jupiter"><span>Jupiter</span> <span class="badge">--</span></li>
-                            <li id="planet-saturn"><span>Saturn</span> <span class="badge">--</span></li>
-                        </ul>
+                    <!-- 4. Planet Visibility -->
+                    <div class="tool-card" id="planet-tool">
+                        <div class="tool-icon">🪐</div>
+                        <h2>Planets Tonight</h2>
+                        <div class="tool-content">
+                            <ul class="planet-list">
+                                <li id="planet-venus"><span>Venus</span> <span class="badge">--</span></li>
+                                <li id="planet-mars"><span>Mars</span> <span class="badge">--</span></li>
+                                <li id="planet-jupiter"><span>Jupiter</span> <span class="badge">--</span></li>
+                                <li id="planet-saturn"><span>Saturn</span> <span class="badge">--</span></li>
+                            </ul>
+                        </div>
                     </div>
+
                 </div>
+                <!-- END TOP GRID CONTAINER -->
 
                 <!-- 5. Coordinate Converter -->
                 <div class="tool-card wide-card" id="coord-tool">

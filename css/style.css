@@ -1108,6 +1108,22 @@ body.red-mode img {
   display: none !important;
 }
 
+/* =========================
+   Tools Page Grid
+   ========================= */
+.tools-top-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .tools-top-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Tools Mobile/Desktop Iframe Heights */
 .iframe-container {
   position: relative;
