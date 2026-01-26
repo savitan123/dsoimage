@@ -431,7 +431,9 @@ function initDSOImage() {
 
   let currentLang = localStorage.getItem('site_lang') || 'en';
 
-  function setLanguage(lang) {
+  // Expose to window for HTML onclick
+  window.setLanguage = function (lang) {
+    console.log("Language setting to:", lang);
     currentLang = lang;
     localStorage.setItem('site_lang', lang);
 
@@ -447,7 +449,7 @@ function initDSOImage() {
     // Update fixed text elements
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
-      if (translations[lang][key]) {
+      if (translations[lang] && translations[lang][key]) {
         el.textContent = translations[lang][key];
       }
     });
@@ -458,6 +460,8 @@ function initDSOImage() {
 
     // Re-render table headers if they exist dynamically (handled in renderTable theoretically, but ours are HTML or JS generated)
     // Since our table headers are in JS, we need to handle them inside the render function too.
+    // Update flag opacity if present
+    // (Optional: visual feedback for active flag)
   }
 
   document.addEventListener('DOMContentLoaded', () => {
