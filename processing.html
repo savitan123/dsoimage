@@ -8,7 +8,7 @@
     <title>Processing Comparison — Shimon Avitan</title>
     <meta name="description" content="Before and after processing comparison of deep sky astrophotography.">
     <link rel="stylesheet" href="css/style.css?v=2">
-    <script src="js/script.js?v=31"></script>
+    <script src="js/script.js?v=32"></script>
 </head>
 
 <body>
@@ -68,9 +68,9 @@
             <div class="processing-intro-text"
                 style="max-width: 1000px; margin: 40px 0; text-align: left; line-height: 1.6; color: #ddd;">
                 <h2
-                    style="color: #fff; margin-bottom: 30px; font-size: 3rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; line-height: 1.2;">
+                    style="color: #fff; margin-bottom: 30px; font-size: 2.2rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; line-height: 1.2;">
                     My Processing Workflow:<br>
-                    <span style="color: #1e90ff; font-size: 2rem;">From Raw Data to the Final Image</span>
+                    <span style="color: #1e90ff; font-size: 1.5rem;">From Raw Data to the Final Image</span>
                 </h2>
                 <p style="margin-bottom: 20px;">
                     Creating a deep-sky image is a meticulous journey of extracting faint signals from cosmic noise. My
@@ -82,23 +82,20 @@
                     Quality</h3>
                 <p>
                     Before a nebula or galaxy can be revealed, we must strip away the noise introduced by the camera
-                    sensor and the environment. This is achieved through Calibration Files:
+                    sensor and the environment. This is achieved through Calibration Files and Stacking:
                 </p>
                 <ul style="list-style-type: none; margin-left: 10px; margin-bottom: 20px;">
                     <li style="margin-bottom: 8px;">⚡ <strong>Master BIAS:</strong> Removes the electronic readout noise
                         of the sensor.</li>
                     <li style="margin-bottom: 8px;">🌡️ <strong>Master DARK:</strong> Corrects for thermal noise and
-                        "hot
-                        pixels" caused by long exposures.</li>
+                        "hot pixels" caused by long exposures.</li>
                     <li style="margin-bottom: 8px;">🌫️ <strong>Master FLAT:</strong> Compensates for optical vignetting
-                        and
-                        dust shadows in the light path.</li>
+                        and dust shadows in the light path.</li>
+                    <li style="margin-bottom: 8px;">🎯 <strong>Star Alignment:</strong> Registers every Light Frame to
+                        ensure perfect overlap.</li>
+                    <li style="margin-bottom: 8px;">📚 <strong>Image Integration:</strong> Stacks the data to
+                        dramatically increase the signal-to-noise ratio.</li>
                 </ul>
-                <p>
-                    Once calibrated, every Light Frame (the actual data) undergoes Star Alignment (Registration) to
-                    ensure perfect overlap, followed by Image Integration (Stacking) to dramatically increase the
-                    signal-to-noise ratio.
-                </p>
 
                 <h3 style="color: #1e90ff; margin-top: 30px; margin-bottom: 10px;">2. Post-Processing: Bringing the
                     Universe to Life</h3>
@@ -108,39 +105,31 @@
                     emissions.
                 </p>
                 <p>
-                    The <strong>Luminance (L)</strong> channel is the "soul" of the image. It stores the vast majority
-                    of the structural detail and sharpness. The RGB (or mapped Narrowband) channels serve to fill that
-                    structure with color. Because the details reside in the Luminance, I take special care in processing
-                    it separately before combining it with the color data.
+                    The <strong>Luminance (L)</strong> channel is typically the "soul" of the image, storing structure
+                    and sharpness. However, in Emission Nebulae, the <strong>Narrowband (H&alpha;)</strong> channel
+                    often holds the most critical details. Because the details reside here, I take special care in
+                    processing these structural channels separately before combining them with color.
                 </p>
 
-                <h4 style="color: #ccc; margin-top: 20px; margin-bottom: 8px;">The Linear Stage:</h4>
+                <h4 style="color: #ccc; margin-top: 20px; margin-bottom: 8px;">Key Processing Steps:</h4>
                 <ul style="list-style-type: none; margin-left: 10px; margin-bottom: 20px;">
                     <li style="margin-bottom: 8px;">⚖️ <strong>Linear Fitting:</strong> Balancing the color channels (R,
-                        G,
-                        and B or Narrowband equivalents) to a common baseline.</li>
+                        G, and B or Narrowband equivalents) to a common baseline.</li>
                     <li style="margin-bottom: 8px;">🧹 <strong>Gradient Removal:</strong> Separating faint celestial
                         features from the artificial sky background and light pollution.</li>
                     <li style="margin-bottom: 8px;">🎨 <strong>Color Calibration:</strong> Ensuring stars and nebulosity
-                        reflect their true cosmic hues or intended palettes (such as the Hubble Palette for Narrowband).
-                    </li>
-                </ul>
-
-                <h4 style="color: #ccc; margin-top: 20px; margin-bottom: 8px;">The Non-Linear Stage:</h4>
-                <ul style="list-style-type: none; margin-left: 10px; margin-bottom: 20px;">
+                        reflect their true cosmic hues or intended palettes (such as the Hubble Palette).</li>
                     <li style="margin-bottom: 8px;">🧼 <strong>Noise Reduction:</strong> Cleaning up background grain
-                        while
-                        preserving fine, hard-earned structures.</li>
+                        while preserving fine, hard-earned structures.</li>
                     <li style="margin-bottom: 8px;">📈 <strong>Stretching:</strong> Carefully transitioning the data
-                        from a
-                        "dark" linear state to a visible one. The Luminance channel is optimized for contrast and detail
-                        before being merged with the color layers.</li>
+                        from a "dark" linear state to a visible one. The Luminance/H&alpha; channel is optimized for
+                        contrast and detail before being merged with color.</li>
                 </ul>
 
                 <h3 style="color: #1e90ff; margin-top: 30px; margin-bottom: 10px;">The Toolkit</h3>
                 <p>
                     My workflow is a hybrid approach. I utilize the mathematical power of <strong>PixInsight</strong>
-                    for calibration and heavy linear processing, followed by <strong>Adobe Photoshop</strong> for final
+                    for calibration and heavy processing, followed by <strong>Adobe Photoshop</strong> for final
                     artistic touches, color grading, and selective sharpening.
                 </p>
             </div>
