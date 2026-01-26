@@ -1040,10 +1040,14 @@ function runSuggesterLogic(isBestMode) {
       // Size string (newly added to DB or fallback)
       let sizeStr = o.sz || "-";
 
+      let displayName = o.n;
+      if (o.cn) {
+        displayName += ` <span style="color:#aaa; font-size:0.9em;">(${o.cn})</span>`;
+      }
       const searchName = o.n;
 
       html += `<tr style="border-bottom:1px solid #333;">
-                    <td style="padding:8px 5px;"><a href="https://wikisky.org/?object=${searchName}" target="_blank" style="color:#1e90ff; text-decoration:none;">${o.n}</a></td>
+                    <td style="padding:8px 5px;"><a href="https://wikisky.org/?object=${searchName}" target="_blank" style="color:#1e90ff; text-decoration:none;">${displayName}</a></td>
                     <td style="padding:8px 5px; color:#ccc;">${o.t}</td>
                     <td style="padding:8px 5px; color:#ccc;">${o.m === 99 ? '-' : o.m}</td>
                     <td style="padding:8px 5px; color:#aaa; font-family:monospace;">${sizeStr}</td>
