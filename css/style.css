@@ -1120,7 +1120,9 @@ body.red-mode img {
 
 @media (max-width: 768px) {
   .tools-top-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    /* Smaller gap for mobile */
   }
 }
 
