@@ -174,12 +174,12 @@
                     </div>
                 </div>
 
-                <!-- 6. Target Suggester (New) -->
                 <div class="tool-card wide-card" id="suggester-tool">
                     <div class="tool-icon">🔭</div>
-                    <h2>What to Shoot Tonight?</h2>
+                    <h2 data-i18n="shoot_tonight">What to Shoot Tonight?</h2>
                     <div class="tool-content">
-                        <p style="margin-bottom:15px; color:#aaa; font-size:14px;">Find the best Deep Sky Objects
+                        <p style="margin-bottom:15px; color:#aaa; font-size:14px;" data-i18n="shoot_desc">Find the best
+                            Deep Sky Objects
                             visible right now from your location. Database: <strong>14,000+ items</strong> (Messier,
                             Caldwell, NGC, IC).</p>
 
@@ -187,7 +187,8 @@
                             style="display:flex; flex-wrap:wrap; gap:15px; justify-content:center; margin-bottom:20px;">
 
                             <div class="control-group">
-                                <label style="display:block; font-size:12px; color:#888; margin-bottom:5px;">Min
+                                <label style="display:block; font-size:12px; color:#888; margin-bottom:5px;"
+                                    data-i18n="min_alt">Min
                                     Altitude:</label>
                                 <select id="suggester-alt" class="small-input" style="width:120px;">
                                     <option value="10">10° (Horizon)</option>
@@ -199,7 +200,8 @@
                             </div>
 
                             <div class="control-group">
-                                <label style="display:block; font-size:12px; color:#888; margin-bottom:5px;">Sort
+                                <label style="display:block; font-size:12px; color:#888; margin-bottom:5px;"
+                                    data-i18n="sort_by">Sort
                                     By:</label>
                                 <select id="suggester-sort" class="small-input" style="width:120px;">
                                     <option value="alt_desc" selected>Highest Altitude</option>
@@ -208,7 +210,8 @@
                             </div>
 
                             <div class="control-group">
-                                <label style="display:block; font-size:12px; color:#888; margin-bottom:5px;">Filter
+                                <label style="display:block; font-size:12px; color:#888; margin-bottom:5px;"
+                                    data-i18n="filter_type">Filter
                                     Type:</label>
                                 <select id="suggester-type" class="small-input" style="width:120px;">
                                     <option value="all" selected>Everything</option>
@@ -221,10 +224,12 @@
 
                             <div
                                 style="display:flex; gap:10px; flex-wrap:wrap; width:100%; justify-content:center; margin-top:5px;">
-                                <button class="action-btn" id="suggester-btn" style="height:38px; flex:1 1 140px;">Find
+                                <button class="action-btn" id="suggester-btn" style="height:38px; flex:1 1 140px;"
+                                    data-i18n="find_targets">Find
                                     Targets 🚀</button>
                                 <button class="action-btn" id="best-tonight-btn"
-                                    style="height:38px; flex:1 1 140px; background:linear-gradient(45deg, #ff9800, #ff5722);">🌟
+                                    style="height:38px; flex:1 1 140px; background:linear-gradient(45deg, #ff9800, #ff5722);"
+                                    data-i18n="tonights_best">🌟
                                     Tonight's Best</button>
                             </div>
                         </div>
@@ -244,7 +249,7 @@
                 <!-- 7. VirtualSky Interactive Map (Desktop) / Stellarium + TheSkyLive (Mobile) -->
                 <div class="tool-card wide-card" id="skymap-tool">
                     <div class="tool-icon">🌌</div>
-                    <h2>Live Sky Map (Interactive)</h2>
+                    <h2 data-i18n="live_skymap">Live Sky Map (Interactive)</h2>
                     <div class="tool-content">
                         <p style="margin-bottom:15px; color:#aaa; font-size:14px;">Interactive view (Drag to pan).</p>
 
@@ -300,7 +305,7 @@
     </div>
 
     <!-- Updated for Mobile Layout Fixes -->
-    <script src="js/script.js?v=18"></script>
+    <script src="js/script.js?v=20"></script>
 </body>
 
 </html>

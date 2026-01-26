@@ -30,7 +30,14 @@
         Menu
       </button>
       <button class="search-trigger" aria-label="Search site">🔍</button>
-      <div class="topbar-title">dsoimage.com</div>
+
+      <!-- Mobile Language Flags -->
+      <div style="margin-left:auto; display:flex; gap:10px;">
+        <img src="https://flagcdn.com/w40/us.png" onclick="setLanguage('en')" style="width:24px; cursor:pointer;"
+          alt="English">
+        <img src="https://flagcdn.com/w40/il.png" onclick="setLanguage('he')" style="width:24px; cursor:pointer;"
+          alt="Hebrew">
+      </div>
     </header>
 
     <!-- Dim background overlay for mobile menu -->
@@ -38,31 +45,40 @@
 
     <nav class="sidebar" id="sidebar" aria-label="Site menu">
       <div class="sidebar-header">
-        <h2>Menu</h2>
+        <h2 data-i18n="menu_home" style="font-size:24px; margin:0;">Menu</h2>
+        <!-- Desktop Language Flags (Visible in Sidebar) -->
+        <div style="display:flex; gap:8px;">
+          <img src="https://flagcdn.com/w40/us.png" onclick="setLanguage('en')"
+            style="width:20px; cursor:pointer; opacity:0.7;" onmouseover="this.style.opacity=1"
+            onmouseout="this.style.opacity=0.7" alt="English">
+          <img src="https://flagcdn.com/w40/il.png" onclick="setLanguage('he')"
+            style="width:20px; cursor:pointer; opacity:0.7;" onmouseover="this.style.opacity=1"
+            onmouseout="this.style.opacity=0.7" alt="Hebrew">
+        </div>
         <button class="menu-close" type="button" aria-label="Close menu">×</button>
       </div>
 
       <ul>
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="galaxies.html">Galaxies</a></li>
-        <li><a href="nebulae.html">Nebulae</a></li>
-        <li><a href="clusters.html">Star Clusters</a></li>
-        <li><a href="equipment.html">Equipment</a></li>
-        <li><a href="processing.html">Processing</a></li>
-        <li><a href="weather.html">Weather</a></li>
-        <li><a href="tools.html">Tools</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="index.html" class="active" data-i18n="menu_home">Home</a></li>
+        <li><a href="galaxies.html" data-i18n="menu_galaxies">Galaxies</a></li>
+        <li><a href="nebulae.html" data-i18n="menu_nebulae">Nebulae</a></li>
+        <li><a href="clusters.html" data-i18n="menu_clusters">Star Clusters</a></li>
+        <li><a href="equipment.html" data-i18n="menu_equipment">Equipment</a></li>
+        <li><a href="processing.html" data-i18n="menu_processing">Processing</a></li>
+        <li><a href="weather.html" data-i18n="menu_weather">Weather</a></li>
+        <li><a href="tools.html" data-i18n="menu_tools">Tools</a></li>
+        <li><a href="about.html" data-i18n="menu_about">About</a></li>
+        <li><a href="contact.html" data-i18n="menu_contact">Contact</a></li>
       </ul>
 
       <button id="red-mode-toggle" class="mode-toggle-btn">
-        <span class="circle-icon"></span> Night Vision
+        <span class="circle-icon"></span> <span data-i18n="menu_nightvision">Night Vision</span>
       </button>
 
       <!-- Sidebar search removed -->
 
       <div class="sidebar-footer">
-        <h2 class="sidebar-subtitle">Follow Me</h2>
+        <h2 class="sidebar-subtitle" data-i18n="menu_follow">Follow Me</h2>
         <ul>
           <li><a href="https://www.instagram.com/avitan_shimon/" target="_blank" rel="noopener">Instagram</a></li>
           <li><a href="https://www.facebook.com/shimon.avitan.79" target="_blank" rel="noopener">Facebook</a></li>
@@ -76,25 +92,25 @@
       <section class="hero" style="background-image:url('images/preview/helix_nebula.jpg');">
         <div class="hero-overlay">
           <h1 class="color-header hero-title">
-            <span class="red">D</span>eep
-            <span class="green">S</span>ky
-            <span class="blue">O</span>bject Imaging
+            <span class="red" data-i18n="hero_part1">D</span><span data-i18n="hero_part1_text">eep</span>
+            <span class="green" data-i18n="hero_part2">S</span><span data-i18n="hero_part2_text">ky</span>
+            <span class="blue" data-i18n="hero_part3">O</span><span data-i18n="hero_part3_text">bject Imaging</span>
           </h1>
 
-          <p class="hero-text">
+          <p class="hero-text" data-i18n="hero_desc">
             A curated collection of deep-sky astrophotography captured under dark skies, revealing
             galaxies, nebulae, and star clusters far beyond our solar system.
           </p>
 
           <div class="hero-actions">
-            <a class="hero-button" href="galaxies.html">Browse Galaxies</a>
-            <a class="hero-button secondary" href="nebulae.html">Browse Nebulae</a>
-            <a class="hero-button secondary" href="clusters.html">Browse Clusters</a>
+            <a class="hero-button" href="galaxies.html" data-i18n="hero_btn_gal">Browse Galaxies</a>
+            <a class="hero-button secondary" href="nebulae.html" data-i18n="hero_btn_neb">Browse Nebulae</a>
+            <a class="hero-button secondary" href="clusters.html" data-i18n="hero_btn_cl">Browse Clusters</a>
           </div>
         </div>
       </section>
 
-      <p class="subtitle">
+      <p class="subtitle" data-i18n="home_subtitle">
         Choose a category to browse preview images. Click any preview to open the full resolution with notes and links.
       </p>
 
@@ -103,24 +119,24 @@
         <a class="category-card" href="galaxies.html">
           <img src="images/preview/Triangulum_Galaxy.jpg" alt="Galaxies preview" loading="lazy" decoding="async">
           <div class="category-card-text">
-            <h2>Galaxies</h2>
-            <p>M31, M33, M81/M82, M101, M77 and more.</p>
+            <h2 data-i18n="cat_gal_title">Galaxies</h2>
+            <p data-i18n="cat_gal_desc">M31, M33, M81/M82, M101, M77 and more.</p>
           </div>
         </a>
 
         <a class="category-card" href="nebulae.html">
           <img src="images/preview/HorseHead_Flame_Nebula.jpg" alt="Nebulae preview" loading="lazy" decoding="async">
           <div class="category-card-text">
-            <h2>Nebulae</h2>
-            <p>Emission, reflection and narrowband targets.</p>
+            <h2 data-i18n="cat_neb_title">Nebulae</h2>
+            <p data-i18n="cat_neb_desc">Emission, reflection and narrowband targets.</p>
           </div>
         </a>
 
         <a class="category-card" href="clusters.html">
           <img src="images/preview/M13_Crop.jpg" alt="Star clusters preview" loading="lazy" decoding="async">
           <div class="category-card-text">
-            <h2>Star Clusters</h2>
-            <p>Globular and open clusters.</p>
+            <h2 data-i18n="cat_cl_title">Star Clusters</h2>
+            <p data-i18n="cat_cl_desc">Globular and open clusters.</p>
           </div>
         </a>
 
@@ -143,7 +159,7 @@
     </div>
   </div>
 
-  <script src="js/script.js?v=7"></script>
+  <script src="js/script.js?v=21"></script>
 
 </body>
 

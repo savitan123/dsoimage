@@ -321,8 +321,160 @@ function initDSOImage() {
 
 
   // ===============================
-  // Comparison Slider Logic
+  // Globalization / Translations
   // ===============================
+  const translations = {
+    "en": {
+      "tools_title": "Astronomy Tools",
+      "moon_status": "Moon Status",
+      "astro_darkness": "Astro Darkness",
+      "iss_tracker": "ISS Tracker",
+      "planets_tonight": "Planets Tonight",
+      "coord_converter": "Coordinate Converter",
+      "shoot_tonight": "What to Shoot Tonight?",
+      "shoot_desc": "Find the best Deep Sky Objects visible right now from your location. Database: 14,000+ items (Messier, Caldwell, NGC, IC).",
+      "min_alt": "Min Altitude:",
+      "sort_by": "Sort By:",
+      "filter_type": "Filter Type:",
+      "find_targets": "Find Targets 🚀",
+      "tonights_best": "🌟 Tonight's Best",
+      "live_skymap": "Live Sky Map (Interactive)",
+      "table_name": "Name",
+      "table_type": "Type",
+      "table_mag": "Mag",
+      "table_size": "Size",
+      "table_alt": "Alt",
+      "menu_home": "Home",
+      "menu_galaxies": "Galaxies",
+      "menu_nebulae": "Nebulae",
+      "menu_clusters": "Star Clusters",
+      "menu_equipment": "Equipment",
+      "menu_processing": "Processing",
+      "menu_weather": "Weather",
+      "menu_tools": "Tools",
+      "menu_about": "About",
+      "menu_contact": "Contact",
+      "menu_nightvision": "Night Vision",
+      "menu_follow": "Follow Me",
+
+      "hero_part1": "D",
+      "hero_part1_text": "eep",
+      "hero_part2": "S",
+      "hero_part2_text": "ky",
+      "hero_part3": "O",
+      "hero_part3_text": "bject Imaging",
+      "hero_desc": "A curated collection of deep-sky astrophotography captured under dark skies, revealing galaxies, nebulae, and star clusters far beyond our solar system.",
+      "hero_btn_gal": "Browse Galaxies",
+      "hero_btn_neb": "Browse Nebulae",
+      "hero_btn_cl": "Browse Clusters",
+      "home_subtitle": "Choose a category to browse preview images. Click any preview to open the full resolution with notes and links.",
+      "cat_gal_title": "Galaxies",
+      "cat_gal_desc": "M31, M33, M81/M82, M101, M77 and more.",
+      "cat_neb_title": "Nebulae",
+      "cat_neb_desc": "Emission, reflection and narrowband targets.",
+      "cat_cl_title": "Star Clusters",
+      "cat_cl_desc": "Globular and open clusters."
+    },
+    "he": {
+      "tools_title": "כלי אסטרונומיה",
+      "moon_status": "מצב הירח",
+      "astro_darkness": "חלון חושך אסטרונומי",
+      "iss_tracker": "מעקב תחנת החלל",
+      "planets_tonight": "כוכבי לכת הלילה",
+      "coord_converter": "ממיר קואורדינטות",
+      "shoot_tonight": "מה לצלם הלילה?",
+      "shoot_desc": "מצא את האובייקטים הטובים ביותר לצילום הנראים כרגע מהמיקום שלך. מסד נתונים: 14,000+ פריטים.",
+      "min_alt": "גובה מינימלי:",
+      "sort_by": "מיון לפי:",
+      "filter_type": "סוג אובייקט:",
+      "find_targets": "מצא מטרות 🚀",
+      "tonights_best": "🌟 המומלצים להלילה",
+      "live_skymap": "מפת שמיים חיה",
+      "table_name": "שם",
+      "table_type": "סוג",
+      "table_mag": "בהירות",
+      "table_size": "גודל",
+      "table_alt": "גובה",
+
+      "menu_home": "בית",
+      "menu_galaxies": "גלקסיות",
+      "menu_nebulae": "ערפיליות",
+      "menu_clusters": "צבירי כוכבים",
+      "menu_equipment": "ציוד",
+      "menu_processing": "עיבוד תמונה",
+      "menu_weather": "מזג אוויר",
+      "menu_tools": "כלים",
+      "menu_about": "אודות",
+      "menu_contact": "צור קשר",
+      "menu_nightvision": "ראיית לילה",
+      "menu_follow": "עקבו אחריי",
+
+      "hero_part1": "צ",
+      "hero_part1_text": "ילום",
+      "hero_part2": "ע",
+      "hero_part2_text": "צמים",
+      "hero_part3": "ע",
+      "hero_part3_text": "מוקים",
+      "hero_desc": "אוסף נבחר של צילומי חלל עמוק שצולמו תחת שמיים חשוכים. גלקסיות, ערפיליות וצבירי כוכבים הרחק מעבר למערכת השמש שלנו.",
+      "hero_btn_gal": "גלקסיות",
+      "hero_btn_neb": "ערפיליות",
+      "hero_btn_cl": "צבירי כוכבים",
+      "home_subtitle": "בחר קטגוריה לצפייה בתמונות. לחץ על תמונה לפתיחת הרזולוציה המלאה עם הסברים וקישורים.",
+      "cat_gal_title": "גלקסיות",
+      "cat_gal_desc": "M31, M33, M81/M82, M101, M77 ועוד.",
+      "cat_neb_title": "ערפיליות",
+      "cat_neb_desc": "ערפיליות פליטה, החזרה וצילום צר-סרט.",
+      "cat_cl_title": "צבירי כוכבים",
+      "cat_cl_desc": "צבירים כדוריים ופתוחים."
+    }
+  };
+
+  let currentLang = localStorage.getItem('site_lang') || 'en';
+
+  function setLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('site_lang', lang);
+
+    // RTL Support
+    if (lang === 'he') {
+      document.documentElement.setAttribute('dir', 'rtl');
+      document.body.classList.add('rtl-mode');
+    } else {
+      document.documentElement.setAttribute('dir', 'ltr');
+      document.body.classList.remove('rtl-mode');
+    }
+
+    // Update fixed text elements
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (translations[lang][key]) {
+        el.textContent = translations[lang][key];
+      }
+    });
+
+    // Update specific inputs/placeholders if needed
+    const btn = document.getElementById('lang-toggle-btn');
+    if (btn) btn.textContent = lang === 'en' ? '🇮🇱 עברית' : '🇺🇸 English';
+
+    // Re-render table headers if they exist dynamically (handled in renderTable theoretically, but ours are HTML or JS generated)
+    // Since our table headers are in JS, we need to handle them inside the render function too.
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    setLanguage(currentLang);
+
+    // Add toggle button listener if exists
+    const toggleBtn = document.getElementById('lang-toggle-btn');
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => {
+        const newLang = currentLang === 'en' ? 'he' : 'en';
+        setLanguage(newLang);
+        // If table is showing, re-render it to update headers
+        // (This requires calling the finding logic again or refreshing, but for now we just change text)
+      });
+    }
+  });
+
   function initComparisons() {
     const overlays = document.getElementsByClassName("img-comp-overlay");
     for (let i = 0; i < overlays.length; i++) {
@@ -1027,14 +1179,17 @@ function runSuggesterLogic(isBestMode) {
   if (topResults.length === 0) {
     if (resultsDiv) resultsDiv.innerHTML = `<div style="padding:20px; text-align:center;">No targets found matching criteria.</div>`;
   } else {
+    // Localized Headers
+    const t = translations[currentLang] || translations['en'];
+
     // START TABLE
     let html = `<table style="width:100%; border-collapse:collapse; font-size:11px; table-layout: auto;">
                 <tr style="border-bottom:1px solid #444; color:#888; font-size:10px;">
-                    <th style="padding:4px 2px; text-align:left;">Name</th>
-                    <th style="padding:4px 2px; white-space:nowrap;">Type</th>
-                    <th style="padding:4px 2px; white-space:nowrap;">Mag</th>
-                    <th style="padding:4px 2px; white-space:nowrap;">Size</th>
-                    <th style="padding:4px 2px; text-align:right; white-space:nowrap;">Alt</th>
+                    <th style="padding:4px 2px; text-align:left;">${t.table_name}</th>
+                    <th style="padding:4px 2px; white-space:nowrap;">${t.table_type}</th>
+                    <th style="padding:4px 2px; white-space:nowrap;">${t.table_mag}</th>
+                    <th style="padding:4px 2px; white-space:nowrap;">${t.table_size}</th>
+                    <th style="padding:4px 2px; text-align:right; white-space:nowrap;">${t.table_alt}</th>
                 </tr>`;
 
     topResults.forEach(item => {
