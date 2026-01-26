@@ -38,19 +38,23 @@ for ($i = 1; $i -lt $lines.Count; $i++) {
     $decStr = $cols[3]
     $const = $cols[4]
     
-    # Size Data (MajAx, MinAx) - Cols 5 and 6 in OpenNGC
+    # Size Data (MajAx, MinAx)
     $majAx = $cols[5]
     $minAx = $cols[6]
     
-    # Try to find Magnitude (V-Mag/B-Mag)
-    # Checking recent CSV structure, V-Mag is often col 8 or 10. 
-    # Let's grab V-Mag (often col 8 after Maj/Min/PosAng/B-Mag?)
-    # ...Actually header ref says: Name;Type;RA;Dec;Const;MajAx;MinAx;PosAng;B-Mag;V-Mag;...
-    # So V-Mag is likely index 9 (0-based)
+    # Magnitude
     $mag = $cols[9] 
     if ($mag -eq "") { $mag = $cols[8] } # Fallback B-Mag
     if ($mag -eq "") { $mag = "99" }
     
+    # Common Names (Col 28 in standard OpenNGC CSV)
+    # Warning: Check index if CSV changes.
+    # Usually: ... M-Abs;Common names;
+    $commonName = ""
+    if ($cols.Count -gt 28) {
+        $commonName = $cols[28]
+    }
+
     # Basic Object Structure
     $obj = @{
         "n" = $name
@@ -59,7 +63,8 @@ for ($i = 1; $i -lt $lines.Count; $i++) {
         "d" = $decStr
         "m" = $mag
         "c" = $const
-        "sz" = "$majAx x $minAx" # Compact size string
+        "sz" = "$majAx x $minAx"
+        "cn" = $commonName
     }
     
     $targets += $obj
