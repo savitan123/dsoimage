@@ -1100,11 +1100,7 @@ body.red-mode img {
   color: #1e90ff;
 }
 
-/* RTL Support for Floating Search */
-html[dir="rtl"] .floating-search {
-  right: auto;
-  left: 20px;
-}
+
 
 /* Hide the old search triggers in topbar/sidebar */
 .topbar .search-trigger,
