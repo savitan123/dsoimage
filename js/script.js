@@ -879,55 +879,71 @@ let targetDatabase = [];
 
 async function initSuggester() {
   const btn = document.getElementById("suggester-btn");
+  const bestBtn = document.getElementById("best-tonight-btn");
   if (!btn) return;
 
-  btn.addEventListener("click", async () => {
-    const resultsDiv = document.getElementById("suggester-results");
+  // Load DB Helper
+  async function loadDB() {
     const loadingDiv = document.getElementById("suggester-loading");
-
-    // UI Loading State
-    loadingDiv.style.display = "block";
-    resultsDiv.innerHTML = "";
-    btn.disabled = true;
-
-    // Load DB if not loaded
     if (targetDatabase.length === 0) {
+      if (loadingDiv) loadingDiv.style.display = "block";
       try {
         const resp = await fetch('data/targets.json');
         if (!resp.ok) throw new Error("DB Load Failed");
         targetDatabase = await resp.json();
-        console.log(`Loaded ${targetDatabase.length} targets.`);
       } catch (e) {
-        loadingDiv.style.display = "none";
-        resultsDiv.innerHTML = `<div style="color:red; text-align:center;">Error loading database: ${e.message}</div>`;
-        btn.disabled = false;
-        return;
+        if (loadingDiv) loadingDiv.innerText = "Error loading DB.";
+        return false;
       }
     }
+    return true;
+  }
 
-    // Run Calculation (Allow UI to update first)
-    setTimeout(() => {
-      runSuggesterLogic();
-    }, 100);
+  btn.addEventListener("click", async () => {
+    if (await loadDB()) {
+      runSuggesterLogic(false); // Normal mode
+    }
   });
+
+  if (bestBtn) {
+    bestBtn.addEventListener("click", async () => {
+      if (await loadDB()) {
+        runSuggesterLogic(true); // "Best" mode
+      }
+    });
+  }
 }
 
-function runSuggesterLogic() {
+function runSuggesterLogic(isBestMode) {
   const resultsDiv = document.getElementById("suggester-results");
   const loadingDiv = document.getElementById("suggester-loading");
   const btn = document.getElementById("suggester-btn");
 
-  const minAlt = parseFloat(document.getElementById("suggester-alt").value) || 30;
-  const sortType = document.getElementById("suggester-sort").value;
-  const filterType = document.getElementById("suggester-type").value;
+  if (loadingDiv) loadingDiv.style.display = "block";
+  if (resultsDiv) resultsDiv.innerHTML = "";
+
+  const minAltInput = document.getElementById("suggester-alt");
+  let minAlt = minAltInput ? (parseFloat(minAltInput.value) || 30) : 30;
+
+  let sortType = "alt_desc";
+  const sortInput = document.getElementById("suggester-sort");
+  if (sortInput) sortType = sortInput.value;
+
+  let filterType = "all";
+  const filterInput = document.getElementById("suggester-type");
+  if (filterInput) filterType = filterInput.value;
+
+  // OVERRIDE for "Tonight's Best"
+  if (isBestMode) {
+    minAlt = 40; // Only high objects
+    sortType = 'alt_desc'; // Highest first
+    filterType = 'all'; // We will do custom filtering inside loop
+  }
 
   // Location (Tel Aviv Default)
   const lat = 32.0853;
   const lon = 34.7818;
-  const now = new Date(); // Right now
-
-  // Process
-  const candidates = [];
+  const now = new Date();
 
   // Cache math constants
   const gmst = getGMST(now);
@@ -936,36 +952,42 @@ function runSuggesterLogic() {
   const sinLat = Math.sin(latRad);
   const cosLat = Math.cos(latRad);
 
+  const candidates = [];
+
   for (let i = 0; i < targetDatabase.length; i++) {
     const obj = targetDatabase[i];
 
-    // Type Filter (Rough mapping from OpenNGC types)
-    // Galaxies: G, Gx, ... 
-    // Nebulae: Nb, Pn (Planetary), ...
-    // Clusters: Cl, OCl, GCl ...
-    if (filterType !== 'all') {
-      let match = false;
-      const t = (obj.t || "").toUpperCase();
-      if (filterType === 'G' && t.includes('G')) match = true;
-      else if (filterType === 'Nb' && (t.includes('N') || t.includes('BN'))) match = true;
-      else if (filterType === 'Pn' && t.includes('PN')) match = true;
-      else if (filterType === 'Cl' && (t.includes('C') || t.includes('CL'))) match = true;
+    // Custom "Best" Filter
+    if (isBestMode) {
+      // Skip faint objects (Mag > 11)
+      const m = parseFloat(obj.m);
+      if (isNaN(m) || m > 11) continue;
 
-      if (!match) continue;
+      // Skip uninteresting types for "Best" 
+      const t = (obj.t || "").toUpperCase();
+      const interesting = t.includes('G') || t.includes('N') || t.includes('C') || t.includes('PN');
+      if (!interesting) continue;
+    } else {
+      // Normal Filter
+      if (filterType !== 'all') {
+        let match = false;
+        const t = (obj.t || "").toUpperCase();
+        if (filterType === 'G' && t.includes('G')) match = true;
+        else if (filterType === 'Nb' && (t.includes('N') || t.includes('BN'))) match = true;
+        else if (filterType === 'Pn' && t.includes('PN')) match = true;
+        else if (filterType === 'Cl' && (t.includes('C') || t.includes('CL'))) match = true;
+        if (!match) continue;
+      }
     }
 
     // Parse RA/Dec
-    // DB Format: RA="00:42:44.31", Dec="+41:16:07.5"
-    // Need to convert to Decimal Degrees (or Hours for RA)
-    const raH = parseHMS(obj.r); // Hours
-    const decD = parseDMS(obj.d); // Degrees
+    const raH = parseHMS(obj.r);
+    const decD = parseDMS(obj.d);
 
     if (isNaN(raH) || isNaN(decD)) continue;
 
     // Calc Altitude
-    // HA (Hours) = LST - RA
     let ha = lst - raH;
-    // Normalize HA to -12 to +12
     while (ha < -12) ha += 24;
     while (ha >= 12) ha -= 24;
 
@@ -1000,39 +1022,40 @@ function runSuggesterLogic() {
 
   // Render
   if (topResults.length === 0) {
-    resultsDiv.innerHTML = `<div style="padding:20px; text-align:center;">No targets found matching criteria.</div>`;
+    if (resultsDiv) resultsDiv.innerHTML = `<div style="padding:20px; text-align:center;">No targets found matching criteria.</div>`;
   } else {
+    // START TABLE
     let html = `<table style="width:100%; border-collapse:collapse; font-size:13px;">
                 <tr style="border-bottom:1px solid #444; color:#888;">
                     <th style="padding:5px; text-align:left;">Name</th>
                     <th style="padding:5px;">Type</th>
                     <th style="padding:5px;">Mag</th>
+                    <th style="padding:5px;">Size (')</th> <!-- NEW COLUMN -->
                     <th style="padding:5px;">Alt</th>
-                    <th style="padding:5px;">Cons</th>
                 </tr>`;
 
     topResults.forEach(item => {
       const o = item.obj;
-      // Color code high altitude
       const altColor = item.alt > 60 ? "#4caf50" : (item.alt > 40 ? "#ffeb3b" : "#aaa");
+      // Size string (newly added to DB or fallback)
+      let sizeStr = o.sz || "-";
 
-      // Link to WikiSky
-      const searchName = o.n; // e.g. NGC 224
+      const searchName = o.n;
 
       html += `<tr style="border-bottom:1px solid #333;">
                     <td style="padding:8px 5px;"><a href="https://wikisky.org/?object=${searchName}" target="_blank" style="color:#1e90ff; text-decoration:none;">${o.n}</a></td>
                     <td style="padding:8px 5px; color:#ccc;">${o.t}</td>
                     <td style="padding:8px 5px; color:#ccc;">${o.m === 99 ? '-' : o.m}</td>
+                    <td style="padding:8px 5px; color:#aaa; font-family:monospace;">${sizeStr}</td>
                     <td style="padding:8px 5px; color:${altColor}; font-weight:bold;">${item.alt.toFixed(1)}°</td>
-                    <td style="padding:8px 5px; color:#aaa;">${o.c}</td>
                  </tr>`;
     });
     html += `</table>`;
-    resultsDiv.innerHTML = html;
+    if (resultsDiv) resultsDiv.innerHTML = html;
   }
 
-  loadingDiv.style.display = "none";
-  btn.disabled = false;
+  if (loadingDiv) loadingDiv.style.display = "none";
+  if (btn) btn.disabled = false;
 }
 
 // Math Helpers
