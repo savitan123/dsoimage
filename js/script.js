@@ -1028,8 +1028,8 @@ function runSuggesterLogic(isBestMode) {
     if (resultsDiv) resultsDiv.innerHTML = `<div style="padding:20px; text-align:center;">No targets found matching criteria.</div>`;
   } else {
     // START TABLE
-    let html = `<table style="width:100%; border-collapse:collapse; font-size:13px; table-layout: auto;">
-                <tr style="border-bottom:1px solid #444; color:#888; font-size:11px;">
+    let html = `<table style="width:100%; border-collapse:collapse; font-size:11px; table-layout: auto;">
+                <tr style="border-bottom:1px solid #444; color:#888; font-size:10px;">
                     <th style="padding:4px 2px; text-align:left;">Name</th>
                     <th style="padding:4px 2px; white-space:nowrap;">Type</th>
                     <th style="padding:4px 2px; white-space:nowrap;">Mag</th>
@@ -1051,9 +1051,9 @@ function runSuggesterLogic(isBestMode) {
 
       html += `<tr style="border-bottom:1px solid #333;">
                     <td style="padding:6px 2px;"><a href="https://wikisky.org/?object=${searchName}" target="_blank" style="color:#1e90ff; text-decoration:none;">${displayName}</a></td>
-                    <td style="padding:6px 2px; color:#ccc; text-align:center;">${o.t}</td>
-                    <td style="padding:6px 2px; color:#ccc; text-align:center;">${o.m === 99 ? '-' : o.m}</td>
-                    <td style="padding:6px 2px; color:#aaa; font-family:monospace; font-size:11px; text-align:center;">${sizeStr}</td>
+                    <td style="padding:6px 2px; color:#ccc; text-align:center; white-space:nowrap;">${o.t}</td>
+                    <td style="padding:6px 2px; color:#ccc; text-align:center; white-space:nowrap;">${o.m === 99 ? '-' : o.m}</td>
+                    <td style="padding:6px 2px; color:#aaa; font-family:monospace; font-size:11px; text-align:center; white-space:nowrap;">${sizeStr}</td>
                     <td style="padding:6px 2px; color:${altColor}; font-weight:bold; text-align:right; white-space:nowrap;">${item.alt.toFixed(1)}°</td>
                  </tr>`;
     });
