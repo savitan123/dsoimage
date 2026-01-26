@@ -1043,9 +1043,9 @@ function runSuggesterLogic(isBestMode) {
       // Size string (newly added to DB or fallback)
       let sizeStr = o.sz || "-";
 
-      let displayName = o.n;
+      let displayName = `<span style="font-weight:bold;">${o.n}</span>`;
       if (o.cn) {
-        displayName += ` <span style="color:#aaa; font-size:0.9em;">(${o.cn})</span>`;
+        displayName += `<br><span style="color:#aaa; font-size:0.85em;">${o.cn}</span>`;
       }
       const searchName = o.n;
 
