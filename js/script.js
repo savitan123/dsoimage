@@ -1054,7 +1054,7 @@ function runSuggesterLogic(isBestMode) {
                     <td style="padding:6px 2px; color:#ccc; text-align:center;">${o.t}</td>
                     <td style="padding:6px 2px; color:#ccc; text-align:center;">${o.m === 99 ? '-' : o.m}</td>
                     <td style="padding:6px 2px; color:#aaa; font-family:monospace; font-size:11px; text-align:center;">${sizeStr}</td>
-                    <td style="padding:6px 2px; color:${altColor}; font-weight:bold; text-align:right;">${item.alt.toFixed(1)}°</td>
+                    <td style="padding:6px 2px; color:${altColor}; font-weight:bold; text-align:right; white-space:nowrap;">${item.alt.toFixed(1)}°</td>
                  </tr>`;
     });
     html += `</table>`;
