@@ -8,7 +8,7 @@
     <title>Processing Comparison — Shimon Avitan</title>
     <meta name="description" content="Before and after processing comparison of deep sky astrophotography.">
     <link rel="stylesheet" href="css/style.css?v=2">
-    <script src="js/script.js?v=29"></script>
+    <script src="js/script.js?v=30"></script>
 </head>
 
 <body>
@@ -64,12 +64,6 @@
 
         <!-- MAIN -->
         <main class="main-content">
-            <h1>Processing Examples</h1>
-            <p class="subtitle">
-                Astrophotography requires extensive post-processing to reveal faint details hidden in the raw data.
-                Drag the slider to compare raw data and final image.
-            </p>
-
             <!-- Pre-Processing Workflow Intro -->
             <div class="processing-intro-text"
                 style="max-width: 800px; margin: 40px auto; text-align: left; line-height: 1.6; color: #ddd;">
@@ -87,12 +81,14 @@
                     Before a nebula or galaxy can be revealed, we must strip away the noise introduced by the camera
                     sensor and the environment. This is achieved through Calibration Files:
                 </p>
-                <ul style="list-style-type: disc; margin-left: 20px; margin-bottom: 20px;">
-                    <li style="margin-bottom: 8px;"><strong>Master BIAS:</strong> Removes the electronic readout noise
+                <ul style="list-style-type: none; margin-left: 10px; margin-bottom: 20px;">
+                    <li style="margin-bottom: 8px;">⚡ <strong>Master BIAS:</strong> Removes the electronic readout noise
                         of the sensor.</li>
-                    <li style="margin-bottom: 8px;"><strong>Master DARK:</strong> Corrects for thermal noise and "hot
+                    <li style="margin-bottom: 8px;">🌡️ <strong>Master DARK:</strong> Corrects for thermal noise and
+                        "hot
                         pixels" caused by long exposures.</li>
-                    <li style="margin-bottom: 8px;"><strong>Master FLAT:</strong> Compensates for optical vignetting and
+                    <li style="margin-bottom: 8px;">🌫️ <strong>Master FLAT:</strong> Compensates for optical vignetting
+                        and
                         dust shadows in the light path.</li>
                 </ul>
                 <p>
@@ -116,21 +112,24 @@
                 </p>
 
                 <h4 style="color: #ccc; margin-top: 20px; margin-bottom: 8px;">The Linear Stage:</h4>
-                <ul style="list-style-type: disc; margin-left: 20px; margin-bottom: 20px;">
-                    <li style="margin-bottom: 8px;"><strong>Linear Fitting:</strong> Balancing the color channels (R, G,
+                <ul style="list-style-type: none; margin-left: 10px; margin-bottom: 20px;">
+                    <li style="margin-bottom: 8px;">⚖️ <strong>Linear Fitting:</strong> Balancing the color channels (R,
+                        G,
                         and B or Narrowband equivalents) to a common baseline.</li>
-                    <li style="margin-bottom: 8px;"><strong>Gradient Removal:</strong> Separating faint celestial
+                    <li style="margin-bottom: 8px;">🧹 <strong>Gradient Removal:</strong> Separating faint celestial
                         features from the artificial sky background and light pollution.</li>
-                    <li style="margin-bottom: 8px;"><strong>Color Calibration:</strong> Ensuring stars and nebulosity
+                    <li style="margin-bottom: 8px;">🎨 <strong>Color Calibration:</strong> Ensuring stars and nebulosity
                         reflect their true cosmic hues or intended palettes (such as the Hubble Palette for Narrowband).
                     </li>
                 </ul>
 
                 <h4 style="color: #ccc; margin-top: 20px; margin-bottom: 8px;">The Non-Linear Stage:</h4>
-                <ul style="list-style-type: disc; margin-left: 20px; margin-bottom: 20px;">
-                    <li style="margin-bottom: 8px;"><strong>Noise Reduction:</strong> Cleaning up background grain while
+                <ul style="list-style-type: none; margin-left: 10px; margin-bottom: 20px;">
+                    <li style="margin-bottom: 8px;">🧼 <strong>Noise Reduction:</strong> Cleaning up background grain
+                        while
                         preserving fine, hard-earned structures.</li>
-                    <li style="margin-bottom: 8px;"><strong>Stretching:</strong> Carefully transitioning the data from a
+                    <li style="margin-bottom: 8px;">📈 <strong>Stretching:</strong> Carefully transitioning the data
+                        from a
                         "dark" linear state to a visible one. The Luminance channel is optimized for contrast and detail
                         before being merged with the color layers.</li>
                 </ul>
@@ -143,6 +142,12 @@
                 </p>
             </div>
             <hr style="border: 0; border-top: 1px solid #333; margin: 40px auto; max-width: 800px;">
+
+            <h1 style="margin-top: 60px;">Processing Examples</h1>
+            <p class="subtitle">
+                Astrophotography requires extensive post-processing to reveal faint details hidden in the raw data.
+                Drag the slider to compare raw data and final image.
+            </p>
 
             <!-- SLIDER DEMO 1 -->
             <div class="comparison-block">
