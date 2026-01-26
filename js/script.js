@@ -582,28 +582,67 @@ function initDSOImage() {
   // ===============================
   // Search Functionality
   // ===============================
-  const searchData = [
-    { title: "Andromeda Galaxy (M31)", aliases: "M31, NGC 224", url: "galaxies.html", img: "images/preview/Andromeda_Galaxy.jpg" },
-    { title: "Triangulum Galaxy (M33)", aliases: "M33, NGC 598", url: "galaxies.html", img: "images/preview/Triangulum_Galaxy.jpg" },
-    { title: "M101 Pinwheel Galaxy", aliases: "M101, NGC 5457", url: "galaxies.html", img: "images/preview/M101.jpg" },
-    { title: "M77 Galaxy", aliases: "M77, NGC 1068", url: "galaxies.html", img: "images/preview/M77.jpg" },
-    { title: "Hercules Galaxy Cluster (Abell 2151)", aliases: "Abell 2151", url: "galaxies.html", img: "images/preview/Abell2151.jpg" },
-    { title: "Bode's Galaxy and Cigar Galaxy", aliases: "M81, NGC 3031, M82, NGC 3034", url: "galaxies.html", img: "images/preview/M81_M82_Galaxies.jpg" },
-    { title: "HorseHead and Flame Nebulae", aliases: "IC 434, Barnard 33, NGC 2024", url: "nebulae.html", img: "images/preview/HorseHead_Flame_Nebula.jpg" },
-    { title: "Flaming Star, Tadpole & Spider", aliases: "IC 405, IC 410, IC 417", url: "nebulae.html", img: "images/preview/ic405_410_417.jpg" },
-    { title: "NGC 1333", aliases: "NGC 1333", url: "nebulae.html", img: "images/preview/ngc_1333.jpg" },
-    { title: "Eagle Nebula (M16)", aliases: "M16, NGC 6611", url: "nebulae.html", img: "images/preview/M16_hubble_pallete.jpg" },
-    { title: "Tulip Nebula", aliases: "Sh2-101", url: "nebulae.html", img: "images/preview/Tulip_Nebula.jpg" },
-    { title: "Bubble Nebula", aliases: "NGC 7635", url: "nebulae.html", img: "images/preview/Bubble_Nebula_HOO.jpg" },
-    { title: "Wizard Nebula", aliases: "NGC 7380", url: "nebulae.html", img: "images/preview/wizard_nebula_1.jpg" },
-    { title: "North America Nebula", aliases: "NGC 7000", url: "nebulae.html", img: "images/preview/north_america_nebula.jpg" },
-    { title: "Helix Nebula", aliases: "NGC 7293", url: "nebulae.html", img: "images/preview/helix_nebula.jpg" },
-    { title: "M106 Galaxy", aliases: "Messier 106, NGC 4258, UGC 7353, PGC 39600", url: "galaxies.html", img: "images/preview/M106_Galaxy.jpg" },
-    { title: "Veil Nebula", aliases: "NGC 6960, NGC 6992", url: "nebulae.html", img: "images/preview/veil_nebula.jpg" },
-    { title: "Trifid Nebula", aliases: "M20, NGC 6514", url: "nebulae.html", img: "images/preview/Trifid_Nebula.jpg" },
-    { title: "Jellyfish Nebula", aliases: "IC 443", url: "nebulae.html", img: "images/preview/Jellyfish_Nebula.jpg" },
-    { title: "Great Hercules Cluster (M13)", aliases: "M13, NGC 6205", url: "clusters.html", img: "images/preview/M13.jpg" }
-  ];
+  // ===============================
+  // Search Functionality (Dynamic Indexing)
+  // ===============================
+  let searchData = []; // Now dynamic
+
+  // Auto-build index from HTML pages
+  async function buildSearchIndex() {
+    console.log("Building Search Index...");
+    const pages = ['galaxies.html', 'nebulae.html', 'clusters.html'];
+    const newIndex = [];
+
+    try {
+      // Parallel fetch
+      const responses = await Promise.all(pages.map(url => fetch(url)));
+      const texts = await Promise.all(responses.map(res => res.text()));
+
+      const parser = new DOMParser();
+
+      pages.forEach((pageUrl, i) => {
+        const doc = parser.parseFromString(texts[i], 'text/html');
+        const items = doc.querySelectorAll('.gallery-item');
+
+        items.forEach(item => {
+          const rawTitle = item.getAttribute('data-title') || "";
+          const aliases = item.getAttribute('data-aliases') || "";
+          // Clean title removing parens if needed or keep as is
+          let title = rawTitle;
+
+          // Image Src: use preview if possible
+          const imgEl = item.querySelector('img');
+          const imgSrc = imgEl ? imgEl.getAttribute('src') : '';
+
+          // Add to index
+          newIndex.push({
+            title: title + (aliases ? ` (${aliases})` : ""),
+            // Composite title for display, or just raw title? 
+            // Let's use raw title for display, and use aliases for search matching separately?
+            // Existing logic searches both. 
+            // Let's stick to simple obj structure.
+            displayTitle: title,
+            aliases: aliases,
+            url: pageUrl,
+            img: imgSrc,
+            searchStr: (title + " " + aliases).toLowerCase()
+          });
+        });
+      });
+
+      console.log(`Index built: ${newIndex.length} items found.`);
+      searchData = newIndex;
+
+      // Persist to session storage to avoid re-fetch on same visit? 
+      // Nah, it's fast enough.
+    } catch (e) {
+      console.error("Error building search index:", e);
+      // Fallback or empty
+    }
+  }
+
+  // Start indexing immediately
+  buildSearchIndex();
 
   const searchOverlay = document.getElementById("search-overlay");
   const searchInput = document.getElementById("search-input");
@@ -643,47 +682,49 @@ function initDSOImage() {
     });
   }
 
-  function performSearch(query) {
-    if (!searchResults) return;
-    searchResults.innerHTML = "";
-    if (!query || query.length < 2) return;
-
-    const lowerQuery = query.toLowerCase();
-    const matches = searchData.filter(item => {
-      return item.title.toLowerCase().includes(lowerQuery) ||
-        item.aliases.toLowerCase().includes(lowerQuery);
-    });
-
-    if (matches.length === 0) {
-      searchResults.innerHTML = '<div style="color:#aaa; padding:15px; font-size:16px;">I haven\'t imaged this object yet.</div>';
-      return;
-    }
-
-    matches.forEach(item => {
-      const div = document.createElement("div");
-      div.className = "search-result-item";
-
-      // Fix: Use Alias First for Robust Linking if available
-      let cleanName = item.aliases ? item.aliases.split(',')[0].trim() : item.title.replace(/\(.*\)/, "").trim();
-
-      div.innerHTML = `
-            <img src="${item.img}" class="search-result-thumb" alt="${item.title}">
-            <div class="search-result-text">
-                <h4>${item.title}</h4>
-                <p>${item.aliases}</p>
-            </div>
-        `;
-      div.addEventListener("click", () => {
-        // Navigate to specific object
-        // Appending ?object=Name
-        window.location.href = item.url + "?object=" + encodeURIComponent(cleanName);
-      });
-      searchResults.appendChild(div);
-    });
-  }
-
   if (searchInput) {
-    searchInput.addEventListener("input", (e) => performSearch(e.target.value));
+    searchInput.addEventListener("input", (e) => {
+      const query = e.target.value.toLowerCase().trim();
+      searchResults.innerHTML = "";
+
+      if (query.length < 2) {
+        searchResults.style.display = "none";
+        return;
+      }
+
+      // Filter from dynamic searchData
+      const matches = searchData.filter(item => {
+        // We pre-calculated searchStr for speed
+        return item.searchStr.includes(query);
+      });
+
+      if (matches.length > 0) {
+        searchResults.style.display = "flex"; // Changed from block for better styling if needed
+        searchResults.style.flexDirection = "column";
+
+        matches.forEach(match => {
+          const div = document.createElement("div");
+          div.className = "search-item";
+          // Use displayTitle + Aliases for UI
+          div.innerHTML = `
+             <img src="${match.img}" alt="thumbnail">
+             <div class="meta">
+               <div class="title">${match.displayTitle}</div>
+               <div class="subtitle">${match.aliases}</div>
+             </div>
+          `;
+          div.addEventListener("click", () => {
+            // Navigate to page + query param for auto-open
+            // We must encode the object name
+            const cleanName = match.displayTitle.replace(/\(.*\)/, "").trim();
+            window.location.href = `${match.url}?object=${encodeURIComponent(cleanName)}`;
+          });
+          searchResults.appendChild(div);
+        });
+      } else {
+        searchResults.style.display = "none"; // Or show "No results"
+      }
+    });
 
     searchInput.addEventListener("keydown", (e) => {
       if (e.key === "Escape") closeSearch();
