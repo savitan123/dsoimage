@@ -38,14 +38,17 @@ for ($i = 1; $i -lt $lines.Count; $i++) {
     $decStr = $cols[3]
     $const = $cols[4]
     
-    # Try to find Magnitude (V-Mag is usually col 9 or 10 depending on version)
-    # Let's check header mapping dynamically if possible, but hardcoding for this snippet is risk.
-    # We'll just take a best guess or Try-Parse.
-    # Actually, let's just store the raw string for Mag if we are unsure, or 99 if missing.
-    # V-Mag is definitely useful.
-    # Let's assume col 8 or 9.
+    # Size Data (MajAx, MinAx) - Cols 5 and 6 in OpenNGC
+    $majAx = $cols[5]
+    $minAx = $cols[6]
+    
+    # Try to find Magnitude (V-Mag/B-Mag)
+    # Checking recent CSV structure, V-Mag is often col 8 or 10. 
+    # Let's grab V-Mag (often col 8 after Maj/Min/PosAng/B-Mag?)
+    # ...Actually header ref says: Name;Type;RA;Dec;Const;MajAx;MinAx;PosAng;B-Mag;V-Mag;...
+    # So V-Mag is likely index 9 (0-based)
     $mag = $cols[9] 
-    if ($mag -eq "") { $mag = $cols[8] } # Fallback
+    if ($mag -eq "") { $mag = $cols[8] } # Fallback B-Mag
     if ($mag -eq "") { $mag = "99" }
     
     # Basic Object Structure
@@ -56,6 +59,7 @@ for ($i = 1; $i -lt $lines.Count; $i++) {
         "d" = $decStr
         "m" = $mag
         "c" = $const
+        "sz" = "$majAx x $minAx" # Compact size string
     }
     
     $targets += $obj
