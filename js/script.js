@@ -1146,6 +1146,19 @@ function runSuggesterLogic(isBestMode) {
   const lon = 34.7818;
   const now = new Date();
 
+  // Mode Check
+  const modeSelect = document.getElementById("suggester-mode");
+  const isPlanMode = modeSelect && modeSelect.value === 'plan';
+  let planStartStr = "18:00";
+  let planEndStr = "06:00";
+
+  if (isPlanMode) {
+    planStartStr = document.getElementById("plan-start").value;
+    planEndStr = document.getElementById("plan-end").value;
+    // Sort override if planning: default to max alt
+    if (sortType === 'alt_desc') sortType = 'max_alt_desc';
+  }
+
   // Cache math constants
   const gmst = getGMST(now);
   const lst = gmst + (lon / 15.0); // Hours
@@ -1202,10 +1215,92 @@ function runSuggesterLogic(isBestMode) {
     const altRad = Math.asin(sinAlt);
     const altDeg = altRad * (180.0 / Math.PI);
 
-    if (altDeg >= minAlt) {
+    let finalAlt = altDeg;
+    let timeNote = "Now";
+
+    // PLANNING MODE CALCULATION
+    if (isPlanMode) {
+      // We need to find MAX altitude between Start and End
+      // 1. Get Alt at Start
+      // 2. Get Alt at End
+      // 3. Get Alt at Transit (HA=0). IF Transit is in window.
+
+      const win = getWindowTimes(planStartStr, planEndStr, now);
+
+      // Helper to get Alt at specific Date
+      const getAltAtTime = (dateObj) => {
+        const g = getGMST(dateObj);
+        const l = g + (lon / 15.0);
+        let h = l - raH;
+        while (h < -12) h += 24; while (h >= 12) h -= 24;
+        const hRad = h * 15.0 * (Math.PI / 180.0);
+        const sA = (sinDec * sinLat) + (cosDec * cosLat * Math.cos(hRad));
+        return (Math.asin(sA) * (180 / Math.PI));
+      };
+
+      const startAlt = getAltAtTime(win.start);
+      const endAlt = getAltAtTime(win.end);
+
+      // Transit time?
+      // Transit happens when LST = RA => GMST + lon/15 = RA => GMST = RA - lon/15
+      // currentGMST known. Diff in GMST hours = Diff in sidereal hours approx solar hours.
+      // It's cheaper to just check if transit is inside window.
+      // Transit HA = 0.
+      // Current HA 'ha' is for 'now'.
+      // Time to transit (hours) = -ha. 
+      // Transit Time = now - ha (hours).
+
+      const msPerH = 3600 * 1000 * 0.9972696; // Sidereal approx? No, solar to-from. 
+      // Let's use simple approximation: 1h RA diff ~ 1h Time diff.
+      // Transit Date = now - (ha * 3600 * 1000) ??
+      // Actually, let's just use the max possible altitude (at Meridian)
+      // AND check if the object crosses meridian between start/end.
+      // Max Alt (Meridian) = 90 - abs(lat - dec)
+      let maxAltPossible = 90 - Math.abs(lat - decD);
+
+      // Does it transit in window?
+      // We calculate LST at Start and LST at End.
+      // Transit happens when LST = RA.
+      // Check if RA is between LST_start and LST_end (handling 24h wrap).
+
+      // Recalc LSTs properly
+      const gmstStart = getGMST(win.start);
+      const lstStart = (gmstStart + (lon / 15.0) + 24) % 24;
+
+      const gmstEnd = getGMST(win.end);
+      const lstEnd = (gmstEnd + (lon / 15.0) + 24) % 24;
+
+      let crossesMeridian = false;
+      const r = (raH + 24) % 24;
+
+      // Simple range check handling wrap
+      if (lstStart < lstEnd) {
+        // Normal range e.g. 2, 5
+        if (r >= lstStart && r <= lstEnd) crossesMeridian = true;
+      } else {
+        // Wrapped range e.g. 22, 04
+        if (r >= lstStart || r <= lstEnd) crossesMeridian = true;
+      }
+
+      if (crossesMeridian) {
+        finalAlt = maxAltPossible;
+        // Calculate approximate transit time for display?
+        // Transit happens roughly when LST=RA. 
+        // Time offset from Start = (RA - LST_Start) * 0.997...
+        // Good enough for "Max Alt":
+        timeNote = "Transit";
+      } else {
+        // Did not cross meridian, so max is either start or end
+        finalAlt = Math.max(startAlt, endAlt);
+        timeNote = (startAlt > endAlt) ? "Start" : "End";
+      }
+    }
+
+    if (finalAlt >= minAlt) {
       candidates.push({
         obj: obj,
-        alt: altDeg,
+        alt: finalAlt,
+        timeNote: timeNote,
         mag: parseFloat(obj.m) || 99
       });
     }
@@ -1232,7 +1327,7 @@ function runSuggesterLogic(isBestMode) {
                     <th style="padding:4px 2px; white-space:nowrap;">Type</th>
                     <th style="padding:4px 2px; white-space:nowrap;">Mag</th>
                     <th style="padding:4px 2px; white-space:nowrap;">Size</th>
-                    <th style="padding:4px 2px; text-align:right; white-space:nowrap;">Alt</th>
+                    <th style="padding:4px 2px; text-align:right; white-space:nowrap;">${isPlanMode ? 'Max Alt' : 'Alt'}</th>
                 </tr>`;
 
     topResults.forEach(item => {
@@ -1247,12 +1342,15 @@ function runSuggesterLogic(isBestMode) {
       }
       const searchName = o.n;
 
+      const altValStr = item.alt.toFixed(0);
+      const altDisplay = isPlanMode ? `${altValStr}°<br><span style="font-size:9px; color:#888; font-weight:normal;">${item.timeNote}</span>` : `${item.alt.toFixed(1)}°`;
+
       html += `<tr style="border-bottom:1px solid #333;">
                     <td style="padding:6px 2px;"><a href="https://wikisky.org/?object=${searchName}" target="_blank" style="color:#1e90ff; text-decoration:none;">${displayName}</a></td>
                     <td style="padding:6px 2px; color:#ccc; text-align:center; white-space:nowrap;">${o.t}</td>
                     <td style="padding:6px 2px; color:#ccc; text-align:center; white-space:nowrap;">${o.m === 99 ? '-' : o.m}</td>
                     <td style="padding:6px 2px; color:#aaa; font-family:monospace; font-size:11px; text-align:center; white-space:nowrap;">${sizeStr}</td>
-                    <td style="padding:6px 2px; color:${altColor}; font-weight:bold; text-align:right; white-space:nowrap;">${item.alt.toFixed(1)}°</td>
+                    <td style="padding:6px 2px; color:${altColor}; font-weight:bold; text-align:right; white-space:nowrap; line-height:1.2;">${altDisplay}</td>
                  </tr>`;
     });
     html += `</table>`;
@@ -1261,6 +1359,54 @@ function runSuggesterLogic(isBestMode) {
 
   if (loadingDiv) loadingDiv.style.display = "none";
   if (btn) btn.disabled = false;
+}
+
+// Helper: Parse Times to Date objects relative to "Tonight"
+function getWindowTimes(startStr, endStr, now) {
+  // Logic: If Start < 12:00, it's probably "tommorow morning" (unlikely for start).
+  // If Start > 12:00, it's "today evening".
+  // If End < Start, End is "tomorrow".
+
+  // We assume "Tonight" logic based on current *Actual* time.
+  // If Now is 14:00. Start 20:00 -> Today 20:00.
+  // If Now is 23:00. Start 20:00 -> Today 20:00 (Past).
+  // If Now is 01:00. Start 20:00 -> Yesterday 20:00?
+  // Let's standardise: The calculated session is "The upcoming night" or "Current night".
+  // Keep it simple: Start Time is closest future occurrence? Or just Today's absolute time?
+
+  // Simple heuristic: 
+  // Set Start/End Date to Today.
+  // If End < Start, Add 1 day to End.
+  // If Start has passed significantly (e.g. > 12 hours ago?), maybe user means tomorrow? 
+  // Let's stick to: "Today's date" for Start.
+
+  const s = new Date(now);
+  const [sh, sm] = startStr.split(':');
+  s.setHours(parseInt(sh), parseInt(sm), 0, 0);
+
+  const e = new Date(now);
+  const [eh, em] = endStr.split(':');
+  e.setHours(parseInt(eh), parseInt(em), 0, 0);
+
+  // If end is before start, assume next day
+  if (e <= s) {
+    e.setDate(e.getDate() + 1);
+  }
+
+  // Fix for "Now is 01:00, Planning 20:00-04:00"
+  // The user probably means "Yesterday 20:00 to Today 04:00" because we are currently IN the session.
+  // BUT, commonly people plan for UPCOMING.
+  // Let's Assume:
+  // If Now is 10:00 (Morning) -> Plan 20:00 is Tonight.
+  // If Now is 23:00 (Night) -> Plan 20:00 is Tonight (Past start).
+
+  // What if Now is 02:00? Start 20:00. 
+  // If we just set 20:00 today, that is 18 hours in FUTURE.
+  // User probably implies the session that covers 02:00.
+  // However, safest bet is usually "The Start Time Today".
+  // Let's stick to "Start is Today" unless explicit override.
+
+  return { start: s, end: e };
 }
 
 // Math Helpers
@@ -1319,3 +1465,14 @@ if (window.location.pathname.includes("tools.html")) {
 
 // Call Carousel Init globally (it checks for existence internally)
 document.addEventListener("DOMContentLoaded", initCarousel);
+
+// Helper for UI Toggle
+window.toggleTimeInputs = function () {
+  const mode = document.getElementById("suggester-mode").value;
+  const timeInputs = document.getElementById("time-inputs");
+  if (mode === 'plan') {
+    timeInputs.style.display = 'flex';
+  } else {
+    timeInputs.style.display = 'none';
+  }
+}
