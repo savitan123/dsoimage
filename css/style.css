@@ -1305,3 +1305,31 @@ body.red-mode img {
     right: 5px;
   }
 }
+
+/* =========================
+   Suggester / Tools UI
+   ========================= */
+.suggester-select {
+  width: 100%;
+  min-width: 120px;
+  padding: 8px;
+  background: #111;
+  border: 1px solid #333;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.suggester-select:focus {
+  border-color: #1e90ff;
+  outline: none;
+}
+
+/* Enlarge on Desktop */
+@media (min-width: 768px) {
+  .suggester-select {
+    min-width: 180px;
+    font-size: 15px;
+    padding: 10px;
+  }
+}

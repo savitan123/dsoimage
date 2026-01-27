@@ -206,7 +206,7 @@
                                 <label style="display:block; font-size:12px; color:#888; margin-bottom:5px;"
                                     data-i18n="min_alt">Min
                                     Altitude:</label>
-                                <select id="suggester-alt" class="small-input" style="width:120px;">
+                                <select id="suggester-alt" class="suggester-select">
                                     <option value="10">10° (Horizon)</option>
                                     <option value="20">20°</option>
                                     <option value="30" selected>30° (Good)</option>
@@ -219,7 +219,7 @@
                                 <label style="display:block; font-size:12px; color:#888; margin-bottom:5px;"
                                     data-i18n="sort_by">Sort
                                     By:</label>
-                                <select id="suggester-sort" class="small-input" style="width:120px;">
+                                <select id="suggester-sort" class="suggester-select">
                                     <option value="alt_desc" selected>Highest Altitude</option>
                                     <option value="mag_asc">Brightest (Mag)</option>
                                 </select>
@@ -229,7 +229,7 @@
                                 <label style="display:block; font-size:12px; color:#888; margin-bottom:5px;"
                                     data-i18n="filter_type">Filter
                                     Type:</label>
-                                <select id="suggester-type" class="small-input" style="width:120px;">
+                                <select id="suggester-type" class="suggester-select">
                                     <option value="all" selected>Everything</option>
                                     <option value="G">Galaxies</option>
                                     <option value="Nb">Nebulae</option>
@@ -243,8 +243,7 @@
                                 style="flex-basis: 100%; display: flex; justify-content: center; gap: 15px; align-items: flex-end; flex-wrap: wrap;">
                                 <div style="display:flex; flex-direction:column;">
                                     <label style="font-size:12px; color:#888; margin-bottom:5px;">Mode:</label>
-                                    <select id="suggester-mode" class="small-input" style="width:120px;"
-                                        onchange="toggleTimeInputs()">
+                                    <select id="suggester-mode" class="suggester-select" onchange="toggleTimeInputs()">
                                         <option value="now" selected>Right Now</option>
                                         <option value="plan">Plan Session</option>
                                     </select>
