@@ -1072,40 +1072,41 @@ body.red-mode img {
 /* =========================
    Floating Search Button
    ========================= */
+/* Floating Search Button - HIDDEN */
 .floating-search {
-  position: fixed;
-  top: 15px;
-  right: 20px;
-  width: 44px;
-  height: 44px;
-  background: rgba(34, 34, 34, 0.9);
-  border: 1px solid #444;
-  border-radius: 50%;
-  color: #fff;
-  font-size: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 2000;
-  /* Above sidebar (180) and topbar (200) */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  transition: transform 0.2s, background 0.2s, border-color 0.2s;
+  display: none !important;
 }
 
-.floating-search:hover {
-  transform: scale(1.1);
-  background: #333;
-  border-color: #1e90ff;
-  color: #1e90ff;
-}
-
-
-
-/* Hide the old search triggers in topbar/sidebar */
+/* Enable search triggers in topbar/sidebar */
 .topbar .search-trigger,
 .sidebar .search-trigger {
-  display: none !important;
+  display: flex !important;
+  /* Enable them */
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: #ccc;
+  font-size: 16px;
+  padding: 8px;
+  align-items: center;
+  gap: 8px;
+}
+
+.topbar .search-trigger {
+  font-size: 20px;
+  color: #fff;
+}
+
+.sidebar .search-trigger {
+  width: 100%;
+  text-align: left;
+  padding: 10px 0;
+  border-bottom: 1px solid #222;
+  margin-bottom: 10px;
+}
+
+.sidebar .search-trigger:hover {
+  color: #1e90ff;
 }
 
 /* =========================
