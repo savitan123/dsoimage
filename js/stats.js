@@ -28,9 +28,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const clustersCount = countItems(clustersHtml);
 
         statsContainer.innerHTML = `
-            <p style="font-size: 14px; color: #bbb; margin: 15px 0; padding: 0 20px; line-height: 1.4;">
-                Currently the site stores ${galaxiesCount} image galaxies, ${nebulaeCount} image nebulae and ${clustersCount} star clusters
-            </p>
+            <div style="margin: 15px 0; padding: 0 20px; font-size: 14px; color: #ccc;">
+                <p style="margin-bottom: 5px; color: #aaa;">Currently the site stores:</p>
+                <ul style="padding-left: 20px; list-style-type: disc;">
+                    <li>${galaxiesCount} Galax${galaxiesCount === 1 ? 'y' : 'ies'}</li>
+                    <li>${nebulaeCount} Nebula${nebulaeCount === 1 ? '' : 'e'}</li>
+                    <li>${clustersCount} Star Cluster${clustersCount === 1 ? '' : 's'}</li>
+                </ul>
+            </div>
         `;
     }).catch(error => {
         console.warn('Error fetching image stats:', error);
