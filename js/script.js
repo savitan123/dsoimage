@@ -1324,9 +1324,9 @@ function runSuggesterLogic(isBestMode) {
     let html = `<table style="width:100%; border-collapse:collapse; font-size:11px; table-layout: auto;">
                 <tr style="border-bottom:1px solid #444; color:#888; font-size:10px;">
                     <th style="padding:4px 2px; text-align:left;">Name</th>
-                    <th style="padding:4px 2px; white-space:nowrap;">Type</th>
-                    <th style="padding:4px 2px; white-space:nowrap;">Mag</th>
-                    <th style="padding:4px 2px; white-space:nowrap;">Size</th>
+                    <th style="padding:4px 2px; text-align:center; white-space:nowrap;">Type</th>
+                    <th style="padding:4px 2px; text-align:center; white-space:nowrap;">Mag</th>
+                    <th style="padding:4px 2px; text-align:center; white-space:nowrap;">Size</th>
                     <th style="padding:4px 2px; text-align:right; white-space:nowrap;">${isPlanMode ? 'Max Alt' : 'Alt'}</th>
                 </tr>`;
 
