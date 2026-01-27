@@ -1046,27 +1046,46 @@ function initCarousel() {
       updateCarousel();
     });
 
-    // Swipe Support (Basic)
+    // Swipe Support (Improved)
     let touchStartX = 0;
+    let touchStartY = 0;
     let touchEndX = 0;
+    let touchEndY = 0;
+    let isMultiTouch = false;
 
     container.addEventListener('touchstart', e => {
+      // Ignore if multiple touches (pinch to zoom)
+      if (e.touches.length > 1) {
+        isMultiTouch = true;
+        return;
+      }
+      isMultiTouch = false;
       touchStartX = e.changedTouches[0].screenX;
-    });
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
 
     container.addEventListener('touchend', e => {
+      if (isMultiTouch) return;
+
       touchEndX = e.changedTouches[0].screenX;
+      touchEndY = e.changedTouches[0].screenY;
       handleSwipe();
-    });
+    }, { passive: true });
 
     function handleSwipe() {
-      if (touchEndX < touchStartX - 50) {
-        // Swipe Left -> Next
-        nextBtn.click();
-      }
-      if (touchEndX > touchStartX + 50) {
-        // Swipe Right -> Prev
-        prevBtn.click();
+      const dx = touchEndX - touchStartX;
+      const dy = touchEndY - touchStartY;
+
+      // Check if horizontal swipe is dominant (more X than Y movement)
+      // and meets threshold (50px)
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+        if (dx < 0) {
+          // Swipe Left -> Next
+          nextBtn.click();
+        } else {
+          // Swipe Right -> Prev
+          prevBtn.click();
+        }
       }
     }
   });
