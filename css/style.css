@@ -638,6 +638,11 @@ img {
   #lightbox-caption {
     max-height: 40vh;
   }
+
+  /* Hide redundant sidebar search in mobile view (topbar icon is enough) */
+  .sidebar .search-trigger {
+    display: none !important;
+  }
 }
 
 /* =========================
