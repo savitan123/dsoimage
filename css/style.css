@@ -639,10 +639,7 @@ img {
     max-height: 40vh;
   }
 
-  /* Hide redundant sidebar search in mobile view (topbar icon is enough) */
-  .sidebar .search-trigger {
-    display: none !important;
-  }
+  /* Hide redundant sidebar search moved to end of file for precedence */
 }
 
 /* =========================
@@ -1360,5 +1357,17 @@ body.red-mode img {
     min-width: 180px;
     font-size: 15px;
     padding: 10px;
+  }
+}
+
+/* =========================
+   Mobile Overrides
+   ========================= */
+@media (max-width: 768px) {
+
+  /* Hide redundant sidebar search in mobile view (topbar icon is enough) */
+  /* Using high specificity to override any other rules */
+  nav.sidebar button.search-trigger {
+    display: none !important;
   }
 }
