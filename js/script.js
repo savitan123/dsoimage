@@ -559,19 +559,48 @@ function initDSOImage() {
   // ===============================
   // Red Mode
   // ===============================
+  // ===============================
+  // Red Mode
+  // ===============================
   const redModeToggle = document.getElementById("red-mode-toggle");
+  const nvSlider = document.getElementById("nv-slider");
+  const nvContainer = document.getElementById("nv-container");
 
-  if (localStorage.getItem("redMode") === "true") {
+  // Load Preferences
+  const savedRedMode = localStorage.getItem("redMode") === "true";
+  const savedBrightness = localStorage.getItem("redModeBrightness") || "80";
+
+  if (savedRedMode) {
     document.body.classList.add("red-mode");
+    document.body.style.setProperty('--nv-brightness', savedBrightness / 100);
     if (redModeToggle) redModeToggle.classList.add("active");
+    if (nvContainer) nvContainer.style.display = "block";
+  }
+
+  if (nvSlider) {
+    nvSlider.value = savedBrightness;
+    nvSlider.addEventListener("input", (e) => {
+      const val = e.target.value;
+      document.body.style.setProperty('--nv-brightness', val / 100);
+      localStorage.setItem("redModeBrightness", val);
+    });
   }
 
   function toggleRedMode() {
     document.body.classList.toggle("red-mode");
     const isActive = document.body.classList.contains("red-mode");
-    if (redModeToggle) {
-      redModeToggle.classList.toggle("active");
+
+    if (redModeToggle) redModeToggle.classList.toggle("active");
+
+    if (nvContainer) {
+      nvContainer.style.display = isActive ? "block" : "none";
     }
+
+    if (isActive) {
+      const currentVal = localStorage.getItem("redModeBrightness") || "80";
+      document.body.style.setProperty('--nv-brightness', currentVal / 100);
+    }
+
     localStorage.setItem("redMode", isActive);
   }
 

@@ -794,8 +794,32 @@ img {
    Red Mode (Night Vision)
    ========================= */
 body.red-mode {
-  filter: sepia(100%) hue-rotate(-50deg) saturate(600%) brightness(0.8) contrast(1.2);
+  --nv-brightness: 0.8;
+  filter: sepia(100%) hue-rotate(-50deg) saturate(600%) brightness(var(--nv-brightness)) contrast(1.2);
   background: #000;
+}
+
+.nv-controls {
+  padding: 0 10px 10px;
+  margin: 10px 0;
+  border-top: 1px solid #222;
+  padding-top: 15px;
+  display: none;
+  /* Controlled by JS */
+}
+
+.nv-controls label {
+  font-size: 13px;
+  color: #bbb;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.nv-controls input[type=range] {
+  width: 100%;
+  accent-color: #ff3333;
+  cursor: pointer;
+  height: 4px;
 }
 
 body.red-mode img {
