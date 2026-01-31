@@ -122,9 +122,6 @@ function renderCalendar(date) {
         const cell = document.createElement('div');
         cell.classList.add('day-cell');
 
-        // Add click handler for details
-        cell.addEventListener('click', () => openDayModal(year, month, day));
-
         // Check if this is today
         if (day === realToday.getDate() && month === realToday.getMonth() && year === realToday.getFullYear()) {
             cell.classList.add('today');

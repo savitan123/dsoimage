@@ -1456,9 +1456,7 @@ body.red-mode img {
 }
 
 
-/* Lock the container shape */
-gap: 5px;
-}
+
 
 .day-cell {
   background: rgba(255, 255, 255, 0.05);
@@ -1468,6 +1466,8 @@ gap: 5px;
   padding: 5px;
   border-radius: 4px;
   position: relative;
+  cursor: default;
+  /* Non-clickable */
   font-size: 0.9rem;
   display: flex;
   flex-direction: column;
