@@ -1487,15 +1487,29 @@ body.red-mode img {
 
 @media (max-width: 768px) {
   .calendar-container {
-    padding: 10px;
+    padding: 5px;
+    overflow-x: auto;
+    /* Allow horizontal scrolling if it doesn't fit */
+  }
+
+  .weekdays,
+  .calendar-grid {
+    min-width: 600px;
+    /* Force a minimum width to ensure Saturday fits, triggering scroll */
   }
 
   .day-cell {
-    min-height: 80px;
-    font-size: 0.75rem;
+    min-height: 70px;
+    font-size: 0.7rem;
+    padding: 2px;
   }
 
   .weekdays div {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
+  }
+
+  .event-marker {
+    font-size: 0.65rem;
+    padding: 1px 2px;
   }
 }
