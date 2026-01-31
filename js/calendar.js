@@ -273,58 +273,46 @@ async function addISSPasses(year, month) {
 
         // Loop through days
         for (let d = 1; d <= daysInMonth; d++) {
-            // Check evening (17:00 - 23:00) and morning (03:00 - 06:00) passes?
-            // Simplified: Check every 5 mins for the whole 24h? (Or just night)
-            // To save perf, check 18:00 to 06:00
-
-            // We need to find the specific day cell to append to
-            // This is DOM heavy lookup, better to modify monthlyData? 
-            // Better: loop days, calculate, then find cell.
+            // Yield to main thread every day to prevent freezing UI
+            await new Promise(r => setTimeout(r, 0));
 
             const passes = [];
-
-            // Sampling start: Day 12:00 PM -> Next Day 12:00 PM ? 
-            // Or just local day 00:00 to 23:59.
             const startOfDay = new Date(year, month, d, 0, 0, 0);
 
-            // Coarse search: step 4 mins
-            for (let m = 0; m < 1440; m += 4) {
+            // Optimization: Only check night hours
+            // Helper to check a specific minute
+            const checkPass = (m) => {
                 const time = new Date(startOfDay.getTime() + m * 60000);
+                try {
+                    const positionAndVelocity = satellite.propagate(satrec, time);
+                    const positionEci = positionAndVelocity.position;
+                    if (!positionEci) return;
 
-                // Propagate
-                const positionAndVelocity = satellite.propagate(satrec, time);
-                const positionEci = positionAndVelocity.position;
-                if (!positionEci) continue; // Decay or error
+                    const gmst = satellite.gstime(time);
+                    const positionGd = satellite.eciToGeodetic(positionEci, gmst);
 
-                const gmst = satellite.gstime(time);
-                const positionGd = satellite.eciToGeodetic(positionEci, gmst);
+                    const lookAngles = satellite.ecfToLookAngles(
+                        satellite.geodeticToEcf(positionGd),
+                        satellite.geodeticToEcf({
+                            latitude: lat * Math.PI / 180,
+                            longitude: lon * Math.PI / 180,
+                            height: 0
+                        })
+                    );
 
-                const lookAngles = satellite.ecfToLookAngles(
-                    satellite.geodeticToEcf(positionGd),
-                    satellite.geodeticToEcf({
-                        latitude: lat * Math.PI / 180,
-                        longitude: lon * Math.PI / 180,
-                        height: 0
-                    })
-                );
-
-                // Elevation > 10 degrees
-                if (lookAngles.elevation > 0.174) { // ~10 deg in rad
-                    // Check if Sun is down? (Optional but better for visibility)
-                    // For now, raw "ISS Pass" is okay, or maybe "Visible ISS"
-                    // User said "if ISS pass ... notify".
-                    // Let's assume visible passes (Night).
-                    // Simple night check: Hour < 6 || Hour > 18
-                    const h = time.getHours();
-                    if (h < 6 || h > 17) {
-                        // Found a pass!
+                    if (lookAngles.elevation > 0.174) { // >10 deg
                         const timeStr = time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                        if (!passes.some(p => Math.abs(p.time - time) < 600000)) { // Debounce 10 mins
+                        if (!passes.some(p => Math.abs(p.time - time) < 600000)) {
                             passes.push({ time: time, str: timeStr });
                         }
                     }
-                }
-            }
+                } catch (err) { }
+            };
+
+            // Check early morning (00:00 - 06:00) : 0-360
+            for (let m = 0; m < 360; m += 5) checkPass(m);
+            // Check evening (17:00 - 23:59) : 1020-1440
+            for (let m = 1020; m < 1440; m += 5) checkPass(m);
 
             if (passes.length > 0) {
                 // Find cell
