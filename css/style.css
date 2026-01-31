@@ -1371,3 +1371,131 @@ body.red-mode img {
     display: none !important;
   }
 }
+
+/* --- Astronomy Calendar --- */
+.calendar-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+.calendar-controls button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+.calendar-controls button:hover {
+  background: rgba(0, 230, 230, 0.2);
+}
+
+.calendar-container {
+  max-width: 900px;
+  margin: 0 auto 40px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #00e6e6;
+  /* Cyan accent */
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.day-cell {
+  background: rgba(255, 255, 255, 0.05);
+  min-height: 100px;
+  padding: 5px;
+  border-radius: 4px;
+  position: relative;
+  font-size: 0.9rem;
+}
+
+.day-cell.empty {
+  background: transparent;
+}
+
+.day-number {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #aaa;
+}
+
+.event-marker {
+  font-size: 0.8rem;
+  margin-top: 2px;
+  padding: 2px 4px;
+  border-radius: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.event-marker.new-moon {
+  color: #aaa;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.event-marker.full-moon {
+  color: #ffeb3b;
+  text-align: center;
+  font-size: 1.2rem;
+  text-shadow: 0 0 5px #ffeb3b;
+}
+
+.event-marker.meteor {
+  background: rgba(255, 87, 34, 0.3);
+  color: #ffccbc;
+}
+
+.event-marker.target {
+  background: rgba(0, 230, 230, 0.2);
+  color: #e0fec0;
+  font-size: 0.75rem;
+}
+
+.calendar-legend {
+  text-align: center;
+  margin-top: 20px;
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
+.calendar-legend span {
+  margin: 0 10px;
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .calendar-container {
+    padding: 10px;
+  }
+
+  .day-cell {
+    min-height: 80px;
+    font-size: 0.75rem;
+  }
+
+  .weekdays div {
+    font-size: 0.8rem;
+  }
+}
