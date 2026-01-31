@@ -158,15 +158,8 @@ function renderCalendar(date) {
             cell.appendChild(meteor);
         }
 
-        // Best Target (Using the new structure, pick the first imaging target as "Showcase")
-        const dayOfWeek = new Date(year, month, day).getDay();
-        if (dayOfWeek === 5 || dayOfWeek === 6) { // Fri or Sat
-            const target = document.createElement('div');
-            target.classList.add('event-marker', 'target');
-            // Show only the first imaging target on the calendar grid to save space
-            target.innerText = '🔭 ' + monthlyData[month].imaging[0];
-            cell.appendChild(target);
-        }
+        // Best Target removed as per user request
+
 
         // Check for planned range
         if (plannedRange && plannedRange.start && plannedRange.end) {
@@ -183,6 +176,9 @@ function renderCalendar(date) {
 
         calendarGrid.appendChild(cell);
     }
+
+    // Calculate ISS Passes (Async)
+    addISSPasses(year, month);
 }
 
 let plannedRange = null;
@@ -249,22 +245,141 @@ function openDayModal(year, month, day) {
     modal.style.display = 'block';
 }
 
-// Simple Moon Age Calculator (Conway's method approx) I kept this consistent
 
-// Simple Moon Age Calculator (Conway's method approx)
-function getMoonAge(year, month, day) {
-    let r = year % 19;
-    let age = ((r * 11) % 30) + month + day;
-    if (month < 2) age += 2;
-    age = age % 30;
-    return age;
-    // This is very rough. A better calculation:
-    // 29.53 days cycle. Known New Moon: Jan 6 2000.
-    const knownNewMoon = new Date('2000-01-06T18:14:00');
-    const currentDate = new Date(year, month, day);
-    const diffTime = Math.abs(currentDate - knownNewMoon);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    const cycles = diffDays / 29.53058867;
-    const currentPhase = (cycles - Math.floor(cycles)) * 29.53;
-    return currentPhase;
+// ISS Pass Calculation
+async function addISSPasses(year, month) {
+    if (!window.satellite) return;
+
+    // Default location if not set
+    const lat = window.userLat || 32.0853;
+    const lon = window.userLon || 34.7818;
+
+    try {
+        // Fetch TLE from CelesTrak (CORS enabled)
+        const resp = await fetch('https://celestrak.org/NORAD/elements/gp.php?CATNR=25544&FORMAT=TLE');
+        if (!resp.ok) return;
+        const text = await resp.text();
+        const lines = text.split('\n');
+        // TLE format check
+        let tle1 = "", tle2 = "";
+        for (let l of lines) {
+            if (l.startsWith('1 ')) tle1 = l.trim();
+            if (l.startsWith('2 ')) tle2 = l.trim();
+        }
+        if (!tle1 || !tle2) return;
+
+        const satrec = satellite.twoline2satrec(tle1, tle2);
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+        // Loop through days
+        for (let d = 1; d <= daysInMonth; d++) {
+            // Check evening (17:00 - 23:00) and morning (03:00 - 06:00) passes?
+            // Simplified: Check every 5 mins for the whole 24h? (Or just night)
+            // To save perf, check 18:00 to 06:00
+
+            // We need to find the specific day cell to append to
+            // This is DOM heavy lookup, better to modify monthlyData? 
+            // Better: loop days, calculate, then find cell.
+
+            const passes = [];
+
+            // Sampling start: Day 12:00 PM -> Next Day 12:00 PM ? 
+            // Or just local day 00:00 to 23:59.
+            const startOfDay = new Date(year, month, d, 0, 0, 0);
+
+            // Coarse search: step 4 mins
+            for (let m = 0; m < 1440; m += 4) {
+                const time = new Date(startOfDay.getTime() + m * 60000);
+
+                // Propagate
+                const positionAndVelocity = satellite.propagate(satrec, time);
+                const positionEci = positionAndVelocity.position;
+                if (!positionEci) continue; // Decay or error
+
+                const gmst = satellite.gstime(time);
+                const positionGd = satellite.eciToGeodetic(positionEci, gmst);
+
+                const lookAngles = satellite.ecfToLookAngles(
+                    satellite.geodeticToEcf(positionGd),
+                    satellite.geodeticToEcf({
+                        latitude: lat * Math.PI / 180,
+                        longitude: lon * Math.PI / 180,
+                        height: 0
+                    })
+                );
+
+                // Elevation > 10 degrees
+                if (lookAngles.elevation > 0.174) { // ~10 deg in rad
+                    // Check if Sun is down? (Optional but better for visibility)
+                    // For now, raw "ISS Pass" is okay, or maybe "Visible ISS"
+                    // User said "if ISS pass ... notify".
+                    // Let's assume visible passes (Night).
+                    // Simple night check: Hour < 6 || Hour > 18
+                    const h = time.getHours();
+                    if (h < 6 || h > 17) {
+                        // Found a pass!
+                        const timeStr = time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                        if (!passes.some(p => Math.abs(p.time - time) < 600000)) { // Debounce 10 mins
+                            passes.push({ time: time, str: timeStr });
+                        }
+                    }
+                }
+            }
+
+            if (passes.length > 0) {
+                // Find cell
+                // We assume cells match the order. 
+                // We can find by text content or re-select.
+                // The day cells have 'day-number' div with text `d`.
+                const cells = document.querySelectorAll('.day-cell');
+                for (let cell of cells) {
+                    const num = cell.querySelector('.day-number');
+                    if (num && parseInt(num.innerText) === d && !cell.classList.contains('empty')) {
+                        const marker = document.createElement('div');
+                        marker.classList.add('event-marker', 'iss-pass');
+                        marker.style.background = 'rgba(255, 0, 0, 0.2)';
+                        marker.style.border = '1px solid red';
+                        marker.title = `ISS Passes at: ${passes.map(p => p.str).join(', ')}`;
+                        marker.innerText = `🛰️ ISS ${passes[0].str}`;
+                        cell.appendChild(marker);
+
+                        // Add to details?
+                        // We would need to store this data relative to the day to show in modal.
+                        // Hack: Store in data attribute
+                        cell.dataset.iss = JSON.stringify(passes.map(p => p.str));
+                        break;
+                    }
+                }
+            }
+        }
+
+    } catch (e) { console.error(e); }
 }
+
+// Update openDayModal to show ISS
+const originalOpenDayModal = openDayModal;
+openDayModal = function (year, month, day) {
+    originalOpenDayModal(year, month, day); // Call original to clear list
+    const obsList = document.getElementById('observing-list');
+
+    // Find cell to retrieve data
+    // This is inefficient but works
+    const cells = document.querySelectorAll('.day-cell');
+    let foundCell = null;
+    for (let cell of cells) {
+        const num = cell.querySelector('.day-number');
+        if (num && parseInt(num.innerText) === day && !cell.classList.contains('empty')) {
+            foundCell = cell;
+            break;
+        }
+    }
+
+    if (foundCell && foundCell.dataset.iss) {
+        const passes = JSON.parse(foundCell.dataset.iss);
+        const li = document.createElement('li');
+        li.innerHTML = `🛰️ <strong>ISS Passes:</strong> ${passes.join(', ')}`;
+        li.style.color = '#ff4444';
+        obsList.prepend(li);
+    }
+}
+
