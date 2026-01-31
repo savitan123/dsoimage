@@ -1538,6 +1538,8 @@ const originalInit = window.onload; // or the event listener
 if (window.location.pathname.includes("tools.html")) {
   // Add to specific listener or just run calculation
   document.addEventListener("DOMContentLoaded", initTools);
+}
+if (window.location.pathname.includes("planner.html")) {
   document.addEventListener("DOMContentLoaded", initSuggester);
 }
 
