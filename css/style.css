@@ -1394,9 +1394,12 @@ body.red-mode img {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  width: 100%;
   max-width: 800px;
   margin: 20px auto;
 }
+
 
 .calendar-controls button {
   background: rgba(255, 255, 255, 0.1);
@@ -1413,13 +1416,16 @@ body.red-mode img {
 }
 
 .calendar-container {
+  width: 100%;
   max-width: 900px;
   margin: 0 auto 40px;
+
   background: rgba(0, 0, 0, 0.5);
   border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 20px;
   border-radius: 8px;
 }
+
 
 .weekdays {
   display: grid;
@@ -1437,11 +1443,13 @@ body.red-mode img {
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: repeat(6, 1fr);
   width: 100%;
-  /* Force full width to prevent content-based shrinking */
   aspect-ratio: 7 / 6;
-  /* Lock the container shape */
   gap: 5px;
 }
+
+.day-cell { min-width: 0; }
+.event-marker { max-width: 100%; }
+
 
 /* Lock the container shape */
 gap: 5px;
