@@ -173,6 +173,18 @@ function renderCalendar(date) {
 
         calendarGrid.appendChild(cell);
     }
+
+    // Fill remaining cells to ensure constant height (Total 6 rows * 7 cols = 42)
+    const totalCells = firstDay + daysInMonth;
+    const remainingCells = 42 - totalCells;
+
+    for (let i = 0; i < remainingCells; i++) {
+        const emptyCell = document.createElement('div');
+        emptyCell.classList.add('day-cell', 'empty', 'next-month-filler');
+        calendarGrid.appendChild(emptyCell);
+    }
+
+    console.log("Calendar Rendered for", year, month);
 }
 
 let plannedRange = null;
