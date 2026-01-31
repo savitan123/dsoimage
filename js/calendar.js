@@ -70,12 +70,14 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCalendar(currentDate);
 
     document.getElementById('prev-month').addEventListener('click', () => {
-        currentDate.setMonth(currentDate.getMonth() - 1);
+        // Safe navigation: Go to 1st of prev month
+        currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1);
         renderCalendar(currentDate);
     });
 
     document.getElementById('next-month').addEventListener('click', () => {
-        currentDate.setMonth(currentDate.getMonth() + 1);
+        // Safe navigation: Go to 1st of next month
+        currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
         renderCalendar(currentDate);
     });
 
