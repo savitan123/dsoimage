@@ -1447,8 +1447,13 @@ body.red-mode img {
   gap: 5px;
 }
 
-.day-cell { min-width: 0; }
-.event-marker { max-width: 100%; }
+.day-cell {
+  min-width: 0;
+}
+
+.event-marker {
+  max-width: 100%;
+}
 
 
 /* Lock the container shape */
