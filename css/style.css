@@ -1406,7 +1406,8 @@ body.red-mode img {
 
 .weekdays {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  /* Allow shrinking below content size */
   text-align: center;
   font-weight: bold;
   margin-bottom: 10px;
@@ -1416,7 +1417,8 @@ body.red-mode img {
 
 .calendar-grid {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  /* Allow shrinking below content size */
   gap: 5px;
 }
 
