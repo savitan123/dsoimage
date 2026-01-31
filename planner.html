@@ -1,219 +1,317 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planned Session - Astronomy Planner</title>
+    <link rel="stylesheet" href="css/style.css?v=41">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <meta name="description"
+        content="Plan your deep-sky imaging session. Check what to shoot tonight, tonight's best targets, and view the astronomy calendar.">
+    <link rel="canonical" href="https://dsoimage.com/planner.html">
 
-  <title>Planned Session - Astronomy Planner</title>
+    <!-- Open Graph -->
+    <meta property="og:title" content="Planned Session - Shimon Avitan">
+    <meta property="og:description" content="Plan your deep-sky imaging session with our comprehensive tools.">
+    <meta property="og:image" content="https://dsoimage.com/images/preview/Orion_Nebula.jpg">
+    <meta property="og:url" content="https://dsoimage.com/planner.html">
+    <meta property="og:type" content="website">
 
-  <link rel="stylesheet" href="css/style.css?v=41" />
-  <link rel="icon" type="image/png" href="images/favicon.png" />
-
-  <meta name="description"
-        content="Plan your deep-sky imaging session. Check what to shoot tonight and view the astronomy calendar." />
-  <link rel="canonical" href="https://dsoimage.com/planner.html" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Planned Session - Shimon Avitan" />
-  <meta property="og:description" content="Plan your deep-sky imaging session with our comprehensive tools." />
-  <meta property="og:image" content="https://dsoimage.com/images/preview/Orion_Nebula.jpg" />
-  <meta property="og:url" content="https://dsoimage.com/planner.html" />
-  <meta property="og:type" content="website" />
-
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;700&family=Rajdhani:wght@300;500;700&display=swap"
-    rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;700&family=Rajdhani:wght@300;500;700&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
+    <div class="stars-bg"></div>
 
-  <div class="stars-bg"></div>
-
-  <div class="layout-container">
-
-    <!-- Sidebar -->
-    <nav class="sidebar">
-      <div class="logo-area">
-        <a href="index.html" class="logo-text">DSO<span class="highlight">Image</span></a>
-      </div>
-
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="galaxies.html">Galaxies</a></li>
-        <li><a href="nebulae.html">Nebulae</a></li>
-        <li><a href="clusters.html">Star Clusters</a></li>
-        <li><a href="equipment.html">Equipment</a></li>
-        <li><a href="processing.html">Processing</a></li>
-        <li><a href="weather.html">Weather</a></li>
-        <li><a href="tools.html">Tools</a></li>
-        <li><a href="planner.html" class="active">Planned Session</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-
-      <button id="red-mode-toggle" class="mode-toggle-btn">
-        <span class="circle-icon"></span> Night Vision
-      </button>
-
-      <div id="nv-container" class="nv-controls">
-        <label for="nv-slider">Dimmer</label>
-        <input type="range" id="nv-slider" min="20" max="100" value="80" />
-      </div>
-
-      <button class="search-trigger">🔍 Search</button>
-
-      <div class="sidebar-footer">
-        <h2 class="sidebar-subtitle">Follow Me</h2>
-        <ul>
-          <li><a href="https://www.instagram.com/avitan_shimon/" target="_blank">Instagram</a></li>
-          <li><a href="https://www.facebook.com/shimon.avitan.79" target="_blank">Facebook</a></li>
-          <li><a href="https://www.flickr.com/photos/193302744@N07/" target="_blank">Flickr</a></li>
-        </ul>
-      </div>
-    </nav>
-
-    <!-- Main Content -->
-    <main class="main-content">
-
-      <h1>Planned Session</h1>
-      <p class="subtitle">Find targets and plan your imaging night.</p>
-
-      <!-- Planner Tool -->
-      <div class="tool-card wide-card" id="suggester-tool"
-           style="max-width:800px;margin:0 auto 40px;background:rgba(0,0,0,0.5);">
-
-        <div class="tool-icon">🔭</div>
-        <h2>What to Shoot Tonight?</h2>
-
-        <div class="tool-content">
-
-          <div class="suggester-controls"
-               style="display:flex;flex-wrap:wrap;gap:15px;justify-content:center;margin-bottom:20px;">
-
-            <div class="control-group">
-              <label>Min Altitude</label>
-              <select id="suggester-alt" class="suggester-select">
-                <option value="10">10°</option>
-                <option value="20">20°</option>
-                <option value="30" selected>30°</option>
-                <option value="45">45°</option>
-                <option value="60">60°</option>
-              </select>
+    <div class="layout-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo-area">
+                <a href="index.html" class="logo-text">
+                    DSO<span class="highlight">Image</span>
+                </a>
             </div>
 
-            <div class="control-group">
-              <label>Sort By</label>
-              <select id="suggester-sort" class="suggester-select">
-                <option value="alt_desc" selected>Highest Altitude</option>
-                <option value="mag_asc">Brightest</option>
-              </select>
+            <ul class="nav-links">
+                <li><a href="index.html" data-i18n="menu_home">Home</a></li>
+                <li><a href="galaxies.html" data-i18n="menu_galaxies">Galaxies</a></li>
+                <li><a href="nebulae.html" data-i18n="menu_nebulae">Nebulae</a></li>
+                <li><a href="clusters.html" data-i18n="menu_clusters">Star Clusters</a></li>
+                <li><a href="equipment.html" data-i18n="menu_equipment">Equipment</a></li>
+                <li><a href="processing.html" data-i18n="menu_processing">Processing</a></li>
+                <li><a href="weather.html" data-i18n="menu_weather">Weather</a></li>
+                <li><a href="tools.html" data-i18n="menu_tools">Tools</a></li>
+                <li><a href="planner.html" class="active" data-i18n="menu_planner">Planned Session</a></li>
+                <li><a href="about.html" data-i18n="menu_about">About</a></li>
+                <li><a href="contact.html" data-i18n="menu_contact">Contact</a></li>
+            </ul>
+
+            <button id="red-mode-toggle" class="mode-toggle-btn">
+                <span class="circle-icon"></span> <span data-i18n="menu_nightvision">Night Vision</span>
+            </button>
+
+            <div id="nv-container" class="nv-controls" style="display: none;">
+                <label for="nv-slider" style="font-size: 13px; color: #aaa; text-align: left;">Dimmer</label>
+                <input type="range" id="nv-slider" min="20" max="100" value="80">
             </div>
 
-            <div class="control-group">
-              <label>Filter Type</label>
-              <select id="suggester-type" class="suggester-select">
-                <option value="all" selected>Everything</option>
-                <option value="G">Galaxies</option>
-                <option value="Nb">Nebulae</option>
-                <option value="Cl">Clusters</option>
-                <option value="Pn">Planetary Nebs</option>
-              </select>
+            <!-- Search Trigger -->
+            <button class="search-trigger">
+                🔍 <span data-i18n="menu_search">Search</span>
+            </button>
+
+            <div id="image-stats"></div>
+
+            <div class="sidebar-footer">
+                <h2 class="sidebar-subtitle" data-i18n="menu_follow">Follow Me</h2>
+                <ul>
+                    <li><a href="https://www.instagram.com/avitan_shimon/" target="_blank" rel="noopener">Instagram</a>
+                    </li>
+                    <li><a href="https://www.facebook.com/shimon.avitan.79" target="_blank" rel="noopener">Facebook</a>
+                    </li>
+                    <li><a href="https://www.flickr.com/photos/193302744@N07/" target="_blank" rel="noopener">Flickr</a>
+                    </li>
+                </ul>
             </div>
+        </nav>
 
-            <div class="control-group" style="flex-basis:100%;display:flex;gap:15px;justify-content:center;flex-wrap:wrap;">
-              <div>
-                <label>Mode</label>
-                <select id="suggester-mode" class="suggester-select">
-                  <option value="now" selected>Right Now</option>
-                  <option value="plan">Plan Session</option>
-                </select>
-              </div>
+        <!-- Main Content -->
+        <main class="main-content">
+            <h1>Planned Session</h1>
+            <p class="subtitle">Find targets and plan your imaging night.</p>
 
-              <div id="time-inputs" style="display:none;gap:10px;flex-wrap:wrap;">
-                <div>
-                  <label>From</label>
-                  <input type="date" id="plan-date-start" class="small-input" />
+            <!-- Suggester / Planner Tool (Moved from Tools) -->
+            <div class="tool-card wide-card" id="suggester-tool"
+                style="max-width: 800px; margin: 0 auto 40px auto; background: rgba(0,0,0,0.5);">
+                <div class="tool-icon">🔭</div>
+                <h2 data-i18n="shoot_tonight">What to Shoot Tonight?</h2>
+                <div class="tool-content">
+                    <p style="margin-bottom:15px; color:#aaa; font-size:14px;" data-i18n="shoot_desc">Find the best
+                        Deep Sky Objects
+                        visible right now from your location. Database: <strong>14,000+ items</strong>.</p>
+
+                    <div class="suggester-controls"
+                        style="display:flex; flex-wrap:wrap; gap:15px; justify-content:center; margin-bottom:20px;">
+
+                        <div class="control-group">
+                            <label style="display:block; font-size:12px; color:#888; margin-bottom:5px;"
+                                data-i18n="min_alt">Min
+                                Altitude:</label>
+                            <select id="suggester-alt" class="suggester-select">
+                                <option value="10">10° (Horizon)</option>
+                                <option value="20">20°</option>
+                                <option value="30" selected>30° (Good)</option>
+                                <option value="45">45° (High)</option>
+                                <option value="60">60° (Zenith)</option>
+                            </select>
+                        </div>
+
+                        <div class="control-group">
+                            <label style="display:block; font-size:12px; color:#888; margin-bottom:5px;"
+                                data-i18n="sort_by">Sort
+                                By:</label>
+                            <select id="suggester-sort" class="suggester-select">
+                                <option value="alt_desc" selected>Highest Altitude</option>
+                                <option value="mag_asc">Brightest (Mag)</option>
+                            </select>
+                        </div>
+
+                        <div class="control-group">
+                            <label style="display:block; font-size:12px; color:#888; margin-bottom:5px;"
+                                data-i18n="filter_type">Filter
+                                Type:</label>
+                            <select id="suggester-type" class="suggester-select">
+                                <option value="all" selected>Everything</option>
+                                <option value="G">Galaxies</option>
+                                <option value="Nb">Nebulae</option>
+                                <option value="Cl">Clusters</option>
+                                <option value="Pn">Planetary Nebs</option>
+                            </select>
+                        </div>
+
+                        <!-- Time Range Controls -->
+                        <div class="control-group"
+                            style="flex-basis: 100%; display: flex; justify-content: center; gap: 15px; align-items: flex-end; flex-wrap: wrap;">
+                            <div style="display:flex; flex-direction:column;">
+                                <label style="font-size:12px; color:#888; margin-bottom:5px;">Mode:</label>
+                                <select id="suggester-mode" class="suggester-select" onchange="toggleTimeInputs()">
+                                    <option value="now" selected>Right Now</option>
+                                    <option value="plan">Plan Session</option>
+                                </select>
+                            </div>
+
+                            <div id="time-inputs"
+                                style="display:none; gap:10px; flex-wrap:wrap; justify-content:center;">
+                                <div style="display:flex; flex-direction:column;">
+                                    <label style="font-size:12px; color:#888; margin-bottom:5px;">From Date:</label>
+                                    <input type="date" id="plan-date-start" class="small-input" style="width:110px;">
+                                </div>
+                                <div style="display:flex; flex-direction:column;">
+                                    <label style="font-size:12px; color:#888; margin-bottom:5px;">To Date:</label>
+                                    <input type="date" id="plan-date-end" class="small-input" style="width:110px;">
+                                </div>
+                                <div style="display:flex; flex-direction:column;">
+                                    <label style="font-size:12px; color:#888; margin-bottom:5px;">Start Time:</label>
+                                    <input type="time" id="plan-start" class="small-input" value="18:00"
+                                        style="width:90px;">
+                                </div>
+                                <div style="display:flex; flex-direction:column;">
+                                    <label style="font-size:12px; color:#888; margin-bottom:5px;">End Time:</label>
+                                    <input type="time" id="plan-end" class="small-input" value="06:00"
+                                        style="width:90px;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            style="display:flex; gap:10px; flex-wrap:wrap; width:100%; justify-content:center; margin-top:5px;">
+                            <button class="action-btn" id="suggester-btn" style="height:38px; flex:1 1 140px;"
+                                data-i18n="find_targets">Find
+                                Targets 🚀</button>
+                            <button class="action-btn" id="best-tonight-btn"
+                                style="height:38px; flex:1 1 140px; background:linear-gradient(45deg, #ff9800, #ff5722);"
+                                data-i18n="tonights_best">🌟
+                                Tonight's Best</button>
+                        </div>
+                    </div>
+
+                    <div id="suggester-loading" style="display:none; color:#1e90ff; margin-bottom:10px;">Searching
+                        heavens...</div>
+                    <div id="suggester-results"
+                        style="max-height:400px; overflow-y:auto; text-align:left; background:rgba(0,0,0,0.2); border-radius:8px; padding:10px; border:1px solid #333;">
+                        <div style="text-align:center; color:#666; padding:20px;">
+                            Click "Find Targets" to load database.<br>
+                            (Location: Tel Aviv, IL estimated)
+                        </div>
+                    </div>
                 </div>
-                <div>
-                  <label>To</label>
-                  <input type="date" id="plan-date-end" class="small-input" />
-                </div>
-              </div>
             </div>
 
-          </div>
+            <hr style="border-color:#333; margin:40px 0;">
+
+            <div class="calendar-controls">
+                <button id="prev-month">❮ Prev</button>
+                <h2 id="current-month-year">January 2026</h2>
+                <button id="next-month">Next ❯</button>
+            </div>
+
+            <div class="calendar-container">
+                <div class="weekdays">
+                    <div>Sun</div>
+                    <div>Mon</div>
+                    <div>Tue</div>
+                    <div>Wed</div>
+                    <div>Thu</div>
+                    <div>Fri</div>
+                    <div>Sat</div>
+                </div>
+                <div id="calendar-grid" class="calendar-grid">
+                    <!-- Days will be injected by JS -->
+                </div>
+            </div>
+
+            <div class="calendar-legend">
+                <span>🌑 New Moon (Dark Sky)</span>
+                <span>🌕 Full Moon</span>
+                <span>🌠 Meteor Shower Peak</span>
+                <span>🔭 Best Target</span>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Search Modal -->
+    <div id="search-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Search Gallery</h2>
+            <input type="text" id="site-search-input" placeholder="Search for M42, Rosette, galaxies...">
+            <div id="search-results" class="search-results-grid"></div>
         </div>
-      </div>
+    </div>
 
-      <hr style="border-color:#333;margin:40px 0;" />
-
-      <!-- Calendar -->
-      <div class="calendar-controls">
-        <button id="prev-month">❮ Prev</button>
-        <h2 id="current-month-year"></h2>
-        <button id="next-month">Next ❯</button>
-      </div>
-
-      <div class="calendar-container">
-        <div class="weekdays">
-          <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div>
-          <div>Thu</div><div>Fri</div><div>Sat</div>
+    <!-- Day Details Modal (from Calendar) -->
+    <div id="day-details-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-details-modal">&times;</span>
+            <h2 id="details-date">Date</h2>
+            <div class="details-section">
+                <h3>📷 Imaging Targets</h3>
+                <ul id="imaging-list"></ul>
+            </div>
+            <div class="details-section">
+                <h3>🔭 Observing Targets</h3>
+                <ul id="observing-list"></ul>
+            </div>
         </div>
-        <div id="calendar-grid" class="calendar-grid"></div>
-      </div>
+    </div>
 
-      <div class="calendar-legend">
-        <span>🌑 New Moon</span>
-        <span>🌕 Full Moon</span>
-        <span>🌠 Meteor Peak</span>
-        <span>🔭 Planned Session</span>
-      </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/satellite.js/4.0.0/satellite.min.js"></script>
+    <script src="js/script.js?v=38"></script>
+    <script src="js/calendar_v2.js"></script>
+    <script>
+        function toggleTimeInputs() {
+            const mode = document.getElementById('suggester-mode').value;
+            const inputs = document.getElementById('time-inputs');
+            inputs.style.display = (mode === 'plan') ? 'flex' : 'none';
 
-    </main>
-  </div>
+            // When switching away from plan, clear highlights
+            if (mode !== 'plan' && window.highlightPlannedSession) {
+                window.highlightPlannedSession(null, null);
+            } else {
+                // If switching into plan, apply highlight if dates exist
+                applyPlannedHighlight();
+            }
+        }
 
-  <!-- Scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/satellite.js/4.0.0/satellite.min.js"></script>
-  <script src="js/script.js?v=38"></script>
-  <script src="js/calendar_v2.js"></script>
+        function applyPlannedHighlight() {
+            if (!window.highlightPlannedSession) return;
 
-  <!-- Plan Session Highlight Wiring -->
-  <script>
-    function toggleTimeInputs() {
-      const mode = document.getElementById('suggester-mode').value;
-      document.getElementById('time-inputs').style.display =
-        mode === 'plan' ? 'flex' : 'none';
-    }
+            const mode = document.getElementById('suggester-mode').value;
+            if (mode !== 'plan') {
+                window.highlightPlannedSession(null, null);
+                return;
+            }
 
-    function applyPlannedHighlight() {
-      const mode = document.getElementById('suggester-mode').value;
-      const start = document.getElementById('plan-date-start').value;
-      const end = document.getElementById('plan-date-end').value;
+            const start = document.getElementById('plan-date-start').value;
+            const end = document.getElementById('plan-date-end').value;
 
-      if (mode !== 'plan' || !start || !end) {
-        window.highlightPlannedSession(null, null);
-        return;
-      }
+            if (!start || !end) {
+                window.highlightPlannedSession(null, null);
+                return;
+            }
 
-      window.highlightPlannedSession(start, end);
-    }
+            // Optional: prevent invalid range from highlighting
+            if (new Date(end) < new Date(start)) {
+                window.highlightPlannedSession(null, null);
+                return;
+            }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('suggester-mode').addEventListener('change', () => {
-        toggleTimeInputs();
-        applyPlannedHighlight();
-      });
+            window.highlightPlannedSession(start, end);
+        }
 
-      document.getElementById('plan-date-start')
-        .addEventListener('change', applyPlannedHighlight);
+        document.addEventListener('DOMContentLoaded', () => {
+            // Ensure the correct initial state
+            toggleTimeInputs();
 
-      document.getElementById('plan-date-end')
-        .addEventListener('change', applyPlannedHighlight);
-    });
-  </script>
+            // Highlight dates when user changes them
+            const startEl = document.getElementById('plan-date-start');
+            const endEl = document.getElementById('plan-date-end');
+            const modeEl = document.getElementById('suggester-mode');
 
+            if (startEl) startEl.addEventListener('change', applyPlannedHighlight);
+            if (endEl) endEl.addEventListener('change', applyPlannedHighlight);
+
+            // If user changes mode (via keyboard / etc.), update highlights
+            if (modeEl) modeEl.addEventListener('change', applyPlannedHighlight);
+        });
+    </script>
 </body>
+
 </html>
