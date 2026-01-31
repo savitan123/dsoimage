@@ -1194,9 +1194,6 @@ function runSuggesterLogic(isBestMode) {
   // Location (Tel Aviv Default)
   const lat = 32.0853;
   const lon = 34.7818;
-  // Location (Tel Aviv Default)
-  const lat = 32.0853;
-  const lon = 34.7818;
 
   // Base time: Now or Planned Start Date?
   let now = new Date();
