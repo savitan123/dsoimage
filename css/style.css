@@ -1531,3 +1531,9 @@ body.red-mode img {
     content: '';
   }
 }
+
+.day-cell.today {
+  border: 2px solid #00e6e6;
+  background: rgba(0, 230, 230, 0.15);
+  box-shadow: 0 0 10px rgba(0, 230, 230, 0.3);
+}

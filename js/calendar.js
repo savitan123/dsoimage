@@ -65,9 +65,16 @@ function renderCalendar(date) {
         calendarGrid.appendChild(emptyCell);
     }
 
+    const realToday = new Date();
+
     for (let day = 1; day <= daysInMonth; day++) {
         const cell = document.createElement('div');
         cell.classList.add('day-cell');
+
+        // Check if this is today
+        if (day === realToday.getDate() && month === realToday.getMonth() && year === realToday.getFullYear()) {
+            cell.classList.add('today');
+        }
 
         const dayHeader = document.createElement('div');
         dayHeader.classList.add('day-number');
