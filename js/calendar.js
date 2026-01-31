@@ -168,8 +168,36 @@ function renderCalendar(date) {
             cell.appendChild(target);
         }
 
+        // Check for planned range
+        if (plannedRange && plannedRange.start && plannedRange.end) {
+            const checkDate = new Date(year, month, day);
+            // Normalize time
+            checkDate.setHours(12, 0, 0, 0);
+            const s = new Date(plannedRange.start); s.setHours(12, 0, 0, 0);
+            const e = new Date(plannedRange.end); e.setHours(12, 0, 0, 0);
+
+            if (checkDate >= s && checkDate <= e) {
+                cell.classList.add('planned-day');
+            }
+        }
+
         calendarGrid.appendChild(cell);
     }
+}
+
+let plannedRange = null;
+
+window.highlightPlannedSession = function (startStr, endStr) {
+    if (!startStr || !endStr) {
+        plannedRange = null;
+    } else {
+        plannedRange = {
+            start: new Date(startStr),
+            end: new Date(endStr)
+        };
+    }
+    // Re-render current view
+    renderCalendar(currentDate);
 }
 
 function openDayModal(year, month, day) {

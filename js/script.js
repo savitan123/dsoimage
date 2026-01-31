@@ -1194,7 +1194,12 @@ function runSuggesterLogic(isBestMode) {
   // Location (Tel Aviv Default)
   const lat = 32.0853;
   const lon = 34.7818;
-  const now = new Date();
+  // Location (Tel Aviv Default)
+  const lat = 32.0853;
+  const lon = 34.7818;
+
+  // Base time: Now or Planned Start Date?
+  let now = new Date();
 
   // Mode Check
   const modeSelect = document.getElementById("suggester-mode");
@@ -1205,8 +1210,34 @@ function runSuggesterLogic(isBestMode) {
   if (isPlanMode) {
     planStartStr = document.getElementById("plan-start").value;
     planEndStr = document.getElementById("plan-end").value;
+
+    const dateStartStr = document.getElementById("plan-date-start").value;
+    const dateEndStr = document.getElementById("plan-date-end").value;
+
+    // Highlight Calendar (if function exists)
+    if (window.highlightPlannedSession) {
+      window.highlightPlannedSession(dateStartStr, dateEndStr);
+    }
+
+    // Update 'now' to be the START of the planned session 
+    // relative to the selected date
+    if (dateStartStr) {
+      // Parse date + time
+      const [y, m, d] = dateStartStr.split('-').map(Number);
+      const [h, min] = planStartStr.split(':').map(Number);
+      now = new Date(y, m - 1, d, h, min, 0);
+    }
+
     // Sort override if planning: default to max alt
     if (sortType === 'alt_desc') sortType = 'max_alt_desc';
+  } else {
+    // Reset calendar highlighting if switching back to 'Now' mode?
+    // User said "Calander will be reset upon a new planned session".
+    // Does clicking "Find Targets" in "Right Now" mode count as a new session?
+    // Probably yes, clear it.
+    if (window.highlightPlannedSession) {
+      window.highlightPlannedSession(null, null);
+    }
   }
 
   // Cache math constants
