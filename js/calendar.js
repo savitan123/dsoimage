@@ -12,19 +12,56 @@ const meteorShowers = [
 ];
 
 // Simple "Best Target" suggestions based on Month (Northern Hemisphere)
-const dsoTargets = {
-    0: "Orion Nebula (M42)",
-    1: "Rosette Nebula",
-    2: "Leo Triplet",
-    3: "Markarian's Chain",
-    4: "Whirlpool Galaxy (M51)",
-    5: "Lagoon Nebula (M8)",
-    6: "Eagle Nebula (M16)",
-    7: "Andromeda Galaxy (M31)",
-    8: "Triangulum Galaxy (M33)",
-    9: "Pleiades (M45)",
-    10: "California Nebula",
-    11: "Horsehead Nebula"
+// Detailed "Best Target" suggestions based on Month
+const monthlyData = {
+    0: { // January
+        imaging: ["Orion Nebula (M42)", "Rosette Nebula (C49)", "Horsehead Nebula", "M78"],
+        observing: ["Pleiades (M45)", "Double Cluster", "Jupiter", "Orion Nebula"]
+    },
+    1: { // February
+        imaging: ["Rosette Nebula", "Christmas Tree Cluster", "Cone Nebula", "M81 & M82"],
+        observing: ["M41 (Little Beehive)", "M46 & M47", "Orion Nebula"]
+    },
+    2: { // March
+        imaging: ["Leo Triplet (M65/M66/NGC 3628)", "Markarian's Chain", "M106"],
+        observing: ["Cancer (M44 Beehive)", "Ghost of Jupiter (NGC 3242)"]
+    },
+    3: { // April
+        imaging: ["Markarian's Chain", "Whirlpool Galaxy (M51)", "Pinwheel Galaxy (M101)"],
+        observing: ["M3 (Globular Cluster)", "M53", "Coma Berenices Cluster"]
+    },
+    4: { // May
+        imaging: ["Whirlpool Galaxy (M51)", "M101", "Sunflower Galaxy (M63)"],
+        observing: ["M13 (Hercules Cluster)", "M92", "Ring Nebula (M57)"]
+    },
+    5: { // June
+        imaging: ["Lagoon Nebula (M8)", "Trifid Nebula (M20)", "Eagle Nebula (M16)"],
+        observing: ["M13", "M27 (Dumbbell)", "Albireo (Double Star)"]
+    },
+    6: { // July
+        imaging: ["Eagle Nebula (M16)", "Omega Nebula (M17)", "North America Nebula"],
+        observing: ["Saturn", "M22", "M11 (Wild Duck)"]
+    },
+    7: { // August
+        imaging: ["Andromeda Galaxy (M31)", "Elephant's Trunk", "Heart & Soul Nebulae"],
+        observing: ["Perseids Meteor Shower", "Saturn", "M31"]
+    },
+    8: { // September
+        imaging: ["Triangulum Galaxy (M33)", "Pacman Nebula", "Bubble Nebula"],
+        observing: ["Jupiter", "Pegasus Cluster (M15)", "Double Cluster"]
+    },
+    9: { // October
+        imaging: ["Pleiades (M45)", "California Nebula", "NGC 7331"],
+        observing: ["Jupiter", "Uranus", "M31 Andromeda"]
+    },
+    10: { // November
+        imaging: ["California Nebula", "Hyades", "M78", "Witch Head Nebula"],
+        observing: ["Pleiades", "M38", "M36"]
+    },
+    11: { // December
+        imaging: ["Horsehead Nebula", "Orion Nebula (M42)", "Running Man", "M1"],
+        observing: ["Geminids Meteor Shower", "M35", "M37"]
+    }
 };
 
 let currentDate = new Date();
@@ -40,6 +77,18 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('next-month').addEventListener('click', () => {
         currentDate.setMonth(currentDate.getMonth() + 1);
         renderCalendar(currentDate);
+    });
+
+    // Close Modal Logic
+    document.getElementById('close-details-modal').addEventListener('click', () => {
+        document.getElementById('day-details-modal').style.display = 'none';
+    });
+
+    // Close on outside click
+    window.addEventListener('click', (e) => {
+        if (e.target == document.getElementById('day-details-modal')) {
+            document.getElementById('day-details-modal').style.display = 'none';
+        }
     });
 });
 
@@ -71,6 +120,9 @@ function renderCalendar(date) {
         const cell = document.createElement('div');
         cell.classList.add('day-cell');
 
+        // Add click handler for details
+        cell.addEventListener('click', () => openDayModal(year, month, day));
+
         // Check if this is today
         if (day === realToday.getDate() && month === realToday.getMonth() && year === realToday.getFullYear()) {
             cell.classList.add('today');
@@ -86,7 +138,7 @@ function renderCalendar(date) {
         if (moonAge < 1 || moonAge > 28) {
             const moon = document.createElement('div');
             moon.classList.add('event-marker', 'new-moon');
-            moon.title = "New Moon (Best for Imaging)";
+            moon.title = "New Moon";
             moon.innerHTML = '🌑';
             cell.appendChild(moon);
         } else if (moonAge >= 14 && moonAge <= 16) {
@@ -106,22 +158,70 @@ function renderCalendar(date) {
             cell.appendChild(meteor);
         }
 
-        // Best Target (Just 1st and 15th to not clutter?) NO, user asked for "same day".
-        // Let's put the "Target of the Month" on the first weekend or spread it out.
-        // Actually, let's just show it every day but subtly, or just show it on the top of the calendar?
-        // Let's replicate it every few days? Or just a small text at the bottom.
-        // Better: Show it on Saturdays/Fridays (Imaging nights)
+        // Best Target (Using the new structure, pick the first imaging target as "Showcase")
         const dayOfWeek = new Date(year, month, day).getDay();
         if (dayOfWeek === 5 || dayOfWeek === 6) { // Fri or Sat
             const target = document.createElement('div');
             target.classList.add('event-marker', 'target');
-            target.innerText = '🔭 ' + dsoTargets[month];
+            // Show only the first imaging target on the calendar grid to save space
+            target.innerText = '🔭 ' + monthlyData[month].imaging[0];
             cell.appendChild(target);
         }
 
         calendarGrid.appendChild(cell);
     }
 }
+
+function openDayModal(year, month, day) {
+    const modal = document.getElementById('day-details-modal');
+    const dateTitle = document.getElementById('details-date');
+    const imgList = document.getElementById('imaging-list');
+    const obsList = document.getElementById('observing-list');
+
+    const d = new Date(year, month, day);
+    dateTitle.innerText = d.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+    imgList.innerHTML = '';
+    obsList.innerHTML = '';
+
+    // Data for the month
+    const data = monthlyData[month];
+
+    data.imaging.forEach(item => {
+        const li = document.createElement('li');
+        li.innerText = item;
+        imgList.appendChild(li);
+    });
+
+    data.observing.forEach(item => {
+        const li = document.createElement('li');
+        li.innerText = item;
+        obsList.appendChild(li);
+    });
+
+    // Add special events like meteors/moon for this specific day
+    const moonAge = getMoonAge(year, month, day);
+    if (moonAge < 1 || moonAge > 28) {
+        const li = document.createElement('li');
+        li.innerHTML = "🌑 <strong>New Moon</strong> - Perfect for Deep Sky!";
+        obsList.prepend(li); // Add to top
+    } else if (moonAge >= 14 && moonAge <= 16) {
+        const li = document.createElement('li');
+        li.innerHTML = "🌕 <strong>Full Moon</strong> - Bright sky, focus on planets.";
+        obsList.prepend(li);
+    }
+
+    const shower = meteorShowers.find(s => s.month === month && s.day === day);
+    if (shower) {
+        const li = document.createElement('li');
+        li.innerHTML = `🌠 <strong>${shower.name} Peak</strong>`;
+        obsList.prepend(li);
+    }
+
+    modal.style.display = 'block';
+}
+
+// Simple Moon Age Calculator (Conway's method approx) I kept this consistent
 
 // Simple Moon Age Calculator (Conway's method approx)
 function getMoonAge(year, month, day) {

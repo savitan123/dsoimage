@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Astronomy Calendar - Planning Your Imaging</title>
-    <link rel="stylesheet" href="css/style.css?v=33">
+    <link rel="stylesheet" href="css/style.css?v=34">
     <link rel="icon" type="image/png" href="images/favicon.png">
     <meta name="description"
         content="Plan your deep-sky imaging with our astronomy calendar featuring moon phases, meteor showers, and best DSO targets.">
@@ -128,8 +128,24 @@
         </div>
     </div>
 
+    <!-- Day Details Modal -->
+    <div id="day-details-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-details-modal">&times;</span>
+            <h2 id="details-date">Date</h2>
+            <div class="details-section">
+                <h3>📷 Imaging Targets</h3>
+                <ul id="imaging-list"></ul>
+            </div>
+            <div class="details-section">
+                <h3>🔭 Observing Targets</h3>
+                <ul id="observing-list"></ul>
+            </div>
+        </div>
+    </div>
+
     <script src="js/script.js?v=31"></script>
-    <script src="js/calendar.js?v=2"></script> <!-- New Script -->
+    <script src="js/calendar.js?v=3"></script> <!-- New Script -->
 </body>
 
 </html>
