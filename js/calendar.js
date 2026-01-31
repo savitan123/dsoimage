@@ -178,7 +178,9 @@ function renderCalendar(date) {
     }
 
     // Calculate ISS Passes (Async)
-    addISSPasses(year, month);
+    // Calculate ISS Passes (Async)
+    // addISSPasses(year, month); // Temporarily disabled for stability
+    console.log("Calendar Rendered for", year, month);
 }
 
 let plannedRange = null;
