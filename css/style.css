@@ -70,6 +70,23 @@ img {
   width: 100%;
 }
 
+/* Modal Base Styling */
+.modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  z-index: 2000;
+  /* High z-index to sit above sidebar (180) */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.85);
+  /* Black w/ opacity */
+  backdrop-filter: blur(5px);
+}
+
 /* =========================
    Mobile top bar
    ========================= */
