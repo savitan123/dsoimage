@@ -1487,29 +1487,45 @@ body.red-mode img {
 
 @media (max-width: 768px) {
   .calendar-container {
-    padding: 5px;
-    overflow-x: auto;
-    /* Allow horizontal scrolling if it doesn't fit */
+    padding: 2px;
+    overflow-x: hidden;
   }
 
   .weekdays,
   .calendar-grid {
-    min-width: 600px;
-    /* Force a minimum width to ensure Saturday fits, triggering scroll */
+    min-width: 0;
+    width: 100%;
   }
 
-  .day-cell {
-    min-height: 70px;
-    font-size: 0.7rem;
-    padding: 2px;
+  .calendar-grid {
+    gap: 2px;
   }
 
   .weekdays div {
+    font-size: 0.7rem;
+    overflow: hidden;
+  }
+
+  .day-cell {
+    min-height: 55px;
+    /* Compact height */
     font-size: 0.75rem;
+    padding: 2px;
   }
 
   .event-marker {
-    font-size: 0.65rem;
-    padding: 1px 2px;
+    font-size: 0.6rem;
+    padding: 1px;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* Cut off text with ... */
+    max-width: 100%;
+  }
+
+  /* Optional: Show only icons if text is too long? */
+  .event-marker.meteor::after {
+    content: '';
   }
 }
