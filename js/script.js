@@ -1542,7 +1542,11 @@ if (window.location.pathname.includes("tools.html")) {
   document.addEventListener("DOMContentLoaded", initTools);
 }
 if (window.location.pathname.includes("planner.html")) {
-  document.addEventListener("DOMContentLoaded", initSuggester);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initSuggester);
+  } else {
+    initSuggester();
+  }
 }
 
 // Call Carousel Init globally (it checks for existence internally)
