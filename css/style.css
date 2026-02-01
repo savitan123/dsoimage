@@ -1633,3 +1633,8 @@ body.red-mode img {
   border: 2px dashed #1e90ff;
   box-shadow: 0 0 8px rgba(30, 144, 255, 0.4);
 }
+
+.time-input {
+  width: 150px;
+  text-align: center;
+}
