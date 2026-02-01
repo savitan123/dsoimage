@@ -1634,3 +1634,16 @@ body.red-mode img {
   box-shadow: 0 0 8px rgba(30, 144, 255, 0.4);
 }
 
+/* Responsive Time Inputs */
+.time-input {
+  width: 90px;
+  /* Small on Mobile */
+  text-align: center;
+}
+
+@media (min-width: 900px) {
+  .time-input {
+    width: 150px;
+    /* Wide on PC */
+  }
+}
