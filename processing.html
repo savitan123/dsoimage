@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="canonical" href="https://dsoimage.com/processing.html">
-    <title>Processing Comparison — Shimon Avitan</title>
+    <title>Processing Comparison â€” Shimon Avitan</title>
     <meta name="description" content="Before and after processing comparison of deep sky astrophotography.">
     <link rel="stylesheet" href="css/style.css?v=31">
     <script src="js/script.js?v=35"></script>
@@ -20,7 +20,7 @@
             <button class="menu-toggle" type="button" aria-label="Open menu">
                 Menu
             </button>
-            <button class="search-trigger" aria-label="Search site">🔍</button>
+            <button class="search-trigger" aria-label="Search site">ðŸ”</button>
             <div class="topbar-title">dsoimage.com</div>
         </header>
 
@@ -31,7 +31,7 @@
         <nav class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <h2>Menu</h2>
-                <button class="menu-close" type="button" aria-label="Close menu">×</button>
+                <button class="menu-close" type="button" aria-label="Close menu">Ã—</button>
             </div>
             <ul>
                 <li><a href="index.html">Home</a></li>
@@ -58,7 +58,7 @@
 
             <!-- Sidebar search removed -->
             <button class="search-trigger">
-                🔍 <span data-i18n="menu_search">Search</span>
+                ðŸ” <span data-i18n="menu_search">Search</span>
             </button>
 
             <div id="image-stats"></div>
@@ -98,15 +98,15 @@
                     sensor and the environment. This is achieved through Calibration Files and Stacking:
                 </p>
                 <ul style="list-style-type: none; margin-left: 10px; margin-bottom: 20px;">
-                    <li style="margin-bottom: 8px;">⚡ <strong>Master BIAS:</strong> Removes the electronic readout noise
+                    <li style="margin-bottom: 8px;">âš¡ <strong>Master BIAS:</strong> Removes the electronic readout noise
                         of the sensor.</li>
-                    <li style="margin-bottom: 8px;">🌡️ <strong>Master DARK:</strong> Corrects for thermal noise and
+                    <li style="margin-bottom: 8px;">ðŸŒ¡ï¸ <strong>Master DARK:</strong> Corrects for thermal noise and
                         "hot pixels" caused by long exposures.</li>
-                    <li style="margin-bottom: 8px;">🌫️ <strong>Master FLAT:</strong> Compensates for optical vignetting
+                    <li style="margin-bottom: 8px;">ðŸŒ«ï¸ <strong>Master FLAT:</strong> Compensates for optical vignetting
                         and dust shadows in the light path.</li>
-                    <li style="margin-bottom: 8px;">🎯 <strong>Star Alignment:</strong> Registers every Light Frame to
+                    <li style="margin-bottom: 8px;">ðŸŽ¯ <strong>Star Alignment:</strong> Registers every Light Frame to
                         ensure perfect overlap.</li>
-                    <li style="margin-bottom: 8px;">📚 <strong>Image Integration:</strong> Stacks the data to
+                    <li style="margin-bottom: 8px;">ðŸ“š <strong>Image Integration:</strong> Stacks the data to
                         dramatically increase the signal-to-noise ratio.</li>
                 </ul>
 
@@ -126,15 +126,15 @@
 
                 <h4 style="color: #ccc; margin-top: 20px; margin-bottom: 8px;">Key Processing Steps:</h4>
                 <ul style="list-style-type: none; margin-left: 10px; margin-bottom: 20px;">
-                    <li style="margin-bottom: 8px;">⚖️ <strong>Linear Fitting:</strong> Balancing the color channels (R,
+                    <li style="margin-bottom: 8px;">âš–ï¸ <strong>Linear Fitting:</strong> Balancing the color channels (R,
                         G, and B or Narrowband equivalents) to a common baseline.</li>
-                    <li style="margin-bottom: 8px;">🧹 <strong>Gradient Removal:</strong> Separating faint celestial
+                    <li style="margin-bottom: 8px;">ðŸ§¹ <strong>Gradient Removal:</strong> Separating faint celestial
                         features from the artificial sky background and light pollution.</li>
-                    <li style="margin-bottom: 8px;">🎨 <strong>Color Calibration:</strong> Ensuring stars and nebulosity
+                    <li style="margin-bottom: 8px;">ðŸŽ¨ <strong>Color Calibration:</strong> Ensuring stars and nebulosity
                         reflect their true cosmic hues or intended palettes (such as the Hubble Palette).</li>
-                    <li style="margin-bottom: 8px;">🧼 <strong>Noise Reduction:</strong> Cleaning up background grain
+                    <li style="margin-bottom: 8px;">ðŸ§¼ <strong>Noise Reduction:</strong> Cleaning up background grain
                         while preserving fine, hard-earned structures.</li>
-                    <li style="margin-bottom: 8px;">📈 <strong>Stretching:</strong> Carefully transitioning the data
+                    <li style="margin-bottom: 8px;">ðŸ“ˆ <strong>Stretching:</strong> Carefully transitioning the data
                         from a "dark" linear state to a visible one. The Luminance/H&alpha; channel is optimized for
                         contrast and detail before being merged with color.</li>
                 </ul>
@@ -150,11 +150,11 @@
                     <h2>Helix Nebula: Single Raw Frame vs. Final</h2>
                     <div class="img-comp-container">
                         <div class="img-comp-img">
-                            <img src="images/full/helix_nebula.jpg" alt="Final Processed Deep Sky Image - Helix Nebula">
+                            <img loading="lazy" src="images/full/helix_nebula.jpg" alt="Final Processed Deep Sky Image - Helix Nebula">
                         </div>
                         <div class="img-comp-img img-comp-overlay">
                             <!-- Using 'raw' image -->
-                            <img src="images/full/helix_raw.jpg" alt="Raw Unprocessed Deep Sky Data Frame">
+                            <img loading="lazy" src="images/full/helix_raw.jpg" alt="Raw Unprocessed Deep Sky Data Frame">
 
                         </div>
                     </div>
@@ -172,7 +172,7 @@
                 </p>
                 <p style="margin-bottom: 20px;">
                     The answer lies in the <strong>Signal-to-Noise Ratio (SNR)</strong>. In our hobby, the "Signal" is
-                    the light from the distant galaxy or nebula, while the "Noise" is everything else—electronic
+                    the light from the distant galaxy or nebula, while the "Noise" is everything elseâ€”electronic
                     interference, thermal heat, and most importantly, the inherent randomness of light itself.
                 </p>
 
@@ -189,10 +189,10 @@
                     do in PixInsight, we must collect as many frames as possible.
                 </p>
                 <ul style="list-style-type: none; margin-left: 10px; margin-bottom: 20px;">
-                    <li style="margin-bottom: 15px;">❌ <strong>Simple Addition vs. Integration:</strong> If you simply
+                    <li style="margin-bottom: 15px;">âŒ <strong>Simple Addition vs. Integration:</strong> If you simply
                         take a single frame and add it to itself or "brighten" it, you are scaling the noise along with
                         the signal. The statistical uncertainty of that specific moment is "frozen" in the frame.</li>
-                    <li style="margin-bottom: 15px;">✅ <strong>The Power of Averaging:</strong> When we integrate
+                    <li style="margin-bottom: 15px;">âœ… <strong>The Power of Averaging:</strong> When we integrate
                         (stack) many independent frames, we are taking multiple independent samples of that Poisson
                         process. Because the signal is constant and the noise is random, the noise doesn't add up
                         linearly. It adds as the square root of the sum of squares.
@@ -225,11 +225,11 @@
 
                 <div class="img-comp-container">
                     <div class="img-comp-img">
-                        <img src="images/full/HorseHead_Flame_Nebula.jpg"
+                        <img loading="lazy" src="images/full/HorseHead_Flame_Nebula.jpg"
                             alt="Final Processed Deep Sky Image - Horsehead Nebula">
                     </div>
                     <div class="img-comp-img img-comp-overlay">
-                        <img src="images/full/HorseHead_Flame_Nebula_Raw.jpg"
+                        <img loading="lazy" src="images/full/HorseHead_Flame_Nebula_Raw.jpg"
                             alt="Hydrogen Alpha (Ha) Narrowband Channel - Horsehead">
                     </div>
                 </div>
@@ -239,11 +239,11 @@
                 <h2>Andromeda Galaxy : Stacked and Integrated Luminance Frame vs. Final</h2>
                 <div class="img-comp-container">
                     <div class="img-comp-img">
-                        <img src="images/full/Andromeda_Galaxy.jpg"
+                        <img loading="lazy" src="images/full/Andromeda_Galaxy.jpg"
                             alt="Final Processed Deep Sky Image - Andromeda Galaxy">
                     </div>
                     <div class="img-comp-img img-comp-overlay">
-                        <img src="images/full/M31_Lum_Raw.jpg" alt="Andromeda Galaxy (M31) Luminance Channel">
+                        <img loading="lazy" src="images/full/M31_Lum_Raw.jpg" alt="Andromeda Galaxy (M31) Luminance Channel">
                     </div>
                 </div>
             </div>
