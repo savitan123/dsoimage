@@ -1152,6 +1152,7 @@ async function initSuggester() {
 
   btn.addEventListener("click", async () => {
     if (await loadDB()) {
+      window.lastSuggesterMode = false;
       runSuggesterLogic(false); // Normal mode
     }
   });
@@ -1159,13 +1160,23 @@ async function initSuggester() {
   if (bestBtn) {
     bestBtn.addEventListener("click", async () => {
       if (await loadDB()) {
+        window.lastSuggesterMode = true;
         runSuggesterLogic(true); // "Best" mode
       }
     });
   }
 }
 
-function runSuggesterLogic(isBestMode) {
+// Global Sort Handler
+window.handleHeaderSort = function (sortKey) {
+  // Ensure DB is loaded (should be if we are clicking headers)
+  if (typeof runSuggesterLogic === 'function') {
+    const mode = window.lastSuggesterMode || false;
+    runSuggesterLogic(mode, sortKey);
+  }
+};
+
+function runSuggesterLogic(isBestMode, sortOverride = null) {
   const resultsDiv = document.getElementById("suggester-results");
   const loadingDiv = document.getElementById("suggester-loading");
   const btn = document.getElementById("suggester-btn");
@@ -1176,9 +1187,9 @@ function runSuggesterLogic(isBestMode) {
   const minAltInput = document.getElementById("suggester-alt");
   let minAlt = minAltInput ? (parseFloat(minAltInput.value) || 30) : 30;
 
-  let sortType = "alt_desc";
+  let sortType = sortOverride || "alt_desc";
   const sortInput = document.getElementById("suggester-sort");
-  if (sortInput) sortType = sortInput.value;
+  if (!sortOverride && sortInput) sortType = sortInput.value;
 
   let filterType = "all";
   const filterInput = document.getElementById("suggester-type");
@@ -1187,7 +1198,7 @@ function runSuggesterLogic(isBestMode) {
   // OVERRIDE for "Tonight's Best"
   if (isBestMode) {
     minAlt = 40; // Only high objects
-    sortType = 'alt_desc'; // Highest first
+    if (!sortOverride) sortType = 'alt_desc'; // Highest first (default for best mode)
     filterType = 'all'; // We will do custom filtering inside loop
   }
 
@@ -1228,7 +1239,7 @@ function runSuggesterLogic(isBestMode) {
     }
 
     // Sort override if planning: default to max alt
-    if (sortType === 'alt_desc') sortType = 'max_alt_desc';
+    if (!sortOverride && sortType === 'alt_desc') sortType = 'max_alt_desc';
   } else {
     // Reset calendar highlighting if switching back to 'Now' mode?
     // User said "Calander will be reset upon a new planned session".
@@ -1387,11 +1398,28 @@ function runSuggesterLogic(isBestMode) {
   }
 
   // Sort
-  if (sortType === 'alt_desc') {
-    candidates.sort((a, b) => b.alt - a.alt);
-  } else {
-    candidates.sort((a, b) => a.mag - b.mag);
-  }
+  // Sort
+  candidates.sort((a, b) => {
+    switch (sortType) {
+      case 'alt_desc':
+      case 'max_alt_desc':
+        return b.alt - a.alt;
+      case 'alt_asc':
+        return a.alt - b.alt;
+      case 'mag_asc':
+        return (a.mag || 99) - (b.mag || 99);
+      case 'mag_desc':
+        return (b.mag || 0) - (a.mag || 0);
+      case 'size_desc':
+        return (parseFloat(b.obj.sz) || 0) - (parseFloat(a.obj.sz) || 0);
+      case 'name_asc':
+        return a.obj.n.localeCompare(b.obj.n);
+      case 'type_asc':
+        return (a.obj.t || "").localeCompare(b.obj.t || "");
+      default:
+        return b.alt - a.alt;
+    }
+  });
 
   // Limit Results
   const topResults = candidates.slice(0, 100);
@@ -1403,11 +1431,11 @@ function runSuggesterLogic(isBestMode) {
     // START TABLE
     let html = `<table style="width:100%; border-collapse:collapse; font-size:11px; table-layout: auto;">
                 <tr style="border-bottom:1px solid #444; color:#888; font-size:10px;">
-                    <th style="padding:4px 2px; text-align:left;">Name</th>
-                    <th style="padding:4px 2px; text-align:center; white-space:nowrap;">Type</th>
-                    <th style="padding:4px 2px; text-align:center; white-space:nowrap;">Mag</th>
-                    <th style="padding:4px 2px; text-align:center; white-space:nowrap;">Size</th>
-                    <th style="padding:4px 2px; text-align:right; white-space:nowrap;">${isPlanMode ? 'Max Alt' : 'Alt'}</th>
+                    <th style="padding:4px 2px; text-align:left; cursor:pointer;" onclick="handleHeaderSort('name_asc')" title="Sort by Name">Name ↕</th>
+                    <th style="padding:4px 2px; text-align:center; white-space:nowrap; cursor:pointer;" onclick="handleHeaderSort('type_asc')" title="Sort by Type">Type ↕</th>
+                    <th style="padding:4px 2px; text-align:center; white-space:nowrap; cursor:pointer;" onclick="handleHeaderSort('mag_asc')" title="Sort by Brightness">Mag ↕</th>
+                    <th style="padding:4px 2px; text-align:center; white-space:nowrap; cursor:pointer;" onclick="handleHeaderSort('size_desc')" title="Sort by Size">Size ↕</th>
+                    <th style="padding:4px 2px; text-align:right; white-space:nowrap; cursor:pointer;" onclick="handleHeaderSort('alt_desc')" title="Sort by Altitude">${isPlanMode ? 'Max Alt' : 'Alt'} ↕</th>
                 </tr>`;
 
     topResults.forEach(item => {
@@ -1415,6 +1443,8 @@ function runSuggesterLogic(isBestMode) {
       const altColor = item.alt > 60 ? "#4caf50" : (item.alt > 40 ? "#ffeb3b" : "#aaa");
       // Size string (newly added to DB or fallback)
       let sizeStr = o.sz || "-";
+      if (sizeStr === 'x' || sizeStr.trim() === '') sizeStr = "-";
+      sizeStr = sizeStr.replace(/ x$/, ''); // Remove trailing ' x' if present
 
       let displayName = `<span style="font-weight:bold;">${o.n}</span>`;
       if (o.cn) {
