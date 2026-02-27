@@ -214,6 +214,10 @@
       <image:loc>https://dsoimage.com/images/full/IC443.jpg</image:loc>
       <image:caption>Jellyfish Nebula (IC 443)</image:caption>
     </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/Seagull_Nebula.jpg</image:loc>
+      <image:caption>Seagull Nebula</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://dsoimage.com/clusters.html</loc>
