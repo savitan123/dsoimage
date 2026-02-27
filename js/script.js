@@ -1661,6 +1661,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const firebaseConfig = {
     apiKey: "AIzaSyCDsWi3T3zn2hpEszRp648q_GnTVhsvWlI",
     authDomain: "dsoimage-tools.firebaseapp.com",
+    databaseURL: "https://dsoimage-tools-default-rtdb.europe-west1.firebasedatabase.app",
     projectId: "dsoimage-tools",
     storageBucket: "dsoimage-tools.firebasestorage.app",
     messagingSenderId: "451260122603",
