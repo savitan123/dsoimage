@@ -94,9 +94,9 @@ function initDSOImage() {
         captionHtml += `<br><span class="alias-list"><strong>Aliases:</strong> ${aliases}</span>`;
         const catalogName = aliasList.find(a => /^(M|NGC|IC)\s*\d+/i.test(a));
         if (catalogName) {
-            skyMapQuery = catalogName;
+          skyMapQuery = catalogName;
         } else if (aliasList.length > 0) {
-            skyMapQuery = aliasList[0];
+          skyMapQuery = aliasList[0];
         }
       }
       const skyMapUrl = `https://wikisky.org/?object=${encodeURIComponent(skyMapQuery)}`;
@@ -307,9 +307,9 @@ function initDSOImage() {
               captionHtml += `<br><span class="alias-list"><strong>Aliases:</strong> ${aliases}</span>`;
               const catalogName = aliasList.find(a => /^(M|NGC|IC)\s*\d+/i.test(a));
               if (catalogName) {
-                  skyMapQuery = catalogName;
+                skyMapQuery = catalogName;
               } else if (aliasList.length > 0) {
-                  skyMapQuery = aliasList[0];
+                skyMapQuery = aliasList[0];
               }
             }
             const skyMapUrl = `https://wikisky.org/?object=${encodeURIComponent(skyMapQuery)}`;
@@ -1274,6 +1274,35 @@ function runSuggesterLogic(isBestMode, sortOverride = null) {
   const sinLat = Math.sin(latRad);
   const cosLat = Math.cos(latRad);
 
+  // Precession Helper (J2000 to target date)
+  function precessJ2000(raHours, decDeg, targetDate) {
+    const jdTarget = (targetDate.getTime() / 86400000) + 2440587.5;
+    const T = (jdTarget - 2451545.0) / 36525.0; // centuries since J2000
+
+    const M_deg = 1.2812323 * T;
+    const N_deg = 0.5567530 * T;
+
+    const raRad = raHours * 15.0 * (Math.PI / 180.0);
+    const decRad = decDeg * (Math.PI / 180.0);
+
+    // Clamp declination slightly to avoid infinity at exact celestial poles
+    let tanDec = Math.tan(decRad);
+    if (Math.abs(decDeg) > 89.9) {
+      tanDec = Math.tan(89.9 * Math.sign(decDeg) * (Math.PI / 180.0));
+    }
+
+    const deltaRA_deg = M_deg + N_deg * Math.sin(raRad) * tanDec;
+    const deltaDec_deg = N_deg * Math.cos(raRad);
+
+    let newRAH = raHours + (deltaRA_deg / 15.0);
+    let newDecD = decDeg + deltaDec_deg;
+
+    while (newRAH >= 24) newRAH -= 24;
+    while (newRAH < 0) newRAH += 24;
+
+    return { ra: newRAH, dec: newDecD };
+  }
+
   const candidates = [];
 
   for (let i = 0; i < targetDatabase.length; i++) {
@@ -1302,11 +1331,16 @@ function runSuggesterLogic(isBestMode, sortOverride = null) {
       }
     }
 
-    // Parse RA/Dec
-    const raH = parseHMS(obj.r);
-    const decD = parseDMS(obj.d);
+    // Parse RA/Dec (J2000 Base)
+    let raH = parseHMS(obj.r);
+    let decD = parseDMS(obj.d);
 
     if (isNaN(raH) || isNaN(decD)) continue;
+
+    // Apply Precession to Apparent Epoch for 'now'
+    const precessed = precessJ2000(raH, decD, now);
+    raH = precessed.ra;
+    decD = precessed.dec;
 
     // Calc Altitude
     let ha = lst - raH;
