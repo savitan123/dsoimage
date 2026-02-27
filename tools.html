@@ -193,7 +193,37 @@
                     </div>
                 </div>
 
-                <!-- Suggester moved to planner.html -->
+                <!-- 6. Pre-Flight Checklist -->
+                <div class="tool-card wide-card" id="checklist-tool">
+                    <div class="tool-icon">✅</div>
+                    <h2>Pre-Flight Checklist</h2>
+                    <div class="tool-content">
+                        <p style="margin-bottom:15px; color:#aaa; font-size:14px;">Keep track of your setup. Progress
+                            saves automatically.</p>
+
+                        <div class="checklist-input-group" style="display:flex; gap:10px; margin-bottom: 20px;">
+                            <input type="text" id="new-task-input" placeholder="Add a new custom task..."
+                                style="flex:1; padding: 10px; border-radius: 4px; border: 1px solid #444; background: #222; color: #fff;">
+                            <select id="new-task-category"
+                                style="padding: 10px; border-radius: 4px; border: 1px solid #444; background: #222; color: #fff;">
+                                <option value="Hardware">Hardware</option>
+                                <option value="Software/Config">Software/Config</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <button class="action-btn" id="add-task-btn" style="padding: 0 15px;">Add</button>
+                        </div>
+
+                        <div id="checklist-container" class="checklist-container">
+                            <!-- JS will populate the categories and items here -->
+                        </div>
+
+                        <div style="text-align: right; margin-top: 15px;">
+                            <button id="reset-checklist-btn"
+                                style="background: transparent; border: 1px solid #e74c3c; color: #e74c3c; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; transition: 0.2s;">Reset
+                                All Checkmarks</button>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- 7. VirtualSky Interactive Map (Desktop) / Stellarium + TheSkyLive (Mobile) -->
                 <div class="tool-card wide-card" id="skymap-tool">

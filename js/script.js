@@ -1643,3 +1643,155 @@ window.toggleTimeInputs = function () {
     timeInputs.style.display = 'none';
   }
 }
+
+/* =====================================
+   astrophotography Pre-Flight Checklist
+   ===================================== */
+document.addEventListener("DOMContentLoaded", () => {
+  const checklistContainer = document.getElementById('checklist-container');
+  if (!checklistContainer) return; // Only run on tools page
+
+  const STORAGE_KEY = 'dsoimage_checklist';
+
+  // Default configuration requested by user
+  const defaultChecklist = [
+    { id: 'hw1', category: 'Hardware', text: 'Mount (MACH 2)', checked: false },
+    { id: 'hw2', category: 'Hardware', text: 'Counterweights', checked: false },
+    { id: 'hw3', category: 'Hardware', text: 'FLT 132 OTA', checked: false },
+    { id: 'hw4', category: 'Hardware', text: 'ZWO 2600 Mono', checked: false },
+    { id: 'hw5', category: 'Hardware', text: 'Filter Wheel', checked: false },
+    { id: 'hw6', category: 'Hardware', text: 'Cables', checked: false },
+    { id: 'hw7', category: 'Hardware', text: 'Power Station', checked: false },
+
+    { id: 'sw1', category: 'Software/Config', text: 'Check Weather/Seeing', checked: false },
+    { id: 'sw2', category: 'Software/Config', text: 'Clear disk space', checked: false },
+    { id: 'sw3', category: 'Software/Config', text: 'Sync System Time', checked: false },
+    { id: 'sw4', category: 'Software/Config', text: 'Load Sequence in NINA/SGP', checked: false }
+  ];
+
+  let checklistData = [];
+
+  // Load from LocalStorage or use defaults
+  const loaded = localStorage.getItem(STORAGE_KEY);
+  if (loaded && loaded !== "[]") {
+    try {
+      checklistData = JSON.parse(loaded);
+    } catch (e) {
+      checklistData = [...defaultChecklist];
+    }
+  } else {
+    checklistData = [...defaultChecklist];
+  }
+
+  function saveChecklist() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(checklistData));
+  }
+
+  function renderChecklist() {
+    checklistContainer.innerHTML = '';
+
+    // Group by category
+    const categories = {};
+    checklistData.forEach(task => {
+      if (!categories[task.category]) categories[task.category] = [];
+      categories[task.category].push(task);
+    });
+
+    // Object.keys(categories) gives us the unique categories
+    for (const cat of Object.keys(categories)) {
+      const catDiv = document.createElement('div');
+      catDiv.className = 'checklist-category';
+
+      const catHeader = document.createElement('h3');
+      catHeader.innerText = cat;
+      catDiv.appendChild(catHeader);
+
+      categories[cat].forEach(task => {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = `checklist-item ${task.checked ? 'completed' : ''}`;
+
+        // Checkbox
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = task.checked;
+        checkbox.addEventListener('change', (e) => {
+          task.checked = e.target.checked;
+          if (task.checked) {
+            itemDiv.classList.add('completed');
+          } else {
+            itemDiv.classList.remove('completed');
+          }
+          saveChecklist();
+        });
+
+        // Text
+        const textSpan = document.createElement('span');
+        textSpan.className = 'task-text';
+        textSpan.innerText = task.text;
+
+        // Delete Button
+        const delBtn = document.createElement('button');
+        delBtn.className = 'delete-btn';
+        delBtn.innerHTML = '&times;';
+        delBtn.title = "Delete Task";
+        delBtn.onclick = () => {
+          checklistData = checklistData.filter(t => t.id !== task.id);
+          saveChecklist();
+          renderChecklist();
+        };
+
+        itemDiv.appendChild(checkbox);
+        itemDiv.appendChild(textSpan);
+        itemDiv.appendChild(delBtn);
+
+        catDiv.appendChild(itemDiv);
+      });
+
+      checklistContainer.appendChild(catDiv);
+    }
+  }
+
+  // Add Button Event
+  const addBtn = document.getElementById('add-task-btn');
+  const inputField = document.getElementById('new-task-input');
+  const catSelect = document.getElementById('new-task-category');
+
+  function addNewTask() {
+    const text = inputField.value.trim();
+    if (!text) return;
+
+    const newTask = {
+      id: 'task_' + Date.now(),
+      category: catSelect.value,
+      text: text,
+      checked: false
+    };
+
+    checklistData.push(newTask);
+    saveChecklist();
+    renderChecklist();
+    inputField.value = ''; // clear input
+  }
+
+  if (addBtn) addBtn.addEventListener('click', addNewTask);
+  if (inputField) {
+    inputField.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') addNewTask();
+    });
+  }
+
+  // Reset Checks Button
+  const resetBtn = document.getElementById('reset-checklist-btn');
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      if (confirm('Are you sure you want to uncheck all items?')) {
+        checklistData.forEach(t => t.checked = false);
+        saveChecklist();
+        renderChecklist();
+      }
+    });
+  }
+
+  // Initial render
+  renderChecklist();
+});
