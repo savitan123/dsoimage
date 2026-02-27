@@ -198,29 +198,53 @@
                     <div class="tool-icon">✅</div>
                     <h2>Pre-Flight Checklist</h2>
                     <div class="tool-content">
-                        <p style="margin-bottom:15px; color:#aaa; font-size:14px;">Keep track of your setup. Progress
-                            saves automatically.</p>
-
-                        <div class="checklist-input-group" style="display:flex; gap:10px; margin-bottom: 20px;">
-                            <input type="text" id="new-task-input" placeholder="Add a new custom task..."
-                                style="flex:1; padding: 10px; border-radius: 4px; border: 1px solid #444; background: #222; color: #fff;">
-                            <select id="new-task-category"
-                                style="padding: 10px; border-radius: 4px; border: 1px solid #444; background: #222; color: #fff;">
-                                <option value="Hardware">Hardware</option>
-                                <option value="Software/Config">Software/Config</option>
-                                <option value="Other">Other</option>
-                            </select>
-                            <button class="action-btn" id="add-task-btn" style="padding: 0 15px;">Add</button>
+                        <!-- AUTHENTICATION UI -->
+                        <div id="auth-container" style="text-align: center; margin-bottom: 20px;">
+                            <p style="margin-bottom:15px; color:#aaa; font-size:14px;">Log in to access your private,
+                                cross-device checklist.</p>
+                            <button id="login-google-btn" class="action-btn"
+                                style="background: #4285F4; border-radius: 4px; padding: 10px 20px;">
+                                <span
+                                    style="background: white; color: #4285F4; border-radius: 50%; padding: 2px 6px; font-weight: bold; margin-right: 8px;">G</span>
+                                Sign in with Google
+                            </button>
                         </div>
 
-                        <div id="checklist-container" class="checklist-container">
-                            <!-- JS will populate the categories and items here -->
-                        </div>
+                        <!-- LOGGED IN VIEW & CHECKLIST (Hidden by Default) -->
+                        <div id="app-container" style="display: none;">
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #333;">
+                                <div style="color:#1e90ff; font-size:14px;" id="user-profile-name">Logged in as: ...
+                                </div>
+                                <button id="logout-btn"
+                                    style="background: transparent; border: 1px solid #aaa; color: #aaa; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; transition: 0.2s;">Sign
+                                    Out</button>
+                            </div>
 
-                        <div style="text-align: right; margin-top: 15px;">
-                            <button id="reset-checklist-btn"
-                                style="background: transparent; border: 1px solid #e74c3c; color: #e74c3c; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; transition: 0.2s;">Reset
-                                All Checkmarks</button>
+                            <p style="margin-bottom:15px; color:#aaa; font-size:14px;">Progress syncs live to the cloud
+                                across all your devices.</p>
+
+                            <div class="checklist-input-group" style="display:flex; gap:10px; margin-bottom: 20px;">
+                                <input type="text" id="new-task-input" placeholder="Add a new custom task..."
+                                    style="flex:1; padding: 10px; border-radius: 4px; border: 1px solid #444; background: #222; color: #fff;">
+                                <select id="new-task-category"
+                                    style="padding: 10px; border-radius: 4px; border: 1px solid #444; background: #222; color: #fff;">
+                                    <option value="Hardware">Hardware</option>
+                                    <option value="Software/Config">Software/Config</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <button class="action-btn" id="add-task-btn" style="padding: 0 15px;">Add</button>
+                            </div>
+
+                            <div id="checklist-container" class="checklist-container">
+                                <!-- JS will populate the categories and items here -->
+                            </div>
+
+                            <div style="text-align: right; margin-top: 15px;">
+                                <button id="reset-checklist-btn"
+                                    style="background: transparent; border: 1px solid #e74c3c; color: #e74c3c; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; transition: 0.2s;">Reset
+                                    All Checkmarks</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -282,6 +306,11 @@
             <div id="search-results" class="search-results"></div>
         </div>
     </div>
+
+    <!-- Firebase Compat SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
     <!-- Updated for Mobile Layout Fixes -->
     <script src="js/script.js?v=30"></script>

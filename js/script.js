@@ -1651,7 +1651,48 @@ document.addEventListener("DOMContentLoaded", () => {
   const checklistContainer = document.getElementById('checklist-container');
   if (!checklistContainer) return; // Only run on tools page
 
-  const STORAGE_KEY = 'dsoimage_checklist';
+  // Check if Firebase is available
+  if (typeof firebase === 'undefined') {
+    console.warn("Firebase SDK not loaded.");
+    return;
+  }
+
+  // Initialize Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyCDsWi3T3zn2hpEszRp648q_GnTVhsvWlI",
+    authDomain: "dsoimage-tools.firebaseapp.com",
+    projectId: "dsoimage-tools",
+    storageBucket: "dsoimage-tools.firebasestorage.app",
+    messagingSenderId: "451260122603",
+    appId: "1:451260122603:web:f09b94dafdfeaaf95545ae"
+  };
+
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+
+  const auth = firebase.auth();
+  const db = firebase.database();
+
+  // UI Elements
+  const authContainer = document.getElementById('auth-container');
+  const appContainer = document.getElementById('app-container');
+  const loginBtn = document.getElementById('login-google-btn');
+  const logoutBtn = document.getElementById('logout-btn');
+  const profileName = document.getElementById('user-profile-name');
+
+  // Auth Handlers
+  loginBtn.addEventListener('click', () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider).catch(err => {
+      console.error("Login Error:", err);
+      alert("Login blocked or failed. Please check browser popups.");
+    });
+  });
+
+  logoutBtn.addEventListener('click', () => {
+    auth.signOut();
+  });
 
   // Default configuration requested by user
   const defaultChecklist = [
@@ -1670,25 +1711,55 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   let checklistData = [];
+  let dbRef = null;
 
-  // Load from LocalStorage or use defaults
-  const loaded = localStorage.getItem(STORAGE_KEY);
-  if (loaded && loaded !== "[]") {
-    try {
-      checklistData = JSON.parse(loaded);
-    } catch (e) {
-      checklistData = [...defaultChecklist];
+  // Listen for Auth State Changes
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      // Logged In
+      authContainer.style.display = 'none';
+      appContainer.style.display = 'block';
+      profileName.innerText = `👤 Logged in as: ${user.email}`;
+
+      // Unsubscribe from any previous listeners
+      if (dbRef) dbRef.off();
+
+      // Setup new listener for THIS user's private data path
+      dbRef = db.ref('users/' + user.uid + '/checklist');
+
+      dbRef.on('value', (snapshot) => {
+        const data = snapshot.val();
+        if (data === null) {
+          // First time user! Seed the database with defaults.
+          checklistData = [...defaultChecklist];
+          dbRef.set(checklistData);
+        } else {
+          // Load existing data from cloud
+          checklistData = data;
+        }
+        renderChecklist();
+      });
+
+    } else {
+      // Logged Out
+      authContainer.style.display = 'block';
+      appContainer.style.display = 'none';
+      if (dbRef) dbRef.off();
     }
-  } else {
-    checklistData = [...defaultChecklist];
-  }
+  });
 
   function saveChecklist() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(checklistData));
+    if (dbRef && checklistData) {
+      dbRef.set(checklistData).catch(err => {
+        console.error("Firebase sync error:", err);
+        alert("Failed to save to cloud. Check rules?");
+      });
+    }
   }
 
   function renderChecklist() {
     checklistContainer.innerHTML = '';
+    if (!checklistData || checklistData.length === 0) return;
 
     // Group by category
     const categories = {};
@@ -1721,7 +1792,7 @@ document.addEventListener("DOMContentLoaded", () => {
           } else {
             itemDiv.classList.remove('completed');
           }
-          saveChecklist();
+          saveChecklist(); // Pushes update to Firebase immediately
         });
 
         // Text
@@ -1737,7 +1808,6 @@ document.addEventListener("DOMContentLoaded", () => {
         delBtn.onclick = () => {
           checklistData = checklistData.filter(t => t.id !== task.id);
           saveChecklist();
-          renderChecklist();
         };
 
         itemDiv.appendChild(checkbox);
@@ -1761,15 +1831,17 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!text) return;
 
     const newTask = {
-      id: 'task_' + Date.now(),
+      id: 'task_' + Date.now().toString(),
       category: catSelect.value,
       text: text,
       checked: false
     };
 
+    // Firebase arrays are weird, ensure it exists
+    if (!checklistData) checklistData = [];
+
     checklistData.push(newTask);
     saveChecklist();
-    renderChecklist();
     inputField.value = ''; // clear input
   }
 
@@ -1787,11 +1859,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (confirm('Are you sure you want to uncheck all items?')) {
         checklistData.forEach(t => t.checked = false);
         saveChecklist();
-        renderChecklist();
       }
     });
   }
-
-  // Initial render
-  renderChecklist();
 });
