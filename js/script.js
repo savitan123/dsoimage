@@ -88,12 +88,18 @@ function initDSOImage() {
     let captionHtml = `<strong>${title || ""}</strong><br>${notes || ""}`;
     if (title) {
       let cleanTitle = title.replace(/\(.*\)/, "").trim();
+      let skyMapQuery = cleanTitle;
       if (aliases) {
         const aliasList = aliases.split(',').map(s => s.trim());
-        if (aliasList.length > 0) cleanTitle = aliasList[0];
         captionHtml += `<br><span class="alias-list"><strong>Aliases:</strong> ${aliases}</span>`;
+        const catalogName = aliasList.find(a => /^(M|NGC|IC)\s*\d+/i.test(a));
+        if (catalogName) {
+            skyMapQuery = catalogName;
+        } else if (aliasList.length > 0) {
+            skyMapQuery = aliasList[0];
+        }
       }
-      const skyMapUrl = `https://wikisky.org/?object=${encodeURIComponent(cleanTitle)}`;
+      const skyMapUrl = `https://wikisky.org/?object=${encodeURIComponent(skyMapQuery)}`;
       captionHtml += `<br><a href="${skyMapUrl}" target="_blank" class="skymap-link">✨ Find in Sky Map (WikiSky)</a>`;
     }
 
@@ -295,7 +301,18 @@ function initDSOImage() {
           let captionHtml = `<strong>${title || ""}</strong><br>${notes || ""}`;
           if (title) {
             let cleanTitle = title.replace(/\(.*\)/, "").trim();
-            const skyMapUrl = `https://wikisky.org/?object=${encodeURIComponent(cleanTitle)}`;
+            let skyMapQuery = cleanTitle;
+            if (aliases) {
+              const aliasList = aliases.split(',').map(s => s.trim());
+              captionHtml += `<br><span class="alias-list"><strong>Aliases:</strong> ${aliases}</span>`;
+              const catalogName = aliasList.find(a => /^(M|NGC|IC)\s*\d+/i.test(a));
+              if (catalogName) {
+                  skyMapQuery = catalogName;
+              } else if (aliasList.length > 0) {
+                  skyMapQuery = aliasList[0];
+              }
+            }
+            const skyMapUrl = `https://wikisky.org/?object=${encodeURIComponent(skyMapQuery)}`;
             captionHtml += `<br><a href="${skyMapUrl}" target="_blank" class="skymap-link">✨ Find in Sky Map (WikiSky)</a>`;
           }
           lightboxCaption.innerHTML = captionHtml;
