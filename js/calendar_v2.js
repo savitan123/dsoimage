@@ -134,13 +134,19 @@ function renderCalendar(date) {
 
         // Moon Phase Calculation
         const moonAge = getMoonAge(year, month, day);
-        if (moonAge < 1 || moonAge > 28) {
+        const synodic = 29.53058867;
+        const fraction = moonAge / synodic;
+        const distToNew = Math.min(fraction, 1.0 - fraction);
+        const distToFull = Math.abs(fraction - 0.5);
+        const THRESHOLD = 0.5 / synodic; // Ensures exactly 1 day gets marked
+
+        if (distToNew <= THRESHOLD) {
             const moon = document.createElement('div');
             moon.classList.add('event-marker', 'new-moon');
             moon.title = "New Moon";
             moon.innerHTML = '🌑';
             cell.appendChild(moon);
-        } else if (moonAge >= 14 && moonAge <= 16) {
+        } else if (distToFull <= THRESHOLD) {
             const moon = document.createElement('div');
             moon.classList.add('event-marker', 'full-moon');
             moon.title = "Full Moon";
@@ -234,11 +240,17 @@ function openDayModal(year, month, day) {
 
     // Add special events like meteors/moon for this specific day
     const moonAge = getMoonAge(year, month, day);
-    if (moonAge < 1 || moonAge > 28) {
+    const synodic = 29.53058867;
+    const fraction = moonAge / synodic;
+    const distToNew = Math.min(fraction, 1.0 - fraction);
+    const distToFull = Math.abs(fraction - 0.5);
+    const THRESHOLD = 0.5 / synodic; // Ensures exactly 1 day gets marked
+
+    if (distToNew <= THRESHOLD) {
         const li = document.createElement('li');
         li.innerHTML = "🌑 <strong>New Moon</strong> - Perfect for Deep Sky!";
         obsList.prepend(li); // Add to top
-    } else if (moonAge >= 14 && moonAge <= 16) {
+    } else if (distToFull <= THRESHOLD) {
         const li = document.createElement('li');
         li.innerHTML = "🌕 <strong>Full Moon</strong> - Bright sky, focus on planets.";
         obsList.prepend(li);
@@ -254,11 +266,19 @@ function openDayModal(year, month, day) {
     modal.style.display = 'block';
 }
 
-// Simple Moon Age Calculator (Conway's method approx)
+// Precision Moon Age Calculator based on Synodic Month
 function getMoonAge(year, month, day) {
-    let r = year % 19;
-    let age = ((r * 11) % 30) + month + day;
-    if (month < 2) age += 2;
-    age = age % 30;
-    return age;
+    const synodic = 29.53058867;
+    // Known New Moon: Jan 18, 2026 17:55 UTC
+    const knownNewMoon = new Date(Date.UTC(2026, 0, 18, 17, 55, 0));
+    // Set to noon to avoid timezone/daylight saving edge cases
+    const targetDate = new Date(Date.UTC(year, month, day, 12, 0, 0));
+
+    const diffMs = targetDate.getTime() - knownNewMoon.getTime();
+    const diffDays = diffMs / (1000 * 60 * 60 * 24);
+
+    let phase = diffDays % synodic;
+    if (phase < 0) phase += synodic;
+
+    return phase;
 }
