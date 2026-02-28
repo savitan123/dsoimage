@@ -1801,6 +1801,19 @@ document.addEventListener("DOMContentLoaded", () => {
         textSpan.className = 'task-text';
         textSpan.innerText = task.text;
 
+        // Edit Button
+        const editBtn = document.createElement('button');
+        editBtn.className = 'edit-btn';
+        editBtn.innerHTML = '&#x270E;'; // Pencil icon
+        editBtn.title = "Edit Task";
+        editBtn.onclick = () => {
+          const newText = prompt("Edit task:", task.text);
+          if (newText && newText.trim() !== "") {
+            task.text = newText.trim();
+            saveChecklist(); // Pushes update to Firebase immediately
+          }
+        };
+
         // Delete Button
         const delBtn = document.createElement('button');
         delBtn.className = 'delete-btn';
@@ -1813,6 +1826,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         itemDiv.appendChild(checkbox);
         itemDiv.appendChild(textSpan);
+        itemDiv.appendChild(editBtn);
         itemDiv.appendChild(delBtn);
 
         catDiv.appendChild(itemDiv);
