@@ -1197,23 +1197,16 @@ body.red-mode img {
 }
 
 /* =========================
-   Carousel / Slider Styles
+   Carousel / Slider Styles (Optimized for Constellations)
    ========================= */
 
 .carousel-container {
   position: relative;
-  /* ... no change to these lines but ensuring context ... */
-  /* skipping to mobile media query changes */
-
-  /* ... */
-  /* We need to use multi_replace or targeted replace because the file is large */
-  /* I will target the specific blocks separately to be safe */
-  position: relative;
   width: 100%;
-  max-width: 1000px;
-  margin: 30px auto;
+  max-width: 100%;
+  /* No max-width limit, let it fill the main view */
+  margin: 10px auto;
   overflow: hidden;
-  /* Ensure arrows don't cause scrollbar in container */
 }
 
 .carousel-track-container {
@@ -1236,32 +1229,37 @@ body.red-mode img {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* Important for mobile: prevent image from sticking to top */
-  padding: 0 40px;
-  /* Space for arrows on sides so they don't overlap relevant image parts too much */
+  padding: 0;
+  /* Removed padding to maximize screen width */
   box-sizing: border-box;
 }
 
+.carousel-slide .gallery-item {
+  width: 100%;
+  max-width: 100%;
+  /* Removed 1200px artificial limit */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .carousel-slide img {
-  max-height: 75vh;
-  /* Taller on desktop allowed */
-  width: auto;
+  height: 85vh;
+  /* Maximize height on desktop */
+  width: 100%;
   max-width: 100%;
   object-fit: contain;
-  border-radius: 8px;
-  border: 1px solid #333;
   cursor: pointer;
   transition: transform 0.2s;
 }
 
 .carousel-slide img:hover {
-  transform: scale(1.01);
-  border-color: #777;
+  transform: scale(1.02);
 }
 
-/* Caption under carousel image (optional, re-using gallery data) */
+/* Caption under carousel image */
 .carousel-caption {
-  margin-top: 15px;
+  margin-top: 10px;
   text-align: center;
   max-width: 800px;
 }
@@ -1269,26 +1267,28 @@ body.red-mode img {
 .carousel-caption h3 {
   margin: 0 0 5px 0;
   color: #fff;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 }
 
 .carousel-caption p {
   color: #aaa;
-  font-size: 0.9rem;
+  font-size: 1rem;
+  margin: 2px 0;
+  /* Tightened spacing */
 }
 
 /* Navigation Buttons */
 .carousel-btn {
   position: absolute;
-  top: 50%;
+  top: 40%;
   transform: translateY(-50%);
   background: rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: #fff;
-  font-size: 2rem;
-  padding: 10px 15px;
+  font-size: 2.5rem;
+  padding: 15px 20px;
   cursor: pointer;
-  border-radius: 50%;
+  border-radius: 5px;
   z-index: 10;
   transition: background 0.2s, transform 0.2s;
   user-select: none;
@@ -1304,25 +1304,27 @@ body.red-mode img {
 }
 
 .carousel-btn.prev-btn {
-  left: 10px;
+  left: 5px;
 }
 
 .carousel-btn.next-btn {
-  right: 10px;
+  right: 5px;
 }
 
 /* Mobile adjustments */
 @media (max-width: 768px) {
+  .carousel-container {
+    margin: 5px auto;
+  }
+
   .carousel-slide {
     padding: 0;
-    /* Maximize space on mobile */
+    /* Remove side padding on mobile to maximize map width */
     justify-content: flex-start;
-    /* Align image to top */
   }
 
   .carousel-slide img {
-    max-height: 50vh;
-    /* Shorter on mobile phones */
+    max-height: 60vh;
     width: 100%;
     height: auto;
     object-fit: contain;

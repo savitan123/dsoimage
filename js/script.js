@@ -1913,38 +1913,104 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!northernTrack && !southernTrack) return;
   if (typeof CONSTELLATIONS === 'undefined') return;
 
-  function createSlide(c) {
-    const li = document.createElement('li');
-    li.className = 'carousel-slide';
-
-    const imgSrc = `images/constellations/${c.abbr}.svg`;
-    const wikiUrl = `https://en.wikipedia.org/wiki/${encodeURIComponent(c.name)}_(constellation)`;
-    const skyUrl = `https://wikisky.org/?object=${encodeURIComponent(c.name)}`;
-
-    li.innerHTML = `
-      <div class="gallery-item" data-full="${imgSrc}" data-title="${c.name} Constellation"
-        data-aliases="${c.abbr}"
-        data-notes="<strong>Centroid:</strong> R.A: ${(c.ra / 15).toFixed(1)}h Dec: ${c.dec > 0 ? '+' : ''}${c.dec.toFixed(1)}&deg;<br><br>The official IAU star map for ${c.name}.<br><br><a href='${wikiUrl}' target='_blank' style='color: #00e6e6; text-decoration: underline;'>Wikipedia Info</a> | <a href='${skyUrl}' target='_blank' style='color: #00e6e6; text-decoration: underline;'>Wikisky Planetarium</a>">
-        <img loading="lazy" src="${imgSrc}" alt="${c.name} Constellation Map">
-        <div class="carousel-caption">
-          <h3>${c.name}</h3>
-          <p>R.A: ${(c.ra / 15).toFixed(1)}h | Dec: ${c.dec > 0 ? '+' : ''}${c.dec.toFixed(1)}&deg;</p>
-        </div>
-      </div>
-    `;
-    return li;
+  function calcGMST(date) {
+    const jd = (date.getTime() / 86400000) + 2440587.5;
+    const d = jd - 2451545.0;
+    let gmst = 18.697374558 + 24.06570982441908 * d;
+    return (gmst % 24 + 24) % 24;
   }
 
-  CONSTELLATIONS.forEach(c => {
-    if (c.dec >= 0 && northernTrack) {
-      northernTrack.appendChild(createSlide(c));
-    } else if (c.dec < 0 && southernTrack) {
-      southernTrack.appendChild(createSlide(c));
-    }
-  });
+  function getAltitude(raDeg, decDeg, lat, lon) {
+    const now = new Date();
+    const gmst = typeof getGMST === 'function' ? getGMST(now) : calcGMST(now);
+    const lst = gmst + (lon / 15.0); // Hours
 
-  // Re-initialize carousel after dynamic slides are injected
-  if (typeof initCarousel === 'function') {
-    initCarousel();
+    const latRad = lat * (Math.PI / 180.0);
+    const sinLat = Math.sin(latRad);
+    const cosLat = Math.cos(latRad);
+
+    const raH = raDeg / 15.0;
+
+    let ha = lst - raH;
+    while (ha < -12) ha += 24;
+    while (ha >= 12) ha -= 24;
+
+    const haRad = ha * 15.0 * (Math.PI / 180.0);
+    const decRad = decDeg * (Math.PI / 180.0);
+    const sinDec = Math.sin(decRad);
+    const cosDec = Math.cos(decRad);
+    const cosHA = Math.cos(haRad);
+
+    const sinAlt = (sinDec * sinLat) + (cosDec * cosLat * cosHA);
+    return Math.round(Math.asin(sinAlt) * (180.0 / Math.PI));
+  }
+
+  function render(lat, lon) {
+    if (northernTrack) northernTrack.innerHTML = '';
+    if (southernTrack) southernTrack.innerHTML = '';
+
+    CONSTELLATIONS.forEach(c => {
+      let altText = "Unknown Visibility";
+      let dotColor = "#888";
+
+      if (lat !== null && lon !== null) {
+        const alt = getAltitude(c.ra, c.dec, lat, lon);
+        if (alt >= 30) {
+          dotColor = "#00ff00"; // Green
+          altText = `Currently in the sky (Altitude ${alt}&deg;)`;
+        } else if (alt > 0) {
+          dotColor = "#ffaa00"; // Yellow
+          altText = `Low on horizon (Altitude ${alt}&deg;)`;
+        } else {
+          dotColor = "#ff0000"; // Red
+          altText = `Below horizon (Altitude ${alt}&deg;)`;
+        }
+      }
+
+      const li = document.createElement('li');
+      li.className = 'carousel-slide';
+
+      const imgSrc = `images/constellations/${c.abbr}.svg`;
+      const wikiUrl = `https://en.wikipedia.org/wiki/${encodeURIComponent(c.name)}_(constellation)`;
+      const skyUrl = `https://wikisky.org/?object=${encodeURIComponent(c.name)}`;
+
+      li.innerHTML = `
+        <div class="gallery-item" data-full="${imgSrc}" data-title="${c.name} Constellation"
+          data-aliases="${c.abbr}"
+          data-notes="<strong>Centroid:</strong> R.A: ${(c.ra / 15).toFixed(1)}h | Dec: ${c.dec > 0 ? '+' : ''}${c.dec.toFixed(1)}&deg;<br><br>
+          <span style='color:${dotColor};'>&#9679;</span> <strong>${altText}</strong><br><br>
+          The official IAU star map for ${c.name}.<br><br>
+          <a href='${wikiUrl}' target='_blank' style='color: #00e6e6; text-decoration: underline;'>Wikipedia Info</a> | <a href='${skyUrl}' target='_blank' style='color: #00e6e6; text-decoration: underline;'>Wikisky Planetarium</a>">
+          <img loading="lazy" src="${imgSrc}" alt="${c.name} Constellation Map">
+          <div class="carousel-caption">
+            <h3>${c.name}</h3>
+            <p>R.A: ${(c.ra / 15).toFixed(1)}h | Dec: ${c.dec > 0 ? '+' : ''}${c.dec.toFixed(1)}&deg;</p>
+            <p style="color:${dotColor}; margin-top:5px; font-size:12px;">&#9679; ${altText}</p>
+          </div>
+        </div>
+      `;
+
+      if (c.dec >= 0 && northernTrack) {
+        northernTrack.appendChild(li);
+      } else if (c.dec < 0 && southernTrack) {
+        southernTrack.appendChild(li);
+      }
+    });
+
+    // Re-initialize carousel after dynamic slides are injected
+    if (typeof initCarousel === 'function') {
+      initCarousel();
+    }
+  }
+
+  // Initial generic render to avoid blocking
+  render(null, null);
+
+  // Attempt to grab location
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (pos) => render(pos.coords.latitude, pos.coords.longitude),
+      (err) => console.log("Geolocation denied, sticking to default view.")
+    );
   }
 });
