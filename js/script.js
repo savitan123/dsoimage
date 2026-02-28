@@ -1908,8 +1908,9 @@ document.addEventListener("DOMContentLoaded", () => {
 // 88 Constellations Grid Logic
 // ==========================================
 document.addEventListener("DOMContentLoaded", () => {
-  const grid = document.getElementById('constellations-grid');
-  if (!grid || typeof CONSTELLATIONS === 'undefined') return;
+  const gridNorth = document.getElementById('grid-northern');
+  const gridSouth = document.getElementById('grid-southern');
+  if (!gridNorth || !gridSouth || typeof CONSTELLATIONS === 'undefined') return;
 
   function calcGMST(date) {
     const jd = (date.getTime() / 86400000) + 2440587.5;
@@ -1945,7 +1946,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function render(lat, lon) {
-    grid.innerHTML = '';
+    gridNorth.innerHTML = '';
+    gridSouth.innerHTML = '';
     CONSTELLATIONS.forEach(c => {
       let altText = "Unknown";
       let dotColor = "#888";
@@ -1967,8 +1969,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const card = document.createElement('div');
       card.className = 'constellation-card';
 
-      // Map Image (live from IAU)
-      const imgSrc = `https://www.iau.org/static/public/constellations/gif/${c.abbr}.gif`;
+      // Map Image (Local SVG)
+      const imgSrc = `images/constellations/${c.abbr}.svg`;
       const wikiUrl = `https://en.wikipedia.org/wiki/${encodeURIComponent(c.name)}_(constellation)`;
       const skyUrl = `https://wikisky.org/?object=${encodeURIComponent(c.name)}`;
 
@@ -1989,17 +1991,23 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
         </div>
       `;
-      grid.appendChild(card);
+
+      if (c.dec >= 0) {
+        gridNorth.appendChild(card);
+      } else {
+        gridSouth.appendChild(card);
+      }
     });
   }
 
-  // Attempt to get location to calculate altitude
+  // Initial render with generic values so the UI doesn't hang waiting for Permissions
+  render(null, null);
+
+  // Attempt to asynchronously update with live local altitude
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       (pos) => render(pos.coords.latitude, pos.coords.longitude),
-      () => render(0, 0) // Default to equator if denied
+      (err) => console.log("Geolocation denied, using default altitude display.")
     );
-  } else {
-    render(0, 0);
   }
 });

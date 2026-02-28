@@ -228,30 +228,34 @@
                             time-consuming, it provides the sharpest detail and the only true way to shoot
                             Hubble-Palette narrowband.</p>
                     </div>
-                </div>
+                    <!-- Category 4: The 88 Constellations -->
+                    <div class="kb-category">
+                        <h3 class="kb-category-title"
+                            style="color: #1e90ff; border-bottom: 1px solid #333; padding-bottom: 10px; margin-top: 40px;">
+                            Celestial Maps & Constellations</h3>
 
-            </section>
+                        <p style="color: #aaa; font-size: 14px; margin-bottom: 20px;">
+                            The 88 official constellations defined by the International Astronomical Union (IAU).
+                            Visibility dots: <span style="color: #00ff00;">●</span> High (&ge;30&deg;) | <span
+                                style="color: #ffaa00;">●</span> Low (&lt;30&deg;) | <span
+                                style="color: #ff0000;">●</span> Below Horizon
+                        </p>
 
-            <!-- ============================================== -->
-            <!-- 88 CONSTELLATIONS MODULE                       -->
-            <!-- ============================================== -->
-            <div style="text-align: center; margin: 60px 0 20px 0;">
-                <h2 style="font-size: 28px; color: #1e90ff; margin-bottom: 15px;">The 88 Constellations</h2>
-                <p style="color: #aaa; max-width: 800px; margin: 0 auto 20px auto; line-height: 1.6;">
-                    This is the list of the 88 official constellations defined by the <span
-                        style="color: #ffaa00;">International Astronomical Union (IAU)</span>.
-                    For each constellation we provide current visibility information based on the legend below:
-                </p>
-                <div
-                    style="display: flex; justify-content: center; gap: 20px; font-size: 13px; color: #888; margin-bottom: 40px;">
-                    <div><span style="color: #00ff00;">●</span> Altitude &ge; 30&deg;</div>
-                    <div><span style="color: #ffaa00;">●</span> Altitude &lt; 30&deg;</div>
-                    <div><span style="color: #ff0000;">●</span> Below the horizon</div>
-                </div>
-            </div>
+                        <button class="accordion">Northern Hemisphere Constellations</button>
+                        <div class="accordion-content" style="padding-top: 20px;">
+                            <div id="grid-northern" class="const-grid">
+                                <!-- Populated via JS -->
+                            </div>
+                        </div>
 
-            <section id="constellations-grid" class="const-grid" style="max-width: 1400px; margin: 0 auto; width: 95%;">
-                <!-- Dynamically populated via JS -->
+                        <button class="accordion">Southern Hemisphere Constellations</button>
+                        <div class="accordion-content" style="padding-top: 20px;">
+                            <div id="grid-southern" class="const-grid">
+                                <!-- Populated via JS -->
+                            </div>
+                        </div>
+                    </div>
+
             </section>
 
             <footer class="site-footer">
