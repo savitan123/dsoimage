@@ -1538,5 +1538,149 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The central bright spot of a star's image as seen through a telescope, surrounded by faint concentric rings caused by the diffraction of light.</p>
             <p><strong>Example:</strong> Because of the Airy Disk, stars can never be "infinitely small" points; they will always have a minimum size determined by the telescope's aperture ($D$).</p>
         `
+    },
+    {
+        title: "Roche Lobe",
+        category: "Binary Star Evolution & Interaction",
+        content: `
+            <p><strong>Definition:</strong> The teardrop-shaped region around a star in a binary system within which orbiting material is gravitationally bound to that star.</p>
+            <p><strong>Example:</strong> In a close binary system, if one star expands into a Red Giant, it may fill its Roche Lobe, causing its outer gas to spill over onto its companion star.</p>
+        `
+    },
+    {
+        title: "Accretion Disk",
+        category: "Binary Star Evolution & Interaction",
+        content: `
+            <p><strong>Definition:</strong> A structure (often a disk) formed by diffused material in orbital motion around a massive central body, typically a star or black hole.</p>
+            <p><strong>Example:</strong> In a Cataclysmic Variable star system, gas from the companion star forms an Accretion Disk around the white dwarf, which can glow brightly in your images.</p>
+        `
+    },
+    {
+        title: "Common Envelope Phase",
+        category: "Binary Star Evolution & Interaction",
+        content: `
+            <p><strong>Definition:</strong> A short-lived phase in the evolution of a binary star where both stars become engulfed by a single, large cloud of gas.</p>
+            <p><strong>Example:</strong> This violent process can lead to the formation of a Planetary Nebula with a highly asymmetrical shape, like the "wings" seen in the Butterfly Nebula.</p>
+        `
+    },
+    {
+        title: "Aperture Photometry",
+        category: "Deep Sky Photometry & Measurement",
+        content: `
+            <p><strong>Definition:</strong> A method of measuring the light from a star by summing the pixel values within a circular "aperture" and subtracting the average background light.</p>
+            <p><strong>Example:</strong> Using software like AAVSO VPhot, you can perform Aperture Photometry on your images of a variable star to create a "Light Curve" showing its changes in brightness over time.</p>
+        `
+    },
+    {
+        title: "Differential Photometry",
+        category: "Deep Sky Photometry & Measurement",
+        content: `
+            <p><strong>Definition:</strong> Measuring the brightness of a target star by comparing it to several "reference stars" of known, constant brightness in the same image.</p>
+            <p><strong>Example:</strong> This is the most accurate way for amateurs to detect Exoplanet Transits, as it cancels out changes in sky transparency or thin clouds during the night.</p>
+        `
+    },
+    {
+        title: "Full Width at Tenth Maximum (FWTM)",
+        category: "Deep Sky Photometry & Measurement",
+        content: `
+            <p><strong>Definition:</strong> Similar to FWHM, but measured at 10% of the star's peak brightness. It is used to analyze the "wings" or halos of a star's profile.</p>
+            <p><strong>Example:</strong> If your FWTM is very high compared to your FWHM, it indicates that your FLT132 may have slight spherical aberration or internal reflections.</p>
+        `
+    },
+    {
+        title: "Conditional Logic (iif statements)",
+        category: "Advanced Pixel Math & Logic Operations",
+        content: `
+            <p><strong>Definition:</strong> A programming function in PixelMath that performs an action only if a specific condition is met (e.g., "If the pixel is brighter than X, do Y").</p>
+            <p><strong>Example:</strong> You can use an iif statement to replace only the blown-out core of the Orion Nebula with data from a shorter exposure: iif($T > 0.8, short_exp, $T).</p>
+        `
+    },
+    {
+        title: "Masked Integration",
+        category: "Advanced Pixel Math & Logic Operations",
+        content: `
+            <p><strong>Definition:</strong> Combining images using a weight map that tells the software which parts of which frames are the highest quality.</p>
+            <p><strong>Example:</strong> If a satellite trail passed through one corner of a frame, Masked Integration can use the "good" data from other frames to fill in that specific area seamlessly.</p>
+        `
+    },
+    {
+        title: "Rescale Function",
+        category: "Advanced Pixel Math & Logic Operations",
+        content: `
+            <p><strong>Definition:</strong> A mathematical operation that takes an image's brightness values and "stretches" or "squeezes" them to fit exactly between 0 and 1.</p>
+            <p><strong>Example:</strong> After performing complex math on your Tadpole Nebula data, you use Rescale to ensure the file is valid and no data is "clipped" before saving.</p>
+        `
+    },
+    {
+        title: "Heliocentric Julian Date (HJD)",
+        category: "Professional Astronomy & Cosmology",
+        content: `
+            <p><strong>Definition:</strong> A time standard that corrects the time an observation was made to the center of the Sun, accounting for the Earth's position in its orbit.</p>
+            <p><strong>Example:</strong> If you submit observations of a variable star to a scientific database, you must convert your local time to HJD so other astronomers can compare their data with yours.</p>
+        `
+    },
+    {
+        title: "Great Attractor",
+        category: "Professional Astronomy & Cosmology",
+        content: `
+            <p><strong>Definition:</strong> A gravitational anomaly in intergalactic space and the apparent central gravitational point of the Laniakea Supercluster.</p>
+            <p><strong>Example:</strong> While we photograph the Hercules Galaxy Cluster, it (and our own Milky Way) is actually being pulled toward the Great Attractor at millions of miles per hour.</p>
+        `
+    },
+    {
+        title: "Lyman-alpha Forest",
+        category: "Professional Astronomy & Cosmology",
+        content: `
+            <p><strong>Definition:</strong> A series of absorption lines in the spectra of distant galaxies and quasars caused by clouds of neutral hydrogen gas in the early universe.</p>
+            <p><strong>Example:</strong> This is "Deep Time" photography. When you capture a Quasar billions of light-years away, its light contains the history of all the gas it passed through on its way to your sensor.</p>
+        `
+    },
+    {
+        title: "Salt and Pepper Noise",
+        category: "Final Technical Essentials",
+        content: `
+            <p><strong>Definition:</strong> A form of noise typically seen in images where pixels are randomly either fully white or fully black, often caused by sharp transmission errors or hot pixels.</p>
+            <p><strong>Example:</strong> Effective Dark Frame calibration and Dithering are the two primary tools used to kill Salt and Pepper Noise in your stacks.</p>
+        `
+    },
+    {
+        title: "Interpolation Error",
+        category: "Final Technical Essentials",
+        content: `
+            <p><strong>Definition:</strong> An artifact caused when rotating or scaling an image, where the software has to "guess" the value of a pixel that doesn't align perfectly with the original grid.</p>
+            <p><strong>Example:</strong> Using high-quality algorithms like Lanczos or Bicubic during the registration of your Leo Triplet images helps prevent this "smearing" effect.</p>
+        `
+    },
+    {
+        title: "Optical Axis",
+        category: "Final Technical Essentials",
+        content: `
+            <p><strong>Definition:</strong> The imaginary line that passes through the exact center of every lens and mirror in your telescope.</p>
+            <p><strong>Example:</strong> If your AP MACH 2 mount and your FLT132 telescope aren't perfectly aligned with this Optical Axis, you will experience "Cone Error."</p>
+        `
+    },
+    {
+        title: "Nyquist Sampling Theorem",
+        category: "Final Technical Essentials",
+        content: `
+            <p><strong>Definition:</strong> A rule stating that to resolve a certain detail, you must sample it at least twice as frequently as the detail's size.</p>
+            <p><strong>Example:</strong> This is the math behind choosing your camera. If your "Seeing" is 2", you should aim for an Image Scale of roughly 1.0" per pixel to satisfy the Nyquist requirement.</p>
+        `
+    },
+    {
+        title: "Wavelength ($\\lambda$)",
+        category: "Final Technical Essentials",
+        content: `
+            <p><strong>Definition:</strong> The distance between successive crests of a light wave.</p>
+            <p><strong>Example:</strong> Different colors have different Wavelengths. H-alpha is 656.3nm (long/red), while OIII is 500.7nm (shorter/blue-green).</p>
+        `
+    },
+    {
+        title: "Photosphere",
+        category: "Final Technical Essentials",
+        content: `
+            <p><strong>Definition:</strong> The luminous "surface" of the Sun that we see in white-light filters.</p>
+            <p><strong>Example:</strong> When using a Baader Solar Film on your telescope, you are photographing the Photosphere, including sunspots and granulation.</p>
+        `
     }
 ];
