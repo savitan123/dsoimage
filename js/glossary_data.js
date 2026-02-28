@@ -1426,5 +1426,117 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The physical change in the length of a telescope tube as the temperature drops during the night, which shifts the point of focus.</p>
             <p><strong>Example:</strong> Your FLT132 (aluminum tube) will shrink slightly as it cools. If you don't use "Temperature Compensation" in your software, your stars will slowly go out of focus over 2-3 hours.</p>
         `
+    },
+    {
+        title: "Mass Segregation",
+        category: "Star Cluster Dynamics & Evolution",
+        content: `
+            <p><strong>Definition:</strong> A process in stellar clusters where more massive stars tend to move toward the center, while lower-mass stars move toward the periphery.</p>
+            <p><strong>Example:</strong> In your images of the Hercules Globular Cluster (M13), you’ll notice the core is extremely dense with bright, massive stars, while the "outer halo" consists of smaller, dimmer stars.</p>
+        `
+    },
+    {
+        title: "Turn-off Point",
+        category: "Star Cluster Dynamics & Evolution",
+        content: `
+            <p><strong>Definition:</strong> The point on a Hertzsprung–Russell diagram where stars of a certain mass begin to leave the main sequence and become red giants.</p>
+            <p><strong>Example:</strong> By measuring the "color" of the stars just beginning to turn red in M13, astronomers can calculate that the cluster is approximately 11.6 billion years old.</p>
+        `
+    },
+    {
+        title: "Core Collapse",
+        category: "Star Cluster Dynamics & Evolution",
+        content: `
+            <p><strong>Definition:</strong> A stage in the evolution of a globular cluster where the central density becomes so high that stars begin to interact gravitationally, often leading to the formation of binary stars or "Blue Stragglers."</p>
+            <p><strong>Example:</strong> M15 or M30 are "core-collapsed" clusters. In your high-resolution shots, their centers look like a singular, solid point of light rather than individual stars.</p>
+        `
+    },
+    {
+        title: "Open Cluster (Galactic Cluster)",
+        category: "Star Cluster Dynamics & Evolution",
+        content: `
+            <p><strong>Definition:</strong> A loosely bound group of up to a few thousand stars that were formed from the same giant molecular cloud and are roughly the same age.</p>
+            <p><strong>Example:</strong> The Pleiades (M45) is an open cluster. Unlike globular clusters, these stars will eventually drift apart over millions of years as they orbit the galactic center.</p>
+        `
+    },
+    {
+        title: "Albedo",
+        category: "Planetary Surface Features & Geometry",
+        content: `
+            <p><strong>Definition:</strong> The measure of the reflectivity of a celestial body's surface. A value of 0 is perfectly black; 1.0 is perfectly reflective.</p>
+            <p><strong>Example:</strong> Enceladus (moon of Saturn) has an albedo of nearly 0.9 (ice), while our Moon has an albedo of only 0.12 (dark rock). This is why the Moon looks "gray" even though it is hit by full sunlight.</p>
+        `
+    },
+    {
+        title: "The Terminator",
+        category: "Planetary Surface Features & Geometry",
+        content: `
+            <p><strong>Definition:</strong> The dividing line between the illuminated (day) and dark (night) sides of a planetary body or moon.</p>
+            <p><strong>Example:</strong> The best time to photograph the Moon's craters is along the Terminator, where long shadows provide maximum contrast and a 3D appearance.</p>
+        `
+    },
+    {
+        title: "Limb Darkening",
+        category: "Planetary Surface Features & Geometry",
+        content: `
+            <p><strong>Definition:</strong> An optical effect where the center of a star or planet appears brighter than the edge (limb).</p>
+            <p><strong>Example:</strong> In your solar or Jupiter images, the edges appear "darker" because you are looking through a thicker layer of the atmosphere at an angle, whereas in the center, you are looking straight down into the hotter/brighter layers.</p>
+        `
+    },
+    {
+        title: "Phase Angle",
+        category: "Planetary Surface Features & Geometry",
+        content: `
+            <p><strong>Definition:</strong> The angle between the Sun and the observer as seen from the target (Sun-Target-Observer).</p>
+            <p><strong>Example:</strong> When you photograph Venus, the Phase Angle determines if you see a "Crescent Venus" or a "Full Venus."</p>
+        `
+    },
+    {
+        title: "Poisson Noise (Shot Noise)",
+        category: "Advanced Noise Statistics & Math",
+        content: `
+            <p><strong>Definition:</strong> Noise that arises from the discrete nature of light (photons). Since photons arrive at random intervals, there is a statistical uncertainty in the count.</p>
+            <p><strong>Example:</strong> Shot Noise is the primary noise source in bright parts of an image (like the core of a nebula). The only way to "beat" it is to collect more photons (longer integration).</p>
+        `
+    },
+    {
+        title: "Gaussian Noise (Electronic Noise)",
+        category: "Advanced Noise Statistics & Math",
+        content: `
+            <p><strong>Definition:</strong> Noise that follows a normal distribution (bell curve), typically caused by the camera's electronics and read-out process.</p>
+            <p><strong>Example:</strong> Gaussian Noise is most visible in the dark background of your Hercules Galaxy Cluster shots. Stacking multiple frames averages this noise toward zero.</p>
+        `
+    },
+    {
+        title: "Standard Deviation ($\\sigma$)",
+        category: "Advanced Noise Statistics & Math",
+        content: `
+            <p><strong>Definition:</strong> A measure of the amount of variation or dispersion of a set of pixel values.</p>
+            <p><strong>Example:</strong> In PixInsight's "Statistics" process, a high Standard Deviation in a dark area usually indicates that your image is very noisy.</p>
+        `
+    },
+    {
+        title: "Bias Offset",
+        category: "Advanced Noise Statistics & Math",
+        content: `
+            <p><strong>Definition:</strong> A constant value added to every pixel by the camera manufacturer to ensure that noise doesn't result in "negative" numbers, which would break the math of processing software.</p>
+            <p><strong>Example:</strong> If your ASI2600 has a Bias Offset of 100, a completely black pixel will still show a value of 100 in the raw data.</p>
+        `
+    },
+    {
+        title: "Strehl Ratio",
+        category: "Advanced Optics Concepts",
+        content: `
+            <p><strong>Definition:</strong> A measure of the optical quality of a telescope. It compares the peak intensity of a star's image to the theoretical maximum of a perfect lens. 1.0 is a perfect lens.</p>
+            <p><strong>Example:</strong> A high-end refractor like the FLT132 usually has a Strehl Ratio of 0.95 or higher, meaning it produces incredibly sharp, pinpoint stars.</p>
+        `
+    },
+    {
+        title: "Airy Disk",
+        category: "Advanced Optics Concepts",
+        content: `
+            <p><strong>Definition:</strong> The central bright spot of a star's image as seen through a telescope, surrounded by faint concentric rings caused by the diffraction of light.</p>
+            <p><strong>Example:</strong> Because of the Airy Disk, stars can never be "infinitely small" points; they will always have a minimum size determined by the telescope's aperture ($D$).</p>
+        `
     }
 ];
