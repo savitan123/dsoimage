@@ -2142,9 +2142,9 @@ function initGlossary() {
         title: c.name + " Constellation",
         category: "Constellation",
         content: `
-          <img src="images/constellations/${c.id}.png" alt="${c.name} Constellation">
-          <p>${c.desc}</p>
-          <a href="constellation.html?id=${c.id}" class="kb-link-btn" style="display: inline-block; margin-top: 10px; padding: 10px 20px; background: #1e90ff; color: #fff; text-decoration: none; border-radius: 5px; font-weight: bold;">Explore ${c.name} &rarr;</a>
+          <img src="images/constellations/${c.abbr}.png" alt="${c.name} Constellation">
+          <p class="constellation-desc-ph" data-abbr="${c.abbr}">Loading historical data...</p>
+          <a href="constellation.html?id=${c.abbr}" class="kb-link-btn" style="display: inline-block; margin-top: 10px; padding: 10px 20px; background: #1e90ff; color: #fff; text-decoration: none; border-radius: 5px; font-weight: bold;">Explore ${c.name} &rarr;</a>
           <br style="clear:both;">
         `
       });
@@ -2282,6 +2282,21 @@ function initGlossary() {
       });
     });
   }
+
+  // 7. Load Heavy Constellation Descriptions Asynchronously
+  fetch('js/constellations_data.json')
+    .then(res => res.json())
+    .then(data => {
+      document.querySelectorAll('.constellation-desc-ph').forEach(el => {
+        const abbr = el.getAttribute('data-abbr');
+        if (data[abbr] && data[abbr].description) {
+          el.innerHTML = data[abbr].description;
+        } else {
+          el.innerText = "No description available.";
+        }
+      });
+    })
+    .catch(err => console.error("Error loading constellation data for glossary:", err));
 }
 
 // Call initGlossary if on knowledge.html
