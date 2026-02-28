@@ -1,142 +1,120 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Shimon Avitan">
-    <meta name="description" content="Detailed Constellation Guide and Map.">
-    <title>Constellation Detail &#8212; Shimon Avitan</title>
-    <link rel="stylesheet" href="css/style.css?v=32">
-</head>
-
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="Shimon Avitan" name="author"/>
+<meta content="Constellation Detail — Shimon Avitan - Deep Sky Astrophotography by Shimon Avitan. High-resolution LRGB imaging featuring nebulae, galaxies, and star clusters captured with FLT 132." name="description"/>
+<title>Constellation Detail — Shimon Avitan</title>
+<link href="css/style.css?v=32" rel="stylesheet"/>
+<link href="https://dsoimage.com/constellation.html" rel="canonical"/></head>
 <body>
-    <div class="container">
-
-
-        <header class="topbar">
-            <button class="menu-toggle" type="button" aria-label="Open menu" aria-controls="sidebar"
-                aria-expanded="false">
+<div class="container">
+<header class="topbar">
+<button aria-controls="sidebar" aria-expanded="false" aria-label="Open menu" class="menu-toggle" type="button">
                 Menu
             </button>
-            <button class="search-trigger" aria-label="Search site">&#128269;</button>
-            <div class="topbar-title">dsoimage.com</div>
-        </header>
-
-        <div class="overlay" id="overlay" hidden></div>
-
-        <nav class="sidebar" id="sidebar" aria-label="Site menu">
-            <div class="sidebar-header">
-                <h2>Menu</h2>
-                <button class="menu-close" type="button" aria-label="Close menu">×</button>
-            </div>
-
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="galaxies.html">Galaxies</a></li>
-                <li><a href="nebulae.html">Nebulae</a></li>
-                <li><a href="clusters.html">Star Clusters</a></li>
-                <li><a href="equipment.html">Equipment</a></li>
-                <li><a href="processing.html">Processing</a></li>
-                <li><a href="weather.html">Weather</a></li>
-                <li><a href="tools.html">Tools</a></li>
-                <li><a href="planner.html" data-i18n="menu_planner">Planned Session</a></li>
-                <li><a href="knowledge.html" class="active">Knowledge Base</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-
-            <button id="red-mode-toggle" class="mode-toggle-btn">
-                <span class="circle-icon"></span> Night Vision
+<button aria-label="Search site" class="search-trigger">🔍</button>
+<div class="topbar-title">dsoimage.com</div>
+</header>
+<div class="overlay" hidden="" id="overlay"></div>
+<nav aria-label="Site menu" class="sidebar" id="sidebar">
+<div class="sidebar-header">
+<h2>Menu</h2>
+<button aria-label="Close menu" class="menu-close" type="button">×</button>
+</div>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="galaxies.html">Galaxies</a></li>
+<li><a href="nebulae.html">Nebulae</a></li>
+<li><a href="clusters.html">Star Clusters</a></li>
+<li><a href="equipment.html">Equipment</a></li>
+<li><a href="processing.html">Processing</a></li>
+<li><a href="weather.html">Weather</a></li>
+<li><a href="tools.html">Tools</a></li>
+<li><a data-i18n="menu_planner" href="planner.html">Planned Session</a></li>
+<li><a class="active" href="knowledge.html">Knowledge Base</a></li>
+<li><a href="about.html">About</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+<button class="mode-toggle-btn" id="red-mode-toggle">
+<span class="circle-icon"></span> Night Vision
             </button>
-
-            <div id="nv-container" class="nv-controls" style="display: none;">
-                <label for="nv-slider" style="font-size: 13px; color: #aaa; text-align: left;">Dimmer</label>
-                <input type="range" id="nv-slider" min="20" max="100" value="80">
-            </div>
-
-            <button class="search-trigger">
-                &#128269; <span data-i18n="menu_search">Search</span>
-            </button>
-
-            <div id="image-stats"></div>
-        </nav>
-
-        <main class="main-content">
-            <a href="javascript:history.back()" class="back-link"
-                style="display:inline-block; margin-bottom: 20px; color:#1e90ff; text-decoration:none;">&larr; Back to
+<div class="nv-controls" id="nv-container" style="display: none;">
+<label for="nv-slider" style="font-size: 13px; color: #aaa; text-align: left;">Dimmer</label>
+<input id="nv-slider" max="100" min="20" type="range" value="80"/>
+</div>
+<button class="search-trigger">
+                🔍 <span data-i18n="menu_search">Search</span>
+</button>
+<div id="image-stats"></div>
+</nav>
+<main class="main-content">
+<a class="back-link" href="javascript:history.back()" style="display:inline-block; margin-bottom: 20px; color:#1e90ff; text-decoration:none;">← Back to
                 Maps</a>
-
-            <h1 id="constellation-title">Loading...</h1>
-            <p class="subtitle" id="constellation-coord"></p>
-            <p id="constellation-alt" style="font-weight:bold; margin-bottom: 20px;"></p>
-
-            <div class="constellation-detail-grid">
-                <!-- Left Side: Img Map -->
-                <div class="const-map-box">
-                    <img id="constellation-img" src="" alt="Constellation Map" />
-                    <div class="kb-card">
-                        <p id="constellation-desc" style="line-height:1.6; text-align:justify; margin-top:20px;"></p>
-                    </div>
-                </div>
-
-                <!-- Right Side: Data Panels -->
-                <div class="const-data-box">
-                    <div class="kb-card data-panel">
-                        <h3>&#10024; Brightest Stars</h3>
-                        <div class="table-container">
-                            <table class="data-table" id="stars-table">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Mag</th>
-                                        <th>Type</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="kb-card data-panel">
-                        <h3>&#128301; Deep Sky Objects</h3>
-                        <div class="table-container">
-                            <table class="data-table" id="dsos-table">
-                                <thead>
-                                    <tr>
-                                        <th>Object</th>
-                                        <th>Type</th>
-                                        <th>Mag</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
-
-    <div id="lightbox" class="lightbox" hidden>
-        <span class="close-lightbox">&times;</span>
-        <img class="lightbox-content" id="lightbox-img" alt="Enlarged view">
-        <div id="lightbox-caption"></div>
-        <div id="lightbox-controls"></div>
-    </div>
-
-    <div id="search-modal" class="search-modal" hidden>
-        <div class="search-modal-content">
-            <span class="close-search">&times;</span>
-            <input type="text" id="search-input" placeholder="Search galaxies, nebulae, clusters..."
-                aria-label="Search">
-            <div id="search-results" class="search-results"></div>
-        </div>
-    </div>
-
-    <script src="js/constellations.js"></script>
-    <!-- Main logic script -->
-    <script src="js/script.js?v=32"></script>
+<h1 id="constellation-title">Loading...</h1>
+<p class="subtitle" id="constellation-coord"></p>
+<p id="constellation-alt" style="font-weight:bold; margin-bottom: 20px;"></p>
+<div class="constellation-detail-grid">
+<!-- Left Side: Img Map -->
+<div class="const-map-box">
+<img alt="Constellation Map" id="constellation-img" src=""/>
+<div class="kb-card">
+<p id="constellation-desc" style="line-height:1.6; text-align:justify; margin-top:20px;"></p>
+</div>
+</div>
+<!-- Right Side: Data Panels -->
+<div class="const-data-box">
+<div class="kb-card data-panel">
+<h3>✨ Brightest Stars</h3>
+<div class="table-container">
+<table class="data-table" id="stars-table">
+<thead>
+<tr>
+<th>Name</th>
+<th>Mag</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</div>
+</div>
+<div class="kb-card data-panel">
+<h3>🔭 Deep Sky Objects</h3>
+<div class="table-container">
+<table class="data-table" id="dsos-table">
+<thead>
+<tr>
+<th>Object</th>
+<th>Type</th>
+<th>Mag</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<div class="lightbox" hidden="" id="lightbox">
+<span class="close-lightbox">×</span>
+<img alt="Enlarged view" class="lightbox-content" id="lightbox-img"/>
+<div id="lightbox-caption"></div>
+<div id="lightbox-controls"></div>
+</div>
+<div class="search-modal" hidden="" id="search-modal">
+<div class="search-modal-content">
+<span class="close-search">×</span>
+<input aria-label="Search" id="search-input" placeholder="Search galaxies, nebulae, clusters..." type="text"/>
+<div class="search-results" id="search-results"></div>
+</div>
+</div>
+<script src="js/constellations.js"></script>
+<!-- Main logic script -->
+<script src="js/script.js?v=32"></script>
 </body>
-
 </html>

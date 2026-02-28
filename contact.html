@@ -1,142 +1,112 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="canonical" href="https://dsoimage.com/contact.html">
-
-    <title>Contact — Shimon Avitan</title>
-    <meta name="description" content="Contact Shimon Avitan.">
-
-    <link rel="stylesheet" href="css/style.css?v=31">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://dsoimage.com/contact.html" rel="canonical"/>
+<title>Contact — Shimon Avitan</title>
+<meta content="Contact — Shimon Avitan - Deep Sky Astrophotography by Shimon Avitan. High-resolution LRGB imaging featuring nebulae, galaxies, and star clusters captured with FLT 132." name="description"/>
+<link href="css/style.css?v=31" rel="stylesheet"/>
 </head>
-
 <body>
-    <div class="container">
-
-
-        <!-- TOPBAR (mobile) -->
-        <header class="topbar">
-            <button class="menu-btn menu-toggle" type="button" aria-label="Open menu" aria-controls="sidebar"
-                aria-expanded="false">
+<div class="container">
+<!-- TOPBAR (mobile) -->
+<header class="topbar">
+<button aria-controls="sidebar" aria-expanded="false" aria-label="Open menu" class="menu-btn menu-toggle" type="button">
                 Menu
             </button>
-            <button class="search-trigger" aria-label="Search site">🔍</button>
-            <div class="topbar-title">dsoimage.com</div>
-        </header>
-
-        <!-- Overlay for slide-in sidebar -->
-        <div class="sidebar-overlay overlay" hidden></div>
-
-        <!-- SIDEBAR -->
-        <nav class="sidebar" id="sidebar" aria-label="Site menu">
-            <div class="sidebar-header">
-                <h2>Menu</h2>
-                <button class="menu-close" type="button" aria-label="Close menu">×</button>
-            </div>
-
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="galaxies.html">Galaxies</a></li>
-                <li><a href="nebulae.html">Nebulae</a></li>
-                <li><a href="clusters.html">Star Clusters</a></li>
-                <li><a href="equipment.html">Equipment</a></li>
-                <li><a href="processing.html">Processing</a></li>
-                <li><a href="weather.html">Weather</a></li>
-                <li><a href="tools.html">Tools</a></li>
-                <li><a href="planner.html" data-i18n="menu_planner">Planned Session</a></li>
-        <li><a href="knowledge.html">Knowledge Base</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html" class="active">Contact</a></li>
-            </ul>
-
-            <button class="search-trigger">
+<button aria-label="Search site" class="search-trigger">🔍</button>
+<div class="topbar-title">dsoimage.com</div>
+</header>
+<!-- Overlay for slide-in sidebar -->
+<div class="sidebar-overlay overlay" hidden=""></div>
+<!-- SIDEBAR -->
+<nav aria-label="Site menu" class="sidebar" id="sidebar">
+<div class="sidebar-header">
+<h2>Menu</h2>
+<button aria-label="Close menu" class="menu-close" type="button">×</button>
+</div>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="galaxies.html">Galaxies</a></li>
+<li><a href="nebulae.html">Nebulae</a></li>
+<li><a href="clusters.html">Star Clusters</a></li>
+<li><a href="equipment.html">Equipment</a></li>
+<li><a href="processing.html">Processing</a></li>
+<li><a href="weather.html">Weather</a></li>
+<li><a href="tools.html">Tools</a></li>
+<li><a data-i18n="menu_planner" href="planner.html">Planned Session</a></li>
+<li><a href="knowledge.html">Knowledge Base</a></li>
+<li><a href="about.html">About</a></li>
+<li><a class="active" href="contact.html">Contact</a></li>
+</ul>
+<button class="search-trigger">
                 🔍 <span data-i18n="menu_search">Search</span>
+</button>
+<button class="mode-toggle-btn" id="red-mode-toggle">
+<span class="circle-icon"></span> Night Vision
             </button>
-
-            <button id="red-mode-toggle" class="mode-toggle-btn">
-                <span class="circle-icon"></span> Night Vision
-            </button>
-
-            <div id="nv-container" class="nv-controls" style="display: none;">
-                <label for="nv-slider" style="font-size: 13px; color: #aaa; text-align: left;">Dimmer</label>
-                <input type="range" id="nv-slider" min="20" max="100" value="80">
-            </div>
-
-            <div id="image-stats"></div>
-
-            <div class="sidebar-footer">
-                <h2 class="sidebar-subtitle">Follow Me</h2>
-                <ul>
-                    <li><a href="https://www.instagram.com/avitan_shimon/" target="_blank" rel="noopener">Instagram</a>
-                    </li>
-                    <li><a href="https://www.facebook.com/shimon.avitan.79" target="_blank" rel="noopener">Facebook</a>
-                    </li>
-                    <li><a href="https://www.flickr.com/photos/193302744@N07/" target="_blank" rel="noopener">Flickr</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-
-        <!-- MAIN -->
-        <main class="main-content">
-
-            <h1>Contact Me</h1>
-
-            <div class="page-text">
-                <p>
+<div class="nv-controls" id="nv-container" style="display: none;">
+<label for="nv-slider" style="font-size: 13px; color: #aaa; text-align: left;">Dimmer</label>
+<input id="nv-slider" max="100" min="20" type="range" value="80"/>
+</div>
+<div id="image-stats"></div>
+<div class="sidebar-footer">
+<h2 class="sidebar-subtitle">Follow Me</h2>
+<ul>
+<li><a href="https://www.instagram.com/avitan_shimon/" rel="noopener" target="_blank">Instagram</a>
+</li>
+<li><a href="https://www.facebook.com/shimon.avitan.79" rel="noopener" target="_blank">Facebook</a>
+</li>
+<li><a href="https://www.flickr.com/photos/193302744@N07/" rel="noopener" target="_blank">Flickr</a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- MAIN -->
+<main class="main-content">
+<h1>Contact Me</h1>
+<div class="page-text">
+<p>
                     Have a question about my imaging process, equipment, or potential prints?
                     Feel free to reach out using the form below.
                 </p>
-
-                <form action="https://formsubmit.co/avitanshimon@gmail.com" method="POST" class="contact-form">
-                    <!-- Hidden configuration fields -->
-                    <input type="hidden" name="_subject" value="New submission from dsoimage.com">
-                    <input type="hidden" name="_captcha" value="false">
-                    <input type="text" name="_honey" style="display:none">
-                    <input type="hidden" name="_next" value="https://dsoimage.com/contact.html">
-
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" placeholder="Your Name" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" placeholder="Your Email" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" placeholder="Write your message here..." rows="6"
-                            required></textarea>
-                    </div>
-
-                    <button type="submit" class="hero-button">Send Email</button>
-                </form>
-
-            </div>
-
-            <footer class="site-footer">
-                <p>&copy; 2026 Shimon Avitan | dsoimage.com</p>
-            </footer>
-
-        </main>
-    </div>
-
-    <!-- Search Overlay -->
-    <div id="search-overlay" class="search-overlay">
-        <div class="search-box">
-            <span class="search-close">&times;</span>
-            <input type="search" id="search-input" class="search-input" placeholder="Search objects (e.g., M31)..."
-                autocomplete="off">
-            <div id="search-results" class="search-results"></div>
-        </div>
-    </div>
-
-    <script src="js/script.js?v=7"></script>
-    <script src="js/stats.js"></script>
+<form action="https://formsubmit.co/avitanshimon@gmail.com" class="contact-form" method="POST">
+<!-- Hidden configuration fields -->
+<input name="_subject" type="hidden" value="New submission from dsoimage.com"/>
+<input name="_captcha" type="hidden" value="false"/>
+<input name="_honey" style="display:none" type="text"/>
+<input name="_next" type="hidden" value="https://dsoimage.com/contact.html"/>
+<div class="form-group">
+<label for="name">Name</label>
+<input id="name" name="name" placeholder="Your Name" required="" type="text"/>
+</div>
+<div class="form-group">
+<label for="email">Email</label>
+<input id="email" name="email" placeholder="Your Email" required="" type="email"/>
+</div>
+<div class="form-group">
+<label for="message">Message</label>
+<textarea id="message" name="message" placeholder="Write your message here..." required="" rows="6"></textarea>
+</div>
+<button class="hero-button" type="submit">Send Email</button>
+</form>
+</div>
+<footer class="site-footer">
+<p>© 2026 Shimon Avitan | dsoimage.com</p>
+</footer>
+</main>
+</div>
+<!-- Search Overlay -->
+<div class="search-overlay" id="search-overlay">
+<div class="search-box">
+<span class="search-close">×</span>
+<input autocomplete="off" class="search-input" id="search-input" placeholder="Search objects (e.g., M31)..." type="search"/>
+<div class="search-results" id="search-results"></div>
+</div>
+</div>
+<script src="js/script.js?v=7"></script>
+<script src="js/stats.js"></script>
 </body>
-
 </html>

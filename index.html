@@ -1,175 +1,132 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="canonical" href="https://dsoimage.com/">
-
-  <meta name="author" content="Shimon Avitan">
-  <meta name="description"
-    content="Welcome to DSOImage.com - Deep Sky Object astrophotography gallery by Shimon Avitan - capturing galaxies, nebulae and star clusters.">
-  <meta name="keywords"
-    content="Shimon Avitan, DSOImage, Astrophotography, Deep Sky Objects, DSO, Gallery, Astronomy, Galaxies, Nebulae, FLT 132, ASI2600MM">
-
-  <meta property="og:title" content="DSOImage - Deep Sky Object Gallery by Shimon Avitan">
-  <meta property="og:description"
-    content="Explore high-resolution astrophotography of galaxies, nebulae and star clusters at DSOImage.com.">
-  <meta property="og:image" content="https://dsoimage.com/images/preview/HorseHead_Flame_Nebula.jpg">
-  <meta property="og:url" content="https://dsoimage.com/">
-  <meta property="og:type" content="website">
-
-  <title>DSOImage - Deep Sky Object Gallery by Shimon Avitan</title>
-  <link rel="stylesheet" href="css/style.css?v=31">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://dsoimage.com/" rel="canonical"/>
+<meta content="Shimon Avitan" name="author"/>
+<meta content="DSOImage - Deep Sky Object Gallery by Shimon Avitan - Deep Sky Astrophotography by Shimon Avitan. High-resolution LRGB imaging featuring nebulae, galaxies, and star clusters captured with FLT 132." name="description"/>
+<meta content="Shimon Avitan, DSOImage, Astrophotography, Deep Sky Objects, DSO, Gallery, Astronomy, Galaxies, Nebulae, FLT 132, ASI2600MM" name="keywords"/>
+<meta content="DSOImage - Deep Sky Object Gallery by Shimon Avitan" property="og:title"/>
+<meta content="Explore high-resolution astrophotography of galaxies, nebulae and star clusters at DSOImage.com." property="og:description"/>
+<meta content="https://dsoimage.com/images/preview/HorseHead_Flame_Nebula.jpg" property="og:image"/>
+<meta content="https://dsoimage.com/" property="og:url"/>
+<meta content="website" property="og:type"/>
+<title>DSOImage - Deep Sky Object Gallery by Shimon Avitan</title>
+<link href="css/style.css?v=31" rel="stylesheet"/>
 </head>
-
 <body>
-  <div class="container">
-
-
-    <!-- Mobile top bar (only visible on small screens) -->
-    <header class="topbar">
-      <button class="menu-toggle" type="button" aria-label="Open menu" aria-controls="sidebar" aria-expanded="false">
+<div class="container">
+<!-- Mobile top bar (only visible on small screens) -->
+<header class="topbar">
+<button aria-controls="sidebar" aria-expanded="false" aria-label="Open menu" class="menu-toggle" type="button">
         Menu
       </button>
-      <button class="search-trigger" aria-label="Search site">🔍</button>
-
-
-    </header>
-
-    <!-- Dim background overlay for mobile menu -->
-    <div class="overlay" id="overlay" hidden></div>
-
-    <nav class="sidebar" id="sidebar" aria-label="Site menu">
-      <div class="sidebar-header">
-        <h2 data-i18n="menu_home" style="font-size:24px; margin:0;">Menu</h2>
-
-        <button class="menu-close" type="button" aria-label="Close menu">×</button>
-      </div>
-
-      <ul>
-        <li><a href="index.html" class="active" data-i18n="menu_home">Home</a></li>
-        <li><a href="galaxies.html" data-i18n="menu_galaxies">Galaxies</a></li>
-        <li><a href="nebulae.html" data-i18n="menu_nebulae">Nebulae</a></li>
-        <li><a href="clusters.html" data-i18n="menu_clusters">Star Clusters</a></li>
-        <li><a href="equipment.html" data-i18n="menu_equipment">Equipment</a></li>
-        <li><a href="processing.html" data-i18n="menu_processing">Processing</a></li>
-        <li><a href="weather.html" data-i18n="menu_weather">Weather</a></li>
-        <li><a href="tools.html" data-i18n="menu_tools">Tools</a></li>
-        <li><a href="planner.html" data-i18n="menu_planner">Planned Session</a></li>
-        <li><a href="knowledge.html">Knowledge Base</a></li>
-        <li><a href="about.html" data-i18n="menu_about">About</a></li>
-        <li><a href="contact.html" data-i18n="menu_contact">Contact</a></li>
-      </ul>
-
-      <button id="red-mode-toggle" class="mode-toggle-btn">
-        <span class="circle-icon"></span> <span data-i18n="menu_nightvision">Night Vision</span>
-      </button>
-
-      <div id="nv-container" class="nv-controls" style="display: none;">
-        <label for="nv-slider" style="font-size: 13px; color: #aaa; text-align: left;">Dimmer</label>
-        <input type="range" id="nv-slider" min="20" max="100" value="80">
-      </div>
-
-
-      <button class="search-trigger">
+<button aria-label="Search site" class="search-trigger">🔍</button>
+</header>
+<!-- Dim background overlay for mobile menu -->
+<div class="overlay" hidden="" id="overlay"></div>
+<nav aria-label="Site menu" class="sidebar" id="sidebar">
+<div class="sidebar-header">
+<h2 data-i18n="menu_home" style="font-size:24px; margin:0;">Menu</h2>
+<button aria-label="Close menu" class="menu-close" type="button">×</button>
+</div>
+<ul>
+<li><a class="active" data-i18n="menu_home" href="index.html">Home</a></li>
+<li><a data-i18n="menu_galaxies" href="galaxies.html">Galaxies</a></li>
+<li><a data-i18n="menu_nebulae" href="nebulae.html">Nebulae</a></li>
+<li><a data-i18n="menu_clusters" href="clusters.html">Star Clusters</a></li>
+<li><a data-i18n="menu_equipment" href="equipment.html">Equipment</a></li>
+<li><a data-i18n="menu_processing" href="processing.html">Processing</a></li>
+<li><a data-i18n="menu_weather" href="weather.html">Weather</a></li>
+<li><a data-i18n="menu_tools" href="tools.html">Tools</a></li>
+<li><a data-i18n="menu_planner" href="planner.html">Planned Session</a></li>
+<li><a href="knowledge.html">Knowledge Base</a></li>
+<li><a data-i18n="menu_about" href="about.html">About</a></li>
+<li><a data-i18n="menu_contact" href="contact.html">Contact</a></li>
+</ul>
+<button class="mode-toggle-btn" id="red-mode-toggle">
+<span class="circle-icon"></span> <span data-i18n="menu_nightvision">Night Vision</span>
+</button>
+<div class="nv-controls" id="nv-container" style="display: none;">
+<label for="nv-slider" style="font-size: 13px; color: #aaa; text-align: left;">Dimmer</label>
+<input id="nv-slider" max="100" min="20" type="range" value="80"/>
+</div>
+<button class="search-trigger">
         🔍 <span data-i18n="menu_search">Search</span>
-      </button>
-
-      <!-- Sidebar search removed -->
-
-      <div id="image-stats"></div>
-
-      <div class="sidebar-footer">
-        <h2 class="sidebar-subtitle" data-i18n="menu_follow">Follow Me</h2>
-        <ul>
-          <li><a href="https://www.instagram.com/avitan_shimon/" target="_blank" rel="noopener">Instagram</a></li>
-          <li><a href="https://www.facebook.com/shimon.avitan.79" target="_blank" rel="noopener">Facebook</a></li>
-          <li><a href="https://www.flickr.com/photos/193302744@N07/" target="_blank" rel="noopener">Flickr</a></li>
-        </ul>
-      </div>
-    </nav>
-
-    <main class="main-content">
-
-      <!-- HERO -->
-      <section class="hero" style="background-image:url('images/preview/helix_nebula.jpg');">
-        <div class="hero-overlay">
-          <h1 class="color-header hero-title">
-            <span class="red" data-i18n="hero_part1">D</span><span data-i18n="hero_part1_text">eep</span>
-            <span class="green" data-i18n="hero_part2">S</span><span data-i18n="hero_part2_text">ky</span>
-            <span class="blue" data-i18n="hero_part3">O</span><span data-i18n="hero_part3_text">bject Imaging</span>
-          </h1>
-
-          <p class="hero-text" data-i18n="hero_desc">
+</button>
+<!-- Sidebar search removed -->
+<div id="image-stats"></div>
+<div class="sidebar-footer">
+<h2 class="sidebar-subtitle" data-i18n="menu_follow">Follow Me</h2>
+<ul>
+<li><a href="https://www.instagram.com/avitan_shimon/" rel="noopener" target="_blank">Instagram</a></li>
+<li><a href="https://www.facebook.com/shimon.avitan.79" rel="noopener" target="_blank">Facebook</a></li>
+<li><a href="https://www.flickr.com/photos/193302744@N07/" rel="noopener" target="_blank">Flickr</a></li>
+</ul>
+</div>
+</nav>
+<main class="main-content">
+<!-- HERO -->
+<section class="hero" style="background-image:url('images/preview/helix_nebula.jpg');">
+<div class="hero-overlay">
+<h1 class="color-header hero-title">
+<span class="red" data-i18n="hero_part1">D</span><span data-i18n="hero_part1_text">eep</span>
+<span class="green" data-i18n="hero_part2">S</span><span data-i18n="hero_part2_text">ky</span>
+<span class="blue" data-i18n="hero_part3">O</span><span data-i18n="hero_part3_text">bject Imaging</span>
+</h1>
+<p class="hero-text" data-i18n="hero_desc">
             A curated collection of deep-sky astrophotography captured under dark skies, revealing
             galaxies, nebulae, and star clusters far beyond our solar system.
           </p>
-
-          <div class="hero-actions">
-            <a class="hero-button" href="galaxies.html" data-i18n="hero_btn_gal">Browse Galaxies</a>
-            <a class="hero-button secondary" href="nebulae.html" data-i18n="hero_btn_neb">Browse Nebulae</a>
-            <a class="hero-button secondary" href="clusters.html" data-i18n="hero_btn_cl">Browse Clusters</a>
-          </div>
-        </div>
-      </section>
-
-      <p class="subtitle" data-i18n="home_subtitle">
+<div class="hero-actions">
+<a class="hero-button" data-i18n="hero_btn_gal" href="galaxies.html">Browse Galaxies</a>
+<a class="hero-button secondary" data-i18n="hero_btn_neb" href="nebulae.html">Browse Nebulae</a>
+<a class="hero-button secondary" data-i18n="hero_btn_cl" href="clusters.html">Browse Clusters</a>
+</div>
+</div>
+</section>
+<p class="subtitle" data-i18n="home_subtitle">
         Choose a category to browse preview images. Click any preview to open the full resolution with notes and links.
       </p>
-
-      <section class="category-grid">
-
-        <a class="category-card" href="galaxies.html">
-          <img src="images/preview/Triangulum_Galaxy.jpg"
-            alt="Triangulum Galaxy (M33) - Deep Sky Galaxy Astrophotography" loading="lazy" decoding="async">
-          <div class="category-card-text">
-            <h2 data-i18n="cat_gal_title">Galaxies</h2>
-            <p data-i18n="cat_gal_desc">M31, M33, M81/M82, M101, M77 and more.</p>
-          </div>
-        </a>
-
-        <a class="category-card" href="nebulae.html">
-          <img src="images/preview/HorseHead_Flame_Nebula.jpg"
-            alt="Horsehead and Flame Nebula - Deep Sky Nebula Astrophotography" loading="lazy" decoding="async">
-          <div class="category-card-text">
-            <h2 data-i18n="cat_neb_title">Nebulae</h2>
-            <p data-i18n="cat_neb_desc">Emission, reflection and narrowband targets.</p>
-          </div>
-        </a>
-
-        <a class="category-card" href="clusters.html">
-          <img src="images/preview/M13_Crop.jpg"
-            alt="M13 Hercules Globular Cluster - Deep Sky Star Cluster Astrophotography" loading="lazy"
-            decoding="async">
-          <div class="category-card-text">
-            <h2 data-i18n="cat_cl_title">Star Clusters</h2>
-            <p data-i18n="cat_cl_desc">Globular and open clusters.</p>
-          </div>
-        </a>
-
-      </section>
-
-      <footer class="site-footer">
-        <p>&copy; 2026 Shimon Avitan | dsoimage.com</p>
-      </footer>
-
-    </main>
-  </div>
-
-  <!-- Search Overlay -->
-  <div id="search-overlay" class="search-overlay">
-    <div class="search-box">
-      <span class="search-close">&times;</span>
-      <input type="search" id="search-input" class="search-input" placeholder="Search objects (e.g., M31)..."
-        autocomplete="off">
-      <div id="search-results" class="search-results"></div>
-    </div>
-  </div>
-
-  <script src="js/script.js?v=26"></script>
-  <script src="js/stats.js"></script>
-
+<section class="category-grid">
+<a class="category-card" href="galaxies.html">
+<img alt="Triangulum Galaxy (M33) - Deep Sky Galaxy Astrophotography" decoding="async" loading="lazy" src="images/preview/Triangulum_Galaxy.jpg"/>
+<div class="category-card-text">
+<h2 data-i18n="cat_gal_title">Galaxies</h2>
+<p data-i18n="cat_gal_desc">M31, M33, M81/M82, M101, M77 and more.</p>
+</div>
+</a>
+<a class="category-card" href="nebulae.html">
+<img alt="Horsehead and Flame Nebula - Deep Sky Nebula Astrophotography" decoding="async" loading="lazy" src="images/preview/HorseHead_Flame_Nebula.jpg"/>
+<div class="category-card-text">
+<h2 data-i18n="cat_neb_title">Nebulae</h2>
+<p data-i18n="cat_neb_desc">Emission, reflection and narrowband targets.</p>
+</div>
+</a>
+<a class="category-card" href="clusters.html">
+<img alt="M13 Hercules Globular Cluster - Deep Sky Star Cluster Astrophotography" decoding="async" loading="lazy" src="images/preview/M13_Crop.jpg"/>
+<div class="category-card-text">
+<h2 data-i18n="cat_cl_title">Star Clusters</h2>
+<p data-i18n="cat_cl_desc">Globular and open clusters.</p>
+</div>
+</a>
+</section>
+<footer class="site-footer">
+<p>© 2026 Shimon Avitan | dsoimage.com</p>
+</footer>
+</main>
+</div>
+<!-- Search Overlay -->
+<div class="search-overlay" id="search-overlay">
+<div class="search-box">
+<span class="search-close">×</span>
+<input autocomplete="off" class="search-input" id="search-input" placeholder="Search objects (e.g., M31)..." type="search"/>
+<div class="search-results" id="search-results"></div>
+</div>
+</div>
+<script src="js/script.js?v=26"></script>
+<script src="js/stats.js"></script>
 </body>
-
 </html>
