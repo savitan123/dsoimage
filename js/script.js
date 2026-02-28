@@ -1975,19 +1975,14 @@ document.addEventListener("DOMContentLoaded", () => {
       const skyUrl = `https://wikisky.org/?object=${encodeURIComponent(c.name)}`;
 
       li.innerHTML = `
-        <div class="gallery-item" data-full="${imgSrc}" data-title="${c.name} Constellation"
-          data-aliases="${c.abbr}"
-          data-notes="<strong>Centroid:</strong> R.A: ${(c.ra / 15).toFixed(1)}h | Dec: ${c.dec > 0 ? '+' : ''}${c.dec.toFixed(1)}&deg;<br><br>
-          <span style='color:${dotColor};'>&#9679;</span> <strong>${altText}</strong><br><br>
-          The official IAU star map for ${c.name}.<br><br>
-          <a href='${wikiUrl}' target='_blank' style='color: #00e6e6; text-decoration: underline;'>Wikipedia Info</a> | <a href='${skyUrl}' target='_blank' style='color: #00e6e6; text-decoration: underline;'>Wikisky Planetarium</a>">
-          <img loading="lazy" src="${imgSrc}" alt="${c.name} Constellation Map">
+        <a href="constellation.html?id=${c.abbr}" class="constellation-link" style="text-decoration: none; color: inherit; display: block; width: 100%; max-width: 100%; display: flex; flex-direction: column; align-items: center;">
+          <img loading="lazy" src="${imgSrc}" alt="${c.name} Constellation Map" style="height: 85vh; width: 100%; max-width: 100%; object-fit: contain; cursor: pointer; transition: transform 0.2s;">
           <div class="carousel-caption">
             <h3>${c.name}</h3>
             <p>R.A: ${(c.ra / 15).toFixed(1)}h | Dec: ${c.dec > 0 ? '+' : ''}${c.dec.toFixed(1)}&deg;</p>
             <p style="color:${dotColor}; margin-top:5px; font-size:12px;">&#9679; ${altText}</p>
           </div>
-        </div>
+        </a>
       `;
 
       if (c.dec >= 0 && northernTrack) {
@@ -2012,5 +2007,102 @@ document.addEventListener("DOMContentLoaded", () => {
       (pos) => render(pos.coords.latitude, pos.coords.longitude),
       (err) => console.log("Geolocation denied, sticking to default view.")
     );
+  }
+});
+
+// --- Dynamic Constellation Page Logic ---
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.location.pathname.includes('constellation.html')) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const abbr = urlParams.get('id');
+
+    if (abbr) {
+      fetch('js/constellations_data.json')
+        .then(response => response.json())
+        .then(data => {
+          const cData = data[abbr];
+          if (cData) {
+            // Base data
+            const baseObj = CONSTELLATIONS.find(c => c.abbr === abbr);
+            document.title = `${cData.name} Constellation \u2014 Shimon Avitan`;
+            document.getElementById('constellation-title').textContent = cData.name;
+
+            if (baseObj) {
+              document.getElementById('constellation-coord').innerHTML = `Centroid &rarr; R.A: ${(baseObj.ra / 15).toFixed(1)}h | Dec: ${baseObj.dec > 0 ? '+' : ''}${baseObj.dec.toFixed(1)}&deg;`;
+            }
+
+            // Map Image
+            document.getElementById('constellation-img').src = `images/constellations/${abbr}.png`;
+
+            // Description
+            document.getElementById('constellation-desc').textContent = cData.description;
+
+            // Stars Table
+            const starsTbody = document.querySelector('#stars-table tbody');
+            cData.stars.forEach(star => {
+              const tr = document.createElement('tr');
+              tr.innerHTML = `<td>${star.name}</td><td>${star.mag}</td><td>${star.type}</td>`;
+              starsTbody.appendChild(tr);
+            });
+
+            // DSOs Table
+            const dsosTbody = document.querySelector('#dsos-table tbody');
+            if (cData.dsos && cData.dsos.length > 0) {
+              cData.dsos.forEach(dso => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td>${dso.name}</td><td>${dso.type}</td><td>${dso.mag}</td>`;
+                dsosTbody.appendChild(tr);
+              });
+            } else {
+              const tr = document.createElement('tr');
+              tr.innerHTML = `<td colspan="3" style="text-align:center;">No major deep sky objects found.</td>`;
+              dsosTbody.appendChild(tr);
+            }
+          } else {
+            document.getElementById('constellation-title').textContent = "Constellation Not Found";
+          }
+        })
+        .catch(err => {
+          console.error("Error loading constellation data:", err);
+          document.getElementById('constellation-title').textContent = "Error Loading Data";
+        });
+    }
+  }
+});
+
+// --- Knowledge Base Search ---
+document.addEventListener('DOMContentLoaded', () => {
+  const kbSearch = document.getElementById('kb-search-input');
+  if (kbSearch) {
+    kbSearch.addEventListener('input', (e) => {
+      const term = e.target.value.toLowerCase();
+      const categories = document.querySelectorAll('.kb-category');
+
+      categories.forEach(cat => {
+        let hasVisibleParams = false;
+        const accordions = cat.querySelectorAll('.accordion');
+
+        accordions.forEach(acc => {
+          const content = acc.nextElementSibling;
+          const combinedText = (acc.textContent + " " + content.textContent).toLowerCase();
+
+          if (combinedText.includes(term)) {
+            acc.style.display = 'block';
+            // Keep content hidden unless active, but it stays in DOM flow
+            hasVisibleParams = true;
+          } else {
+            acc.style.display = 'none';
+            content.style.maxHeight = null; // force close if open
+          }
+        });
+
+        // Hide whole category if no child matches
+        if (hasVisibleParams) {
+          cat.style.display = 'block';
+        } else {
+          cat.style.display = 'none';
+        }
+      });
+    });
   }
 });
