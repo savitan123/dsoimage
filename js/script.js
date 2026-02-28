@@ -2143,7 +2143,7 @@ function initGlossary() {
         category: "Constellation",
         content: `
           <img src="images/constellations/${c.id}.png" alt="${c.name} Constellation">
-          <p>${c.description}</p>
+          <p>${c.desc}</p>
           <a href="constellation.html?id=${c.id}" class="kb-link-btn" style="display: inline-block; margin-top: 10px; padding: 10px 20px; background: #1e90ff; color: #fff; text-decoration: none; border-radius: 5px; font-weight: bold;">Explore ${c.name} &rarr;</a>
           <br style="clear:both;">
         `
