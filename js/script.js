@@ -777,7 +777,8 @@ function initDSOImage() {
             // Navigate to page + query param for auto-open
             // We must encode the object name
             const cleanName = match.displayTitle.replace(/\(.*\)/, "").trim();
-            window.location.href = `${match.url}?object=${encodeURIComponent(cleanName)}`;
+            const separator = match.url.includes('?') ? '&' : '?';
+            window.location.href = `${match.url}${separator}object=${encodeURIComponent(cleanName)}`;
           });
           searchResults.appendChild(div);
         });
@@ -2084,32 +2085,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // --- Knowledge Base Search ---
 document.addEventListener('DOMContentLoaded', () => {
-    const kbSearch = document.getElementById('kb-search-input');
-    const searchOverlay = document.getElementById('search-overlay');
-    const globalSearchInput = document.getElementById('search-input');
+  const kbSearch = document.getElementById('kb-search-input');
+  const searchOverlay = document.getElementById('search-overlay');
+  const globalSearchInput = document.getElementById('search-input');
 
-    if (kbSearch && searchOverlay && globalSearchInput) {
-        // When focusing or typing in KB Search, transition to Global Search Modal
-        kbSearch.addEventListener('focus', () => {
-            searchOverlay.classList.add('is-active');
-            if (kbSearch.value) {
-                 globalSearchInput.value = kbSearch.value;
-                 globalSearchInput.dispatchEvent(new Event('input', { bubbles: true }));
-                 kbSearch.value = '';
-            }
-            setTimeout(() => {
-                globalSearchInput.focus();
-            }, 100);
-        });
-        
-        kbSearch.addEventListener('input', () => {
-             searchOverlay.classList.add('is-active');
-             globalSearchInput.value = kbSearch.value;
-             globalSearchInput.dispatchEvent(new Event('input', { bubbles: true }));
-             kbSearch.value = '';
-             setTimeout(() => {
-                globalSearchInput.focus();
-             }, 100);
-        });
-    }
+  if (kbSearch && searchOverlay && globalSearchInput) {
+    // When focusing or typing in KB Search, transition to Global Search Modal
+    kbSearch.addEventListener('focus', () => {
+      searchOverlay.classList.add('is-active');
+      if (kbSearch.value) {
+        globalSearchInput.value = kbSearch.value;
+        globalSearchInput.dispatchEvent(new Event('input', { bubbles: true }));
+        kbSearch.value = '';
+      }
+      setTimeout(() => {
+        globalSearchInput.focus();
+      }, 100);
+    });
+
+    kbSearch.addEventListener('input', () => {
+      searchOverlay.classList.add('is-active');
+      globalSearchInput.value = kbSearch.value;
+      globalSearchInput.dispatchEvent(new Event('input', { bubbles: true }));
+      kbSearch.value = '';
+      setTimeout(() => {
+        globalSearchInput.focus();
+      }, 100);
+    });
+  }
 });
