@@ -194,5 +194,125 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A measurement of atmospheric turbulence.</p>
             <p><strong>Example:</strong> On a night of "Poor Seeing," your stars will look like fuzzy blobs regardless of how perfect your focus is, because the air is "boiling."</p>
         `
+    },
+    {
+        title: "Bias Frame",
+        category: "Calibration & Data Integrity",
+        content: `
+            <p><strong>Definition:</strong> A zero-length exposure (fastest shutter speed) taken with the lens cap on. It records the inherent electronic "read noise" of the camera sensor.</p>
+            <p><strong>Example:</strong> By subtracting a Master Bias from your light frames, you remove the base-level electronic hum that would otherwise create a "fog" over your faint nebula details.</p>
+        `
+    },
+    {
+        title: "Dark Frame",
+        category: "Calibration & Data Integrity",
+        content: `
+            <p><strong>Definition:</strong> An exposure of the exact same length, temperature, and gain as your light frame, but with the optics covered. It captures thermal noise and "hot pixels."</p>
+            <p><strong>Example:</strong> If your 300-second shot of the Tadpole Nebula has 50 bright red dots (hot pixels), subtracting a Master Dark identifies those specific pixels and removes them.</p>
+        `
+    },
+    {
+        title: "Flat Frame",
+        category: "Calibration & Data Integrity",
+        content: `
+            <p><strong>Definition:</strong> An image of a perfectly even, neutral light source taken through the entire optical train. It maps out vignetting (dark corners) and dust motes on the sensor.</p>
+            <p><strong>Example:</strong> If there is a "dust donut" on your telescope's glass, a Flat Frame creates a map of that shadow. During processing, the software "divides" the light frame by the flat, making the dust disappear.</p>
+        `
+    },
+    {
+        title: "Dark-Flat Frame",
+        category: "Calibration & Data Integrity",
+        content: `
+            <p><strong>Definition:</strong> A dark frame specifically for the flat frames. It is an exposure of the same length as the flat, but with no light, used to calibrate the flats themselves.</p>
+            <p><strong>Example:</strong> Used primarily with CMOS cameras (like the ASI2600) that don't scale bias frames well; this ensures your flats are perfectly clean before they touch your light data.</p>
+        `
+    },
+    {
+        title: "Master Frame",
+        category: "Calibration & Data Integrity",
+        content: `
+            <p><strong>Definition:</strong> The resulting file created by stacking dozens of individual calibration frames (e.g., 50 Darks become one "Master Dark").</p>
+            <p><strong>Example:</strong> A single dark frame is noisy; a Master Dark is a smooth, high-SNR mathematical average of the sensor's thermal behavior.</p>
+        `
+    },
+    {
+        title: "Sub-frame Weighting",
+        category: "Advanced Stacking",
+        content: `
+            <p><strong>Definition:</strong> An algorithm that analyzes every individual image and gives a "score" based on star roundness, SNR, and sky overhead (transparency).</p>
+            <p><strong>Example:</strong> If a thin cloud passed by during your 10th shot of M31, the software gives it a lower "weight" so it doesn't degrade the final stack as much as the clear shots.</p>
+        `
+    },
+    {
+        title: "Pixel Rejection (Sigma Clipping)",
+        category: "Advanced Stacking",
+        content: `
+            <p><strong>Definition:</strong> A statistical method that looks at a stack of images and throws away pixels that don't match the others (outliers).</p>
+            <p><strong>Example:</strong> If a satellite or a plane flies through one frame of your Hercules Cluster, Sigma Clipping sees that the "streak" is only in one frame and deletes it during the stacking process.</p>
+        `
+    },
+    {
+        title: "Registration (Alignment)",
+        category: "Advanced Stacking",
+        content: `
+            <p><strong>Definition:</strong> The process of mathematically rotating and shifting every image in a set so that the stars overlap perfectly.</p>
+            <p><strong>Example:</strong> Even if your mount tracked perfectly, the stars might shift by 1 pixel due to atmospheric refraction. Registration ensures the Leo Triplet stays razor-sharp across 100 frames.</p>
+        `
+    },
+    {
+        title: "Drizzle (Bayer Drizzle)",
+        category: "Advanced Stacking",
+        content: `
+            <p><strong>Definition:</strong> A technique originally developed for the Hubble Space Telescope to recover resolution from under-sampled data by using dithered images to "fill in" the gaps between pixels.</p>
+            <p><strong>Example:</strong> If you shoot a wide-field nebula with large pixels, your stars might look blocky. Using 2x Drizzle during stacking can make the stars rounder and recover finer details in the gas clouds.</p>
+        `
+    },
+    {
+        title: "Deconvolution",
+        category: "Advanced Processing",
+        content: `
+            <p><strong>Definition:</strong> A mathematical algorithm that attempts to reverse the blurring effects caused by the atmosphere and telescope optics.</p>
+            <p><strong>Example:</strong> By applying deconvolution to the core of the M13 Globular Cluster, you can "tighten" the stars, revealing individual points of light that were previously smeared together.</p>
+        `
+    },
+    {
+        title: "Star Reduction (Morphological Transformation)",
+        category: "Advanced Processing",
+        content: `
+            <p><strong>Definition:</strong> Using masks and filters to shrink the size of stars in a final image without affecting the brightness of the nebula or galaxy.</p>
+            <p><strong>Example:</strong> In a crowded area like the Sadr Region, the stars can overwhelm the nebula. Reducing them makes the faint hydrogen clouds "pop" and become the focus of the image.</p>
+        `
+    },
+    {
+        title: "SCNR (Subtractive Chromatic Noise Reduction)",
+        category: "Advanced Processing",
+        content: `
+            <p><strong>Definition:</strong> A specialized tool used to remove unnatural green tints from an image, as there are almost no "green" objects in deep space.</p>
+            <p><strong>Example:</strong> OSC cameras often produce a green cast due to the Bayer matrix having two green pixels for every one red/blue. SCNR "kills" the green, leaving a natural-looking background.</p>
+        `
+    },
+    {
+        title: "Local Histogram Equalization (LHE)",
+        category: "Advanced Processing",
+        content: `
+            <p><strong>Definition:</strong> A tool that increases contrast in specific "local" areas of an image rather than stretching the whole thing.</p>
+            <p><strong>Example:</strong> Used to bring out the "ripples" and "waves" inside the Orion Nebula without blowing out the bright stars or darkening the edges too much.</p>
+        `
+    },
+    {
+        title: "PixelMath",
+        category: "Advanced Processing",
+        content: `
+            <p><strong>Definition:</strong> A powerful tool that allows you to use mathematical equations to combine, subtract, or modify images.</p>
+            <p><strong>Example:</strong> You can use a formula like (Ha * 0.8) + (Red * 0.2) to blend narrowband data into a natural-looking RGB star field.</p>
+        `
+    },
+    {
+        title: "Dynamic Background Extraction (DBE)",
+        category: "Advanced Processing",
+        content: `
+            <p><strong>Definition:</strong> Manually placing "sample points" on the background of an image to model and subtract complex light pollution or moon gradients.</p>
+            <p><strong>Example:</strong> If your M81 image has a glow in the top-left from a neighbor's porch light, DBE maps that specific glow and subtracts it with surgical precision.</p>
+        `
     }
 ];
