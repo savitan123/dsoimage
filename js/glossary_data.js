@@ -426,5 +426,117 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The sum of all individual exposures (subs) combined into a single final image.</p>
             <p><strong>Example:</strong> If you capture 60 frames at 300 seconds each, your Total Integration Time is 5 hours. More time directly translates to a higher Signal-to-Noise Ratio (SNR).</p>
         `
+    },
+    {
+        title: "Opposition",
+        category: "Solar System Dynamics & Planetary Terms",
+        content: `
+            <p><strong>Definition:</strong> The moment when a planet (like Mars or Jupiter) is on the opposite side of the Earth from the Sun. From our perspective, the planet is fully illuminated and at its closest point to Earth.</p>
+            <p><strong>Example:</strong> During Mars Opposition, the planet appears much larger in your telescope, allowing you to capture fine surface details like the polar ice caps that are invisible at other times.</p>
+        `
+    },
+    {
+        title: "Conjunction",
+        category: "Solar System Dynamics & Planetary Terms",
+        content: `
+            <p><strong>Definition:</strong> An event where two celestial objects (like two planets, or a planet and a star) appear very close to each other in the sky from our vantage point.</p>
+            <p><strong>Example:</strong> The "Great Conjunction" of Jupiter and Saturn in 2020 allowed astrophotographers to capture both planets in a single high-magnification field of view.</p>
+        `
+    },
+    {
+        title: "Transit",
+        category: "Solar System Dynamics & Planetary Terms",
+        content: `
+            <p><strong>Definition:</strong> When a smaller celestial body passes in front of a larger one.</p>
+            <p><strong>Example:</strong> Capturing the ISS (International Space Station) Transit across the face of the Sun or Moon requires sub-millisecond shutter speeds and precise timing.</p>
+        `
+    },
+    {
+        title: "Ecliptic Plane",
+        category: "Solar System Dynamics & Planetary Terms",
+        content: `
+            <p><strong>Definition:</strong> The imaginary plane defined by the Earth's orbit around the Sun. Most planets in our solar system stay within a few degrees of this line.</p>
+            <p><strong>Example:</strong> If you are hunting for Saturn, you look along the Ecliptic; you will never find a major planet near the North Star (Polaris).</p>
+        `
+    },
+    {
+        title: "Chromatic Aberration (Color Fringing)",
+        category: "Optical Aberrations",
+        content: `
+            <p><strong>Definition:</strong> An optical defect where a lens fails to focus all colors to the same convergence point, resulting in purple or blue "halos" around bright stars.</p>
+            <p><strong>Example:</strong> A budget "Achromat" refractor will show heavy purple fringing on Vega, whereas your FLT132 APO uses triplet glass to eliminate this effect.</p>
+        `
+    },
+    {
+        title: "Coma",
+        category: "Optical Aberrations",
+        content: `
+            <p><strong>Definition:</strong> An aberration common in Newtonian reflectors where stars at the edge of the field look like tiny comets pointing toward the center.</p>
+            <p><strong>Example:</strong> Without a Coma Corrector, the stars in the corners of your M31 image will look "smeared," even if the center is perfectly sharp.</p>
+        `
+    },
+    {
+        title: "Field Curvature",
+        category: "Optical Aberrations",
+        content: `
+            <p><strong>Definition:</strong> A natural property of lenses where the "plane of focus" is actually a curve. If the center is in focus, the edges are blurry.</p>
+            <p><strong>Example:</strong> To get a "flat field" for a large sensor like the ASI2600, you must use a Field Flattener to push the focus back into a flat plane.</p>
+        `
+    },
+    {
+        title: "Spherical Aberration",
+        category: "Optical Aberrations",
+        content: `
+            <p><strong>Definition:</strong> An effect where light rays hitting the edge of a curved mirror or lens focus at a different point than rays hitting the center, causing a soft, "glowy" image.</p>
+            <p><strong>Example:</strong> If a telescope mirror is not polished to a perfect parabola, stars will never look like pinpoints; they will always have a slight "haze" around them.</p>
+        `
+    },
+    {
+        title: "Astigmatism",
+        category: "Optical Aberrations",
+        content: `
+            <p><strong>Definition:</strong> An optical defect where the telescope focuses light into a line rather than a point, often caused by pinched optics or tilted elements.</p>
+            <p><strong>Example:</strong> If you rack the focuser in and out, and the star turns from a horizontal oval to a vertical oval, your optical train has Astigmatism.</p>
+        `
+    },
+    {
+        title: "ASCOM (Astronomy Common Object Model)",
+        category: "Software, Scripting & Automation",
+        content: `
+            <p><strong>Definition:</strong> The "universal language" for Windows that allows different astronomy software (like N.I.N.A.) to talk to different hardware (like your Losmandy G11).</p>
+            <p><strong>Example:</strong> By installing the ASCOM Driver for your mount, you can control it from any software on your PC without needing proprietary apps for every device.</p>
+        `
+    },
+    {
+        title: "INDI (Instrument Neutral Distributed Interface)",
+        category: "Software, Scripting & Automation",
+        content: `
+            <p><strong>Definition:</strong> The Linux equivalent of ASCOM, commonly used on Raspberry Pi-based controllers like the StellarMate or Astroberry.</p>
+            <p><strong>Example:</strong> If you run your rig using a mini-PC at the telescope, INDI is likely the "traffic cop" managing the camera and mount commands.</p>
+        `
+    },
+    {
+        title: "Sequencing",
+        category: "Software, Scripting & Automation",
+        content: `
+            <p><strong>Definition:</strong> The process of creating a list of commands for the rig to follow automatically (e.g., "Take 20 frames of Red, then 20 of Green, then park the mount").</p>
+            <p><strong>Example:</strong> In N.I.N.A., you can build a "Sequence" that waits for the target to rise, focuses every 1 hour, and sends you a text message when the session is finished.</p>
+        `
+    },
+    {
+        title: "Guiding Rate",
+        category: "Software, Scripting & Automation",
+        content: `
+            <p><strong>Definition:</strong> The speed at which the mount moves when receiving a correction from the autoguider, usually expressed as a fraction of "Sidereal" speed (e.g., 0.5x).</p>
+            <p><strong>Example:</strong> If your guiding is "oscillating" (moving back and forth too fast), you might need to lower your Guiding Rate in the mount settings.</p>
+        `
+    },
+    {
+        title: "HFR (Half Flux Radius)",
+        category: "Software, Scripting & Automation",
+        content: `
+            <p><strong>Definition:</strong> A mathematical measurement used by auto-focus software to determine star sharpness. It is more robust than FWHM for focusing.</p>
+            <p><strong>Example:</strong> Your autofocus routine will take several shots, calculate the HFR for each, and move the motor until it finds the "V-curve" where the HFR is at its lowest (sharpest).</p>
+        `
     }
 ];
