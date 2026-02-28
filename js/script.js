@@ -638,7 +638,7 @@ function initDSOImage() {
   // Auto-build index from HTML pages
   async function buildSearchIndex() {
     console.log("Building Search Index...");
-    const pages = ['galaxies.html', 'nebulae.html', 'clusters.html'];
+    const pages = ['galaxies.html', 'nebulae.html', 'clusters.html', 'knowledge.html'];
     const newIndex = [];
 
     try {
@@ -650,32 +650,38 @@ function initDSOImage() {
 
       pages.forEach((pageUrl, i) => {
         const doc = parser.parseFromString(texts[i], 'text/html');
-        const items = doc.querySelectorAll('.gallery-item');
 
-        items.forEach(item => {
-          const rawTitle = item.getAttribute('data-title') || "";
-          const aliases = item.getAttribute('data-aliases') || "";
-          // Clean title removing parens if needed or keep as is
-          let title = rawTitle;
-
-          // Image Src: use preview if possible
-          const imgEl = item.querySelector('img');
-          const imgSrc = imgEl ? imgEl.getAttribute('src') : '';
-
-          // Add to index
-          newIndex.push({
-            title: title + (aliases ? ` (${aliases})` : ""),
-            // Composite title for display, or just raw title? 
-            // Let's use raw title for display, and use aliases for search matching separately?
-            // Existing logic searches both. 
-            // Let's stick to simple obj structure.
-            displayTitle: title,
-            aliases: aliases,
-            url: pageUrl,
-            img: imgSrc,
-            searchStr: (title + " " + aliases).toLowerCase()
+        if (pageUrl === 'knowledge.html') {
+          const accordions = doc.querySelectorAll('.accordion');
+          accordions.forEach(acc => {
+            const title = acc.textContent.trim();
+            const content = acc.nextElementSibling ? acc.nextElementSibling.textContent.trim() : "";
+            newIndex.push({
+              displayTitle: "Knowledge Base: " + title,
+              aliases: "",
+              url: `knowledge.html?kbq=${encodeURIComponent(title)}`,
+              img: `images/preview/HorseHead_Flame_Nebula.jpg`, // Preview thumbnail
+              searchStr: (title + " " + content).toLowerCase()
+            });
           });
-        });
+        } else {
+          const items = doc.querySelectorAll('.gallery-item');
+          items.forEach(item => {
+            const rawTitle = item.getAttribute('data-title') || "";
+            const aliases = item.getAttribute('data-aliases') || "";
+            let title = rawTitle;
+            const imgEl = item.querySelector('img');
+            const imgSrc = imgEl ? imgEl.getAttribute('src') : '';
+
+            newIndex.push({
+              displayTitle: title,
+              aliases: aliases,
+              url: pageUrl,
+              img: imgSrc,
+              searchStr: (title + " " + aliases).toLowerCase()
+            });
+          });
+        }
       });
 
       if (typeof CONSTELLATIONS !== 'undefined') {
@@ -689,6 +695,38 @@ function initDSOImage() {
           });
         });
       }
+
+      // Fetch Constellation JSON for DSOs and Stars
+      try {
+        const cDataRes = await fetch('js/constellations_data.json');
+        if (cDataRes.ok) {
+          const cData = await cDataRes.json();
+          for (const [abbr, data] of Object.entries(cData)) {
+            if (data.stars) {
+              data.stars.forEach(star => {
+                newIndex.push({
+                  displayTitle: star.name + " (" + data.name + ")",
+                  aliases: "Star",
+                  url: `constellation.html?id=${abbr}&object=${encodeURIComponent(star.name)}`,
+                  img: `images/constellations/${abbr}.png`,
+                  searchStr: (star.name + " star " + data.name + " constellation").toLowerCase()
+                });
+              });
+            }
+            if (data.dsos) {
+              data.dsos.forEach(dso => {
+                newIndex.push({
+                  displayTitle: dso.name,
+                  aliases: dso.type + " in " + data.name,
+                  url: `constellation.html?id=${abbr}&object=${encodeURIComponent(dso.name)}`,
+                  img: `images/constellations/${abbr}.png`,
+                  searchStr: (dso.name + " " + dso.type + " " + data.name + " constellation").toLowerCase()
+                });
+              });
+            }
+          }
+        }
+      } catch (err) { console.warn("Could not load constellation data for search", err); }
 
       console.log(`Index built: ${newIndex.length} items found.`);
       searchData = newIndex;
@@ -2085,6 +2123,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // --- Knowledge Base Search ---
 document.addEventListener('DOMContentLoaded', () => {
+  // Check for Knowledge Base Query param from Global Search
+  if (window.location.pathname.includes('knowledge.html')) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const kbq = urlParams.get('kbq');
+    if (kbq) {
+      const accordions = document.querySelectorAll('.accordion');
+      accordions.forEach(acc => {
+        if (acc.textContent.trim() === kbq) {
+          acc.classList.add('active');
+          const panel = acc.nextElementSibling;
+          if (panel) {
+            panel.style.maxHeight = panel.scrollHeight + "px";
+          }
+
+          // Smooth scroll into center view
+          setTimeout(() => {
+            acc.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Slightly highlight it
+            acc.style.backgroundColor = 'rgba(30, 144, 255, 0.2)';
+            setTimeout(() => { acc.style.backgroundColor = '#222'; }, 2000);
+          }, 300);
+        }
+      });
+    }
+  }
+
   const kbSearch = document.getElementById('kb-search-input');
   const searchOverlay = document.getElementById('search-overlay');
   const globalSearchInput = document.getElementById('search-input');
