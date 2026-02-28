@@ -634,5 +634,109 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The number of possible gray levels a sensor can record. 16-bit allows for 65,536 levels of brightness.</p>
             <p><strong>Example:</strong> An ASI2600 (16-bit) provides much smoother gradients in a nebula like the Running Man compared to an older 12-bit DSLR, which might show "banding" in the dark areas.</p>
         `
+    },
+    {
+        title: "Spiral Galaxy (Grand Design)",
+        category: "Galaxy Morphologies & Dynamics",
+        content: `
+            <p><strong>Definition:</strong> A galaxy consisting of a flat, rotating disk with a central bulge and prominent, well-defined spiral arms.</p>
+            <p><strong>Example:</strong> The Whirlpool Galaxy (M51) is the ultimate "Grand Design" spiral. When you photograph it, you are seeing density waves compressing gas and triggering new star formation in the arms.</p>
+        `
+    },
+    {
+        title: "Lenticular Galaxy",
+        category: "Galaxy Morphologies & Dynamics",
+        content: `
+            <p><strong>Definition:</strong> An intermediate galaxy type between an elliptical and a spiral. It has a disk but lacks large-scale spiral arms and has very little ongoing star formation.</p>
+            <p><strong>Example:</strong> M102 (The Spindle Galaxy) is a lenticular galaxy often mistaken for a spiral seen edge-on. It looks like a smooth "lens" of light with a prominent dust lane.</p>
+        `
+    },
+    {
+        title: "Flocculent Spiral",
+        category: "Galaxy Morphologies & Dynamics",
+        content: `
+            <p><strong>Definition:</strong> A spiral galaxy that appears "fluffy" or "patchy" rather than having continuous, sweeping arms.</p>
+            <p><strong>Example:</strong> The Sunflower Galaxy (M63) is flocculent. In your high-resolution shots, the arms look like many short, disconnected segments of dust and stars.</p>
+        `
+    },
+    {
+        title: "Tidal Tail",
+        category: "Galaxy Morphologies & Dynamics",
+        content: `
+            <p><strong>Definition:</strong> A thin, elongated region of stars and interstellar gas that extends into space from a galaxy, caused by gravitational interactions with another galaxy.</p>
+            <p><strong>Example:</strong> In the Tadpole Nebula/Galaxy, the "tail" is a 280,000-light-year-long stream of stars pulled out by a smaller intruder galaxy. Capturing this requires massive integration time to pull it above the noise floor.</p>
+        `
+    },
+    {
+        title: "Active Galactic Nucleus (AGN)",
+        category: "Galaxy Morphologies & Dynamics",
+        content: `
+            <p><strong>Definition:</strong> An extremely bright region at the center of a galaxy, powered by a supermassive black hole accreting matter.</p>
+            <p><strong>Example:</strong> M77 contains an AGN. In short exposures, the core looks like a bright star, but long exposures reveal the spiral structure surrounding this high-energy engine.</p>
+        `
+    },
+    {
+        title: "B-V Color Index",
+        category: "The Science of Star Color & Physics",
+        content: `
+            <p><strong>Definition:</strong> A numerical value that describes a star's color. A lower number means the star is blue (hot), and a higher number means the star is red (cool).</p>
+            <p><strong>Example:</strong> When you use "Photometric Color Calibration" in PixInsight, the software looks up the B-V index for stars in your Leo Triplet frame to ensure the white balance is scientifically accurate.</p>
+        `
+    },
+    {
+        title: "Main Sequence",
+        category: "The Science of Star Color & Physics",
+        content: `
+            <p><strong>Definition:</strong> The major category of stars (including our Sun) that are fusing hydrogen into helium in their cores.</p>
+            <p><strong>Example:</strong> Most of the "background" stars in your images are Main Sequence stars. Their color is a direct indicator of their surface temperature.</p>
+        `
+    },
+    {
+        title: "Blue Straggler",
+        category: "The Science of Star Color & Physics",
+        content: `
+            <p><strong>Definition:</strong> A main-sequence star in a cluster that is more luminous and bluer than stars at the main-sequence turn-off point for the cluster.</p>
+            <p><strong>Example:</strong> In a Globular Cluster like M13, "Blue Stragglers" stand out because they look "younger" than the rest of the ancient, redder stars in the cluster.</p>
+        `
+    },
+    {
+        title: "Ionization Front",
+        category: "The Science of Star Color & Physics",
+        content: `
+            <p><strong>Definition:</strong> The boundary between a region of ionized gas (HII) and neutral gas.</p>
+            <p><strong>Example:</strong> The sharp "cliffs" in the Pillars of Creation or the Cygnus Wall are ionization fronts where high-energy radiation from young stars is eroding a cloud of cold gas.</p>
+        `
+    },
+    {
+        title: "Roof/Dome Automation",
+        category: "Remote Observatory & Control",
+        content: `
+            <p><strong>Definition:</strong> Hardware and software that allows a roll-off roof or dome to open and close based on weather conditions or telescope safety.</p>
+            <p><strong>Example:</strong> If you move your rig to a remote dark site, a Cloud Sensor can trigger the roof to close automatically if it detects rain or high humidity while you are asleep.</p>
+        `
+    },
+    {
+        title: "Safety Monitor",
+        category: "Remote Observatory & Control",
+        content: `
+            <p><strong>Definition:</strong> A software bridge that checks "OK to Run" conditions (Sun below horizon, no rain, mount not slewing into a pier).</p>
+            <p><strong>Example:</strong> In N.I.N.A., the Safety Monitor prevents your camera from starting an exposure if the sky is too bright, protecting your sensor from saturation.</p>
+        `
+    },
+    {
+        title: "Latent Heat (Dew Control)",
+        category: "Remote Observatory & Control",
+        content: `
+            <p><strong>Definition:</strong> The heat released or absorbed by a substance during a change in its physical state (like water vapor turning to dew).</p>
+            <p><strong>Example:</strong> Modern Smart Dew Heaters use a thermistor to measure the glass temperature and only apply just enough current to stay above the dew point, saving battery power.</p>
+        `
+    },
+    {
+        title: "Dynamic Flat Frames",
+        category: "Remote Observatory & Control",
+        content: `
+            <p><strong>Definition:</strong> Using a motorized flat panel or "Sky Flats" during twilight to capture calibration data without being physically present.</p>
+            <p><strong>Example:</strong> A remote rig can be programmed to point at the zenith during dusk and take a series of Sky Flats as the light fades to the perfect level.</p>
+        `
     }
 ];
