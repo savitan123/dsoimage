@@ -842,5 +842,101 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> Noise that stays in the same physical location on the sensor, appearing as "hot" or "cold" pixels.</p>
             <p><strong>Example:</strong> If you don't Dither, FPN creates "walking noise" (streaks) because the static noise pattern is dragged across the final stack as the sky moves slightly.</p>
         `
+    },
+    {
+        title: "Star Removal (StarNet / StarXTerminator)",
+        category: "AI-Powered Processing Algorithms",
+        content: `
+            <p><strong>Definition:</strong> An AI-driven process that identifies and removes stars from an image, leaving only the nebula or background galaxies.</p>
+            <p><strong>Example:</strong> By using StarNet++, you can process the Tadpole Nebula separately from the stars. This allows you to stretch the faint gas aggressively without "bloating" the star sizes.</p>
+        `
+    },
+    {
+        title: "AI Deconvolution (BlurXTerminator)",
+        category: "AI-Powered Processing Algorithms",
+        content: `
+            <p><strong>Definition:</strong> A neural network trained on millions of blurred and sharp astronomical images to "undo" optical and atmospheric blurring.</p>
+            <p><strong>Example:</strong> Unlike traditional deconvolution, BlurXTerminator can correct for slight tracking errors or coma while simultaneously sharpening the core of the Whirlpool Galaxy.</p>
+        `
+    },
+    {
+        title: "AI Noise Reduction (NoiseXTerminator / DeepSNR)",
+        category: "AI-Powered Processing Algorithms",
+        content: `
+            <p><strong>Definition:</strong> Machine-learning tools that distinguish between random electronic noise and actual astronomical signal (like faint nebular filaments).</p>
+            <p><strong>Example:</strong> Applying NoiseXTerminator to a "noisy" 1-hour stack of the Hercules Galaxy Cluster can make it look as smooth as a 5-hour stack while preserving the sharp edges of the galaxies.</p>
+        `
+    },
+    {
+        title: "H-Alpha Solar Telescope (Etalon)",
+        category: "Solar Imaging & Physics",
+        content: `
+            <p><strong>Definition:</strong> A specialized telescope containing a "Fabry-Pérot Etalon" that filters out all light except for a extremely narrow band (typically <0.7 Ångströms) of Hydrogen-Alpha light from the Sun's chromosphere.</p>
+            <p><strong>Example:</strong> Using a Lunt or Coronado solar scope allows you to see "prominences" (loops of fire) jumping off the Sun's edge that are invisible to standard white-light filters.</p>
+        `
+    },
+    {
+        title: "Solar Prominence",
+        category: "Solar Imaging & Physics",
+        content: `
+            <p><strong>Definition:</strong> A large, bright, gaseous feature extending outward from the Sun's surface, often in a loop shape, held in place by magnetic fields.</p>
+            <p><strong>Example:</strong> When you photograph the Sun's "limb," you might capture a Prominence that is ten times the size of the Earth, looking like a glowing red curtain of plasma.</p>
+        `
+    },
+    {
+        title: "Solar Filament",
+        category: "Solar Imaging & Physics",
+        content: `
+            <p><strong>Definition:</strong> The same feature as a prominence, but viewed against the bright disk of the Sun. They appear as dark, snake-like lines.</p>
+            <p><strong>Example:</strong> On your solar images, a Filament looks dark because the plasma is slightly cooler than the solar surface below it.</p>
+        `
+    },
+    {
+        title: "Granulation",
+        category: "Solar Imaging & Physics",
+        content: `
+            <p><strong>Definition:</strong> The "honeycomb" texture on the Sun's photosphere caused by convection cells of hot plasma rising and falling.</p>
+            <p><strong>Example:</strong> Capturing Granulation requires extremely high-speed imaging (Lucky Imaging) to "freeze" the atmospheric turbulence and see the individual cells.</p>
+        `
+    },
+    {
+        title: "Light Year (ly)",
+        category: "Cosmological Scales & Distances",
+        content: `
+            <p><strong>Definition:</strong> The distance light travels in one vacuum year—approximately 9.46 trillion kilometers.</p>
+            <p><strong>Example:</strong> The Pleiades Cluster is about 444 light-years away. This means the light you captured on your sensor tonight actually left those stars during the Renaissance.</p>
+        `
+    },
+    {
+        title: "Parsec (pc)",
+        category: "Cosmological Scales & Distances",
+        content: `
+            <p><strong>Definition:</strong> A unit of distance equal to 3.26 light-years, defined by the "parallax" of a star as seen from Earth's orbit.</p>
+            <p><strong>Example:</strong> Professional astronomers often use Megaparsecs (Mpc) to describe the distance to the Hercules Galaxy Cluster, which is roughly 150 Mpc away.</p>
+        `
+    },
+    {
+        title: "Redshift (z)",
+        category: "Cosmological Scales & Distances",
+        content: `
+            <p><strong>Definition:</strong> The displacement of spectral lines toward longer (redder) wavelengths in radiation from distant galaxies, caused by the expansion of the universe.</p>
+            <p><strong>Example:</strong> When you photograph incredibly distant Quasars, their light has been "redshifted." The further away the object, the higher the z value, indicating it is moving away from us faster.</p>
+        `
+    },
+    {
+        title: "Apparent Magnitude (m)",
+        category: "Cosmological Scales & Distances",
+        content: `
+            <p><strong>Definition:</strong> The brightness of a celestial object as seen from Earth. The scale is logarithmic; a smaller (or negative) number is brighter.</p>
+            <p><strong>Example:</strong> The Andromeda Galaxy has an apparent magnitude of 3.4, making it visible to the naked eye. A faint galaxy in the Leo Triplet might be magnitude 13, requiring a telescope to see.</p>
+        `
+    },
+    {
+        title: "Absolute Magnitude (M)",
+        category: "Cosmological Scales & Distances",
+        content: `
+            <p><strong>Definition:</strong> The "true" brightness of an object if it were placed at a standard distance of 10 parsecs.</p>
+            <p><strong>Example:</strong> Our Sun has a very bright apparent magnitude (-26.7) because it's close, but its Absolute Magnitude is a modest +4.8. Many stars you photograph are actually thousands of times brighter than the Sun but appear dimmer due to distance.</p>
+        `
     }
 ];
