@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="https://dsoimage.com/knowledge.html">
+
+    <meta name="author" content="Shimon Avitan">
+    <meta name="description"
+        content="Astrophotography Knowledge Base - Learn basic concepts, terminology, equipment types, and processing techniques.">
+    <meta name="keywords"
+        content="Astrophotography, Knowledge Base, Basics, Terminology, Equipment, Processing, Tutorial, Guide">
+
+    <meta property="og:title" content="Knowledge Base - DSOImage">
+    <meta property="og:description" content="Learn astrophotography concepts, terminology, and equipment guides.">
+    <meta property="og:image" content="https://dsoimage.com/images/preview/HorseHead_Flame_Nebula.jpg">
+    <meta property="og:url" content="https://dsoimage.com/knowledge.html">
+    <meta property="og:type" content="website">
+
+    <title>Knowledge Base - DSOImage</title>
+    <link rel="stylesheet" href="css/style.css?v=32">
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- Mobile top bar -->
+        <header class="topbar">
+            <button class="menu-toggle" type="button" aria-label="Open menu" aria-controls="sidebar"
+                aria-expanded="false">
+                Menu
+            </button>
+            <button class="search-trigger" aria-label="Search site">🔍</button>
+        </header>
+
+        <div class="overlay" id="overlay" hidden></div>
+
+        <nav class="sidebar" id="sidebar" aria-label="Site menu">
+            <div class="sidebar-header">
+                <h2 data-i18n="menu_home" style="font-size:24px; margin:0;">Menu</h2>
+                <button class="menu-close" type="button" aria-label="Close menu">×</button>
+            </div>
+
+            <ul>
+                <li><a href="index.html" data-i18n="menu_home">Home</a></li>
+                <li><a href="galaxies.html" data-i18n="menu_galaxies">Galaxies</a></li>
+                <li><a href="nebulae.html" data-i18n="menu_nebulae">Nebulae</a></li>
+                <li><a href="clusters.html" data-i18n="menu_clusters">Star Clusters</a></li>
+                <li><a href="equipment.html" data-i18n="menu_equipment">Equipment</a></li>
+                <li><a href="processing.html" data-i18n="menu_processing">Processing</a></li>
+                <li><a href="weather.html" data-i18n="menu_weather">Weather</a></li>
+                <li><a href="tools.html" data-i18n="menu_tools">Tools</a></li>
+                <li><a href="planner.html" data-i18n="menu_planner">Planned Session</a></li>
+                <li><a href="knowledge.html" class="active">Knowledge Base</a></li>
+                <li><a href="about.html" data-i18n="menu_about">About</a></li>
+                <li><a href="contact.html" data-i18n="menu_contact">Contact</a></li>
+            </ul>
+
+            <button id="red-mode-toggle" class="mode-toggle-btn">
+                <span class="circle-icon"></span> <span data-i18n="menu_nightvision">Night Vision</span>
+            </button>
+
+            <div id="nv-container" class="nv-controls" style="display: none;">
+                <label for="nv-slider" style="font-size: 13px; color: #aaa; text-align: left;">Dimmer</label>
+                <input type="range" id="nv-slider" min="20" max="100" value="80">
+            </div>
+
+            <button class="search-trigger">
+                🔍 <span data-i18n="menu_search">Search</span>
+            </button>
+
+            <div class="sidebar-footer">
+                <h2 class="sidebar-subtitle" data-i18n="menu_follow">Follow Me</h2>
+                <ul>
+                    <li><a href="https://www.instagram.com/avitan_shimon/" target="_blank" rel="noopener">Instagram</a>
+                    </li>
+                    <li><a href="https://www.facebook.com/shimon.avitan.79" target="_blank" rel="noopener">Facebook</a>
+                    </li>
+                    <li><a href="https://www.flickr.com/photos/193302744@N07/" target="_blank" rel="noopener">Flickr</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <div class="page-hero">
+                <div class="tool-icon">📚</div>
+                <h2>Knowledge Base</h2>
+                <div class="page-text" style="text-align: center; margin: 0 auto 30px auto; color: #aaa;">
+                    Explore foundational concepts, technical terminology, and equipment guides for deep sky
+                    astrophotography.
+                </div>
+            </div>
+
+            <!-- KNOWLEDGE BASE CONTENT -->
+            <section class="kb-container" style="max-width: 900px; margin: 0 auto; width: 100%;">
+
+                <!-- Category 1 -->
+                <div class="kb-category">
+                    <h3 class="kb-category-title"
+                        style="color: #1e90ff; border-bottom: 1px solid #333; padding-bottom: 10px; margin-top: 30px;">
+                        Basic Concepts</h3>
+
+                    <button class="accordion">The Exposure Triangle in Astrophotography</button>
+                    <div class="accordion-content">
+                        <p>Unlike daytime photography, astrophotography relies heavily on extremely long exposure times
+                            instead of fast shutter speeds. The traditional exposure triangle (ISO, Aperture, Shutter
+                            Speed) is adapted here:</p>
+                        <ul>
+                            <li><strong>Exposure Time (Shutter Speed):</strong> Usually measured in minutes (e.g., 300
+                                seconds). Longer exposures capture more faint detail but require extremely precise
+                                tracking.</li>
+                            <li><strong>Gain / ISO:</strong> Determines the sensor's sensitivity to light. Higher gain
+                                increases brightness but also increases noise. Astrophotographers usually find a "sweet
+                                spot" for their specific camera (e.g., Gain 100 on the ZWO ASI2600).</li>
+                            <li><strong>Focal Ratio (Aperture):</strong> The speed of the optical system. A lower
+                                f-number (e.g., f/4) is "faster" and gathers light more quickly than a higher f-number
+                                (e.g., f/10).</li>
+                        </ul>
+                    </div>
+
+                    <button class="accordion">Signal-to-Noise Ratio (SNR)</button>
+                    <div class="accordion-content">
+                        <p>SNR is arguably the most important metric in astrophotography. The goal of imaging for
+                            multiple hours is to increase the amount of "Signal" (the real light from the galaxy or
+                            nebula) while mathematically canceling out the random "Noise" generated by the camera sensor
+                            or light pollution.</p>
+                        <p>Stacking 100 images together doesn't make the image 100 times brighter; it makes the random
+                            noise disappear, leaving behind a smooth, clean signal that can be stretched in processing.
+                        </p>
+                    </div>
+
+                    <button class="accordion">Calibration Frames (Darks, Flats, Biases)</button>
+                    <div class="accordion-content">
+                        <p>Calibration frames are taken specifically to mathematically remove imperfections from your
+                            'Light' frames (your actual pictures of space).</p>
+                        <ul>
+                            <li><strong>Darks:</strong> Taken with the lens cap on at the same temperature, gain, and
+                                exposure time as your light frames. Removes "hot pixels" and thermal sensor noise.</li>
+                            <li><strong>Flats:</strong> Photos of an evenly illuminated surface (like a tracing panel or
+                                twilight sky). Used to remove dust motes on your sensor/filters and correct for
+                                vignetting (dark corners).</li>
+                            <li><strong>Biases/Dark Flats:</strong> Extremely short exposures (or matching flat
+                                exposures) taken with the cap on to remove the baseline read noise of the camera
+                                electronics.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Category 2 -->
+                <div class="kb-category">
+                    <h3 class="kb-category-title"
+                        style="color: #1e90ff; border-bottom: 1px solid #333; padding-bottom: 10px; margin-top: 40px;">
+                        Terminology & Software</h3>
+
+                    <button class="accordion">Plate Solving</button>
+                    <div class="accordion-content">
+                        <p>A software process where the computer takes a test photo of the sky, analyzes the star
+                            patterns in the image, and compares it to a database to figure out *exactly* where the
+                            telescope is pointing coordinates-wise. This completely eliminates the need for manual star
+                            alignment.</p>
+                    </div>
+
+                    <button class="accordion">Dithering</button>
+                    <div class="accordion-content">
+                        <p>Moving the telescope mount by a few random pixels between every single exposure. When the
+                            images are stacked later, the alignment software shifts the pictures back into place, which
+                            causes random sensor noise (like fixed pattern noise) to smear out and disappear. Dithering
+                            is essential for clean images!</p>
+                    </div>
+
+                    <button class="accordion">Backfocus</button>
+                    <div class="accordion-content">
+                        <p>The exact required distance (measured in millimeters) between the back element of your
+                            telescope (usually a flattener or reducer) and the camera sensor. If this measurement is off
+                            by even 1mm, the stars in the corners of your image will look like stretched ovals or commas
+                            instead of pinpoints.</p>
+                    </div>
+
+                    <button class="accordion">Meridian Flip</button>
+                    <div class="accordion-content">
+                        <p>Because equatorial mounts follow the rotation of the Earth, the telescope will eventually hit
+                            the tripod as the target crosses the "meridian" (the imaginary line running North to South
+                            directly overhead). A Meridian Flip is a maneuver where the telescope swings 180 degrees to
+                            the other side of the mount to continue tracking the object as it sets.</p>
+                    </div>
+                </div>
+
+                <!-- Category 3 -->
+                <div class="kb-category">
+                    <h3 class="kb-category-title"
+                        style="color: #1e90ff; border-bottom: 1px solid #333; padding-bottom: 10px; margin-top: 40px;">
+                        Equipment Types</h3>
+
+                    <button class="accordion">Equatorial (EQ) vs Alt-Azimuth (Alt-Az) Mounts</button>
+                    <div class="accordion-content">
+                        <p><strong>Alt-Az Mounts:</strong> Move Up/Down and Left/Right. Great for visual astronomy, but
+                            terrible for astrophotography because the sky rotates across the field of view (field
+                            rotation), limiting exposures to a few seconds.</p>
+                        <p><strong>EQ Mounts:</strong> One axis is aligned directly with the North Celestial Pole
+                            (Polaris). This allows the mount to perfectly track the smooth rotation of the stars across
+                            the sky, enabling exposures lasting 10+ minutes.</p>
+                    </div>
+
+                    <button class="accordion">Monochrome vs Color (OSC) Cameras</button>
+                    <div class="accordion-content">
+                        <p><strong>One Shot Color (OSC):</strong> Similar to a DSLR. A microlens matrix over the sensor
+                            automatically shoots Red, Green, and Blue at the same time. Easier to use, but less
+                            sensitive and harder to shoot narrowband effectively.</p>
+                        <p><strong>Monochrome:</strong> Shoots in black and white. To build a color image, the
+                            photographer must take hundreds of photos through individual physical mechanical filters
+                            (Red, Green, Blue, Hydrogen, Oxygen, Sulfur). While vastly more expensive and
+                            time-consuming, it provides the sharpest detail and the only true way to shoot
+                            Hubble-Palette narrowband.</p>
+                    </div>
+                </div>
+
+            </section>
+
+            <footer class="site-footer">
+                <p>&copy; 2026 Shimon Avitan | dsoimage.com</p>
+            </footer>
+
+        </main>
+    </div>
+
+    <!-- Search Overlay -->
+    <div id="search-overlay" class="search-overlay">
+        <div class="search-box">
+            <span class="search-close">&times;</span>
+            <input type="search" id="search-input" class="search-input" placeholder="Search objects (e.g., M31)..."
+                autocomplete="off">
+            <div id="search-results" class="search-results"></div>
+        </div>
+    </div>
+
+    <script src="js/script.js?v=27"></script>
+
+</body>
+
+</html>

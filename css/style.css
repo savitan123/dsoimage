@@ -1724,3 +1724,83 @@ body.red-mode img {
 .checklist-item:hover button.edit-btn {
   opacity: 1;
 }
+
+/* =========================
+   Knowledge Base Accordion
+   ========================= */
+
+.kb-container {
+  margin-top: 20px;
+}
+
+.kb-category {
+  margin-bottom: 30px;
+}
+
+.kb-category-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.accordion {
+  background-color: #222;
+  color: #fff;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  border-left: 3px solid #1e90ff;
+  border-bottom: 1px solid #333;
+  text-align: left;
+  outline: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: 0.3s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.accordion:hover,
+.accordion.active {
+  background-color: #2a2a2a;
+}
+
+/* Accordion Plus/Minus Icon */
+.accordion:after {
+  content: '\002B';
+  /* Plus sign */
+  color: #1e90ff;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+  font-size: 20px;
+}
+
+.accordion.active:after {
+  content: "\2212";
+  /* Minus sign */
+}
+
+.accordion-content {
+  padding: 0 18px;
+  background-color: #1a1a1a;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  border-left: 3px solid #333;
+  color: #ccc;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.accordion-content p,
+.accordion-content ul {
+  padding: 15px 0;
+  margin: 0;
+}
+
+.accordion-content ul {
+  padding-left: 20px;
+}

@@ -1877,4 +1877,27 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+  // ==========================================
+  // Knowledge Base Accordion Logic
+  // ==========================================
+  const accordions = document.querySelectorAll('.accordion');
+
+  accordions.forEach(acc => {
+    acc.addEventListener('click', function () {
+      // Toggle active class for styling the button
+      this.classList.toggle('active');
+
+      // Find the associated content panel
+      const panel = this.nextElementSibling;
+
+      // Toggle the max-height for smooth sliding animation
+      if (panel.style.maxHeight) {
+        panel.style.maxHeight = null;
+      } else {
+        panel.style.maxHeight = panel.scrollHeight + "px";
+      }
+    });
+  });
+
 });
