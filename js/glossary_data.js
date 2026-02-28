@@ -1234,5 +1234,101 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> When the prism of an Off-Axis Guider is pushed too far into the light path, casting a dark, rectangular shadow on one side of the main imaging sensor.</p>
             <p><strong>Example:</strong> If you see a hard dark edge on the side of your Tadpole Nebula subs, your OAG prism needs to be retracted slightly until it is just outside the field of the main sensor.</p>
         `
+    },
+    {
+        title: "Cepheid Variable",
+        category: "Variable Star Classifications & Dynamics",
+        content: `
+            <p><strong>Definition:</strong> A type of star that pulsates radially, varying in both diameter and temperature. There is a direct relationship between its luminosity and pulsation period.</p>
+            <p><strong>Example:</strong> Delta Cephei is the prototype. Because their brightness is predictable, Edwin Hubble used these "Standard Candles" to prove that the Andromeda Galaxy was a separate galaxy far outside our own.</p>
+        `
+    },
+    {
+        title: "Cataclysmic Variable (CV)",
+        category: "Variable Star Classifications & Dynamics",
+        content: `
+            <p><strong>Definition:</strong> A binary star system consisting of a white dwarf and a mass-transferring secondary star. The "flickering" or outbursts are caused by the accretion disk.</p>
+            <p><strong>Example:</strong> SS Cygni is a favorite for amateur observers. It can suddenly brighten by several magnitudes in a single night, making it look like a "new" star has appeared in your field of view.</p>
+        `
+    },
+    {
+        title: "RR Lyrae Star",
+        category: "Variable Star Classifications & Dynamics",
+        content: `
+            <p><strong>Definition:</strong> Periodic variable stars commonly found in Globular Clusters (like M13). They are older, metal-poor stars used to measure distances within our galaxy.</p>
+            <p><strong>Example:</strong> When you photograph a globular cluster, many of the stars that appear "blinking" in a time-lapse over several nights are RR Lyrae variables.</p>
+        `
+    },
+    {
+        title: "Interstellar Reddening",
+        category: "Interstellar Extinction & Light Scattering",
+        content: `
+            <p><strong>Definition:</strong> A phenomenon where interstellar dust absorbs and scatters shorter blue wavelengths of light more than longer red wavelengths, making distant objects appear redder than they are.</p>
+            <p><strong>Example:</strong> A distant galaxy in the Hercules Cluster might look orange not because it's old, but because its light has passed through clouds of dust in our own Milky Way that "stole" its blue light.</p>
+        `
+    },
+    {
+        title: "Extinction Coefficient",
+        category: "Interstellar Extinction & Light Scattering",
+        content: `
+            <p><strong>Definition:</strong> A mathematical value ($k$) that describes how much light is lost per "unit" of atmosphere or interstellar medium.</p>
+            <p><strong>Example:</strong> When planning a session for the Leo Triplet, you check the Extinction Coefficient. If the air is dusty or humid, the value is high, and you'll need 20% more exposure time to get the same results.</p>
+        `
+    },
+    {
+        title: "Reflection Nebulosity (IFN - Integrated Flux Nebula)",
+        category: "Interstellar Extinction & Light Scattering",
+        content: `
+            <p><strong>Definition:</strong> Extremely faint clouds of dust located far above the plane of our galaxy, illuminated by the combined light of all the stars in the Milky Way.</p>
+            <p><strong>Example:</strong> Capturing the IFN around M81/M82 is a "bucket list" item for astrophotographers. It requires a Bortle 1 sky and 20+ hours of integration to see the "dusty curtains" in the deep background.</p>
+        `
+    },
+    {
+        title: "Ringing (Gibbs Phenomenon)",
+        category: "Specialized Post-Processing Artifacts",
+        content: `
+            <p><strong>Definition:</strong> A dark or bright "halo" or "ripple" that appears around stars or sharp edges after aggressive sharpening or deconvolution.</p>
+            <p><strong>Example:</strong> If you push the Sharpening too hard on the Tadpole Nebula, you might see a dark ring around every star. This is Ringing, and it’s usually fixed by using a "Star Mask" to protect the stars during the process.</p>
+        `
+    },
+    {
+        title: "Posterization (Banding)",
+        category: "Specialized Post-Processing Artifacts",
+        content: `
+            <p><strong>Definition:</strong> The appearance of "steps" or "stripes" in smooth gradients (like a dark sky background), caused by a lack of bit-depth or over-processing.</p>
+            <p><strong>Example:</strong> If you convert your 16-bit ASI2600 data to an 8-bit JPEG too early, the smooth black background of space will look like "layers" of gray. This is Posterization.</p>
+        `
+    },
+    {
+        title: "Clipping (Black/White Point)",
+        category: "Specialized Post-Processing Artifacts",
+        content: `
+            <p><strong>Definition:</strong> When processing moves pixel values beyond the range of 0 (pure black) or 255/65535 (pure white), causing a permanent loss of detail.</p>
+            <p><strong>Example:</strong> If you move your "Black Point" slider too far to the right to hide noise, you are Clipping the faint outer arms of your galaxies, turning them into empty black space.</p>
+        `
+    },
+    {
+        title: "Sidereal Rate",
+        category: "Advanced Tracking & Mount Physics",
+        content: `
+            <p><strong>Definition:</strong> The speed at which the Earth rotates relative to the "fixed" stars—approximately 15.04 arcseconds per second.</p>
+            <p><strong>Example:</strong> This is the "default" speed for your Losmandy G11. If the mount is set to "Lunar Rate" by mistake, your stars in a deep-sky image will look like short trails.</p>
+        `
+    },
+    {
+        title: "King Rate",
+        category: "Advanced Tracking & Mount Physics",
+        content: `
+            <p><strong>Definition:</strong> A tracking rate slightly slower than Sidereal to account for the effects of atmospheric refraction, which makes stars appear to move slower near the horizon.</p>
+            <p><strong>Example:</strong> Advanced mounts like the AP MACH 2 can use the King Rate to keep your stars perfectly round even when the target is low in the sky.</p>
+        `
+    },
+    {
+        title: "Tracking Jitter",
+        category: "Advanced Tracking & Mount Physics",
+        content: `
+            <p><strong>Definition:</strong> High-frequency, small-scale movements of the mount caused by motor vibrations or wind, which "smear" the stars on a microscopic level.</p>
+            <p><strong>Example:</strong> If your tripod is on a wooden deck, your own footsteps can cause Tracking Jitter, ruining the sharpness of a 5-minute sub-frame.</p>
+        `
     }
 ];
