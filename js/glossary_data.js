@@ -538,5 +538,101 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A mathematical measurement used by auto-focus software to determine star sharpness. It is more robust than FWHM for focusing.</p>
             <p><strong>Example:</strong> Your autofocus routine will take several shots, calculate the HFR for each, and move the motor until it finds the "V-curve" where the HFR is at its lowest (sharpest).</p>
         `
+    },
+    {
+        title: "Bandpass (Full Width at Half Maximum - FWHM)",
+        category: "Advanced Filter Physics & Light Control",
+        content: `
+            <p><strong>Definition:</strong> The width of the "window" of light wavelengths that a filter allows to pass through. In narrowband, this is measured in nanometers (nm).</p>
+            <p><strong>Example:</strong> A 3nm Hα filter has a much tighter "bandpass" than a 7nm filter. This means it blocks more light pollution and moonlight, resulting in much higher contrast for the Tadpole Nebula.</p>
+        `
+    },
+    {
+        title: "Filter Haloing",
+        category: "Advanced Filter Physics & Light Control",
+        content: `
+            <p><strong>Definition:</strong> A reflection artifact that appears as a circular "ghost" around bright stars, caused by light bouncing between the camera sensor and the filter glass.</p>
+            <p><strong>Example:</strong> When shooting the star Alnitak in the Horsehead Nebula, lower-quality OIII filters often show a large blue "halo" that must be removed manually in PixInsight.</p>
+        `
+    },
+    {
+        title: "Signal Leakage (IR-Cut)",
+        category: "Advanced Filter Physics & Light Control",
+        content: `
+            <p><strong>Definition:</strong> When a filter or sensor fails to block Infrared (IR) light, which can cause stars to appear "bloated" or out of focus because IR light focuses at a different point than visible light.</p>
+            <p><strong>Example:</strong> Using an L-Pro or UV/IR Cut filter ensures that only the visible spectrum reaches the sensor, keeping your star sizes small and tight.</p>
+        `
+    },
+    {
+        title: "Transmission Percentage",
+        category: "Advanced Filter Physics & Light Control",
+        content: `
+            <p><strong>Definition:</strong> The percentage of "wanted" light that successfully passes through the filter.</p>
+            <p><strong>Example:</strong> High-end filters (like Antlia or Chroma) often have 95-98% transmission, meaning almost no signal is lost as it travels through the glass.</p>
+        `
+    },
+    {
+        title: "Cable Snag / Cord Wrap",
+        category: "Power, Cables & Rig Management",
+        content: `
+            <p><strong>Definition:</strong> A physical hazard where cables become tangled or caught on the mount/tripod as the telescope tracks or slews.</p>
+            <p><strong>Example:</strong> If your USB cable is too short, a Meridian Flip could cause the cable to pull on the camera, potentially ruining the port or stalling the mount motors.</p>
+        `
+    },
+    {
+        title: "12V Power Distribution (Powerbox)",
+        category: "Power, Cables & Rig Management",
+        content: `
+            <p><strong>Definition:</strong> A central hub (like a Pegasus Astro Pocket Powerbox) that takes one main power input and distributes it to the camera, mount, dew heaters, and mini-PC.</p>
+            <p><strong>Example:</strong> Instead of having 5 separate power bricks hanging off your AP MACH 2, a powerbox allows you to run a single "umbilical" cord to the rig, reducing cable drag.</p>
+        `
+    },
+    {
+        title: "Dew Point",
+        category: "Power, Cables & Rig Management",
+        content: `
+            <p><strong>Definition:</strong> The temperature at which moisture in the air condenses into liquid water on surfaces (like your telescope lens).</p>
+            <p><strong>Example:</strong> If your FLT132 lens temperature drops below the Dew Point, your images will become "foggy." Using a Dew Heater keeps the glass just 1-2 degrees above the ambient air to prevent this.</p>
+        `
+    },
+    {
+        title: "Backlash",
+        category: "Power, Cables & Rig Management",
+        content: `
+            <p><strong>Definition:</strong> The "play" or "slop" between gears in a mount or focuser. It causes a delay when the motor reverses direction.</p>
+            <p><strong>Example:</strong> If your Losmandy G11 has high backlash in the DEC axis, the autoguider will struggle to correct small errors because the gears aren't "biting" immediately when the direction changes.</p>
+        `
+    },
+    {
+        title: "Histogram Stretching (Arsinh/Log)",
+        category: "Post-Processing Mathematics",
+        content: `
+            <p><strong>Definition:</strong> The mathematical function used to redistribute pixel values. "Arsinh" stretching is popular because it preserves the natural color of stars while brightening faint nebulosity.</p>
+            <p><strong>Example:</strong> A standard "Linear Stretch" might turn your stars white, but an ArsinhStretch in PixInsight keeps the blue or orange hues visible while making the Orion Nebula bright.</p>
+        `
+    },
+    {
+        title: "Convolution vs. Deconvolution (Math)",
+        category: "Post-Processing Mathematics",
+        content: `
+            <p><strong>Definition:</strong> Convolution is a mathematical "blurring" (averaging neighboring pixels). Deconvolution is the "inverse" operation that attempts to find the original "point source" of light.</p>
+            <p><strong>Example:</strong> When you use a Gaussian Blur, you are performing a Convolution. When you use BlurXTerminator, you are performing a highly complex Deconvolution to sharpen the image.</p>
+        `
+    },
+    {
+        title: "Noise Floor",
+        category: "Post-Processing Mathematics",
+        content: `
+            <p><strong>Definition:</strong> The level of background noise (read noise, thermal noise) below which real signals cannot be distinguished.</p>
+            <p><strong>Example:</strong> If a galaxy's outer arms are "below the noise floor," no amount of stretching will show them—you simply need more Integration Time to lift the signal above the noise.</p>
+        `
+    },
+    {
+        title: "Bit Depth (14-bit vs 16-bit)",
+        category: "Post-Processing Mathematics",
+        content: `
+            <p><strong>Definition:</strong> The number of possible gray levels a sensor can record. 16-bit allows for 65,536 levels of brightness.</p>
+            <p><strong>Example:</strong> An ASI2600 (16-bit) provides much smoother gradients in a nebula like the Running Man compared to an older 12-bit DSLR, which might show "banding" in the dark areas.</p>
+        `
     }
 ];
