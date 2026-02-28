@@ -1042,5 +1042,101 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The mathematical value that tells you how many electrons are represented by one digital unit in your image.</p>
             <p><strong>Example:</strong> Knowing the Conversion Factor allows you to use tools like the "Statistics" module in PixInsight to calculate exactly how many photons you’ve collected from a specific galaxy arm.</p>
         `
+    },
+    {
+        title: "Herbig-Haro Object (HH)",
+        category: "Complex Nebular Structures & Stellar Evolution",
+        content: `
+            <p><strong>Definition:</strong> Small, bright patches of nebulosity associated with newly born stars. They are formed when narrow jets of partially ionized gas ejected by those stars collide with nearby clouds of gas and dust.</p>
+            <p><strong>Example:</strong> In your images of the Orion Nebula (M42), look for tiny, bow-shaped wisps. These are HH Objects representing the "birth cries" of new stars.</p>
+        `
+    },
+    {
+        title: "Wolf-Rayet Nebula (WR)",
+        category: "Complex Nebular Structures & Stellar Evolution",
+        content: `
+            <p><strong>Definition:</strong> A nebula created by a massive, aging star that is rapidly losing mass through a very powerful stellar wind.</p>
+            <p><strong>Example:</strong> Thor's Helmet (NGC 2359) is a classic Wolf-Rayet nebula. The "bubble" shape is carved out by the intense radiation from a massive WR star in its center.</p>
+        `
+    },
+    {
+        title: "Strömgren Sphere",
+        category: "Complex Nebular Structures & Stellar Evolution",
+        content: `
+            <p><strong>Definition:</strong> The sphere of ionized hydrogen (H II) around a young, hot star. It marks the boundary where the star's ultraviolet radiation is no longer strong enough to keep the hydrogen ionized.</p>
+            <p><strong>Example:</strong> Most circular emission nebulae, like the Rosette Nebula, are essentially massive Strömgren Spheres centered on a cluster of hot O and B type stars.</p>
+        `
+    },
+    {
+        title: "Proplyd (Protoplanetary Disk)",
+        category: "Complex Nebular Structures & Stellar Evolution",
+        content: `
+            <p><strong>Definition:</strong> An externally illuminated photo-evaporating disk of dense gas and dust surrounding a young star.</p>
+            <p><strong>Example:</strong> Using high-resolution optics on the Orion Nebula, you can sometimes resolve "tadpole-shaped" dark spots. These are Proplyds, where new solar systems are currently forming.</p>
+        `
+    },
+    {
+        title: "Riccardi-Honders (RH)",
+        category: "Advanced Optical Designs (High-End Rigs)",
+        content: `
+            <p><strong>Definition:</strong> A catadioptric telescope design that uses a fast primary mirror and a full-aperture corrector lens to provide an extremely fast focal ratio (often f/3) and a very wide, flat field.</p>
+            <p><strong>Example:</strong> An Officina Stellare Veloce RH200 allows you to capture deep-sky objects like the Tadpole Nebula in a fraction of the time required by a standard f/7 refractor.</p>
+        `
+    },
+    {
+        title: "Corrected Dall-Kirkham (CDK)",
+        category: "Advanced Optical Designs (High-End Rigs)",
+        content: `
+            <p><strong>Definition:</strong> A telescope design featuring an ellipsoidal primary mirror, a spherical secondary mirror, and a lens group near the focal plane to correct for coma, astigmatism, and field curvature.</p>
+            <p><strong>Example:</strong> The PlaneWave CDK series is the gold standard for remote observatories because it provides a massive, pin-sharp imaging circle for large sensors like the ASI6200.</p>
+        `
+    },
+    {
+        title: "Rowe-Ackermann Schmidt Astrograph (RASA)",
+        category: "Advanced Optical Designs (High-End Rigs)",
+        content: `
+            <p><strong>Definition:</strong> A specialized optical system that places the camera at the front of the telescope (prime focus) to achieve incredibly fast focal ratios (f/2 or faster).</p>
+            <p><strong>Example:</strong> Using a Celestron RASA 11, you can capture the faint outer "petals" of the Iris Nebula in just 1–2 hours of total integration.</p>
+        `
+    },
+    {
+        title: "Petzval Refractor",
+        category: "Advanced Optical Designs (High-End Rigs)",
+        content: `
+            <p><strong>Definition:</strong> A four-element refractor design (two groups of two) that inherently produces a flat imaging field without the need for an external flattener.</p>
+            <p><strong>Example:</strong> The RedCat 51 or your FLT132 (when paired with its dedicated reducer/flattener) mimics a Petzval behavior, ensuring stars are round from corner to corner.</p>
+        `
+    },
+    {
+        title: "FITS Header (Flexible Image Transport System)",
+        category: "Scientific Image Metadata & Files",
+        content: `
+            <p><strong>Definition:</strong> A block of text at the beginning of a FITS file that contains metadata such as exposure time, camera temperature, RA/DEC coordinates, and telescope used.</p>
+            <p><strong>Example:</strong> When you upload an image to Astrometry.net, the site reads your FITS Header to immediately know exactly where in the sky you were looking.</p>
+        `
+    },
+    {
+        title: "World Coordinate System (WCS)",
+        category: "Scientific Image Metadata & Files",
+        content: `
+            <p><strong>Definition:</strong> A standard used in FITS files to describe the relationship between pixel coordinates ($x, y$) and sky coordinates ($RA, Dec$).</p>
+            <p><strong>Example:</strong> After you "Plate Solve" an image of the Leo Triplet, the software embeds WCS data, allowing you to hover your mouse over any star to see its exact name and magnitude.</p>
+        `
+    },
+    {
+        title: "XISF (Extensible Image Serialization Format)",
+        category: "Scientific Image Metadata & Files",
+        content: `
+            <p><strong>Definition:</strong> The native file format for PixInsight, designed to store high-precision image data along with a complete history of the processing steps applied.</p>
+            <p><strong>Example:</strong> Saving your work as .xisf instead of .fits ensures that all your "process icons" and metadata stay attached to the file for future editing.</p>
+        `
+    },
+    {
+        title: "Bayer Phase (RGGB, GRBG, etc.)",
+        category: "Scientific Image Metadata & Files",
+        content: `
+            <p><strong>Definition:</strong> The specific order of the color filters in a camera's Bayer matrix.</p>
+            <p><strong>Example:</strong> If you set the wrong Bayer Phase in your software, your image of the Rosette Nebula will turn out bright green or blue instead of red. For your ASI2600, the phase is typically RGGB.</p>
+        `
     }
 ];
