@@ -1138,5 +1138,101 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The specific order of the color filters in a camera's Bayer matrix.</p>
             <p><strong>Example:</strong> If you set the wrong Bayer Phase in your software, your image of the Rosette Nebula will turn out bright green or blue instead of red. For your ASI2600, the phase is typically RGGB.</p>
         `
+    },
+    {
+        title: "Spectroscopic Binary",
+        category: "Binary & Multiple Star Dynamics",
+        content: `
+            <p><strong>Definition:</strong> A binary star system where the two stars are too close together to be seen separately through a telescope, but are known to be double because of the shifting spectral lines in their light.</p>
+            <p><strong>Example:</strong> Mizar in the Big Dipper was the first spectroscopic binary discovered. In your wide-field shots, it looks like one star, but it is actually a complex system of multiple suns orbiting each other.</p>
+        `
+    },
+    {
+        title: "Eclipsing Binary",
+        category: "Binary & Multiple Star Dynamics",
+        content: `
+            <p><strong>Definition:</strong> A binary system where the orbit is tilted so that one star passes directly in front of the other from our perspective, causing a periodic dip in the total brightness.</p>
+            <p><strong>Example:</strong> Algol (The Demon Star) is the most famous eclipsing binary. Every 2.8 days, its brightness drops significantly for a few hours. You can capture this "light curve" by taking a series of images over several hours.</p>
+        `
+    },
+    {
+        title: "Common Proper Motion (CPM) Pair",
+        category: "Binary & Multiple Star Dynamics",
+        content: `
+            <p><strong>Definition:</strong> Two stars that are not necessarily orbiting each other but are moving through space in the same direction at the same speed, suggesting they were born in the same nebula.</p>
+            <p><strong>Example:</strong> Many stars in the Pleiades (M45) are CPM pairs. While they aren't "locked" in a binary dance, they travel together like a flock of birds across the galaxy.</p>
+        `
+    },
+    {
+        title: "Exoplanet Transit",
+        category: "Exoplanet Transit & Detection",
+        content: `
+            <p><strong>Definition:</strong> When a planet orbiting a distant star passes between that star and Earth, slightly dimming the star's light.</p>
+            <p><strong>Example:</strong> With a high-end setup like your FLT132 and ASI2600, you can actually perform "Exoplanet Hunting." By measuring the brightness of a star over 4 hours, you can detect a 1% drop in light caused by a planet the size of Jupiter.</p>
+        `
+    },
+    {
+        title: "Primary Transit vs. Secondary Eclipse",
+        category: "Exoplanet Transit & Detection",
+        content: `
+            <p><strong>Definition:</strong> Primary Transit is the planet passing in front of the star. Secondary Eclipse is when the planet passes behind the star.</p>
+            <p><strong>Example:</strong> Detecting the Secondary Eclipse is much harder and usually requires space telescopes (like JWST), but it allows scientists to measure the heat coming off the planet itself.</p>
+        `
+    },
+    {
+        title: "Barycenter",
+        category: "Exoplanet Transit & Detection",
+        content: `
+            <p><strong>Definition:</strong> The center of mass of two or more bodies that orbit each other and is the point about which the bodies orbit.</p>
+            <p><strong>Example:</strong> In our solar system, the Barycenter is often just outside the surface of the Sun due to Jupiter's massive gravity. This "wobble" is how the Radial Velocity method finds planets around other stars.</p>
+        `
+    },
+    {
+        title: "Multi-Star Guiding",
+        category: "Advanced Guiding & Tracking Metrics",
+        content: `
+            <p><strong>Definition:</strong> An advanced algorithm (used in PHD2) that tracks the average movement of up to 12 stars simultaneously rather than just one.</p>
+            <p><strong>Example:</strong> If you are imaging in a region with "Poor Seeing," a single guide star might "jump" due to atmospheric turbulence. Multi-Star Guiding averages out these jumps, leading to a much smoother 0.5" total RMS error.</p>
+        `
+    },
+    {
+        title: "SNIS (Signal-to-Noise Integrated Statistics)",
+        category: "Advanced Guiding & Tracking Metrics",
+        content: `
+            <p><strong>Definition:</strong> A metric used to judge the quality of a guide star by comparing its brightness to the background noise of the guide camera.</p>
+            <p><strong>Example:</strong> If your SNIS is too low, your guiding will be "chasing the noise," causing your Losmandy G11 to jerk back and forth. Choosing a brighter guide star or increasing the exposure time of the guide camera fixes this.</p>
+        `
+    },
+    {
+        title: "Aggressiveness (Guiding)",
+        category: "Advanced Guiding & Tracking Metrics",
+        content: `
+            <p><strong>Definition:</strong> A setting that determines what percentage of a detected error the mount should try to correct in a single move.</p>
+            <p><strong>Example:</strong> If Aggressiveness is set to 100%, the mount may "over-correct" and oscillate. Most astrophotographers set this to 60-70% to let the mount "settle" into the correction.</p>
+        `
+    },
+    {
+        title: "MinMo (Minimum Motion)",
+        category: "Advanced Guiding & Tracking Metrics",
+        content: `
+            <p><strong>Definition:</strong> The minimum distance a star must move (in pixels or arcseconds) before the autoguider sends a correction command to the mount.</p>
+            <p><strong>Example:</strong> Setting a MinMo of 0.2" ensures that your AP MACH 2 doesn't waste energy correcting for tiny atmospheric "shimmers" that aren't actually tracking errors.</p>
+        `
+    },
+    {
+        title: "Vignetting (Optical & Physical)",
+        category: "Advanced Field Effects",
+        content: `
+            <p><strong>Definition:</strong> The darkening of the corners of an image caused by the telescope's light cone being partially blocked by the camera's nosepiece, filters, or the telescope tube itself.</p>
+            <p><strong>Example:</strong> Even with a large 2" filter, an APS-C sensor like the ASI2600 will show some Vignetting. This is why Flat Frames are mandatory to "level" the field.</p>
+        `
+    },
+    {
+        title: "Shadowing (OAG Prism)",
+        category: "Advanced Field Effects",
+        content: `
+            <p><strong>Definition:</strong> When the prism of an Off-Axis Guider is pushed too far into the light path, casting a dark, rectangular shadow on one side of the main imaging sensor.</p>
+            <p><strong>Example:</strong> If you see a hard dark edge on the side of your Tadpole Nebula subs, your OAG prism needs to be retracted slightly until it is just outside the field of the main sensor.</p>
+        `
     }
 ];
