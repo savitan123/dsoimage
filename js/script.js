@@ -1905,109 +1905,46 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ==========================================
-// 88 Constellations Grid Logic
+// 88 Constellations Carousel Logic
 // ==========================================
 document.addEventListener("DOMContentLoaded", () => {
-  const gridNorth = document.getElementById('grid-northern');
-  const gridSouth = document.getElementById('grid-southern');
-  if (!gridNorth || !gridSouth || typeof CONSTELLATIONS === 'undefined') return;
+  const northernTrack = document.getElementById('northern-carousel-track');
+  const southernTrack = document.getElementById('southern-carousel-track');
+  if (!northernTrack && !southernTrack) return;
+  if (typeof CONSTELLATIONS === 'undefined') return;
 
-  function calcGMST(date) {
-    const jd = (date.getTime() / 86400000) + 2440587.5;
-    const d = jd - 2451545.0;
-    let gmst = 18.697374558 + 24.06570982441908 * d;
-    return (gmst % 24 + 24) % 24;
-  }
+  function createSlide(c) {
+    const li = document.createElement('li');
+    li.className = 'carousel-slide';
 
-  function getAltitude(raDeg, decDeg, lat, lon) {
-    const now = new Date();
-    // Default fallback locally if the one in script.js is out of scope
-    const gmst = typeof getGMST === 'function' ? getGMST(now) : calcGMST(now);
-    const lst = gmst + (lon / 15.0); // Hours
+    const imgSrc = `images/constellations/${c.abbr}.svg`;
+    const wikiUrl = `https://en.wikipedia.org/wiki/${encodeURIComponent(c.name)}_(constellation)`;
+    const skyUrl = `https://wikisky.org/?object=${encodeURIComponent(c.name)}`;
 
-    const latRad = lat * (Math.PI / 180.0);
-    const sinLat = Math.sin(latRad);
-    const cosLat = Math.cos(latRad);
-
-    const raH = raDeg / 15.0;
-
-    let ha = lst - raH;
-    while (ha < -12) ha += 24;
-    while (ha >= 12) ha -= 24;
-
-    const haRad = ha * 15.0 * (Math.PI / 180.0);
-    const decRad = decDeg * (Math.PI / 180.0);
-    const sinDec = Math.sin(decRad);
-    const cosDec = Math.cos(decRad);
-    const cosHA = Math.cos(haRad);
-
-    const sinAlt = (sinDec * sinLat) + (cosDec * cosLat * cosHA);
-    return Math.round(Math.asin(sinAlt) * (180.0 / Math.PI));
-  }
-
-  function render(lat, lon) {
-    gridNorth.innerHTML = '';
-    gridSouth.innerHTML = '';
-    CONSTELLATIONS.forEach(c => {
-      let altText = "Unknown";
-      let dotColor = "#888";
-
-      if (lat !== null && lon !== null) {
-        const alt = getAltitude(c.ra, c.dec, lat, lon);
-        if (alt >= 30) {
-          dotColor = "#00ff00"; // Green
-          altText = `(current altitude ${alt}&deg;)`;
-        } else if (alt > 0) {
-          dotColor = "#ffaa00"; // Yellow
-          altText = `(current altitude ${alt}&deg;)`;
-        } else {
-          dotColor = "#ff0000"; // Red
-          altText = `(current altitude ${alt}&deg;)`;
-        }
-      }
-
-      const card = document.createElement('div');
-      card.className = 'constellation-card';
-
-      // Map Image (Local SVG)
-      const imgSrc = `images/constellations/${c.abbr}.svg`;
-      const wikiUrl = `https://en.wikipedia.org/wiki/${encodeURIComponent(c.name)}_(constellation)`;
-      const skyUrl = `https://wikisky.org/?object=${encodeURIComponent(c.name)}`;
-
-      card.innerHTML = `
-        <div class="const-title">${c.name}</div>
-        <div class="const-img-box">
-          <img src="${imgSrc}" loading="lazy" class="const-img" alt="${c.name} map">
+    li.innerHTML = `
+      <div class="gallery-item" data-full="${imgSrc}" data-title="${c.name} Constellation"
+        data-aliases="${c.abbr}"
+        data-notes="<strong>Centroid:</strong> R.A: ${(c.ra / 15).toFixed(1)}h Dec: ${c.dec > 0 ? '+' : ''}${c.dec.toFixed(1)}&deg;<br><br>The official IAU star map for ${c.name}.<br><br><a href='${wikiUrl}' target='_blank' style='color: #00e6e6; text-decoration: underline;'>Wikipedia Info</a> | <a href='${skyUrl}' target='_blank' style='color: #00e6e6; text-decoration: underline;'>Wikisky Planetarium</a>">
+        <img loading="lazy" src="${imgSrc}" alt="${c.name} Constellation Map">
+        <div class="carousel-caption">
+          <h3>${c.name}</h3>
+          <p>R.A: ${(c.ra / 15).toFixed(1)}h | Dec: ${c.dec > 0 ? '+' : ''}${c.dec.toFixed(1)}&deg;</p>
         </div>
-        <div class="const-info">
-          <div class="centroid">Centroid: R.A: ${(c.ra / 15).toFixed(1)}h Dec: ${c.dec > 0 ? '+' : ''}${c.dec.toFixed(1)}&deg;</div>
-          <div class="altitude">
-            <span class="alt-dot" style="color: ${dotColor};">&#9679;</span> 
-            ${altText}
-          </div>
-          <div class="const-links">
-            <a href="${wikiUrl}" target="_blank">Information</a> | 
-            <a href="${skyUrl}" target="_blank">Planetarium</a>
-          </div>
-        </div>
-      `;
-
-      if (c.dec >= 0) {
-        gridNorth.appendChild(card);
-      } else {
-        gridSouth.appendChild(card);
-      }
-    });
+      </div>
+    `;
+    return li;
   }
 
-  // Initial render with generic values so the UI doesn't hang waiting for Permissions
-  render(null, null);
+  CONSTELLATIONS.forEach(c => {
+    if (c.dec >= 0 && northernTrack) {
+      northernTrack.appendChild(createSlide(c));
+    } else if (c.dec < 0 && southernTrack) {
+      southernTrack.appendChild(createSlide(c));
+    }
+  });
 
-  // Attempt to asynchronously update with live local altitude
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      (pos) => render(pos.coords.latitude, pos.coords.longitude),
-      (err) => console.log("Geolocation denied, using default altitude display.")
-    );
+  // Re-initialize carousel after dynamic slides are injected
+  if (typeof initCarousel === 'function') {
+    initCarousel();
   }
 });

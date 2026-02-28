@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="canonical" href="https://dsoimage.com/constellations-northern.html">
+  <meta name="author" content="Shimon Avitan">
+  <meta name="description" content="Northern Hemisphere Constellations Astrophotography by Shimon Avitan.">
+  <meta name="keywords" content="constellations, northern hemisphere, astrophotography, star maps">
+  <title>Northern Constellations &#8212; Shimon Avitan</title>
+  <link rel="stylesheet" href="css/style.css?v=31">
+</head>
+
+<body>
+  <div class="container">
+
+
+    <header class="topbar">
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-controls="sidebar" aria-expanded="false">
+        Menu
+      </button>
+      <button class="search-trigger" aria-label="Search site">&#128269;</button>
+      <div class="topbar-title">dsoimage.com</div>
+    </header>
+
+    <div class="overlay" id="overlay" hidden></div>
+
+    <nav class="sidebar" id="sidebar" aria-label="Site menu">
+      <div class="sidebar-header">
+        <h2>Menu</h2>
+        <button class="menu-close" type="button" aria-label="Close menu">×</button>
+      </div>
+
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="galaxies.html">Galaxies</a></li>
+        <li><a href="nebulae.html">Nebulae</a></li>
+        <li><a href="clusters.html">Star Clusters</a></li>
+        <li><a href="equipment.html">Equipment</a></li>
+        <li><a href="processing.html">Processing</a></li>
+        <li><a href="weather.html">Weather</a></li>
+        <li><a href="tools.html">Tools</a></li>
+        <li><a href="planner.html" data-i18n="menu_planner">Planned Session</a></li>
+        <li><a href="knowledge.html" class="active">Knowledge Base</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+
+      <button id="red-mode-toggle" class="mode-toggle-btn">
+        <span class="circle-icon"></span> Night Vision
+      </button>
+
+      <div id="nv-container" class="nv-controls" style="display: none;">
+        <label for="nv-slider" style="font-size: 13px; color: #aaa; text-align: left;">Dimmer</label>
+        <input type="range" id="nv-slider" min="20" max="100" value="80">
+      </div>
+
+      <!-- Sidebar search removed -->
+      <button class="search-trigger">
+        &#128269; <span data-i18n="menu_search">Search</span>
+      </button>
+
+      <div id="image-stats"></div>
+
+      <div class="sidebar-footer">
+        <h2 class="sidebar-subtitle">Follow Me</h2>
+        <ul>
+          <li><a href="https://www.instagram.com/avitan_shimon/" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://www.facebook.com/shimon.avitan.79" target="_blank" rel="noopener">Facebook</a></li>
+          <li><a href="https://www.flickr.com/photos/193302744@N07/" target="_blank" rel="noopener">Flickr</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <h1>Northern Hemisphere Constellations</h1>
+      <p class="subtitle">Official IAU star maps for constellations above the celestial equator (Declination &ge;
+        0&deg;).</p>
+
+      <div class="carousel-container">
+        <button class="carousel-btn prev-btn" aria-label="Previous Image">&#10094;</button>
+
+        <div class="carousel-track-container">
+          <ul class="carousel-track" id="northern-carousel-track">
+            <!-- Constellation slides will be injected here via JS -->
+          </ul>
+        </div>
+
+        <button class="carousel-btn next-btn" aria-label="Next Image">&#10095;</button>
+      </div>
+
+      <footer class="site-footer">
+        <p>&copy; 2026 Shimon Avitan | dsoimage.com</p>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox">
+    <span id="close">&times;</span>
+    <img loading="lazy" id="lightbox-img" src="" alt="Zoomed view">
+    <div id="lightbox-caption"></div>
+  </div>
+
+  <!-- Search Overlay -->
+  <div id="search-overlay" class="search-overlay">
+    <div class="search-box">
+      <span class="search-close">&times;</span>
+      <input type="search" id="search-input" class="search-input" placeholder="Search objects (e.g., M31)..."
+        autocomplete="off">
+      <div id="search-results" class="search-results"></div>
+    </div>
+  </div>
+
+  <script src="js/constellations.js"></script>
+  <script src="js/script.js?v=28"></script>
+
+
+
+  <script src="js/stats.js"></script>
+</body>
+
+</html>
