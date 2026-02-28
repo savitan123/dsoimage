@@ -678,6 +678,18 @@ function initDSOImage() {
         });
       });
 
+      if (typeof CONSTELLATIONS !== 'undefined') {
+        CONSTELLATIONS.forEach(c => {
+          newIndex.push({
+            displayTitle: c.name + " Constellation",
+            aliases: c.abbr,
+            url: `constellation.html?id=${c.abbr}`,
+            img: `images/constellations/${c.abbr}.png`,
+            searchStr: (c.name + " " + c.abbr + " constellation").toLowerCase()
+          });
+        });
+      }
+
       console.log(`Index built: ${newIndex.length} items found.`);
       searchData = newIndex;
 
@@ -2072,37 +2084,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // --- Knowledge Base Search ---
 document.addEventListener('DOMContentLoaded', () => {
-  const kbSearch = document.getElementById('kb-search-input');
-  if (kbSearch) {
-    kbSearch.addEventListener('input', (e) => {
-      const term = e.target.value.toLowerCase();
-      const categories = document.querySelectorAll('.kb-category');
+    const kbSearch = document.getElementById('kb-search-input');
+    const searchOverlay = document.getElementById('search-overlay');
+    const globalSearchInput = document.getElementById('search-input');
 
-      categories.forEach(cat => {
-        let hasVisibleParams = false;
-        const accordions = cat.querySelectorAll('.accordion');
-
-        accordions.forEach(acc => {
-          const content = acc.nextElementSibling;
-          const combinedText = (acc.textContent + " " + content.textContent).toLowerCase();
-
-          if (combinedText.includes(term)) {
-            acc.style.display = 'block';
-            // Keep content hidden unless active, but it stays in DOM flow
-            hasVisibleParams = true;
-          } else {
-            acc.style.display = 'none';
-            content.style.maxHeight = null; // force close if open
-          }
+    if (kbSearch && searchOverlay && globalSearchInput) {
+        // When focusing or typing in KB Search, transition to Global Search Modal
+        kbSearch.addEventListener('focus', () => {
+            searchOverlay.classList.add('is-active');
+            if (kbSearch.value) {
+                 globalSearchInput.value = kbSearch.value;
+                 globalSearchInput.dispatchEvent(new Event('input', { bubbles: true }));
+                 kbSearch.value = '';
+            }
+            setTimeout(() => {
+                globalSearchInput.focus();
+            }, 100);
         });
-
-        // Hide whole category if no child matches
-        if (hasVisibleParams) {
-          cat.style.display = 'block';
-        } else {
-          cat.style.display = 'none';
-        }
-      });
-    });
-  }
+        
+        kbSearch.addEventListener('input', () => {
+             searchOverlay.classList.add('is-active');
+             globalSearchInput.value = kbSearch.value;
+             globalSearchInput.dispatchEvent(new Event('input', { bubbles: true }));
+             kbSearch.value = '';
+             setTimeout(() => {
+                globalSearchInput.focus();
+             }, 100);
+        });
+    }
 });
