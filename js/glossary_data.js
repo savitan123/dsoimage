@@ -938,5 +938,109 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The "true" brightness of an object if it were placed at a standard distance of 10 parsecs.</p>
             <p><strong>Example:</strong> Our Sun has a very bright apparent magnitude (-26.7) because it's close, but its Absolute Magnitude is a modest +4.8. Many stars you photograph are actually thousands of times brighter than the Sun but appear dimmer due to distance.</p>
         `
+    },
+    {
+        title: "East-Heavy Balancing",
+        category: "Mount Tuning, Balance & Torque",
+        content: `
+            <p><strong>Definition:</strong> A technique where the counterweights (or the telescope) are slightly shifted so the mount is always pulling "against" gravity.</p>
+            <p><strong>Example:</strong> On your Losmandy G11, making the east side slightly heavier ensures the worm gear stays in constant contact with the ring gear, preventing "slop" or oscillation during tracking.</p>
+        `
+    },
+    {
+        title: "Third-Axis Balance (DEC Axis)",
+        category: "Mount Tuning, Balance & Torque",
+        content: `
+            <p><strong>Definition:</strong> Balancing the telescope not just front-to-back, but also side-to-side (often caused by a heavy finderscope or off-center camera).</p>
+            <p><strong>Example:</strong> If your FLT132 has a heavy EAF motor on one side, you may need to shift the telescope in its rings to prevent the mount from working harder when pointing at specific parts of the sky.</p>
+        `
+    },
+    {
+        title: "Cable Drag (Torque)",
+        category: "Mount Tuning, Balance & Torque",
+        content: `
+            <p><strong>Definition:</strong> The physical resistance or pulling force exerted by cables hanging from the camera or focuser.</p>
+            <p><strong>Example:</strong> Even a perfectly balanced mount can have "tracking jumps" if a thick USB cable catches on a knob. Using a Cable Management system ensures the torque remains constant throughout the night.</p>
+        `
+    },
+    {
+        title: "Stiction (Static Friction)",
+        category: "Mount Tuning, Balance & Torque",
+        content: `
+            <p><strong>Definition:</strong> The friction that tends to prevent stationary surfaces from being set in motion.</p>
+            <p><strong>Example:</strong> In high-end mounts like the AP MACH 2, "stiction" is minimized so that even the tiniest 0.1-arcsecond correction from the autoguider moves the mount instantly.</p>
+        `
+    },
+    {
+        title: "Atmospheric Refraction",
+        category: "Atmospheric Physics & Refraction",
+        content: `
+            <p><strong>Definition:</strong> The bending of light as it passes through the Earth's atmosphere, which makes objects appear slightly higher in the sky than they actually are.</p>
+            <p><strong>Example:</strong> When you photograph the Leo Triplet near the horizon, refraction "squashes" the image slightly. High-end mounts use "Refraction Correction" in their tracking models to account for this.</p>
+        `
+    },
+    {
+        title: "Scintillation",
+        category: "Atmospheric Physics & Refraction",
+        content: `
+            <p><strong>Definition:</strong> The rapid variation in the apparent brightness or position of a star (twinkling) caused by atmospheric turbulence.</p>
+            <p><strong>Example:</strong> High Scintillation is a sign of "Poor Seeing." For deep-sky imaging, this results in larger, fuzzier stars regardless of how perfect your focus is.</p>
+        `
+    },
+    {
+        title: "Sky Transparency",
+        category: "Atmospheric Physics & Refraction",
+        content: `
+            <p><strong>Definition:</strong> A measure of how much light is absorbed or scattered by water vapor, dust, and smoke in the air.</p>
+            <p><strong>Example:</strong> A night can have "Perfect Seeing" (steady air) but "Poor Transparency" (haze), meaning your Hercules Galaxy Cluster will look dim and lack contrast.</p>
+        `
+    },
+    {
+        title: "Rayleigh Scattering",
+        category: "Atmospheric Physics & Refraction",
+        content: `
+            <p><strong>Definition:</strong> The scattering of light by particles much smaller than the wavelength of the light (like air molecules), which is why the sky is blue and sunsets are red.</p>
+            <p><strong>Example:</strong> This scattering is why light pollution from cities (blue/white LEDs) is so damaging to astrophotography—it "fills" the sky with scattered light that hides faint nebulae.</p>
+        `
+    },
+    {
+        title: "Full Well Capacity",
+        category: "Advanced Sensor Characteristics",
+        content: `
+            <p><strong>Definition:</strong> The maximum number of electrons a single pixel can hold before it "saturates" and can no longer record more light.</p>
+            <p><strong>Example:</strong> Your ASI2600 has a large full well (50,000e-). This allows you to take long exposures of the Orion Nebula without the bright core turning into a flat white blob too quickly.</p>
+        `
+    },
+    {
+        title: "Unity Gain",
+        category: "Advanced Sensor Characteristics",
+        content: `
+            <p><strong>Definition:</strong> The gain setting on a CMOS camera where one electron collected by the pixel equals exactly one "ADU" (digital unit) in the raw file.</p>
+            <p><strong>Example:</strong> For many ZWO cameras, Unity Gain (often Gain 100) is the "sweet spot" because it provides a good balance between low read noise and high dynamic range.</p>
+        `
+    },
+    {
+        title: "Read Noise",
+        category: "Advanced Sensor Characteristics",
+        content: `
+            <p><strong>Definition:</strong> The electronic noise introduced when the camera sensor's analog signal is converted into a digital number.</p>
+            <p><strong>Example:</strong> Modern CMOS sensors have extremely low Read Noise (under 1.5e-). This allows you to take many short exposures and stack them with almost the same quality as one very long exposure.</p>
+        `
+    },
+    {
+        title: "Dynamic Range (Stops)",
+        category: "Advanced Sensor Characteristics",
+        content: `
+            <p><strong>Definition:</strong> The ratio between the maximum measurable light (Full Well) and the minimum measurable light (Read Noise), usually measured in "Stops."</p>
+            <p><strong>Example:</strong> A camera with 14 stops of Dynamic Range can capture the faint outer dust of M31 and the bright stars in the same frame without losing detail in either.</p>
+        `
+    },
+    {
+        title: "Conversion Factor (e-/ADU)",
+        category: "Advanced Sensor Characteristics",
+        content: `
+            <p><strong>Definition:</strong> The mathematical value that tells you how many electrons are represented by one digital unit in your image.</p>
+            <p><strong>Example:</strong> Knowing the Conversion Factor allows you to use tools like the "Statistics" module in PixInsight to calculate exactly how many photons you’ve collected from a specific galaxy arm.</p>
+        `
     }
 ];
