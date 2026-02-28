@@ -738,5 +738,109 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> Using a motorized flat panel or "Sky Flats" during twilight to capture calibration data without being physically present.</p>
             <p><strong>Example:</strong> A remote rig can be programmed to point at the zenith during dusk and take a series of Sky Flats as the light fades to the perfect level.</p>
         `
+    },
+    {
+        title: "Abell Catalog (Abell Cluster)",
+        category: "Deep Space Catalogs (Beyond Messier)",
+        content: `
+            <p><strong>Definition:</strong> A catalog of 4,073 rich clusters of galaxies in the Northern and Southern Hemispheres.</p>
+            <p><strong>Example:</strong> Your image of the Hercules Galaxy Cluster (Abell 2151) is a perfect example. These are much more distant and challenging than individual Messier galaxies, often requiring very dark skies and long focal lengths.</p>
+        `
+    },
+    {
+        title: "Arp Catalog (Atlas of Peculiar Galaxies)",
+        category: "Deep Space Catalogs (Beyond Messier)",
+        content: `
+            <p><strong>Definition:</strong> A catalog of 338 "peculiar" galaxies produced by Halton Arp, focusing on interacting, merging, or distorted galaxies.</p>
+            <p><strong>Example:</strong> The Whirlpool Galaxy (Arp 85) is included because of its clear interaction with its smaller companion, NGC 5195. Arp objects are favorites for astrophotographers because they tell a story of cosmic collision.</p>
+        `
+    },
+    {
+        title: "Sharpless Catalog (Sh2)",
+        category: "Deep Space Catalogs (Beyond Messier)",
+        content: `
+            <p><strong>Definition:</strong> A list of 313 HII regions (emission nebulae) located north of declination -27°.</p>
+            <p><strong>Example:</strong> The Tadpole Nebula (Sh2-236) is a Sharpless object. These are often faint and best captured using Narrowband (Hα) filters to separate the gas from the stellar background.</p>
+        `
+    },
+    {
+        title: "LDN (Lynds' Catalog of Dark Nebulae)",
+        category: "Deep Space Catalogs (Beyond Messier)",
+        content: `
+            <p><strong>Definition:</strong> A comprehensive list of dark, opaque clouds of dust that block background starlight.</p>
+            <p><strong>Example:</strong> LDN 1251 (The Rotten Fish Nebula) is a popular target. Processing these requires careful "Black Point" management to ensure the dark dust doesn't look like pure black empty space, but rather textured "smoke."</p>
+        `
+    },
+    {
+        title: "NGC (New General Catalogue)",
+        category: "Deep Space Catalogs (Beyond Messier)",
+        content: `
+            <p><strong>Definition:</strong> One of the largest and most comprehensive catalogs, containing 7,840 deep-sky objects including all types of DSOs.</p>
+            <p><strong>Example:</strong> While M31 is the Messier name for Andromeda, it is also NGC 224. Most professional planning software uses NGC numbers as the primary database.</p>
+        `
+    },
+    {
+        title: "Periodic Error (PE)",
+        category: "Mount Mechanics & Physics",
+        content: `
+            <p><strong>Definition:</strong> A repetitive tracking error caused by tiny mechanical imperfections in the mount’s worm gear as it completes a full rotation.</p>
+            <p><strong>Example:</strong> On your Losmandy G11, you might see the guide star slowly drift up and down every 4 minutes. This is Periodic Error, which can be reduced by PEC (Periodic Error Correction) software.</p>
+        `
+    },
+    {
+        title: "Backlash (Mechanical Slop)",
+        category: "Mount Mechanics & Physics",
+        content: `
+            <p><strong>Definition:</strong> The tiny gap between gear teeth. When the mount motor reverses direction, there is a split-second delay before the gears "catch" again.</p>
+            <p><strong>Example:</strong> If your AP MACH 2 has near-zero backlash, the autoguider can make instant corrections. High backlash causes "clunky" guiding that can lead to elongated stars.</p>
+        `
+    },
+    {
+        title: "Cone Error",
+        category: "Mount Mechanics & Physics",
+        content: `
+            <p><strong>Definition:</strong> A mechanical misalignment where the telescope's optical axis is not perfectly perpendicular to the mount's Declination axis.</p>
+            <p><strong>Example:</strong> If you have Cone Error, your GoTo commands might be accurate on one side of the sky but consistently "off" on the other side after a Meridian Flip.</p>
+        `
+    },
+    {
+        title: "Polaris Offset",
+        category: "Mount Mechanics & Physics",
+        content: `
+            <p><strong>Definition:</strong> The mathematical difference between the true North Celestial Pole and the actual star Polaris (which is about 0.7° away from the pole).</p>
+            <p><strong>Example:</strong> When using a Polar Scope, you don't put Polaris in the center; you put it on a specific spot on a "clock" reticle to account for this offset.</p>
+        `
+    },
+    {
+        title: "Microlens Diffraction (Star Micro-Reflections)",
+        category: "Advanced Sensor Artifacts",
+        content: `
+            <p><strong>Definition:</strong> A "cross" or "grid" pattern that appears around very bright stars, caused by light reflecting off the tiny microlenses on the camera sensor.</p>
+            <p><strong>Example:</strong> Bright stars in a ZWO ASI1600 image sometimes show a "lattice" pattern. This is a hardware limitation of the sensor's physical structure, not a lens problem.</p>
+        `
+    },
+    {
+        title: "Amp Glow",
+        category: "Advanced Sensor Artifacts",
+        content: `
+            <p><strong>Definition:</strong> A brightening in the corner or edge of an image caused by heat or infrared light emitted by the sensor's internal circuitry during long exposures.</p>
+            <p><strong>Example:</strong> Older CMOS sensors often show a purple "starburst" in the corner. This is Amp Glow, and it can be almost perfectly removed by using Master Dark frames of the same duration.</p>
+        `
+    },
+    {
+        title: "Blooming (CCD)",
+        category: "Advanced Sensor Artifacts",
+        content: `
+            <p><strong>Definition:</strong> When a pixel "overflows" its full-well capacity and the excess electrons spill over into adjacent pixels in the same column.</p>
+            <p><strong>Example:</strong> On older CCD cameras, a bright star would have a vertical white "streak" running through it. Modern CMOS sensors have "Anti-Blooming" gates to prevent this.</p>
+        `
+    },
+    {
+        title: "Fixed Pattern Noise (FPN)",
+        category: "Advanced Sensor Artifacts",
+        content: `
+            <p><strong>Definition:</strong> Noise that stays in the same physical location on the sensor, appearing as "hot" or "cold" pixels.</p>
+            <p><strong>Example:</strong> If you don't Dither, FPN creates "walking noise" (streaks) because the static noise pattern is dragged across the final stack as the sky moves slightly.</p>
+        `
     }
 ];
