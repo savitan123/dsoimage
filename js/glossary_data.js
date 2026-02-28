@@ -314,5 +314,117 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> Manually placing "sample points" on the background of an image to model and subtract complex light pollution or moon gradients.</p>
             <p><strong>Example:</strong> If your M81 image has a glow in the top-left from a neighbor's porch light, DBE maps that specific glow and subtracts it with surgical precision.</p>
         `
+    },
+    {
+        title: "Right Ascension (RA)",
+        category: "Celestial Coordinates & Navigation",
+        content: `
+            <p><strong>Definition:</strong> The celestial equivalent of longitude, measured in hours, minutes, and seconds eastward along the celestial equator.</p>
+            <p><strong>Example:</strong> The Andromeda Galaxy (M31) is located at an RA of approximately 00h 42m. As the Earth rotates, this "coordinate" stays fixed relative to the stars, allowing your mount to find it any night it is above the horizon.</p>
+        `
+    },
+    {
+        title: "Declination (DEC)",
+        category: "Celestial Coordinates & Navigation",
+        content: `
+            <p><strong>Definition:</strong> The celestial equivalent of latitude, measured in degrees north (+) or south (-) of the celestial equator.</p>
+            <p><strong>Example:</strong> The North America Nebula has a DEC of +44°. Because this is a high positive number, it remains high in the sky for observers in the Northern Hemisphere (like Israel) for much of the year.</p>
+        `
+    },
+    {
+        title: "Meridian",
+        category: "Celestial Coordinates & Navigation",
+        content: `
+            <p><strong>Definition:</strong> An imaginary line running from North to South, passing directly through the zenith (the highest point in the sky).</p>
+            <p><strong>Example:</strong> When a target like the Tadpole Nebula "crosses the meridian," it is at its highest point in the sky, meaning you are shooting through the least amount of atmosphere for the sharpest possible data.</p>
+        `
+    },
+    {
+        title: "Meridian Flip",
+        category: "Celestial Coordinates & Navigation",
+        content: `
+            <p><strong>Definition:</strong> The process where a German Equatorial Mount (GEM) must rotate 180 degrees to the other side of the pier as an object crosses the meridian to prevent the telescope from hitting the tripod legs.</p>
+            <p><strong>Example:</strong> During a long session on M81, your software (like N.I.N.A. or ASIAIR) will automatically pause, flip the mount, re-center the target using plate solving, and resume guiding.</p>
+        `
+    },
+    {
+        title: "Celestial Equator",
+        category: "Celestial Coordinates & Navigation",
+        content: `
+            <p><strong>Definition:</strong> The great circle on the imaginary celestial sphere, in the same plane as the Earth's equator.</p>
+            <p><strong>Example:</strong> Objects located near the Celestial Equator (like the Orion Nebula) are visible from almost everywhere on Earth, both in the Northern and Southern hemispheres.</p>
+        `
+    },
+    {
+        title: "Emission Nebula",
+        category: "Deep Sky Object (DSO) Classifications",
+        content: `
+            <p><strong>Definition:</strong> A cloud of ionized gas (mostly hydrogen) that emits light of various colors. The energy comes from high-energy photons emitted from a nearby hot star.</p>
+            <p><strong>Example:</strong> The Rosette Nebula is a classic emission nebula. The young stars in the center ionize the surrounding hydrogen gas, causing it to glow brilliant red.</p>
+        `
+    },
+    {
+        title: "Reflection Nebula",
+        category: "Deep Sky Object (DSO) Classifications",
+        content: `
+            <p><strong>Definition:</strong> A cloud of interstellar dust that reflects the light of a nearby star or stars. These typically appear blue because blue light is scattered more efficiently.</p>
+            <p><strong>Example:</strong> The blue "haze" around the stars in the Pleiades (M45) is a reflection nebula. The dust isn't hot enough to glow on its own; it is simply reflecting the starlight.</p>
+        `
+    },
+    {
+        title: "Dark Nebula",
+        category: "Deep Sky Object (DSO) Classifications",
+        content: `
+            <p><strong>Definition:</strong> A cloud of interstellar dust that is so dense it blocks the light from objects behind it, such as stars or brighter emission nebulae.</p>
+            <p><strong>Example:</strong> The Horsehead Nebula is actually a dark nebula (Barnard 33) shaped like a chess piece, visible only because it sits in front of the bright red emission nebula IC 434.</p>
+        `
+    },
+    {
+        title: "Planetary Nebula",
+        category: "Deep Sky Object (DSO) Classifications",
+        content: `
+            <p><strong>Definition:</strong> An expanding, glowing shell of ionized gas ejected from red giant stars late in their lives. They have nothing to do with actual planets.</p>
+            <p><strong>Example:</strong> The Ring Nebula (M57) is a perfect example. It represents what our own Sun might look like in 5 billion years after it sheds its outer layers.</p>
+        `
+    },
+    {
+        title: "Supernova Remnant (SNR)",
+        category: "Deep Sky Object (DSO) Classifications",
+        content: `
+            <p><strong>Definition:</strong> The structure resulting from the explosion of a star in a supernova. It consists of ejected material expanding at high speeds.</p>
+            <p><strong>Example:</strong> The Veil Nebula in Cygnus is a massive SNR. The delicate "filaments" we photograph are the shockwaves of a star that exploded thousands of years ago, hitting the surrounding gas.</p>
+        `
+    },
+    {
+        title: "Airmass",
+        category: "Technical Physics & Light",
+        content: `
+            <p><strong>Definition:</strong> A measure of the amount of atmosphere light must pass through to reach the telescope. Airmass is 1.0 at the zenith and increases as you look toward the horizon.</p>
+            <p><strong>Example:</strong> Shooting a galaxy at 3.0 Airmass (low on the horizon) results in blurry, yellowed images because you are looking through three times more air than if it were directly overhead.</p>
+        `
+    },
+    {
+        title: "Atmospheric Dispersion",
+        category: "Technical Physics & Light",
+        content: `
+            <p><strong>Definition:</strong> The "prism" effect of Earth's atmosphere that spreads starlight into a tiny spectrum (red on top, blue on bottom), especially when objects are low in the sky.</p>
+            <p><strong>Example:</strong> When photographing Jupiter near the horizon, you might see a red fringe on one side and a blue fringe on the other. This is caused by dispersion, not your telescope.</p>
+        `
+    },
+    {
+        title: "Extinction",
+        category: "Technical Physics & Light",
+        content: `
+            <p><strong>Definition:</strong> The loss of light from a celestial body as it passes through the atmosphere, caused by absorption or scattering by air molecules and dust.</p>
+            <p><strong>Example:</strong> A star looks much dimmer at the horizon than at the zenith due to extinction. This is why we wait for targets to rise high before starting our "Luminance" exposures.</p>
+        `
+    },
+    {
+        title: "Integration Time (Total)",
+        category: "Technical Physics & Light",
+        content: `
+            <p><strong>Definition:</strong> The sum of all individual exposures (subs) combined into a single final image.</p>
+            <p><strong>Example:</strong> If you capture 60 frames at 300 seconds each, your Total Integration Time is 5 hours. More time directly translates to a higher Signal-to-Noise Ratio (SNR).</p>
+        `
     }
 ];
