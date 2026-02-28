@@ -74,5 +74,125 @@ const GLOSSARY_ITEMS = [
             <p><strong>One Shot Color (OSC):</strong> Similar to a DSLR. A microlens matrix over the sensor automatically shoots Red, Green, and Blue at the same time. Easier to use, but less sensitive and harder to shoot narrowband effectively.</p>
             <p><strong>Monochrome:</strong> A black-and-white sensor. Shoots one color channel at a time using physical glass filters (Luminance, Red, Green, Blue, Hydrogen, Oxygen, Sulfur) slotted in front of the chip on a motorized wheel. Highly sensitive, sharpest data, but extremely time-consuming.</p>
         `
+    },
+    {
+        title: "Apochromatic Refractor (APO)",
+        category: "Hardware & Optics",
+        content: `
+            <p><strong>Definition:</strong> A telescope that uses specialized extra-low dispersion (ED) glass to bring three wavelengths (Red, Green, Blue) to the same focal point.</p>
+            <p><strong>Example:</strong> When shooting a bright star like Sirius, an APO telescope prevents the "purple halo" (chromatic aberration) that cheaper achromatic telescopes produce.</p>
+        `
+    },
+    {
+        title: "Backfocal Distance (Backfocus)",
+        category: "Hardware & Optics",
+        content: `
+            <p><strong>Definition:</strong> The exact distance from the rear thread of a corrector/reducer to the camera sensor.</p>
+            <p><strong>Example:</strong> Your William Optics FLT132 flattener might require exactly 55mm. If you are at 53mm, the stars in the corners of your Andromeda Galaxy shot will appear elongated or "stretched" toward the center.</p>
+        `
+    },
+    {
+        title: "Harmonic Drive Mount",
+        category: "Hardware & Optics",
+        content: `
+            <p><strong>Definition:</strong> A mount using strain-wave gears that provide massive torque without the need for bulky counterweights.</p>
+            <p><strong>Example:</strong> Using a ZWO AM5 to carry a 10kg payload without needing a 5kg metal weight, making it the "ultimate" portable setup for dark-sky trips.</p>
+        `
+    },
+    {
+        title: "Plate Solving",
+        category: "Hardware & Optics",
+        content: `
+            <p><strong>Definition:</strong> Software that "reads" the stars in a photo and calculates the exact coordinates the telescope is pointing at.</p>
+            <p><strong>Example:</strong> You tell the mount to go to the Tadpole Nebula. It slews nearby; the software takes a 2-second exposure, realizes it's 50 pixels off, and automatically centers the target perfectly.</p>
+        `
+    },
+    {
+        title: "Off-Axis Guider (OAG)",
+        category: "Hardware & Optics",
+        content: `
+            <p><strong>Definition:</strong> A device that uses a small prism to "steal" a bit of light from the main telescope to feed a guide camera.</p>
+            <p><strong>Example:</strong> Essential for long focal lengths (like an SCT). It eliminates "differential flexure" because the guide camera "sees" exactly what the main camera sees.</p>
+        `
+    },
+    {
+        title: "Quantum Efficiency (QE)",
+        category: "Hardware & Optics",
+        content: `
+            <p><strong>Definition:</strong> The percentage of photons hitting the sensor that are actually converted into an electrical signal.</p>
+            <p><strong>Example:</strong> A camera with 80% QE (like the ASI2600MM) captures nearly twice as much light in the same time as an older DSLR with 40% QE.</p>
+        `
+    },
+    {
+        title: "Signal-to-Noise Ratio (SNR)",
+        category: "Processing & Data Analysis",
+        content: `
+            <p><strong>Definition:</strong> The ratio of real celestial light to the random electronic and thermal noise of the camera.</p>
+            <p><strong>Example:</strong> A 5-minute exposure of the Hercules Galaxy Cluster looks "noisy." By stacking 50 of those frames (4 hours total), the SNR increases by the square root of the number of frames, making the faint tidal tails visible.</p>
+        `
+    },
+    {
+        title: "Dithering",
+        category: "Processing & Data Analysis",
+        content: `
+            <p><strong>Definition:</strong> Shifting the telescope slightly (1-10 pixels) in a random direction between every few frames.</p>
+            <p><strong>Example:</strong> If your sensor has a "hot pixel" in the middle, dithering moves it around. During stacking, the software sees that pixel moving while the stars stay still, allowing it to "reject" the noise entirely.</p>
+        `
+    },
+    {
+        title: "Linear vs. Non-Linear",
+        category: "Processing & Data Analysis",
+        content: `
+            <p><strong>Definition:</strong> Linear data is the raw, dark output where pixel values match the light count. Non-Linear is data that has been "stretched" to be visible.</p>
+            <p><strong>Example:</strong> You must perform Deconvolution while the image is Linear (dark) to accurately sharpen the stars before you "stretch" the image to show the nebula.</p>
+        `
+    },
+    {
+        title: "Bayer Matrix (Debayering)",
+        category: "Processing & Data Analysis",
+        content: `
+            <p><strong>Definition:</strong> The grid of Red, Green, and Blue filters over a color sensor.</p>
+            <p><strong>Example:</strong> A raw file from a One-Shot Color (OSC) camera looks like a gray checkerboard. The software must "Debayer" it to interpret which pixel is which color to create a final color image.</p>
+        `
+    },
+    {
+        title: "Hydrogen-Alpha (Hα)",
+        category: "Narrowband & Filters",
+        content: `
+            <p><strong>Definition:</strong> A narrowband filter that only allows light from ionized hydrogen (656.3nm) to pass.</p>
+            <p><strong>Example:</strong> Even under a full moon or heavy light pollution, an Hα filter allows you to capture the deep red structures of the California Nebula with high contrast.</p>
+        `
+    },
+    {
+        title: "Oxygen-III (OIII)",
+        category: "Narrowband & Filters",
+        content: `
+            <p><strong>Definition:</strong> A filter for doubly-ionized oxygen (500.7nm), typically appearing teal or blue-green.</p>
+            <p><strong>Example:</strong> In a Planetary Nebula like the Dumbbell (M27), the OIII filter captures the "outer shell" that is often invisible in standard RGB shots.</p>
+        `
+    },
+    {
+        title: "Hubble Palette (SHO)",
+        category: "Narrowband & Filters",
+        content: `
+            <p><strong>Definition:</strong> A false-color mapping where Sulfur-II is Red, Hydrogen-Alpha is Green, and Oxygen-III is Blue.</p>
+            <p><strong>Example:</strong> This is how the famous "Pillars of Creation" were processed. It allows us to see exactly where different gases are located in a nebula like The Rosette.</p>
+        `
+    },
+    {
+        title: "The Bortle Scale",
+        category: "Atmospheric & Environment",
+        content: `
+            <p><strong>Definition:</strong> A 1-9 scale of sky darkness.</p>
+            <p><strong>Example:</strong> On your site, you might note: "Captured at a Bortle 3 site." This tells the viewer the sky was dark enough to see the Milky Way clearly with the naked eye.</p>
+        `
+    },
+    {
+        title: "Astronomical Seeing",
+        category: "Atmospheric & Environment",
+        content: `
+            <p><strong>Definition:</strong> A measurement of atmospheric turbulence.</p>
+            <p><strong>Example:</strong> On a night of "Poor Seeing," your stars will look like fuzzy blobs regardless of how perfect your focus is, because the air is "boiling."</p>
+        `
     }
 ];
