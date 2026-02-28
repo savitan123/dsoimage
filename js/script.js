@@ -1878,9 +1878,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ==========================================
-  // Knowledge Base Accordion Logic
-  // ==========================================
+});
+
+// ==========================================
+// Knowledge Base Accordion Logic
+// ==========================================
+document.addEventListener("DOMContentLoaded", () => {
   const accordions = document.querySelectorAll('.accordion');
 
   accordions.forEach(acc => {
@@ -1899,5 +1902,4 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
-
 });
