@@ -1968,3 +1968,155 @@ body.red-mode img {
 .data-table tr:hover {
   background-color: rgba(255, 255, 255, 0.05);
 }
+
+
+/* ========================================= */
+/*       MASTER GLOSSARY A-Z NAV             */
+/* ========================================= */
+.glossary-nav {
+  position: sticky;
+  top: 70px; /* Below topbar */
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 900;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 30px;
+}
+
+#alpha-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+#alpha-nav li a {
+  display: inline-block;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  transition: all 0.2s ease;
+}
+
+#alpha-nav li a:hover,
+#alpha-nav li a.active {
+  background: #1e90ff;
+  color: #fff;
+  transform: scale(1.1);
+}
+
+#alpha-nav li a.disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* ========================================= */
+/*       GLOSSARY ROW CONTAINERS             */
+/* ========================================= */
+.glossary-letter-group {
+  margin-bottom: 40px;
+}
+
+.glossary-letter-title {
+  font-size: 32px;
+  color: #1e90ff;
+  border-bottom: 1px solid #333;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  scroll-margin-top: 140px; /* Offset for sticky nav */
+}
+
+/* Thin Row Accordion Styles */
+.glossary-item {
+  background: rgba(25, 30, 40, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+
+.glossary-header {
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.glossary-header:hover {
+  background: rgba(30, 144, 255, 0.2);
+}
+
+.glossary-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.glossary-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  margin: 0;
+}
+
+/* Category Metadata Tags */
+.glossary-tag {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-weight: bold;
+}
+
+.tag-concept { background: rgba(255, 165, 0, 0.2); color: #ffa500; border: 1px solid rgba(255, 165, 0, 0.5); }
+.tag-terminology { background: rgba(50, 205, 50, 0.2); color: #32cd32; border: 1px solid rgba(50, 205, 50, 0.5); }
+.tag-equipment { background: rgba(255, 69, 0, 0.2); color: #ff4500; border: 1px solid rgba(255, 69, 0, 0.5); }
+.tag-constellation { background: rgba(30, 144, 255, 0.2); color: #1e90ff; border: 1px solid rgba(30, 144, 255, 0.5); }
+
+/* Unified SVGs inside Content */
+.glossary-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.glossary-content-inner {
+  padding: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  color: #ddd;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* SVG Constraints */
+.glossary-content-inner svg {
+  max-width: 250px;
+  max-height: 250px;
+  height: auto;
+  float: right;
+  margin-left: 20px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glossary-content-inner img {
+  max-width: 250px;
+  height: auto;
+  float: right;
+  margin-left: 20px;
+}
