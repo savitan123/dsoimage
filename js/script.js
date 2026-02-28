@@ -1970,7 +1970,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const li = document.createElement('li');
       li.className = 'carousel-slide';
 
-      const imgSrc = `images/constellations/${c.abbr}.svg`;
+      const imgSrc = `images/constellations/${c.abbr}.png`;
       const wikiUrl = `https://en.wikipedia.org/wiki/${encodeURIComponent(c.name)}_(constellation)`;
       const skyUrl = `https://wikisky.org/?object=${encodeURIComponent(c.name)}`;
 
