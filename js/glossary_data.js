@@ -511,11 +511,19 @@ const GLOSSARY_ITEMS = [
         `
     },
     {
-        title: "Bandpass (Full Width at Half Maximum - FWHM)",
+        title: "Bandpass",
         category: "Advanced Filter Physics & Light Control",
         content: `
-            <p><strong>Definition:</strong> The width of the "window" of light wavelengths that a filter allows to pass through. In narrowband, this is measured in nanometers (nm).</p>
-            <p><strong>Example:</strong> A 3nm Hα filter has a much tighter "bandpass" than a 7nm filter. This means it blocks more light pollution and moonlight, resulting in much higher contrast for the Tadpole Nebula.</p>
+            <p><strong>Definition:</strong> In the context of astrophotography and narrowband imaging, the bandpass refers to the specific width of the transmission "window" of wavelengths that a given filter permits to reach the camera sensor. Measured in nanometers (nm), a tighter bandpass strictly isolates the target emission line (like Hydrogen-Alpha at 656.3nm) while aggressively blocking adjacent wavelengths, including light pollution (often from sodium/mercury vapor lamps) and natural skyglow (like moonlight). This isolation leads to a dramatic increase in the Signal-to-Noise Ratio (SNR) for the intended target.</p>
+            <p><strong>Example:</strong> When shooting the faint Rosette Nebula from a light-polluted city (Bortle 8), upgrading from a 12nm H-alpha filter to an ultra-narrow 3nm H-alpha filter means the "bandpass" is four times smaller. That 3nm window rejects nearly 75% more unwanted urban light pollution, yielding an image with incredibly high contrast and a jet-black structural background, even under a full moon.</p>
+        `
+    },
+    {
+        title: "Full Width at Half Maximum (FWHM)",
+        category: "Software, Scripting & Automation",
+        content: `
+            <p><strong>Definition:</strong> Full Width at Half Maximum (FWHM) is a mathematical measurement of a star's apparent size and sharpness on a camera sensor, usually expressed in pixels or arcseconds. It calculates the physical "width" of the star's light profile curve exactly halfway between the dark background level and the star's peak brightness. In astrophotography, FWHM is the primary metric used by autofocus routines to find the absolute sharpest focal plane; the smaller the FWHM number, the tighter and sharper the stars are. It is also an excellent indicator of atmospheric "seeing" conditions on any given night.</p>
+            <p><strong>Example:</strong> During an automated imaging run in N.I.N.A., the software racks your motorized focuser in and out, taking short exposures and measuring the FWHM of the stars in the field. It might read an FWHM of 5.5 pixels when out of focus, then drive the motor until the FWHM drops to its lowest possible mathematical minimum, perhaps 2.2 pixels, ensuring your multi-hour exposure of the Andromeda Galaxy contains pinpoint-sharp stars before acquiring data.</p>
         `
     },
     {
