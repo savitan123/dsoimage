@@ -2104,6 +2104,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (baseObj) {
               document.getElementById('constellation-coord').innerHTML = `Centroid &rarr; R.A: ${(baseObj.ra / 15).toFixed(1)}h | Dec: ${baseObj.dec > 0 ? '+' : ''}${baseObj.dec.toFixed(1)}&deg;`;
+
+              const altEl = document.getElementById('constellation-alt');
+              if (navigator.geolocation && baseObj) {
+                navigator.geolocation.getCurrentPosition(
+                  (pos) => {
+                    const altAz = getAltAz(baseObj.ra, baseObj.dec, pos.coords.latitude, pos.coords.longitude);
+                    let color = "#888";
+                    let state = "";
+                    if (altAz.altitude >= 30) { color = "#00ff00"; state = "Excellent Visibility"; }
+                    else if (altAz.altitude > 0) { color = "#ffaa00"; state = "Low on Horizon"; }
+                    else { color = "#ff0000"; state = "Below Horizon"; }
+
+                    altEl.innerHTML = `<span style="color:${color};">&#9679;</span> Altitude: ${altAz.altitude}&deg; | Azimuth: ${altAz.azimuth}&deg; (${altAz.compass}) - ${state}`;
+                  },
+                  (err) => {
+                    // Fail silently so the UI isn't marred by errors if location is rejected
+                  }
+                );
+              }
             }
 
             // Map Image
@@ -2169,10 +2188,6 @@ function initGlossary() {
         content: `
           <img src="images/constellations/${abbrUpper}.png" alt="${c.name} Constellation">
           <p class="constellation-desc-ph" data-abbr="${abbrUpper}">Loading historical data...</p>
-          <div class="constellation-live-altaz" data-ra="${c.ra}" data-dec="${c.dec}" style="margin-top: 15px; padding: 10px; background: rgba(0, 255, 0, 0.1); border-left: 3px solid #00ff00; border-radius: 4px; font-weight: bold; color: #ddd; display: flex; align-items: center; gap: 8px;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00ff00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
-            <span class="alt-az-text">Locating position...</span>
-          </div>
           <a href="constellation.html?id=${abbrUpper}" class="kb-link-btn" style="display: inline-block; margin-top: 15px; padding: 10px 20px; background: #1e90ff; color: #fff; text-decoration: none; border-radius: 5px; font-weight: bold;">Explore ${c.name} &rarr;</a>
           <br style="clear:both;">
         `
@@ -2326,49 +2341,6 @@ function initGlossary() {
       });
     })
     .catch(err => console.error("Error loading constellation data for glossary:", err));
-
-  // 8. Update Altitude and Azimuth via Geolocation
-  function updateGlossaryAltAz(lat, lon) {
-    document.querySelectorAll('.constellation-live-altaz').forEach(el => {
-      const ra = parseFloat(el.getAttribute('data-ra'));
-      const dec = parseFloat(el.getAttribute('data-dec'));
-
-      const altAz = getAltAz(ra, dec, lat, lon);
-      const textSpan = el.querySelector('.alt-az-text');
-      const svgIcon = el.querySelector('svg');
-
-      let altText = `Altitude: ${altAz.altitude}&deg; | Azimuth: ${altAz.azimuth}&deg; (${altAz.compass})`;
-      let dotColor = "#888";
-      let bgColor = "rgba(136, 136, 136, 0.1)";
-
-      if (altAz.altitude >= 30) {
-        dotColor = "#00ff00"; // Green
-        bgColor = "rgba(0, 255, 0, 0.1)";
-      } else if (altAz.altitude > 0) {
-        dotColor = "#ffaa00"; // Yellow
-        bgColor = "rgba(255, 170, 0, 0.1)";
-      } else {
-        dotColor = "#ff0000"; // Red
-        bgColor = "rgba(255, 0, 0, 0.1)";
-        altText += " (Below Horizon)";
-      }
-
-      textSpan.innerHTML = altText;
-      el.style.borderLeftColor = dotColor;
-      el.style.backgroundColor = bgColor;
-      svgIcon.setAttribute('stroke', dotColor);
-    });
-  }
-
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      (pos) => updateGlossaryAltAz(pos.coords.latitude, pos.coords.longitude),
-      (err) => {
-        document.querySelectorAll('.constellation-live-altaz .alt-az-text')
-          .forEach(span => span.innerText = "Location access denied. Alt/Az unavailable.");
-      }
-    );
-  }
 }
 
 // Call initGlossary if on knowledge.html
