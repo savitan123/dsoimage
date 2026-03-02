@@ -1971,10 +1971,10 @@ document.addEventListener("DOMContentLoaded", () => {
     return (gmst % 24 + 24) % 24;
   }
 
-  function getAltitude(raDeg, decDeg, lat, lon) {
+  function getAltAz(raDeg, decDeg, lat, lon) {
     const now = new Date();
     const gmst = typeof getGMST === 'function' ? getGMST(now) : calcGMST(now);
-    const lst = gmst + (lon / 15.0); // Hours
+    const lst = gmst + (lon / 15.0);
 
     const latRad = lat * (Math.PI / 180.0);
     const sinLat = Math.sin(latRad);
@@ -1993,7 +1993,30 @@ document.addEventListener("DOMContentLoaded", () => {
     const cosHA = Math.cos(haRad);
 
     const sinAlt = (sinDec * sinLat) + (cosDec * cosLat * cosHA);
-    return Math.round(Math.asin(sinAlt) * (180.0 / Math.PI));
+    const alt = Math.asin(sinAlt);
+
+    const cosZ = Math.sin(alt);
+    const sinZ = Math.cos(alt);
+
+    // Calculate Azimuth
+    const y = -Math.sin(haRad) * cosDec;
+    const x = (cosLat * sinDec) - (sinLat * cosDec * cosHA);
+    let az = Math.atan2(y, x);
+
+    let altDeg = alt * (180.0 / Math.PI);
+    let azDeg = az * (180.0 / Math.PI);
+
+    if (azDeg < 0) azDeg += 360;
+
+    // Convert Azimuth to Compass direction
+    const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
+    const compass = directions[Math.round(((azDeg %= 360) < 0 ? azDeg + 360 : azDeg) / 45) % 8];
+
+    return {
+      altitude: Math.round(altDeg),
+      azimuth: Math.round(azDeg),
+      compass: compass
+    };
   }
 
   function render(lat, lon) {
@@ -2005,7 +2028,8 @@ document.addEventListener("DOMContentLoaded", () => {
       let dotColor = "#888";
 
       if (lat !== null && lon !== null) {
-        const alt = getAltitude(c.ra, c.dec, lat, lon);
+        const altAz = getAltAz(c.ra, c.dec, lat, lon);
+        const alt = altAz.altitude;
         if (alt >= 30) {
           dotColor = "#00ff00"; // Green
           altText = `Currently in the sky (Altitude ${alt}&deg;)`;
@@ -2138,13 +2162,18 @@ function initGlossary() {
   // 2. Ingest 88 Constellations
   if (typeof CONSTELLATIONS !== 'undefined') {
     CONSTELLATIONS.forEach(c => {
+      let abbrUpper = c.abbr ? c.abbr.toUpperCase() : "AND";
       masterList.push({
         title: c.name + " Constellation",
         category: "Constellation",
         content: `
-          <img src="images/constellations/${c.abbr}.png" alt="${c.name} Constellation">
-          <p class="constellation-desc-ph" data-abbr="${c.abbr}">Loading historical data...</p>
-          <a href="constellation.html?id=${c.abbr}" class="kb-link-btn" style="display: inline-block; margin-top: 10px; padding: 10px 20px; background: #1e90ff; color: #fff; text-decoration: none; border-radius: 5px; font-weight: bold;">Explore ${c.name} &rarr;</a>
+          <img src="images/constellations/${abbrUpper}.png" alt="${c.name} Constellation">
+          <p class="constellation-desc-ph" data-abbr="${abbrUpper}">Loading historical data...</p>
+          <div class="constellation-live-altaz" data-ra="${c.ra}" data-dec="${c.dec}" style="margin-top: 15px; padding: 10px; background: rgba(0, 255, 0, 0.1); border-left: 3px solid #00ff00; border-radius: 4px; font-weight: bold; color: #ddd; display: flex; align-items: center; gap: 8px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00ff00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+            <span class="alt-az-text">Locating position...</span>
+          </div>
+          <a href="constellation.html?id=${abbrUpper}" class="kb-link-btn" style="display: inline-block; margin-top: 15px; padding: 10px 20px; background: #1e90ff; color: #fff; text-decoration: none; border-radius: 5px; font-weight: bold;">Explore ${c.name} &rarr;</a>
           <br style="clear:both;">
         `
       });
@@ -2297,9 +2326,54 @@ function initGlossary() {
       });
     })
     .catch(err => console.error("Error loading constellation data for glossary:", err));
+
+  // 8. Update Altitude and Azimuth via Geolocation
+  function updateGlossaryAltAz(lat, lon) {
+    document.querySelectorAll('.constellation-live-altaz').forEach(el => {
+      const ra = parseFloat(el.getAttribute('data-ra'));
+      const dec = parseFloat(el.getAttribute('data-dec'));
+
+      const altAz = getAltAz(ra, dec, lat, lon);
+      const textSpan = el.querySelector('.alt-az-text');
+      const svgIcon = el.querySelector('svg');
+
+      let altText = `Altitude: ${altAz.altitude}&deg; | Azimuth: ${altAz.azimuth}&deg; (${altAz.compass})`;
+      let dotColor = "#888";
+      let bgColor = "rgba(136, 136, 136, 0.1)";
+
+      if (altAz.altitude >= 30) {
+        dotColor = "#00ff00"; // Green
+        bgColor = "rgba(0, 255, 0, 0.1)";
+      } else if (altAz.altitude > 0) {
+        dotColor = "#ffaa00"; // Yellow
+        bgColor = "rgba(255, 170, 0, 0.1)";
+      } else {
+        dotColor = "#ff0000"; // Red
+        bgColor = "rgba(255, 0, 0, 0.1)";
+        altText += " (Below Horizon)";
+      }
+
+      textSpan.innerHTML = altText;
+      el.style.borderLeftColor = dotColor;
+      el.style.backgroundColor = bgColor;
+      svgIcon.setAttribute('stroke', dotColor);
+    });
+  }
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (pos) => updateGlossaryAltAz(pos.coords.latitude, pos.coords.longitude),
+      (err) => {
+        document.querySelectorAll('.constellation-live-altaz .alt-az-text')
+          .forEach(span => span.innerText = "Location access denied. Alt/Az unavailable.");
+      }
+    );
+  }
 }
 
 // Call initGlossary if on knowledge.html
 document.addEventListener('DOMContentLoaded', () => {
-  initGlossary();
+  if (window.location.pathname.includes('knowledge') || window.location.pathname.includes('knowledge.html')) {
+    initGlossary();
+  }
 });
