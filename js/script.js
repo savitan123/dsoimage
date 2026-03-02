@@ -1956,6 +1956,64 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ==========================================
+// Astrometry Math (Global Scope)
+// ==========================================
+function calcGMST(date) {
+  const jd = (date.getTime() / 86400000) + 2440587.5;
+  const d = jd - 2451545.0;
+  let gmst = 18.697374558 + 24.06570982441908 * d;
+  return (gmst % 24 + 24) % 24;
+}
+
+function getAltAz(raDeg, decDeg, lat, lon) {
+  const now = new Date();
+  const gmst = typeof getGMST === 'function' ? getGMST(now) : calcGMST(now);
+  const lst = gmst + (lon / 15.0);
+
+  const latRad = lat * (Math.PI / 180.0);
+  const sinLat = Math.sin(latRad);
+  const cosLat = Math.cos(latRad);
+
+  const raH = raDeg / 15.0;
+
+  let ha = lst - raH;
+  while (ha < -12) ha += 24;
+  while (ha >= 12) ha -= 24;
+
+  const haRad = ha * 15.0 * (Math.PI / 180.0);
+  const decRad = decDeg * (Math.PI / 180.0);
+  const sinDec = Math.sin(decRad);
+  const cosDec = Math.cos(decRad);
+  const cosHA = Math.cos(haRad);
+
+  const sinAlt = (sinDec * sinLat) + (cosDec * cosLat * cosHA);
+  const alt = Math.asin(sinAlt);
+
+  const cosZ = Math.sin(alt);
+  const sinZ = Math.cos(alt);
+
+  // Calculate Azimuth
+  const y = -Math.sin(haRad) * cosDec;
+  const x = (cosLat * sinDec) - (sinLat * cosDec * cosHA);
+  let az = Math.atan2(y, x);
+
+  let altDeg = alt * (180.0 / Math.PI);
+  let azDeg = az * (180.0 / Math.PI);
+
+  if (azDeg < 0) azDeg += 360;
+
+  // Convert Azimuth to Compass direction
+  const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
+  const compass = directions[Math.round(((azDeg %= 360) < 0 ? azDeg + 360 : azDeg) / 45) % 8];
+
+  return {
+    altitude: Math.round(altDeg),
+    azimuth: Math.round(azDeg),
+    compass: compass
+  };
+}
+
+// ==========================================
 // 88 Constellations Carousel Logic
 // ==========================================
 document.addEventListener("DOMContentLoaded", () => {
@@ -1964,60 +2022,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!northernTrack && !southernTrack) return;
   if (typeof CONSTELLATIONS === 'undefined') return;
 
-  function calcGMST(date) {
-    const jd = (date.getTime() / 86400000) + 2440587.5;
-    const d = jd - 2451545.0;
-    let gmst = 18.697374558 + 24.06570982441908 * d;
-    return (gmst % 24 + 24) % 24;
-  }
 
-  function getAltAz(raDeg, decDeg, lat, lon) {
-    const now = new Date();
-    const gmst = typeof getGMST === 'function' ? getGMST(now) : calcGMST(now);
-    const lst = gmst + (lon / 15.0);
-
-    const latRad = lat * (Math.PI / 180.0);
-    const sinLat = Math.sin(latRad);
-    const cosLat = Math.cos(latRad);
-
-    const raH = raDeg / 15.0;
-
-    let ha = lst - raH;
-    while (ha < -12) ha += 24;
-    while (ha >= 12) ha -= 24;
-
-    const haRad = ha * 15.0 * (Math.PI / 180.0);
-    const decRad = decDeg * (Math.PI / 180.0);
-    const sinDec = Math.sin(decRad);
-    const cosDec = Math.cos(decRad);
-    const cosHA = Math.cos(haRad);
-
-    const sinAlt = (sinDec * sinLat) + (cosDec * cosLat * cosHA);
-    const alt = Math.asin(sinAlt);
-
-    const cosZ = Math.sin(alt);
-    const sinZ = Math.cos(alt);
-
-    // Calculate Azimuth
-    const y = -Math.sin(haRad) * cosDec;
-    const x = (cosLat * sinDec) - (sinLat * cosDec * cosHA);
-    let az = Math.atan2(y, x);
-
-    let altDeg = alt * (180.0 / Math.PI);
-    let azDeg = az * (180.0 / Math.PI);
-
-    if (azDeg < 0) azDeg += 360;
-
-    // Convert Azimuth to Compass direction
-    const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
-    const compass = directions[Math.round(((azDeg %= 360) < 0 ? azDeg + 360 : azDeg) / 45) % 8];
-
-    return {
-      altitude: Math.round(altDeg),
-      azimuth: Math.round(azDeg),
-      compass: compass
-    };
-  }
 
   function render(lat, lon) {
     if (northernTrack) northernTrack.innerHTML = '';
@@ -2112,11 +2117,23 @@ document.addEventListener('DOMContentLoaded', () => {
                     const altAz = getAltAz(baseObj.ra, baseObj.dec, pos.coords.latitude, pos.coords.longitude);
                     let color = "#888";
                     let state = "";
-                    if (altAz.altitude >= 30) { color = "#00ff00"; state = "Excellent Visibility"; }
-                    else if (altAz.altitude > 0) { color = "#ffaa00"; state = "Low on Horizon"; }
-                    else { color = "#ff0000"; state = "Below Horizon"; }
+                    let dot = "🟢";
 
-                    altEl.innerHTML = `<span style="color:${color};">&#9679;</span> Altitude: ${altAz.altitude}&deg; | Azimuth: ${altAz.azimuth}&deg; (${altAz.compass}) - ${state}`;
+                    if (altAz.altitude >= 30) {
+                      color = "#00ff00";
+                      dot = "🟢";
+                      state = "Perfect for imaging!";
+                    } else if (altAz.altitude > 0) {
+                      color = "#ffaa00";
+                      dot = "🟡";
+                      state = "Low on the horizon, wait for it to rise.";
+                    } else {
+                      color = "#ff0000";
+                      dot = "🔴";
+                      state = "Below the horizon, currently completely invisible.";
+                    }
+
+                    altEl.innerHTML = `<span>${dot}</span> <span style="color:${color};">Altitude: ${altAz.altitude}&deg; | Azimuth: ${altAz.azimuth}&deg; (${altAz.compass})</span> - ${state}`;
                   },
                   (err) => {
                     // Fail silently so the UI isn't marred by errors if location is rejected
