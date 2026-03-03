@@ -2366,3 +2366,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initGlossary();
   }
 });
+
+// NASA APOD is now served from the server-side cache.
+// See js/apod.js — it reads from data/apod_cache.json (updated daily by GitHub Actions).
