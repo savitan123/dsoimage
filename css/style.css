@@ -398,6 +398,54 @@ img {
   border-color: #1e90ff;
 }
 
+/* =========================
+   Landing page category cards
+   ========================= */
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(220px, 1fr));
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.category-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid #222;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #0a0a0a;
+  transition: transform 0.15s, border-color 0.15s;
+}
+
+.category-card:hover {
+  transform: translateY(-2px);
+  border-color: #444;
+}
+
+.category-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.category-card-text {
+  padding: 14px;
+}
+
+.category-card-text h2 {
+  margin: 0 0 6px 0;
+  font-size: 18px;
+}
+
+.category-card-text p {
+  margin: 0;
+  color: #bbb;
+  font-size: 14px;
+}
+
 
 
 /* =========================
