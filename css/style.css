@@ -168,7 +168,8 @@ img {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  max-width: 1400px;
+  max-width: 2560px;
+  width: 96%;
   padding: 0 20px;
   height: 60px;
 }
@@ -307,7 +308,8 @@ img {
 
 .main-content {
   width: 100%;
-  max-width: 1400px;
+  max-width: 2560px;
+  width: 96%;
   margin: 0 auto;
   padding: 20px 40px;
   min-height: 100vh;
@@ -325,6 +327,13 @@ img {
   max-width: 900px;
   line-height: 1.5;
   margin-top: 18px;
+}
+
+.page-text {
+  max-width: 900px;
+  margin: 0 auto;
+  font-size: 16px;
+  line-height: 1.7;
 }
 
 /* =========================
@@ -389,9 +398,7 @@ img {
   border-color: #1e90ff;
 }
 
-.hero-button.secondary {
-  /* Inherits base styles, no override needed unless distinct */
-}
+
 
 /* =========================
    Color header
@@ -691,12 +698,21 @@ img {
 
 /* Mobile: collapse top-nav into hamburger */
 @media (max-width: 768px) {
+
   /* Hide old sidebar & topbar — top-nav now handles mobile */
-  .topbar  { display: none !important; }
-  .sidebar { display: none !important; }
+  .topbar {
+    display: none !important;
+  }
+
+  .sidebar {
+    display: none !important;
+  }
 
   /* Show hamburger */
-  #mobile-nav-toggle { display: flex; align-items: center; }
+  #mobile-nav-toggle {
+    display: flex;
+    align-items: center;
+  }
 
   /* Nav bar can wrap to a second row */
   .top-nav-container {
@@ -723,12 +739,12 @@ img {
   }
 
   /* Full-width items */
-  .top-nav-links > li {
+  .top-nav-links>li {
     width: 100%;
   }
 
-  .top-nav-links > li > a,
-  .top-nav-links > li > .dropbtn {
+  .top-nav-links>li>a,
+  .top-nav-links>li>.dropbtn {
     padding: 11px 20px;
     border-bottom: 1px solid #1a1a1a;
     display: flex;
@@ -2112,7 +2128,8 @@ body.red-mode img {
   list-style: none;
   padding: 0;
   margin: 0;
-  max-width: 1400px;
+  max-width: 2560px;
+  width: 96%;
   margin: 0 auto;
 }
 
