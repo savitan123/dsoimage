@@ -3,56 +3,52 @@ function initDSOImage() {
   console.log("Initializing DSO Image Scripts...");
 
   // ===============================
-  // Mobile topbar + slide-in sidebar
+  // Mobile top-nav hamburger toggle
   // ===============================
 
-  const sidebar = document.querySelector(".sidebar");
-  const overlay = document.querySelector(".overlay");
-  const menuBtn = document.querySelector(".menu-toggle");
-  const closeBtnSidebar = document.querySelector(".menu-close");
+  const mobileToggle = document.getElementById('mobile-nav-toggle');
+  const navLinks = document.getElementById('top-nav-links');
+  const overlay = document.querySelector('.overlay');
 
-  function openSidebar() {
-    if (sidebar) sidebar.classList.add("is-open");
-    if (overlay) overlay.classList.add("is-visible");
-    if (menuBtn) menuBtn.setAttribute("aria-expanded", "true");
-    document.body.classList.add("no-scroll");
+  function openNav() {
+    if (navLinks) navLinks.classList.add('nav-open');
+    if (overlay) { overlay.removeAttribute('hidden'); overlay.classList.add('is-visible'); }
+    document.body.classList.add('no-scroll');
   }
 
-  function closeSidebar() {
-    if (sidebar) sidebar.classList.remove("is-open");
-    if (overlay) overlay.classList.remove("is-visible");
-    if (menuBtn) menuBtn.setAttribute("aria-expanded", "false");
-    document.body.classList.remove("no-scroll");
+  function closeNav() {
+    if (navLinks) navLinks.classList.remove('nav-open');
+    if (overlay) { overlay.classList.remove('is-visible'); overlay.setAttribute('hidden', ''); }
+    document.body.classList.remove('no-scroll');
   }
 
-  if (menuBtn) {
-    menuBtn.addEventListener("click", () => {
-      const isOpen = sidebar && sidebar.classList.contains("is-open");
-      if (isOpen) closeSidebar();
-      else openSidebar();
+  if (mobileToggle) {
+    mobileToggle.addEventListener('click', () => {
+      navLinks && navLinks.classList.contains('nav-open') ? closeNav() : openNav();
     });
-  }
-
-  if (closeBtnSidebar) {
-    closeBtnSidebar.addEventListener("click", closeSidebar);
   }
 
   if (overlay) {
-    overlay.addEventListener("click", closeSidebar);
+    overlay.addEventListener('click', closeNav);
   }
 
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      if (sidebar && sidebar.classList.contains("is-open")) closeSidebar();
-    }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && navLinks && navLinks.classList.contains('nav-open')) closeNav();
   });
 
-  if (sidebar) {
-    sidebar.addEventListener("click", (e) => {
-      const target = e.target;
-      if (target && target.tagName === "A") closeSidebar();
+  // ===============================
+  // Auto-highlight active nav link
+  // ===============================
+  (function () {
+    const page = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
+    document.querySelectorAll('.top-nav-links a[href]').forEach(link => {
+      const href = (link.getAttribute('href') || '').toLowerCase();
+      if (href === page || (page === '' && href === 'index.html')) {
+        link.classList.add('active');
+      }
     });
-  }
+  })();
+
 
   // ===============================
   // Lightbox (gallery preview -> full)

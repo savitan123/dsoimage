@@ -1,262 +1,286 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<link href="https://dsoimage.com/tools.html" rel="canonical"/>
-<title>Astronomy Tools — Shimon Avitan</title>
-<meta content="Astronomy Tools — Shimon Avitan - Deep Sky Astrophotography by Shimon Avitan. High-resolution LRGB imaging featuring nebulae, galaxies, and star clusters captured with FLT 132." name="description"/>
-<!-- FORCE NEW VERSION v=11 -->
-<link href="css/style.css?v=31" rel="stylesheet"/>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="https://dsoimage.com/tools.html" rel="canonical" />
+    <title>Astronomy Tools — Shimon Avitan</title>
+    <meta
+        content="Astronomy Tools — Shimon Avitan - Deep Sky Astrophotography by Shimon Avitan. High-resolution LRGB imaging featuring nebulae, galaxies, and star clusters captured with FLT 132."
+        name="description" />
+    <!-- FORCE NEW VERSION v=11 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="css/style.css?v=32" rel="stylesheet" />
 </head>
+
 <body>
-<div class="container">
-<!-- TOPBAR (mobile) -->
-<header class="topbar">
-<button aria-controls="sidebar" aria-expanded="false" aria-label="Open menu" class="menu-btn menu-toggle" type="button">
-                Menu
-            </button>
-<button aria-label="Search site" class="search-trigger">🔍</button>
-<div class="topbar-title">dsoimage.com</div>
-</header>
-<!-- Overlay for slide-in sidebar -->
-<div class="sidebar-overlay overlay" hidden=""></div>
-<!-- SIDEBAR -->
-<nav aria-label="Site menu" class="sidebar" id="sidebar">
-<div class="sidebar-header">
-<h2>Menu</h2>
-<button aria-label="Close menu" class="menu-close" type="button">×</button>
-</div>
-<ul>
-<li><a href="index.html">Home</a></li>
-<li><a href="galaxies.html">Galaxies</a></li>
-<li><a href="nebulae.html">Nebulae</a></li>
-<li><a href="clusters.html">Star Clusters</a></li>
-<li><a href="equipment.html">Equipment</a></li>
-<li><a href="processing.html">Processing</a></li>
-<li><a href="weather.html">Weather</a></li>
-<li><a class="active" href="tools.html">Tools</a></li>
-<li><a data-i18n="menu_planner" href="planner.html">Planned Session</a></li>
-<li><a href="knowledge.html">Knowledge Base</a></li>
-<li><a href="about.html">About</a></li>
-<li><a href="contact.html">Contact</a></li>
-</ul>
-<button class="search-trigger">
-                🔍 <span data-i18n="menu_search">Search</span>
-</button>
-<button class="mode-toggle-btn" id="red-mode-toggle">
-<span class="circle-icon"></span> Night Vision
-            </button>
-<div class="nv-controls" id="nv-container" style="display: none;">
-<label for="nv-slider" style="font-size: 13px; color: #aaa; text-align: left;">Dimmer</label>
-<input id="nv-slider" max="100" min="20" type="range" value="80"/>
-</div>
-<div id="image-stats"></div>
-<div class="sidebar-footer">
-<h2 class="sidebar-subtitle">Follow Me</h2>
-<ul>
-<li><a href="https://www.instagram.com/avitan_shimon/" rel="noopener" target="_blank">Instagram</a>
-</li>
-<li><a href="https://www.facebook.com/shimon.avitan.79" rel="noopener" target="_blank">Facebook</a>
-</li>
-<li><a href="https://www.flickr.com/photos/193302744@N07/" rel="noopener" target="_blank">Flickr</a>
-</li>
-</ul>
-</div>
-</nav>
-<!-- MAIN -->
-<main class="main-content">
-<h1>Astronomy Tools</h1>
-<p class="subtitle">
+    <div class="container">
+        <!-- TOPBAR (mobile) -->
+        <!-- TOPBAR (mobile) -->
+        <header class="topbar"></header>
+        <div class="overlay" hidden="" id="overlay"></div>
+        <nav aria-label="Site menu" class="top-nav" id="top-nav">
+            <div class="top-nav-container">
+                <div class="top-nav-logo"><a href="index.html">DSOImage</a></div>
+                <ul class="top-nav-links" id="top-nav-links">
+                    <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropbtn"><i class="fa-solid fa-images"></i> Galleries
+                            &#9662;</a>
+                        <div class="dropdown-content">
+                            <a href="galaxies.html"><i class="fa-solid fa-hurricane"></i> Galaxies</a>
+                            <a href="nebulae.html"><i class="fa-solid fa-smog"></i> Nebulae</a>
+                            <a href="clusters.html"><i class="fa-solid fa-certificate"></i> Star Clusters</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropbtn"><i class="fa-solid fa-book"></i> Resources
+                            &#9662;</a>
+                        <div class="dropdown-content">
+                            <a href="equipment.html"><i class="fa-solid fa-camera-retro"></i> Equipment</a>
+                            <a href="processing.html"><i class="fa-solid fa-laptop-code"></i> Processing</a>
+                            <a href="knowledge.html"><i class="fa-solid fa-book-open"></i> Knowledge Base</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropbtn"><i class="fa-solid fa-toolbox"></i> Tools
+                            &#9662;</a>
+                        <div class="dropdown-content">
+                            <a href="weather.html"><i class="fa-solid fa-cloud-moon"></i> Weather</a>
+                            <a href="planner.html"><i class="fa-solid fa-calendar-days"></i> Planned Session</a>
+                            <a href="tools.html"><i class="fa-solid fa-calculator"></i> Calculators</a>
+                        </div>
+                    </li>
+                    <li><a href="about.html"><i class="fa-solid fa-user-astronaut"></i> About</a></li>
+                    <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+                </ul>
+                <div class="top-nav-actions">
+                    <button class="mode-toggle-btn" id="red-mode-toggle" title="Night Vision"><span
+                            class="circle-icon"></span></button>
+                    <div class="nv-controls" id="nv-container"
+                        style="display:none;position:absolute;top:60px;right:20px;background:#111;padding:10px;border:1px solid #333;z-index:2000;border-radius:8px;">
+                        <label for="nv-slider"
+                            style="font-size:13px;color:#aaa;display:block;margin-bottom:5px;">Dimmer</label>
+                        <input id="nv-slider" max="100" min="20" type="range" value="80" />
+                    </div>
+                    <button id="mobile-nav-toggle" aria-label="Toggle navigation" title="Menu">&#9776;</button>
+                    <button class="search-trigger" title="Search">&#128269;</button>
+                </div>
+            </div>
+        </nav>
+        <div id="image-stats" style="display:none;"></div>
+        <!-- MAIN -->
+        <main class="main-content">
+            <h1>Astronomy Tools</h1>
+            <p class="subtitle">
                 Utilities to plan your imaging session.
-                <br/>
-<small style="color:#888;">Calculations default to Israel (31°N, 35°E).</small>
-</p>
-<div class="tools-grid">
-<!-- TOP GRID CONTAINER -->
-<div class="tools-top-grid">
-<!-- 1. Moon Phase -->
-<div class="tool-card" id="moon-tool">
-<div class="tool-icon">🌑</div>
-<h2>Moon Status</h2>
-<div class="tool-content">
-<div class="highlight-value" id="moon-phase-name">Loading...</div>
-<div id="moon-illumination">Illumination: --%</div>
-<div class="countdown-box">
-<span class="big-number" id="days-to-new-moon">--</span>
-<span class="small-label">Days to New Moon</span>
-</div>
-</div>
-</div>
-<!-- 2. Twilight Clock -->
-<div class="tool-card" id="twilight-tool">
-<div class="tool-icon">🌙</div>
-<h2>Astro Darkness</h2>
-<div class="tool-content">
-<p>Imaging Window (Sun &lt; -18°):</p>
-<div class="time-range">
-<div class="time-box">
-<span class="label">Starts</span>
-<span class="value" id="dark-start">--:--</span>
-</div>
-<div class="time-box">
-<span class="label">Ends</span>
-<span class="value" id="dark-end">--:--</span>
-</div>
-</div>
-<div class="status-pill" id="twilight-status">Calculating...</div>
-</div>
-</div>
-<!-- 3. ISS Tracker -->
-<div class="tool-card" id="iss-tool">
-<div class="tool-icon">🛰️</div>
-<h2>ISS Tracker</h2>
-<div class="tool-content">
-<div class="data-row">
-<span>Lat:</span> <span class="mono" id="iss-lat">--</span>
-</div>
-<div class="data-row">
-<span>Lon:</span> <span class="mono" id="iss-lon">--</span>
-</div>
-<div class="data-row">
-<span>Vel:</span> <span class="mono" id="iss-vel">-- km/h</span>
-</div>
-<div class="status-pill" id="iss-visibility">Checking...</div>
-</div>
-</div>
-<!-- 4. Planet Visibility -->
-<div class="tool-card" id="planet-tool">
-<div class="tool-icon">🪐</div>
-<h2>Planets Tonight</h2>
-<div class="tool-content">
-<ul class="planet-list">
-<li id="planet-venus"><span>Venus</span> <span class="badge">--</span></li>
-<li id="planet-mars"><span>Mars</span> <span class="badge">--</span></li>
-<li id="planet-jupiter"><span>Jupiter</span> <span class="badge">--</span></li>
-<li id="planet-saturn"><span>Saturn</span> <span class="badge">--</span></li>
-</ul>
-</div>
-</div>
-</div>
-<!-- END TOP GRID CONTAINER -->
-<!-- 5. Coordinate Converter -->
-<div class="tool-card wide-card" id="coord-tool">
-<div class="tool-icon">🌐</div>
-<h2>Coordinate Converter</h2>
-<div class="tabs">
-<button class="tab-btn active" onclick="switchTab('dec-to-dms')">Dec to DMS</button>
-<button class="tab-btn" onclick="switchTab('dms-to-dec')">DMS to Dec</button>
-</div>
-<!-- Dec to DMS Form -->
-<div class="tab-content active" id="dec-to-dms">
-<div class="converter-row">
-<input id="input-dec" placeholder="Decimal Degrees (e.g. 34.56)" step="any" type="number"/>
-<button class="action-btn" onclick="convertDecToDms()">Convert</button>
-</div>
-<div class="result-box" id="result-dms">Result: --° --' --"</div>
-</div>
-<div class="tab-content" id="dms-to-dec">
-<div class="converter-row multi-input">
-<input class="small-input" id="input-d" placeholder="Deg" type="number"/>
-<input class="small-input" id="input-m" placeholder="Min" type="number"/>
-<input class="small-input" id="input-s" placeholder="Sec" type="number"/>
-<button class="action-btn" onclick="convertDmsToDec()">Convert</button>
-</div>
-<div class="result-box" id="result-dec">Result: --</div>
-</div>
-</div>
-<!-- 6. Pre-Flight Checklist -->
-<div class="tool-card wide-card" id="checklist-tool">
-<div class="tool-icon">✅</div>
-<h2>Pre-Flight Checklist</h2>
-<div class="tool-content">
-<!-- AUTHENTICATION UI -->
-<div id="auth-container" style="text-align: center; margin-bottom: 20px;">
-<p style="margin-bottom:15px; color:#aaa; font-size:14px;">Log in to access your private,
+                <br />
+                <small style="color:#888;">Calculations default to Israel (31°N, 35°E).</small>
+            </p>
+            <div class="tools-grid">
+                <!-- TOP GRID CONTAINER -->
+                <div class="tools-top-grid">
+                    <!-- 1. Moon Phase -->
+                    <div class="tool-card" id="moon-tool">
+                        <div class="tool-icon">🌑</div>
+                        <h2>Moon Status</h2>
+                        <div class="tool-content">
+                            <div class="highlight-value" id="moon-phase-name">Loading...</div>
+                            <div id="moon-illumination">Illumination: --%</div>
+                            <div class="countdown-box">
+                                <span class="big-number" id="days-to-new-moon">--</span>
+                                <span class="small-label">Days to New Moon</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 2. Twilight Clock -->
+                    <div class="tool-card" id="twilight-tool">
+                        <div class="tool-icon">🌙</div>
+                        <h2>Astro Darkness</h2>
+                        <div class="tool-content">
+                            <p>Imaging Window (Sun &lt; -18°):</p>
+                            <div class="time-range">
+                                <div class="time-box">
+                                    <span class="label">Starts</span>
+                                    <span class="value" id="dark-start">--:--</span>
+                                </div>
+                                <div class="time-box">
+                                    <span class="label">Ends</span>
+                                    <span class="value" id="dark-end">--:--</span>
+                                </div>
+                            </div>
+                            <div class="status-pill" id="twilight-status">Calculating...</div>
+                        </div>
+                    </div>
+                    <!-- 3. ISS Tracker -->
+                    <div class="tool-card" id="iss-tool">
+                        <div class="tool-icon">🛰️</div>
+                        <h2>ISS Tracker</h2>
+                        <div class="tool-content">
+                            <div class="data-row">
+                                <span>Lat:</span> <span class="mono" id="iss-lat">--</span>
+                            </div>
+                            <div class="data-row">
+                                <span>Lon:</span> <span class="mono" id="iss-lon">--</span>
+                            </div>
+                            <div class="data-row">
+                                <span>Vel:</span> <span class="mono" id="iss-vel">-- km/h</span>
+                            </div>
+                            <div class="status-pill" id="iss-visibility">Checking...</div>
+                        </div>
+                    </div>
+                    <!-- 4. Planet Visibility -->
+                    <div class="tool-card" id="planet-tool">
+                        <div class="tool-icon">🪐</div>
+                        <h2>Planets Tonight</h2>
+                        <div class="tool-content">
+                            <ul class="planet-list">
+                                <li id="planet-venus"><span>Venus</span> <span class="badge">--</span></li>
+                                <li id="planet-mars"><span>Mars</span> <span class="badge">--</span></li>
+                                <li id="planet-jupiter"><span>Jupiter</span> <span class="badge">--</span></li>
+                                <li id="planet-saturn"><span>Saturn</span> <span class="badge">--</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- END TOP GRID CONTAINER -->
+                <!-- 5. Coordinate Converter -->
+                <div class="tool-card wide-card" id="coord-tool">
+                    <div class="tool-icon">🌐</div>
+                    <h2>Coordinate Converter</h2>
+                    <div class="tabs">
+                        <button class="tab-btn active" onclick="switchTab('dec-to-dms')">Dec to DMS</button>
+                        <button class="tab-btn" onclick="switchTab('dms-to-dec')">DMS to Dec</button>
+                    </div>
+                    <!-- Dec to DMS Form -->
+                    <div class="tab-content active" id="dec-to-dms">
+                        <div class="converter-row">
+                            <input id="input-dec" placeholder="Decimal Degrees (e.g. 34.56)" step="any" type="number" />
+                            <button class="action-btn" onclick="convertDecToDms()">Convert</button>
+                        </div>
+                        <div class="result-box" id="result-dms">Result: --° --' --"</div>
+                    </div>
+                    <div class="tab-content" id="dms-to-dec">
+                        <div class="converter-row multi-input">
+                            <input class="small-input" id="input-d" placeholder="Deg" type="number" />
+                            <input class="small-input" id="input-m" placeholder="Min" type="number" />
+                            <input class="small-input" id="input-s" placeholder="Sec" type="number" />
+                            <button class="action-btn" onclick="convertDmsToDec()">Convert</button>
+                        </div>
+                        <div class="result-box" id="result-dec">Result: --</div>
+                    </div>
+                </div>
+                <!-- 6. Pre-Flight Checklist -->
+                <div class="tool-card wide-card" id="checklist-tool">
+                    <div class="tool-icon">✅</div>
+                    <h2>Pre-Flight Checklist</h2>
+                    <div class="tool-content">
+                        <!-- AUTHENTICATION UI -->
+                        <div id="auth-container" style="text-align: center; margin-bottom: 20px;">
+                            <p style="margin-bottom:15px; color:#aaa; font-size:14px;">Log in to access your private,
                                 cross-device checklist.</p>
-<button class="action-btn" id="login-google-btn" style="background: #4285F4; border-radius: 4px; padding: 10px 20px;">
-<span style="background: white; color: #4285F4; border-radius: 50%; padding: 2px 6px; font-weight: bold; margin-right: 8px;">G</span>
+                            <button class="action-btn" id="login-google-btn"
+                                style="background: #4285F4; border-radius: 4px; padding: 10px 20px;">
+                                <span
+                                    style="background: white; color: #4285F4; border-radius: 50%; padding: 2px 6px; font-weight: bold; margin-right: 8px;">G</span>
                                 Sign in with Google
                             </button>
-</div>
-<!-- LOGGED IN VIEW & CHECKLIST (Hidden by Default) -->
-<div id="app-container" style="display: none;">
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #333;">
-<div id="user-profile-name" style="color:#1e90ff; font-size:14px;">Logged in as: ...
+                        </div>
+                        <!-- LOGGED IN VIEW & CHECKLIST (Hidden by Default) -->
+                        <div id="app-container" style="display: none;">
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #333;">
+                                <div id="user-profile-name" style="color:#1e90ff; font-size:14px;">Logged in as: ...
                                 </div>
-<button id="logout-btn" style="background: transparent; border: 1px solid #aaa; color: #aaa; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; transition: 0.2s;">Sign
+                                <button id="logout-btn"
+                                    style="background: transparent; border: 1px solid #aaa; color: #aaa; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; transition: 0.2s;">Sign
                                     Out</button>
-</div>
-<p style="margin-bottom:15px; color:#aaa; font-size:14px;">Progress syncs live to the cloud
+                            </div>
+                            <p style="margin-bottom:15px; color:#aaa; font-size:14px;">Progress syncs live to the cloud
                                 across all your devices.</p>
-<div class="checklist-input-group" style="display:flex; gap:10px; margin-bottom: 20px;">
-<input id="new-task-input" placeholder="Add a new custom task..." style="flex:1; padding: 10px; border-radius: 4px; border: 1px solid #444; background: #222; color: #fff;" type="text"/>
-<select id="new-task-category" style="padding: 10px; border-radius: 4px; border: 1px solid #444; background: #222; color: #fff;">
-<option value="Hardware">Hardware</option>
-<option value="Software/Config">Software/Config</option>
-<option value="Other">Other</option>
-</select>
-<button class="action-btn" id="add-task-btn" style="padding: 0 15px;">Add</button>
-</div>
-<div class="checklist-container" id="checklist-container">
-<!-- JS will populate the categories and items here -->
-</div>
-<div style="text-align: right; margin-top: 15px;">
-<button id="reset-checklist-btn" style="background: transparent; border: 1px solid #e74c3c; color: #e74c3c; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; transition: 0.2s;">Reset
+                            <div class="checklist-input-group" style="display:flex; gap:10px; margin-bottom: 20px;">
+                                <input id="new-task-input" placeholder="Add a new custom task..."
+                                    style="flex:1; padding: 10px; border-radius: 4px; border: 1px solid #444; background: #222; color: #fff;"
+                                    type="text" />
+                                <select id="new-task-category"
+                                    style="padding: 10px; border-radius: 4px; border: 1px solid #444; background: #222; color: #fff;">
+                                    <option value="Hardware">Hardware</option>
+                                    <option value="Software/Config">Software/Config</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <button class="action-btn" id="add-task-btn" style="padding: 0 15px;">Add</button>
+                            </div>
+                            <div class="checklist-container" id="checklist-container">
+                                <!-- JS will populate the categories and items here -->
+                            </div>
+                            <div style="text-align: right; margin-top: 15px;">
+                                <button id="reset-checklist-btn"
+                                    style="background: transparent; border: 1px solid #e74c3c; color: #e74c3c; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; transition: 0.2s;">Reset
                                     All Checkmarks</button>
-</div>
-</div>
-</div>
-</div>
-<!-- 7. VirtualSky Interactive Map (Desktop) / Stellarium + TheSkyLive (Mobile) -->
-<div class="tool-card wide-card" id="skymap-tool">
-<div class="tool-icon">🌌</div>
-<h2 data-i18n="live_skymap">Live Sky Map (Interactive)</h2>
-<div class="tool-content">
-<p style="margin-bottom:15px; color:#aaa; font-size:14px;">Interactive view (Drag to pan).</p>
-<!-- Mobile Text (Replaces map on phone) -->
-<div class="mobile-hint" style="margin-bottom:15px; font-size:14px; display:none; text-align:center;">
-<p style="color:#1e90ff; margin-bottom:15px;">Launch external map App:</p>
-<div style="display:flex; flex-direction:column; gap:10px; align-items:center;">
-<a class="action-btn" href="https://theskylive.com/planetarium" style="text-decoration:none; display:inline-block; width:100%; max-width:300px; background:#222; border:1px solid #444;" target="_blank">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 7. VirtualSky Interactive Map (Desktop) / Stellarium + TheSkyLive (Mobile) -->
+                <div class="tool-card wide-card" id="skymap-tool">
+                    <div class="tool-icon">🌌</div>
+                    <h2 data-i18n="live_skymap">Live Sky Map (Interactive)</h2>
+                    <div class="tool-content">
+                        <p style="margin-bottom:15px; color:#aaa; font-size:14px;">Interactive view (Drag to pan).</p>
+                        <!-- Mobile Text (Replaces map on phone) -->
+                        <div class="mobile-hint"
+                            style="margin-bottom:15px; font-size:14px; display:none; text-align:center;">
+                            <p style="color:#1e90ff; margin-bottom:15px;">Launch external map App:</p>
+                            <div style="display:flex; flex-direction:column; gap:10px; align-items:center;">
+                                <a class="action-btn" href="https://theskylive.com/planetarium"
+                                    style="text-decoration:none; display:inline-block; width:100%; max-width:300px; background:#222; border:1px solid #444;"
+                                    target="_blank">
                                     Open TheSkyLive ↗
                                 </a>
-</div>
-</div>
-<!-- Iframe Container (Hidden on Mobile) -->
-<div class="iframe-container">
-<iframe allowtransparency="true" frameborder="0" height="100%" loading="lazy" marginheight="0" marginwidth="0" scrolling="no" src="https://virtualsky.lco.global/embed/index.html?longitude=34.851&amp;latitude=31.046&amp;projection=stereo&amp;constellations=true&amp;constellationlabels=true&amp;sho=false&amp;showstarlabels=true&amp;live=true&amp;az=180" style="border-radius:8px;" width="100%">
-</iframe>
-</div>
-<!-- Desktop Button -->
-<div class="desktop-only-btn" style="margin-top:10px; text-align:center;">
-<a class="action-btn" href="https://virtualsky.lco.global/embed/index.html?longitude=34.851&amp;latitude=31.046&amp;projection=stereo&amp;constellations=true&amp;constellationlabels=true&amp;sho=false&amp;showstarlabels=true&amp;live=true&amp;az=180" style="text-decoration:none; display:inline-block;" target="_blank">
+                            </div>
+                        </div>
+                        <!-- Iframe Container (Hidden on Mobile) -->
+                        <div class="iframe-container">
+                            <iframe allowtransparency="true" frameborder="0" height="100%" loading="lazy"
+                                marginheight="0" marginwidth="0" scrolling="no"
+                                src="https://virtualsky.lco.global/embed/index.html?longitude=34.851&amp;latitude=31.046&amp;projection=stereo&amp;constellations=true&amp;constellationlabels=true&amp;sho=false&amp;showstarlabels=true&amp;live=true&amp;az=180"
+                                style="border-radius:8px;" width="100%">
+                            </iframe>
+                        </div>
+                        <!-- Desktop Button -->
+                        <div class="desktop-only-btn" style="margin-top:10px; text-align:center;">
+                            <a class="action-btn"
+                                href="https://virtualsky.lco.global/embed/index.html?longitude=34.851&amp;latitude=31.046&amp;projection=stereo&amp;constellations=true&amp;constellationlabels=true&amp;sho=false&amp;showstarlabels=true&amp;live=true&amp;az=180"
+                                style="text-decoration:none; display:inline-block;" target="_blank">
                                 Open Full Screen Map ↗
                             </a>
-</div>
-</div>
-</div>
-</div>
-<footer class="site-footer">
-<p>© 2026 Shimon Avitan | dsoimage.com</p>
-</footer>
-</main>
-</div>
-<!-- Search Overlay -->
-<div class="search-overlay" id="search-overlay">
-<div class="search-box">
-<span class="search-close">×</span>
-<input autocomplete="off" class="search-input" id="search-input" placeholder="Search objects (e.g., M31)..." type="search"/>
-<div class="search-results" id="search-results"></div>
-</div>
-</div>
-<!-- Firebase Compat SDKs -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-<!-- Updated for Mobile Layout Fixes -->
-<script src="js/script.js?v=30"></script>
-<script src="js/stats.js"></script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="site-footer">
+                <p>© 2026 Shimon Avitan | dsoimage.com</p>
+            </footer>
+        </main>
+    </div>
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="search-overlay">
+        <div class="search-box">
+            <span class="search-close">×</span>
+            <input autocomplete="off" class="search-input" id="search-input" placeholder="Search objects (e.g., M31)..."
+                type="search" />
+            <div class="search-results" id="search-results"></div>
+        </div>
+    </div>
+    <!-- Firebase Compat SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <!-- Updated for Mobile Layout Fixes -->
+    <script src="js/script.js?v=28"></script>
+    <script src="js/stats.js"></script>
 </body>
+
 </html>

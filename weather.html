@@ -1,110 +1,118 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<link href="https://dsoimage.com/weather.html" rel="canonical"/>
-<title>Astronomy Weather — Shimon Avitan</title>
-<meta content="Astronomy Weather — Shimon Avitan - Deep Sky Astrophotography by Shimon Avitan. High-resolution LRGB imaging featuring nebulae, galaxies, and star clusters captured with FLT 132." name="description"/>
-<link href="css/style.css?v=31" rel="stylesheet"/>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="https://dsoimage.com/weather.html" rel="canonical" />
+    <title>Astronomy Weather — Shimon Avitan</title>
+    <meta
+        content="Astronomy Weather — Shimon Avitan - Deep Sky Astrophotography by Shimon Avitan. High-resolution LRGB imaging featuring nebulae, galaxies, and star clusters captured with FLT 132."
+        name="description" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="css/style.css?v=32" rel="stylesheet" />
 </head>
+
 <body>
-<div class="container">
-<!-- TOPBAR (mobile) -->
-<header class="topbar">
-<button aria-controls="sidebar" aria-expanded="false" aria-label="Open menu" class="menu-btn menu-toggle" type="button">
-                Menu
-            </button>
-<button aria-label="Search site" class="search-trigger">🔍</button>
-<div class="topbar-title">dsoimage.com</div>
-</header>
-<!-- Overlay for slide-in sidebar -->
-<div class="sidebar-overlay overlay" hidden=""></div>
-<!-- SIDEBAR -->
-<nav aria-label="Site menu" class="sidebar" id="sidebar">
-<div class="sidebar-header">
-<h2>Menu</h2>
-<button aria-label="Close menu" class="menu-close" type="button">×</button>
-</div>
-<!-- Pre-existing top search removed -->
-<ul>
-<li><a href="index.html">Home</a></li>
-<li><a href="galaxies.html">Galaxies</a></li>
-<li><a href="nebulae.html">Nebulae</a></li>
-<li><a href="clusters.html">Star Clusters</a></li>
-<li><a href="equipment.html">Equipment</a></li>
-<li><a href="processing.html">Processing</a></li>
-<li><a class="active" href="weather.html">Weather</a></li>
-<li><a href="tools.html">Tools</a></li>
-<li><a data-i18n="menu_planner" href="planner.html">Planned Session</a></li>
-<li><a href="knowledge.html">Knowledge Base</a></li>
-<li><a href="about.html">About</a></li>
-<li><a href="contact.html">Contact</a></li>
-</ul>
-<button class="search-trigger">
-                🔍 <span data-i18n="menu_search">Search</span>
-</button>
-<button class="mode-toggle-btn" id="red-mode-toggle">
-<span class="circle-icon"></span> Night Vision
-            </button>
-<div class="nv-controls" id="nv-container" style="display: none;">
-<label for="nv-slider" style="font-size: 13px; color: #aaa; text-align: left;">Dimmer</label>
-<input id="nv-slider" max="100" min="20" type="range" value="80"/>
-</div>
-<div id="image-stats"></div>
-<div class="sidebar-footer">
-<h2 class="sidebar-subtitle">Follow Me</h2>
-<ul>
-<li><a href="https://www.instagram.com/avitan_shimon/" rel="noopener" target="_blank">Instagram</a>
-</li>
-<li><a href="https://www.facebook.com/shimon.avitan.79" rel="noopener" target="_blank">Facebook</a>
-</li>
-<li><a href="https://www.flickr.com/photos/193302744@N07/" rel="noopener" target="_blank">Flickr</a>
-</li>
-</ul>
-</div>
-</nav>
-<!-- MAIN -->
-<main class="main-content">
-<h1>Astronomy Weather</h1>
-<p class="subtitle">
+    <div class="container">
+        <header class="topbar"></header>
+        <div class="overlay" hidden="" id="overlay"></div>
+        <nav aria-label="Site menu" class="top-nav" id="top-nav">
+            <div class="top-nav-container">
+                <div class="top-nav-logo"><a href="index.html">DSOImage</a></div>
+                <ul class="top-nav-links" id="top-nav-links">
+                    <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropbtn"><i class="fa-solid fa-images"></i> Galleries
+                            &#9662;</a>
+                        <div class="dropdown-content">
+                            <a href="galaxies.html"><i class="fa-solid fa-hurricane"></i> Galaxies</a>
+                            <a href="nebulae.html"><i class="fa-solid fa-smog"></i> Nebulae</a>
+                            <a href="clusters.html"><i class="fa-solid fa-certificate"></i> Star Clusters</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropbtn"><i class="fa-solid fa-book"></i> Resources
+                            &#9662;</a>
+                        <div class="dropdown-content">
+                            <a href="equipment.html"><i class="fa-solid fa-camera-retro"></i> Equipment</a>
+                            <a href="processing.html"><i class="fa-solid fa-laptop-code"></i> Processing</a>
+                            <a href="knowledge.html"><i class="fa-solid fa-book-open"></i> Knowledge Base</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropbtn"><i class="fa-solid fa-toolbox"></i> Tools
+                            &#9662;</a>
+                        <div class="dropdown-content">
+                            <a href="weather.html"><i class="fa-solid fa-cloud-moon"></i> Weather</a>
+                            <a href="planner.html"><i class="fa-solid fa-calendar-days"></i> Planned Session</a>
+                            <a href="tools.html"><i class="fa-solid fa-calculator"></i> Calculators</a>
+                        </div>
+                    </li>
+                    <li><a href="about.html"><i class="fa-solid fa-user-astronaut"></i> About</a></li>
+                    <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+                </ul>
+                <div class="top-nav-actions">
+                    <button class="mode-toggle-btn" id="red-mode-toggle" title="Night Vision"><span
+                            class="circle-icon"></span></button>
+                    <div class="nv-controls" id="nv-container"
+                        style="display:none;position:absolute;top:60px;right:20px;background:#111;padding:10px;border:1px solid #333;z-index:2000;border-radius:8px;">
+                        <label for="nv-slider"
+                            style="font-size:13px;color:#aaa;display:block;margin-bottom:5px;">Dimmer</label>
+                        <input id="nv-slider" max="100" min="20" type="range" value="80" />
+                    </div>
+                    <button id="mobile-nav-toggle" aria-label="Toggle navigation" title="Menu">&#9776;</button>
+                    <button class="search-trigger" title="Search">&#128269;</button>
+                </div>
+            </div>
+        </nav>
+        <div id="image-stats" style="display:none;"></div>
+        <!-- MAIN -->
+        <main class="main-content">
+            <h1>Astronomy Weather</h1>
+            <p class="subtitle">
                 Current cloud cover and forecast to help plan imaging sessions.
             </p>
-<div class="weather-container" style="margin-top:20px;">
-<h2>Windy.com Cloud Cover</h2>
-<p>Interactive map showing cloud cover. Click the map to check specific locations.</p>
-<!-- Windy Embed -->
-<iframe frameborder="0" height="600" src="https://embed.windy.com/embed2.html?lat=31.046&amp;lon=34.851&amp;detailLat=31.046&amp;detailLon=34.851&amp;width=650&amp;height=450&amp;zoom=7&amp;level=surface&amp;overlay=clouds&amp;product=ecmwf&amp;menu=&amp;message=&amp;marker=&amp;calendar=now&amp;pressure=&amp;type=map&amp;location=coordinates&amp;detail=&amp;metricWind=default&amp;metricTemp=default&amp;radarRange=-1" style="border-radius:10px; border:1px solid #333;" width="100%"></iframe>
-<br/><br/>
-<h2>Clear Outside</h2>
-<p>Detailed astronomical weather forecast including seeing, transparency, and darkness.</p>
-<a class="hero-button" href="https://clearoutside.com/forecast/30.6000/34.8000" target="_blank">
+            <div class="weather-container" style="margin-top:20px;">
+                <h2>Windy.com Cloud Cover</h2>
+                <p>Interactive map showing cloud cover. Click the map to check specific locations.</p>
+                <!-- Windy Embed -->
+                <iframe frameborder="0" height="600"
+                    src="https://embed.windy.com/embed2.html?lat=31.046&amp;lon=34.851&amp;detailLat=31.046&amp;detailLon=34.851&amp;width=650&amp;height=450&amp;zoom=7&amp;level=surface&amp;overlay=clouds&amp;product=ecmwf&amp;menu=&amp;message=&amp;marker=&amp;calendar=now&amp;pressure=&amp;type=map&amp;location=coordinates&amp;detail=&amp;metricWind=default&amp;metricTemp=default&amp;radarRange=-1"
+                    style="border-radius:10px; border:1px solid #333;" width="100%"></iframe>
+                <br /><br />
+                <h2>Clear Outside</h2>
+                <p>Detailed astronomical weather forecast including seeing, transparency, and darkness.</p>
+                <a class="hero-button" href="https://clearoutside.com/forecast/30.6000/34.8000" target="_blank">
                     Open Clear Outside (Negev)
                 </a>
-</div>
-<footer class="site-footer">
-<p>© 2026 Shimon Avitan | dsoimage.com</p>
-</footer>
-</main>
-</div>
-<!-- Search Overlay -->
-<div class="search-overlay" id="search-overlay">
-<div class="search-box">
-<span class="search-close">×</span>
-<input autocomplete="off" class="search-input" id="search-input" placeholder="Search objects (e.g., M31)..." type="text"/>
-<div class="search-results" id="search-results"></div>
-</div>
-</div>
-<!-- Search Overlay -->
-<div class="search-overlay" id="search-overlay">
-<div class="search-box">
-<span class="search-close">×</span>
-<input autocomplete="off" class="search-input" id="search-input" placeholder="Search objects (e.g., M31)..." type="text"/>
-<div class="search-results" id="search-results"></div>
-</div>
-</div>
-<script src="js/script.js?v=7"></script>
-<script src="js/stats.js"></script>
+            </div>
+            <footer class="site-footer">
+                <p>© 2026 Shimon Avitan | dsoimage.com</p>
+            </footer>
+        </main>
+    </div>
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="search-overlay">
+        <div class="search-box">
+            <span class="search-close">×</span>
+            <input autocomplete="off" class="search-input" id="search-input" placeholder="Search objects (e.g., M31)..."
+                type="text" />
+            <div class="search-results" id="search-results"></div>
+        </div>
+    </div>
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="search-overlay">
+        <div class="search-box">
+            <span class="search-close">×</span>
+            <input autocomplete="off" class="search-input" id="search-input" placeholder="Search objects (e.g., M31)..."
+                type="text" />
+            <div class="search-results" id="search-results"></div>
+        </div>
+    </div>
+    <script src="js/script.js?v=28"></script>
+    <script src="js/stats.js"></script>
 </body>
+
 </html>

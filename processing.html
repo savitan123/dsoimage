@@ -1,243 +1,257 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<link href="https://dsoimage.com/processing.html" rel="canonical"/>
-<title>Processing Comparison — Shimon Avitan</title>
-<meta content="Processing Comparison — Shimon Avitan - Deep Sky Astrophotography by Shimon Avitan. High-resolution LRGB imaging featuring nebulae, galaxies, and star clusters captured with FLT 132." name="description"/>
-<link href="css/style.css?v=31" rel="stylesheet"/>
-<script src="js/script.js?v=35"></script>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="https://dsoimage.com/processing.html" rel="canonical" />
+    <title>Processing Comparison — Shimon Avitan</title>
+    <meta
+        content="Processing Comparison — Shimon Avitan - Deep Sky Astrophotography by Shimon Avitan. High-resolution LRGB imaging featuring nebulae, galaxies, and star clusters captured with FLT 132."
+        name="description" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="css/style.css?v=32" rel="stylesheet" />
 </head>
+
 <body>
-<div class="container">
-<!-- TOPBAR (mobile) -->
-<header class="topbar">
-<button aria-label="Open menu" class="menu-toggle" type="button">
-                Menu
-            </button>
-<button aria-label="Search site" class="search-trigger">🔍</button>
-<div class="topbar-title">dsoimage.com</div>
-</header>
-<!-- Overlay -->
-<div class="overlay" hidden="" id="overlay"></div>
-<!-- SIDEBAR -->
-<nav class="sidebar" id="sidebar">
-<div class="sidebar-header">
-<h2>Menu</h2>
-<button aria-label="Close menu" class="menu-close" type="button">×</button>
-</div>
-<ul>
-<li><a href="index.html">Home</a></li>
-<li><a href="galaxies.html">Galaxies</a></li>
-<li><a href="nebulae.html">Nebulae</a></li>
-<li><a href="clusters.html">Star Clusters</a></li>
-<li><a href="equipment.html">Equipment</a></li>
-<li><a class="active" href="processing.html">Processing</a></li>
-<li><a href="weather.html">Weather</a></li>
-<li><a href="tools.html">Tools</a></li>
-<li><a data-i18n="menu_planner" href="planner.html">Planned Session</a></li>
-<li><a href="knowledge.html">Knowledge Base</a></li>
-<li><a href="about.html">About</a></li>
-<li><a href="contact.html">Contact</a></li>
-</ul>
-<button class="mode-toggle-btn" id="red-mode-toggle">
-<span class="circle-icon"></span> Night Vision
-            </button>
-<div class="nv-controls" id="nv-container" style="display: none;">
-<label for="nv-slider" style="font-size: 13px; color: #aaa; text-align: left;">Dimmer</label>
-<input id="nv-slider" max="100" min="20" type="range" value="80"/>
-</div>
-<!-- Sidebar search removed -->
-<button class="search-trigger">
-                🔍 <span data-i18n="menu_search">Search</span>
-</button>
-<div id="image-stats"></div>
-<div class="sidebar-footer">
-<h2 class="sidebar-subtitle">Follow Me</h2>
-<ul>
-<li><a href="https://www.instagram.com/avitan_shimon/" rel="noopener" target="_blank">Instagram</a>
-</li>
-<li><a href="https://www.facebook.com/shimon.avitan.79" rel="noopener" target="_blank">Facebook</a>
-</li>
-<li><a href="https://www.flickr.com/photos/193302744@N07/" rel="noopener" target="_blank">Flickr</a>
-</li>
-</ul>
-</div>
-</nav>
-<!-- MAIN -->
-<main class="main-content">
-<h1 class="color-header">Processing</h1>
-<!-- Pre-Processing Workflow Intro -->
-<div class="processing-intro-text" style="max-width: 1000px; margin: 40px 0; text-align: left; line-height: 1.6; color: #ddd;">
-<h2 style="color: #fff; margin-bottom: 30px; font-size: 2.2rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; line-height: 1.2;">
+    <div class="container">
+        <header class="topbar"></header>
+        <div class="overlay" hidden="" id="overlay"></div>
+        <nav aria-label="Site menu" class="top-nav" id="top-nav">
+            <div class="top-nav-container">
+                <div class="top-nav-logo"><a href="index.html">DSOImage</a></div>
+                <ul class="top-nav-links" id="top-nav-links">
+                    <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropbtn"><i class="fa-solid fa-images"></i> Galleries
+                            &#9662;</a>
+                        <div class="dropdown-content">
+                            <a href="galaxies.html"><i class="fa-solid fa-hurricane"></i> Galaxies</a>
+                            <a href="nebulae.html"><i class="fa-solid fa-smog"></i> Nebulae</a>
+                            <a href="clusters.html"><i class="fa-solid fa-certificate"></i> Star Clusters</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropbtn"><i class="fa-solid fa-book"></i> Resources
+                            &#9662;</a>
+                        <div class="dropdown-content">
+                            <a href="equipment.html"><i class="fa-solid fa-camera-retro"></i> Equipment</a>
+                            <a href="processing.html"><i class="fa-solid fa-laptop-code"></i> Processing</a>
+                            <a href="knowledge.html"><i class="fa-solid fa-book-open"></i> Knowledge Base</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropbtn"><i class="fa-solid fa-toolbox"></i> Tools
+                            &#9662;</a>
+                        <div class="dropdown-content">
+                            <a href="weather.html"><i class="fa-solid fa-cloud-moon"></i> Weather</a>
+                            <a href="planner.html"><i class="fa-solid fa-calendar-days"></i> Planned Session</a>
+                            <a href="tools.html"><i class="fa-solid fa-calculator"></i> Calculators</a>
+                        </div>
+                    </li>
+                    <li><a href="about.html"><i class="fa-solid fa-user-astronaut"></i> About</a></li>
+                    <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+                </ul>
+                <div class="top-nav-actions">
+                    <button class="mode-toggle-btn" id="red-mode-toggle" title="Night Vision"><span
+                            class="circle-icon"></span></button>
+                    <div class="nv-controls" id="nv-container"
+                        style="display:none;position:absolute;top:60px;right:20px;background:#111;padding:10px;border:1px solid #333;z-index:2000;border-radius:8px;">
+                        <label for="nv-slider"
+                            style="font-size:13px;color:#aaa;display:block;margin-bottom:5px;">Dimmer</label>
+                        <input id="nv-slider" max="100" min="20" type="range" value="80" />
+                    </div>
+                    <button id="mobile-nav-toggle" aria-label="Toggle navigation" title="Menu">&#9776;</button>
+                    <button class="search-trigger" title="Search">&#128269;</button>
+                </div>
+            </div>
+        </nav>
+        <div id="image-stats" style="display:none;"></div>
+        <!-- MAIN -->
+        <main class="main-content">
+            <h1 class="color-header">Processing</h1>
+            <!-- Pre-Processing Workflow Intro -->
+            <div class="processing-intro-text"
+                style="max-width: 1000px; margin: 40px 0; text-align: left; line-height: 1.6; color: #ddd;">
+                <h2
+                    style="color: #fff; margin-bottom: 30px; font-size: 2.2rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; line-height: 1.2;">
                     From Raw Data to the Final Image
                 </h2>
-<p style="margin-bottom: 20px;">
+                <p style="margin-bottom: 20px;">
                     Creating a deep-sky image is a meticulous journey of extracting faint signals from cosmic noise. My
                     process is a blend of scientific data reduction and artistic refinement, divided into two critical
                     stages: Pre-Processing and Post-Processing.
                 </p>
-<h3 style="color: #1e90ff; margin-top: 30px; margin-bottom: 10px;">1. Pre-Processing: The Foundation of
+                <h3 style="color: #1e90ff; margin-top: 30px; margin-bottom: 10px;">1. Pre-Processing: The Foundation of
                     Quality</h3>
-<p>
+                <p>
                     Before a nebula or galaxy can be revealed, we must strip away the noise introduced by the camera
                     sensor and the environment. This is achieved through Calibration Files and Stacking:
                 </p>
-<ul style="list-style-type: none; margin-left: 10px; margin-bottom: 20px;">
-<li style="margin-bottom: 8px;">⚡ <strong>Master BIAS:</strong> Removes the electronic readout
+                <ul style="list-style-type: none; margin-left: 10px; margin-bottom: 20px;">
+                    <li style="margin-bottom: 8px;">⚡ <strong>Master BIAS:</strong> Removes the electronic readout
                         noise
                         of the sensor.</li>
-<li style="margin-bottom: 8px;">🌡️ <strong>Master DARK:</strong> Corrects for thermal
+                    <li style="margin-bottom: 8px;">🌡️ <strong>Master DARK:</strong> Corrects for thermal
                         noise and
                         "hot pixels" caused by long exposures.</li>
-<li style="margin-bottom: 8px;">🌫️ <strong>Master FLAT:</strong> Compensates for
+                    <li style="margin-bottom: 8px;">🌫️ <strong>Master FLAT:</strong> Compensates for
                         optical vignetting
                         and dust shadows in the light path.</li>
-<li style="margin-bottom: 8px;">🎯 <strong>Star Alignment:</strong> Registers every Light
+                    <li style="margin-bottom: 8px;">🎯 <strong>Star Alignment:</strong> Registers every Light
                         Frame to
                         ensure perfect overlap.</li>
-<li style="margin-bottom: 8px;">📚 <strong>Image Integration:</strong> Stacks the data to
+                    <li style="margin-bottom: 8px;">📚 <strong>Image Integration:</strong> Stacks the data to
                         dramatically increase the signal-to-noise ratio.</li>
-</ul>
-<h3 style="color: #1e90ff; margin-top: 30px; margin-bottom: 10px;">2. Post-Processing: Bringing the
+                </ul>
+                <h3 style="color: #1e90ff; margin-top: 30px; margin-bottom: 10px;">2. Post-Processing: Bringing the
                     Universe to Life</h3>
-<p>
+                <p>
                     In this stage, I work with multi-channel data. While I often use a standard LRGB setup, I also
                     frequently image with Narrowband filters (Hα, OIII, and SII) to capture specific ionized gas
                     emissions.
                 </p>
-<p>
+                <p>
                     The <strong>Luminance (L)</strong> channel is typically the "soul" of the image, storing structure
                     and sharpness. However, in Emission Nebulae, the <strong>Narrowband (Hα)</strong> channel
                     often holds the most critical details. Because the details reside here, I take special care in
                     processing these structural channels separately before combining them with color.
                 </p>
-<h4 style="color: #ccc; margin-top: 20px; margin-bottom: 8px;">Key Processing Steps:</h4>
-<ul style="list-style-type: none; margin-left: 10px; margin-bottom: 20px;">
-<li style="margin-bottom: 8px;">⚖️ <strong>Linear Fitting:</strong> Balancing the color
+                <h4 style="color: #ccc; margin-top: 20px; margin-bottom: 8px;">Key Processing Steps:</h4>
+                <ul style="list-style-type: none; margin-left: 10px; margin-bottom: 20px;">
+                    <li style="margin-bottom: 8px;">⚖️ <strong>Linear Fitting:</strong> Balancing the color
                         channels (R,
                         G, and B or Narrowband equivalents) to a common baseline.</li>
-<li style="margin-bottom: 8px;">🧹 <strong>Gradient Removal:</strong> Separating faint
+                    <li style="margin-bottom: 8px;">🧹 <strong>Gradient Removal:</strong> Separating faint
                         celestial
                         features from the artificial sky background and light pollution.</li>
-<li style="margin-bottom: 8px;">🎨 <strong>Color Calibration:</strong> Ensuring stars and
+                    <li style="margin-bottom: 8px;">🎨 <strong>Color Calibration:</strong> Ensuring stars and
                         nebulosity
                         reflect their true cosmic hues or intended palettes (such as the Hubble Palette).</li>
-<li style="margin-bottom: 8px;">🧼 <strong>Noise Reduction:</strong> Cleaning up background
+                    <li style="margin-bottom: 8px;">🧼 <strong>Noise Reduction:</strong> Cleaning up background
                         grain
                         while preserving fine, hard-earned structures.</li>
-<li style="margin-bottom: 8px;">📈 <strong>Stretching:</strong> Carefully transitioning the
+                    <li style="margin-bottom: 8px;">📈 <strong>Stretching:</strong> Carefully transitioning the
                         data
                         from a "dark" linear state to a visible one. The Luminance/Hα channel is optimized for
                         contrast and detail before being merged with color.</li>
-</ul>
-<h3 style="color: #1e90ff; margin-top: 30px; margin-bottom: 10px;">The Toolkit</h3>
-<p>
+                </ul>
+                <h3 style="color: #1e90ff; margin-top: 30px; margin-bottom: 10px;">The Toolkit</h3>
+                <p>
                     My workflow is a hybrid approach. I utilize the mathematical power of <strong>PixInsight</strong>
                     artistic touches, color grading, and selective sharpening.
                 </p>
-<!-- SLIDER DEMO 1 (Moved) -->
-<div class="comparison-block" style="margin: 40px 0;">
-<h2>Helix Nebula: Single Raw Frame vs. Final</h2>
-<div class="img-comp-container">
-<div class="img-comp-img">
-<img alt="Final Processed Deep Sky Image - Helix Nebula" loading="lazy" src="images/full/helix_nebula.jpg"/>
-</div>
-<div class="img-comp-img img-comp-overlay">
-<!-- Using 'raw' image -->
-<img alt="Raw Unprocessed Deep Sky Data Frame" loading="lazy" src="images/full/helix_raw.jpg"/>
-</div>
-</div>
-</div>
-<!-- SNR SECTION -->
-<h2 style="color: #fff; margin-top: 60px; margin-bottom: 30px; font-size: 2.2rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; line-height: 1.2;">
-                    Signal To Noise Ratio (SNR):<br/>
-<span style="color: #1e90ff; font-size: 1.5rem;">The Science of Deep-Sky Imaging</span>
-</h2>
-<p style="margin-bottom: 20px;">
+                <!-- SLIDER DEMO 1 (Moved) -->
+                <div class="comparison-block" style="margin: 40px 0;">
+                    <h2>Helix Nebula: Single Raw Frame vs. Final</h2>
+                    <div class="img-comp-container">
+                        <div class="img-comp-img">
+                            <img alt="Final Processed Deep Sky Image - Helix Nebula" loading="lazy"
+                                src="images/full/helix_nebula.jpg" />
+                        </div>
+                        <div class="img-comp-img img-comp-overlay">
+                            <!-- Using 'raw' image -->
+                            <img alt="Raw Unprocessed Deep Sky Data Frame" loading="lazy"
+                                src="images/full/helix_raw.jpg" />
+                        </div>
+                    </div>
+                </div>
+                <!-- SNR SECTION -->
+                <h2
+                    style="color: #fff; margin-top: 60px; margin-bottom: 30px; font-size: 2.2rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; line-height: 1.2;">
+                    Signal To Noise Ratio (SNR):<br />
+                    <span style="color: #1e90ff; font-size: 1.5rem;">The Science of Deep-Sky Imaging</span>
+                </h2>
+                <p style="margin-bottom: 20px;">
                     One of the most common questions in astrophotography is: "Why do we need to collect so many hours of
                     data? Why can't we just take one photo and brighten it?"
                 </p>
-<p style="margin-bottom: 20px;">
+                <p style="margin-bottom: 20px;">
                     The answer lies in the <strong>Signal-to-Noise Ratio (SNR)</strong>. In our hobby, the "Signal" is
                     the light from the distant galaxy or nebula, while the "Noise" is everything else—electronic
                     interference, thermal heat, and most importantly, the inherent randomness of light itself.
                 </p>
-<h3 style="color: #1e90ff; margin-top: 30px; margin-bottom: 10px;">The Poisson Reality</h3>
-<p>
+                <h3 style="color: #1e90ff; margin-top: 30px; margin-bottom: 10px;">The Poisson Reality</h3>
+                <p>
                     Light arrival is not a constant stream; it is a stochastic (random) process that follows a
                     <strong>Poisson Distribution</strong>. This means that "Shot Noise" is actually a property of the
                     light itself. The only way to overcome this uncertainty is to collect more photons.
                 </p>
-<h3 style="color: #1e90ff; margin-top: 30px; margin-bottom: 10px;">Why We Must Collect Many Frames</h3>
-<p>
+                <h3 style="color: #1e90ff; margin-top: 30px; margin-bottom: 10px;">Why We Must Collect Many Frames</h3>
+                <p>
                     To achieve a high SNR and produce a clean, "smooth" image that can withstand the heavy stretching we
                     do in PixInsight, we must collect as many frames as possible.
                 </p>
-<ul style="list-style-type: none; margin-left: 10px; margin-bottom: 20px;">
-<li style="margin-bottom: 15px;">❌ <strong>Simple Addition vs. Integration:</strong> If you
+                <ul style="list-style-type: none; margin-left: 10px; margin-bottom: 20px;">
+                    <li style="margin-bottom: 15px;">❌ <strong>Simple Addition vs. Integration:</strong> If you
                         simply
                         take a single frame and add it to itself or "brighten" it, you are scaling the noise along with
                         the signal. The statistical uncertainty of that specific moment is "frozen" in the frame.</li>
-<li style="margin-bottom: 15px;">✅ <strong>The Power of Averaging:</strong> When we integrate
+                    <li style="margin-bottom: 15px;">✅ <strong>The Power of Averaging:</strong> When we integrate
                         (stack) many independent frames, we are taking multiple independent samples of that Poisson
                         process. Because the signal is constant and the noise is random, the noise doesn't add up
                         linearly. It adds as the square root of the sum of squares.
                         When you divide that combined noise by the number of frames , the noise effectively decreases by
                         a factor of 1/ sqrt(n).
                         over time while the signal builds up.</li>
-</ul>
-<h3 style="color: #1e90ff; margin-top: 30px; margin-bottom: 10px;">The Square Root Rule</h3>
-<p>
+                </ul>
+                <h3 style="color: #1e90ff; margin-top: 30px; margin-bottom: 10px;">The Square Root Rule</h3>
+                <p>
                     There is a mathematical "tax" on our time: to double the clarity (SNR) of your image, you must
                     <strong>quadruple</strong> your total exposure time.
                 </p>
-<p style="margin-top: 20px; font-style: italic; color: #aaa; border-left: 3px solid #1e90ff; padding-left: 15px;">
-<strong>The Bottom Line:</strong> To reveal the faint outer arms of a galaxy like M106 or the
+                <p
+                    style="margin-top: 20px; font-style: italic; color: #aaa; border-left: 3px solid #1e90ff; padding-left: 15px;">
+                    <strong>The Bottom Line:</strong> To reveal the faint outer arms of a galaxy like M106 or the
                     delicate tendrils of a nebula, there is no substitute for total integration time. The more frames we
                     collect, the more we "narrow the distribution" and find the true, beautiful signal hidden in the
                     darkness.
                 </p>
-</div>
-<!-- SLIDER DEMO 2 -->
-<div class="comparison-block" style="margin-top: 60px;">
-<h2>HorseHead_Flame_Nebula : Single Ha Frame vs. Final</h2>
-<div class="img-comp-container">
-<div class="img-comp-img">
-<img alt="Final Processed Deep Sky Image - Horsehead Nebula" loading="lazy" src="images/full/HorseHead_Flame_Nebula.jpg"/>
-</div>
-<div class="img-comp-img img-comp-overlay">
-<img alt="Hydrogen Alpha (Ha) Narrowband Channel - Horsehead" loading="lazy" src="images/full/HorseHead_Flame_Nebula_Raw.jpg"/>
-</div>
-</div>
-</div>
-<div class="comparison-block" style="margin-top: 60px;">
-<h2>Andromeda Galaxy : Stacked and Integrated Luminance Frame vs. Final</h2>
-<div class="img-comp-container">
-<div class="img-comp-img">
-<img alt="Final Processed Deep Sky Image - Andromeda Galaxy" loading="lazy" src="images/full/Andromeda_Galaxy.jpg"/>
-</div>
-<div class="img-comp-img img-comp-overlay">
-<img alt="Andromeda Galaxy (M31) Luminance Channel" loading="lazy" src="images/full/M31_Lum_Raw.jpg"/>
-</div>
-</div>
-</div>
-<footer class="site-footer">
-<p>© 2026 Shimon Avitan | dsoimage.com</p>
-</footer>
-</main>
-</div>
-<!-- Search Overlay -->
-<div class="search-overlay" id="search-overlay">
-<div class="search-box">
-<span class="search-close">×</span>
-<input autocomplete="off" class="search-input" id="search-input" placeholder="Search objects (e.g., M31)..." type="search"/>
-<div class="search-results" id="search-results"></div>
-</div>
-</div>
-<script src="js/script.js?v=35"></script>
-<script src="js/stats.js"></script>
+            </div>
+            <!-- SLIDER DEMO 2 -->
+            <div class="comparison-block" style="margin-top: 60px;">
+                <h2>HorseHead_Flame_Nebula : Single Ha Frame vs. Final</h2>
+                <div class="img-comp-container">
+                    <div class="img-comp-img">
+                        <img alt="Final Processed Deep Sky Image - Horsehead Nebula" loading="lazy"
+                            src="images/full/HorseHead_Flame_Nebula.jpg" />
+                    </div>
+                    <div class="img-comp-img img-comp-overlay">
+                        <img alt="Hydrogen Alpha (Ha) Narrowband Channel - Horsehead" loading="lazy"
+                            src="images/full/HorseHead_Flame_Nebula_Raw.jpg" />
+                    </div>
+                </div>
+            </div>
+            <div class="comparison-block" style="margin-top: 60px;">
+                <h2>Andromeda Galaxy : Stacked and Integrated Luminance Frame vs. Final</h2>
+                <div class="img-comp-container">
+                    <div class="img-comp-img">
+                        <img alt="Final Processed Deep Sky Image - Andromeda Galaxy" loading="lazy"
+                            src="images/full/Andromeda_Galaxy.jpg" />
+                    </div>
+                    <div class="img-comp-img img-comp-overlay">
+                        <img alt="Andromeda Galaxy (M31) Luminance Channel" loading="lazy"
+                            src="images/full/M31_Lum_Raw.jpg" />
+                    </div>
+                </div>
+            </div>
+            <footer class="site-footer">
+                <p>© 2026 Shimon Avitan | dsoimage.com</p>
+            </footer>
+        </main>
+    </div>
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="search-overlay">
+        <div class="search-box">
+            <span class="search-close">×</span>
+            <input autocomplete="off" class="search-input" id="search-input" placeholder="Search objects (e.g., M31)..."
+                type="search" />
+            <div class="search-results" id="search-results"></div>
+        </div>
+    </div>
+    <script src="js/script.js?v=28"></script>
+    <script src="js/stats.js"></script>
 </body>
+
 </html>

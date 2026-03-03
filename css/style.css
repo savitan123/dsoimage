@@ -675,33 +675,95 @@ img {
   }
 }
 
-/* Mobile: topbar + slide-in sidebar */
+/* Mobile hamburger toggle button — hidden on desktop */
+#mobile-nav-toggle {
+  display: none;
+  background: transparent;
+  border: 1px solid #444;
+  color: #fff;
+  font-size: 20px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* Mobile: collapse top-nav into hamburger */
 @media (max-width: 768px) {
-  .topbar {
+  /* Hide old sidebar & topbar — top-nav now handles mobile */
+  .topbar  { display: none !important; }
+  .sidebar { display: none !important; }
+
+  /* Show hamburger */
+  #mobile-nav-toggle { display: flex; align-items: center; }
+
+  /* Nav bar can wrap to a second row */
+  .top-nav-container {
+    flex-wrap: wrap;
+    height: auto;
+    min-height: 52px;
+    padding: 0 15px;
+  }
+
+  /* Collapsed by default */
+  .top-nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    border-top: 1px solid #222;
+    padding: 6px 0 12px;
+    gap: 0;
+    margin: 0;
+  }
+
+  /* Expanded when JS adds .nav-open */
+  .top-nav-links.nav-open {
     display: flex;
   }
 
+  /* Full-width items */
+  .top-nav-links > li {
+    width: 100%;
+  }
+
+  .top-nav-links > li > a,
+  .top-nav-links > li > .dropbtn {
+    padding: 11px 20px;
+    border-bottom: 1px solid #1a1a1a;
+    display: flex;
+    width: 100%;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+
+  /* Dropdowns: always visible inline on mobile */
+  .top-nav-links .dropdown-content {
+    display: block;
+    position: static;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    min-width: unset;
+    width: 100%;
+    padding: 0;
+    background: rgba(0, 0, 0, 0.25);
+  }
+
+  .top-nav-links .dropdown-content a {
+    padding: 9px 20px 9px 38px;
+    font-size: 13px;
+    border-bottom: 1px solid #1a1a1a;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Main content — no topbar spacing needed (top-nav is sticky) */
   .main-content {
     margin-left: 0;
     width: 100%;
-    padding: 76px 15px 15px;
-    /* space for fixed topbar */
-  }
-
-  .sidebar {
-    width: 260px;
-    max-width: 82vw;
-    transform: translateX(-110%);
-    transition: transform 0.18s ease;
-    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.45);
-  }
-
-  .sidebar.is-open {
-    transform: translateX(0);
-  }
-
-  .menu-close {
-    display: inline-block;
+    padding: 20px 15px 15px;
   }
 
   .hero {
@@ -718,20 +780,13 @@ img {
     font-size: 16px;
   }
 
-  .gallery {
-    grid-template-columns: 1fr;
-  }
-
   #lightbox-img {
     max-height: 55vh;
   }
 
-
   #lightbox-caption {
     max-height: 40vh;
   }
-
-  /* Hide redundant sidebar search moved to end of file for precedence */
 }
 
 /* =========================
