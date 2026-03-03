@@ -25,13 +25,7 @@
 <body>
         <div class="container">
                 <!-- Mobile top bar (only visible on small screens) -->
-                <header class="topbar">
-                        <button aria-controls="sidebar" aria-expanded="false" aria-label="Open menu" class="menu-toggle"
-                                type="button">
-                                Menu
-                        </button>
-                        <button aria-label="Search site" class="search-trigger">🔍</button>
-                </header>
+                <header class="topbar"></header>
                 <!-- Dim background overlay for mobile menu -->
                 <div class="overlay" hidden="" id="overlay"></div>
                 <nav aria-label="Site menu" class="top-nav" id="top-nav">
@@ -98,7 +92,9 @@
                                                         style="font-size: 13px; color: #aaa; text-align: left; display:block; margin-bottom: 5px;">Dimmer</label>
                                                 <input id="nv-slider" max="100" min="20" type="range" value="80" />
                                         </div>
-                                        <button class="search-trigger" title="Search">🔍</button>
+                                        <button id="mobile-nav-toggle" aria-label="Toggle navigation"
+                                                title="Menu">&#9776;</button>
+                                        <button class="search-trigger" title="Search">&#128269;</button>
                                 </div>
                         </div>
                 </nav>
