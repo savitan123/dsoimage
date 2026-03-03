@@ -135,6 +135,49 @@
                                 </a>
                         </section>
 
+                        <!-- DASHBOARD GRID -->
+                        <section class="dashboard-widgets"
+                                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 30px;">
+                                <!-- WIDGET 1 -->
+                                <div class="widget-card"
+                                        style="background:#111; border: 1px solid #333; border-radius: 12px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
+                                        <h3
+                                                style="margin-top:0; color:#eedc82; font-size: 18px; border-bottom: 1px solid #222; padding-bottom: 10px; margin-bottom: 15px;">
+                                                <i class="fa-solid fa-moon"></i> Current Lunar Phase
+                                        </h3>
+                                        <div style="display: flex; align-items: center; gap: 25px;">
+                                                <div
+                                                        style="font-size: 4rem; filter: grayscale(0.2) drop-shadow(0px 0px 10px rgba(255,255,255,0.2));">
+                                                        🌖</div>
+                                                <div>
+                                                        <div style="font-size: 22px; font-weight: bold; color: #fff;">
+                                                                Waning Gibbous</div>
+                                                        <div style="color: #bbb; font-size: 14px;">Illumination: 84%
+                                                        </div>
+                                                        <div style="color: #888; font-size: 13px; margin-top: 5px;">
+                                                                Ideal for narrowband (H-alpha). Broadband galaxy hunting
+                                                                not recommended tonight.</div>
+                                                </div>
+                                        </div>
+                                </div>
+
+                                <!-- WIDGET 2: NASA APOD -->
+                                <div class="widget-card" id="apod-widget"
+                                        style="background:#111; border: 1px solid #333; border-radius: 12px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); display: flex; flex-direction: column;">
+                                        <h3
+                                                style="margin-top:0; color:#eedc82; font-size: 18px; border-bottom: 1px solid #222; padding-bottom: 10px; margin-bottom: 15px;">
+                                                <i class="fa-solid fa-satellite"></i> NASA APOD
+                                        </h3>
+                                        <div id="apod-container"
+                                                style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 15px;">
+                                                <i class="fa-solid fa-circle-notch fa-spin"
+                                                        style="font-size: 2rem; color: #555;"></i>
+                                                <div style="color: #888; font-size: 14px;">Fetching today's image...
+                                                </div>
+                                        </div>
+                                </div>
+                        </section>
+
                         <!-- RECENT ADDITIONS -->
                         <section class="recent-additions">
                                 <h2
