@@ -11,67 +11,67 @@
  */
 
 (function () {
-    'use strict';
+  'use strict';
 
-    // Fallback image from the site's own gallery
-    const FALLBACK = {
-        title: 'Horsehead & Flame Nebula',
-        url: 'images/preview/HorseHead_Flame_Nebula.jpg',
-        hdurl: 'images/preview/HorseHead_Flame_Nebula.jpg',
-        media_type: 'image',
-        explanation: 'A stunning narrowband H-alpha image of the iconic Horsehead and Flame Nebulae in Orion, captured by Shimon Avitan.',
-        copyright: 'Shimon Avitan / DSOImage'
-    };
+  // Fallback image from the site's own gallery
+  const FALLBACK = {
+    title: 'Horsehead & Flame Nebula',
+    url: 'images/preview/HorseHead_Flame_Nebula.jpg',
+    hdurl: 'images/preview/HorseHead_Flame_Nebula.jpg',
+    media_type: 'image',
+    explanation: 'A stunning narrowband H-alpha image of the iconic Horsehead and Flame Nebulae in Orion, captured by Shimon Avitan.',
+    copyright: 'Shimon Avitan / DSOImage'
+  };
 
-    const CACHE_URL = 'data/apod_cache.json';
+  const CACHE_URL = 'data/apod_cache.json';
 
-    function hideWidget() {
-        const widget = document.getElementById('apod-widget');
-        if (widget) widget.style.display = 'none';
-    }
+  function hideWidget() {
+    const widget = document.getElementById('apod-widget');
+    if (widget) widget.style.display = 'none';
+  }
 
-    function truncate(text, maxLen) {
-        if (!text) return '';
-        return text.length > maxLen ? text.slice(0, maxLen).trimEnd() + '…' : text;
-    }
+  function truncate(text, maxLen) {
+    if (!text) return '';
+    return text.length > maxLen ? text.slice(0, maxLen).trimEnd() + '…' : text;
+  }
 
-    /** Build the YouTube/Vimeo embed URL from a watch URL */
-    function toEmbedUrl(url) {
-        try {
-            const u = new URL(url);
-            // YouTube
-            if (u.hostname.includes('youtube.com') || u.hostname.includes('youtu.be')) {
-                const vid = u.searchParams.get('v') || u.pathname.replace('/', '');
-                return `https://www.youtube.com/embed/${vid}?rel=0&modestbranding=1`;
-            }
-            // Vimeo
-            if (u.hostname.includes('vimeo.com')) {
-                const vid = u.pathname.replace('/', '');
-                return `https://player.vimeo.com/video/${vid}`;
-            }
-        } catch (_) { }
-        return url; // return as-is for other platforms
-    }
+  /** Build the YouTube/Vimeo embed URL from a watch URL */
+  function toEmbedUrl(url) {
+    try {
+      const u = new URL(url);
+      // YouTube
+      if (u.hostname.includes('youtube.com') || u.hostname.includes('youtu.be')) {
+        const vid = u.searchParams.get('v') || u.pathname.replace('/', '');
+        return `https://www.youtube.com/embed/${vid}?rel=0&modestbranding=1`;
+      }
+      // Vimeo
+      if (u.hostname.includes('vimeo.com')) {
+        const vid = u.pathname.replace('/', '');
+        return `https://player.vimeo.com/video/${vid}`;
+      }
+    } catch (_) { }
+    return url; // return as-is for other platforms
+  }
 
-    function renderApod(data) {
-        const container = document.getElementById('apod-container');
-        if (!container) return;
+  function renderApod(data) {
+    const container = document.getElementById('apod-container');
+    if (!container) return;
 
-        const title = data.title || 'NASA Astronomy Picture of the Day';
-        const excerpt = truncate(data.explanation, 160);
-        const date = data.date ? `<span style="color:#666;font-size:11px;">${data.date}</span>` : '';
-        const copy = data.copyright ? `<span style="color:#555;font-size:11px;">© ${data.copyright.replace(/\n/g, ' ')}</span>` : '';
+    const title = data.title || 'NASA Astronomy Picture of the Day';
+    const excerpt = truncate(data.explanation, 160);
+    const date = data.date ? `<span style="color:#666;font-size:11px;">${data.date}</span>` : '';
+    const copy = data.copyright ? `<span style="color:#555;font-size:11px;">© ${data.copyright.replace(/\n/g, ' ')}</span>` : '';
 
-        let mediaHtml = '';
+    let mediaHtml = '';
 
-        if (data.media_type === 'video') {
-            // ------- VIDEO -------
-            const thumbUrl = data.thumbnail_url || '';
-            const embedUrl = toEmbedUrl(data.url || '');
+    if (data.media_type === 'video') {
+      // ------- VIDEO -------
+      const thumbUrl = data.thumbnail_url || '';
+      const embedUrl = toEmbedUrl(data.url || '');
 
-            if (thumbUrl) {
-                // Show thumbnail with play button overlay that swaps to iframe on click
-                mediaHtml = `
+      if (thumbUrl) {
+        // Show thumbnail with play button overlay that swaps to iframe on click
+        mediaHtml = `
           <div id="apod-video-thumb" style="position:relative;width:100%;cursor:pointer;border-radius:8px;overflow:hidden;" title="Click to play" onclick="(function(el){
             var iframe=document.createElement('iframe');
             iframe.src='${embedUrl}';
@@ -87,35 +87,43 @@
               </div>
             </div>
           </div>`;
-            } else {
-                // No thumbnail — show iframe directly
-                mediaHtml = `
+      } else {
+        // No thumbnail — check if it's a direct MP4 (needs <video>, not iframe)
+        const isMp4 = (data.url || '').toLowerCase().includes('.mp4');
+        if (isMp4) {
+          mediaHtml = `
+          <video src="${data.url}" controls
+            style="width:100%;height:180px;border:none;border-radius:8px;background:#000;display:block;"
+            preload="metadata"></video>`;
+        } else {
+          mediaHtml = `
           <iframe src="${embedUrl}" style="width:100%;height:180px;border:none;border-radius:8px;"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen title="${title}"></iframe>`;
-            }
+        }
+      }
 
-            mediaHtml += `
+      mediaHtml += `
         <a href="${data.url || '#'}" target="_blank" rel="noopener noreferrer"
            style="font-size:12px;color:#7ec8f5;text-decoration:none;">
           <i class="fa-solid fa-film"></i> Watch on YouTube / NASA
         </a>`;
 
-        } else {
-            // ------- IMAGE -------
-            const imgUrl = data.url || FALLBACK.url;
-            const hdUrl = data.hdurl || imgUrl;
+    } else {
+      // ------- IMAGE -------
+      const imgUrl = data.url || FALLBACK.url;
+      const hdUrl = data.hdurl || imgUrl;
 
-            mediaHtml = `
+      mediaHtml = `
         <a href="${hdUrl}" target="_blank" rel="noopener noreferrer" title="Open HD version" style="display:block;width:100%;">
           <img src="${imgUrl}" alt="${title}"
                style="width:100%;max-height:220px;object-fit:cover;border-radius:8px;display:block;transition:opacity 0.3s;"
                loading="lazy"
                onerror="this.src='${FALLBACK.url}'">
         </a>`;
-        }
+    }
 
-        container.innerHTML = `
+    container.innerHTML = `
       <div style="width:100%;display:flex;flex-direction:column;gap:10px;">
         ${mediaHtml}
         <div style="text-align:left;">
@@ -127,37 +135,37 @@
           </div>
         </div>
       </div>`;
+  }
+
+  async function loadApod() {
+    try {
+      const res = await fetch(CACHE_URL);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+
+      // Basic sanity check — must have at least url or thumbnail_url
+      if (!data.url && !data.thumbnail_url) {
+        renderApod(FALLBACK);
+        return;
+      }
+
+      renderApod(data);
+    } catch (err) {
+      console.warn('[APOD] Failed to load cache:', err.message);
+      // Try rendering with fallback; hide widget only if container isn't there
+      const container = document.getElementById('apod-container');
+      if (container) {
+        renderApod(FALLBACK);
+      } else {
+        hideWidget();
+      }
     }
+  }
 
-    async function loadApod() {
-        try {
-            const res = await fetch(CACHE_URL);
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
-            const data = await res.json();
-
-            // Basic sanity check — must have at least url or thumbnail_url
-            if (!data.url && !data.thumbnail_url) {
-                renderApod(FALLBACK);
-                return;
-            }
-
-            renderApod(data);
-        } catch (err) {
-            console.warn('[APOD] Failed to load cache:', err.message);
-            // Try rendering with fallback; hide widget only if container isn't there
-            const container = document.getElementById('apod-container');
-            if (container) {
-                renderApod(FALLBACK);
-            } else {
-                hideWidget();
-            }
-        }
-    }
-
-    // Run after DOM is ready
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', loadApod);
-    } else {
-        loadApod();
-    }
+  // Run after DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadApod);
+  } else {
+    loadApod();
+  }
 })();
