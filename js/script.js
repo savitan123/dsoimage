@@ -7,7 +7,7 @@ function initDSOImage() {
   // ===============================
 
   const mobileToggle = document.getElementById('mobile-nav-toggle');
-  const navLinks = document.getElementById('top-nav-links');
+  const navLinks = document.querySelector('.top-nav-links');
   const overlay = document.querySelector('.overlay');
 
   function openNav() {
