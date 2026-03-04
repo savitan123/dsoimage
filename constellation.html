@@ -16,46 +16,80 @@
 
 <body>
     <div class="container">
-        <header class="topbar">
-            <button aria-controls="sidebar" aria-expanded="false" aria-label="Open menu" class="menu-toggle"
-                type="button">
-                Menu
-            </button>
-            <button aria-label="Search site" class="search-trigger">🔍</button>
-            <div class="topbar-title">dsoimage.com</div>
-        </header>
-        <div class="overlay" hidden="" id="overlay"></div>
-        <nav aria-label="Site menu" class="sidebar" id="sidebar">
-            <div class="sidebar-header">
-                <h2>Menu</h2>
-                <button aria-label="Close menu" class="menu-close" type="button">×</button>
-            </div>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="galaxies.html">Galaxies</a></li>
-                <li><a href="nebulae.html">Nebulae</a></li>
-                <li><a href="clusters.html">Star Clusters</a></li>
-                <li><a href="equipment.html">Equipment</a></li>
-                <li><a href="processing.html">Processing</a></li>
-                <li><a href="weather.html">Weather</a></li>
-                <li><a href="tools.html">Tools</a></li>
-                <li><a data-i18n="menu_planner" href="planner.html">Planned Session</a></li>
-                <li><a class="active" href="knowledge.html">Knowledge Base</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-            <button class="mode-toggle-btn" id="red-mode-toggle">
-                <span class="circle-icon"></span> Night Vision
-            </button>
-            <div class="nv-controls" id="nv-container" style="display: none;">
-                <label for="nv-slider" style="font-size: 13px; color: #aaa; text-align: left;">Dimmer</label>
-                <input id="nv-slider" max="100" min="20" type="range" value="80" />
-            </div>
-            <button class="search-trigger">
-                🔍 <span data-i18n="menu_search">Search</span>
-            </button>
-            <div id="image-stats"></div>
-        </nav>
+        <!-- Mobile top bar (only visible on small screens) -->
+                <header class="topbar"></header>
+                <!-- Dim background overlay for mobile menu -->
+                <div class="overlay" hidden="" id="overlay"></div>
+                <nav aria-label="Site menu" class="top-nav" id="top-nav">
+                        <div class="top-nav-container">
+                                <div class="top-nav-logo">
+                                        <a href="index.html">DSOImage</a>
+                                </div>
+                                <ul class="top-nav-links">
+                                        <li><a data-i18n="menu_home" href="index.html"><i
+                                                                class="fa-solid fa-house"></i> Home</a></li>
+                                        <li class="dropdown">
+                                                <a href="javascript:void(0)" class="dropbtn"><i
+                                                                class="fa-solid fa-images"></i> Galleries ▾</a>
+                                                <div class="dropdown-content">
+                                                        <a data-i18n="menu_galaxies" href="galaxies.html"><i
+                                                                        class="fa-solid fa-hurricane"></i> Galaxies</a>
+                                                        <a data-i18n="menu_nebulae" href="nebulae.html"><i
+                                                                        class="fa-solid fa-smog"></i> Nebulae</a>
+                                                        <a data-i18n="menu_clusters" href="clusters.html"><i
+                                                                        class="fa-solid fa-certificate"></i> Star
+                                                                Clusters</a>
+                                                </div>
+                                        </li>
+                                        <li class="dropdown">
+                                                <a href="javascript:void(0)" class="dropbtn"><i
+                                                                class="fa-solid fa-book"></i> Resources ▾</a>
+                                                <div class="dropdown-content">
+                                                        <a data-i18n="menu_equipment" href="equipment.html"><i
+                                                                        class="fa-solid fa-camera-retro"></i>
+                                                                Equipment</a>
+                                                        <a data-i18n="menu_processing" href="processing.html"><i
+                                                                        class="fa-solid fa-laptop-code"></i>
+                                                                Processing</a>
+                                                        <a class="active" href="knowledge.html"><i class="fa-solid fa-book-open"></i>
+                                                                Knowledge Base</a>
+                                                </div>
+                                        </li>
+                                        <li class="dropdown">
+                                                <a href="javascript:void(0)" class="dropbtn"><i
+                                                                class="fa-solid fa-toolbox"></i> Tools ▾</a>
+                                                <div class="dropdown-content">
+                                                        <a data-i18n="menu_weather" href="weather.html"><i
+                                                                        class="fa-solid fa-cloud-moon"></i> Weather</a>
+                                                        <a data-i18n="menu_planner" href="planner.html"><i
+                                                                        class="fa-solid fa-calendar-days"></i> Planned
+                                                                Session</a>
+                                                        <a data-i18n="menu_tools" href="tools.html"><i
+                                                                        class="fa-solid fa-calculator"></i>
+                                                                Calculators</a>
+                                                </div>
+                                        </li>
+                                        <li><a data-i18n="menu_about" href="about.html"><i
+                                                                class="fa-solid fa-user-astronaut"></i> About</a></li>
+                                        <li><a data-i18n="menu_contact" href="contact.html"><i
+                                                                class="fa-solid fa-envelope"></i> Contact</a></li>
+                                </ul>
+                                <div class="top-nav-actions">
+                                        <button class="mode-toggle-btn" id="red-mode-toggle" title="Night Vision">
+                                                <span class="circle-icon"></span>
+                                        </button>
+                                        <div class="nv-controls" id="nv-container"
+                                                style="display: none; position: absolute; top: 60px; right: 20px; background: #111; padding: 10px; border: 1px solid #333; z-index: 2000; border-radius: 8px;">
+                                                <label for="nv-slider"
+                                                        style="font-size: 13px; color: #aaa; text-align: left; display:block; margin-bottom: 5px;">Dimmer</label>
+                                                <input id="nv-slider" max="100" min="20" type="range" value="80" />
+                                        </div>
+                                        <button id="mobile-nav-toggle" aria-label="Toggle navigation"
+                                                title="Menu">&#9776;</button>
+                                        <button class="search-trigger" title="Search">&#128269;</button>
+                                </div>
+                        </div>
+                </nav>
         <main class="main-content">
             <a class="back-link" href="javascript:history.back()"
                 style="display:inline-block; margin-bottom: 20px; color:#1e90ff; text-decoration:none;">← Back to
