@@ -769,9 +769,13 @@ img {
     min-height: 52px;
     padding: 0 15px;
   }
+  
+  .top-nav-logo { order: 1; }
+  .top-nav-actions { order: 2; }
 
   /* Collapsed by default */
   .top-nav-links {
+    order: 3;
     display: none;
     flex-direction: column;
     width: 100%;
