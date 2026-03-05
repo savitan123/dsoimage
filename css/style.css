@@ -168,7 +168,7 @@ img {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  max-width: 2560px;
+  max-width: 1140px;
   width: 96%;
   padding: 0 20px;
   height: 60px;
@@ -308,7 +308,7 @@ img {
 
 .main-content {
   width: 100%;
-  max-width: 2560px;
+  max-width: 1140px;
   width: 96%;
   margin: 0 auto;
   padding: 20px 40px;
@@ -769,9 +769,14 @@ img {
     min-height: 52px;
     padding: 0 15px;
   }
-  
-  .top-nav-logo { order: 1; }
-  .top-nav-actions { order: 2; }
+
+  .top-nav-logo {
+    order: 1;
+  }
+
+  .top-nav-actions {
+    order: 2;
+  }
 
   /* Collapsed by default */
   .top-nav-links {
