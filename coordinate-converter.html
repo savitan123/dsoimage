@@ -5,30 +5,20 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <link href="https://dsoimage.com/knowledge.html" rel="canonical" />
-    <meta content="Shimon Avitan" name="author" />
+    <link href="https://dsoimage.com/tools.html" rel="canonical" />
+    <title>Coordinate Converter — Shimon Avitan</title>
     <meta
-        content="Explore the complete A-Z Master Glossary of deep sky astrophotography. Learn about telescope equipment, calibration frames, deep sky processing, astrophotography terminology, and discover all 88 official constellations."
+        content="Coordinate Converter — Shimon Avitan - Convert Dec to DMS and vice versa seamlessly for astrophotography planning."
         name="description" />
-    <meta
-        content="Astrophotography, Master Glossary, Knowledge Base, Constellations, Telescope Equipment, Deep Sky Object, Image Processing, PixInsight, Calibration Frames, Signal-to-Noise Ratio, Astronomy Concepts, Terminology, Guide"
-        name="keywords" />
-    <meta content="Knowledge Base & Master Glossary - DSOImage" property="og:title" />
-    <meta
-        content="Explore the comprehensive A-Z astrophotography glossary featuring equipment guides, imaging concepts, processing math, and the official 88 constellations."
-        property="og:description" />
-    <meta content="https://dsoimage.com/images/preview/HorseHead_Flame_Nebula.jpg" property="og:image" />
-    <meta content="https://dsoimage.com/knowledge.html" property="og:url" />
-    <meta content="website" property="og:type" />
-    <title>Knowledge Base &amp; Master Glossary - DSOImage</title>
+    <!-- FORCE NEW VERSION v=11 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="css/style.css?v=34" rel="stylesheet" />
 </head>
 
 <body>
     <div class="container">
-        <!-- Mobile top bar -->
-        <!-- Mobile top bar -->
+        <!-- TOPBAR (mobile) -->
+        <!-- TOPBAR (mobile) -->
         <header class="topbar"></header>
         <div class="overlay" hidden="" id="overlay"></div>
         <nav aria-label="Site menu" class="top-nav" id="top-nav">
@@ -51,7 +41,7 @@
                         <div class="dropdown-content">
                             <a href="equipment.html"><i class="fa-solid fa-camera-retro"></i> Equipment</a>
                             <a href="processing.html"><i class="fa-solid fa-laptop-code"></i> Processing</a>
-                            <a class="active" href="knowledge.html"><i class="fa-solid fa-book-open"></i> Knowledge Base</a>
+                            <a href="knowledge.html"><i class="fa-solid fa-book-open"></i> Knowledge Base</a>
                         </div>
                     </li>
                     <li class="dropdown">
@@ -60,7 +50,12 @@
                         <div class="dropdown-content">
                             <a href="weather.html"><i class="fa-solid fa-cloud-moon"></i> Weather</a>
                             <a href="planner.html"><i class="fa-solid fa-calendar-days"></i> Planned Session</a>
-                            <a href="astronomy-tools.html"><i class="fa-solid fa-toolbox"></i> Astronomy Tools</a>`n                            <a href="coordinate-converter.html"><i class="fa-solid fa-globe"></i> Coordinate Converter</a>`n                            <a href="checklist.html"><i class="fa-solid fa-check-double"></i> Pre-Flight Checklist</a>`n                            <a href="live-sky-map.html"><i class="fa-solid fa-map-location-dot"></i> Live Sky Map (Interactive)</a>
+                            <a href="astronomy-tools.html"><i class="fa-solid fa-toolbox"></i> Astronomy Tools</a>
+                            <a class="active" href="coordinate-converter.html"><i class="fa-solid fa-globe"></i>
+                                Coordinate Converter</a>
+                            <a href="checklist.html"><i class="fa-solid fa-check-double"></i> Pre-Flight Checklist</a>
+                            <a href="live-sky-map.html"><i class="fa-solid fa-map-location-dot"></i> Live Sky Map
+                                (Interactive)</a>
                         </div>
                     </li>
                     <li><a href="about.html"><i class="fa-solid fa-user-astronaut"></i> About</a></li>
@@ -81,41 +76,47 @@
             </div>
         </nav>
         <div id="image-stats" style="display:none;"></div>
+        <!-- MAIN -->
         <main class="main-content">
-            <div class="page-hero">
-                <div class="tool-icon">📚</div>
-                <h1>Knowledge Base</h1>
-                <div class="page-text" style="text-align: center; margin: 0 auto 30px auto; color: #aaa;">
-                    Explore foundational concepts, technical terminology, and equipment guides for deep sky
-                    astrophotography.
+            <main class="main-content">
+                <h1>Coordinate Converter</h1>
+                <p class="subtitle">
+                    Quickly switch between Decimal Degrees and Degree-Minute-Second formats.
+                </p>
+                <div class="tools-grid">
+                    <!-- 5. Coordinate Converter -->
+                    <div class="tool-card wide-card" id="coord-tool">
+                        <div class="tool-icon">🌐</div>
+                        <h2>Coordinate Converter</h2>
+                        <div class="tabs">
+                            <button class="tab-btn active" onclick="switchTab('dec-to-dms')">Dec to DMS</button>
+                            <button class="tab-btn" onclick="switchTab('dms-to-dec')">DMS to Dec</button>
+                        </div>
+                        <!-- Dec to DMS Form -->
+                        <div class="tab-content active" id="dec-to-dms">
+                            <div class="converter-row">
+                                <input id="input-dec" placeholder="Decimal Degrees (e.g. 34.56)" step="any"
+                                    type="number" />
+                                <button class="action-btn" onclick="convertDecToDms()">Convert</button>
+                            </div>
+                            <div class="result-box" id="result-dms">Result: --° --' --"</div>
+                        </div>
+                        <div class="tab-content" id="dms-to-dec">
+                            <div class="converter-row multi-input">
+                                <input class="small-input" id="input-d" placeholder="Deg" type="number" />
+                                <input class="small-input" id="input-m" placeholder="Min" type="number" />
+                                <input class="small-input" id="input-s" placeholder="Sec" type="number" />
+                                <button class="action-btn" onclick="convertDmsToDec()">Convert</button>
+                            </div>
+                            <div class="result-box" id="result-dec">Result: --</div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <!-- KB Search Bar -->
-            <div style="text-align: center; margin-bottom: 30px;">
-                <input id="kb-search-input" placeholder="Search knowledge base..."
-                    style="width: 80%; max-width: 500px; padding: 12px 20px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.5); color: #fff; font-size: 16px;"
-                    type="text" />
-            </div>
-            <!-- KNOWLEDGE BASE CONTENT -->
-            <section class="kb-container" style="max-width: 1400px; margin: 0 auto; width: 95%;">
-
-                <!-- Sticky Alphabet Navigation -->
-                <nav class="glossary-nav">
-                    <ul id="alpha-nav">
-                        <!-- Populated by JS -->
-                    </ul>
-                </nav>
-
-                <!-- Dynamic Glossary Container -->
-                <div id="glossary-container">
-                    <!-- Populated by JS -->
-                </div>
-
-            </section>
-            <footer class="site-footer">
-                <p>© 2026 Shimon Avitan | dsoimage.com</p>
-            </footer>
-        </main>
+    </div>
+    <footer class="site-footer">
+        <p>© 2026 Shimon Avitan | dsoimage.com</p>
+    </footer>
+    </main>
     </div>
     <!-- Search Overlay -->
     <div class="search-overlay" id="search-overlay">
@@ -126,9 +127,13 @@
             <div class="search-results" id="search-results"></div>
         </div>
     </div>
-    <script src="js/constellations.js?v=3"></script>
-    <script src="js/glossary_data.js?v=3"></script>
+    <!-- Firebase Compat SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <!-- Updated for Mobile Layout Fixes -->
     <script src="js/script.js?v=37"></script>
+    <script src="js/stats.js"></script>
 </body>
 
 </html>

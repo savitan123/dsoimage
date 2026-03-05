@@ -50,7 +50,13 @@
                         <div class="dropdown-content">
                             <a href="weather.html"><i class="fa-solid fa-cloud-moon"></i> Weather</a>
                             <a href="planner.html"><i class="fa-solid fa-calendar-days"></i> Planned Session</a>
-                            <a class="active" href="tools.html"><i class="fa-solid fa-calculator"></i> Calculators</a>
+                            <a class="active" href="astronomy-tools.html"><i class="fa-solid fa-toolbox"></i> Astronomy
+                                Tools</a>
+                            <a href="coordinate-converter.html"><i class="fa-solid fa-globe"></i> Coordinate
+                                Converter</a>
+                            <a href="checklist.html"><i class="fa-solid fa-check-double"></i> Pre-Flight Checklist</a>
+                            <a href="live-sky-map.html"><i class="fa-solid fa-map-location-dot"></i> Live Sky Map
+                                (Interactive)</a>
                         </div>
                     </li>
                     <li><a href="about.html"><i class="fa-solid fa-user-astronaut"></i> About</a></li>
@@ -146,119 +152,6 @@
                     </div>
                 </div>
                 <!-- END TOP GRID CONTAINER -->
-                <!-- 5. Coordinate Converter -->
-                <div class="tool-card wide-card" id="coord-tool">
-                    <div class="tool-icon">🌐</div>
-                    <h2>Coordinate Converter</h2>
-                    <div class="tabs">
-                        <button class="tab-btn active" onclick="switchTab('dec-to-dms')">Dec to DMS</button>
-                        <button class="tab-btn" onclick="switchTab('dms-to-dec')">DMS to Dec</button>
-                    </div>
-                    <!-- Dec to DMS Form -->
-                    <div class="tab-content active" id="dec-to-dms">
-                        <div class="converter-row">
-                            <input id="input-dec" placeholder="Decimal Degrees (e.g. 34.56)" step="any" type="number" />
-                            <button class="action-btn" onclick="convertDecToDms()">Convert</button>
-                        </div>
-                        <div class="result-box" id="result-dms">Result: --° --' --"</div>
-                    </div>
-                    <div class="tab-content" id="dms-to-dec">
-                        <div class="converter-row multi-input">
-                            <input class="small-input" id="input-d" placeholder="Deg" type="number" />
-                            <input class="small-input" id="input-m" placeholder="Min" type="number" />
-                            <input class="small-input" id="input-s" placeholder="Sec" type="number" />
-                            <button class="action-btn" onclick="convertDmsToDec()">Convert</button>
-                        </div>
-                        <div class="result-box" id="result-dec">Result: --</div>
-                    </div>
-                </div>
-                <!-- 6. Pre-Flight Checklist -->
-                <div class="tool-card wide-card" id="checklist-tool">
-                    <div class="tool-icon">✅</div>
-                    <h2>Pre-Flight Checklist</h2>
-                    <div class="tool-content">
-                        <!-- AUTHENTICATION UI -->
-                        <div id="auth-container" style="text-align: center; margin-bottom: 20px;">
-                            <p style="margin-bottom:15px; color:#aaa; font-size:14px;">Log in to access your private,
-                                cross-device checklist.</p>
-                            <button class="action-btn" id="login-google-btn"
-                                style="background: #4285F4; border-radius: 4px; padding: 10px 20px;">
-                                <span
-                                    style="background: white; color: #4285F4; border-radius: 50%; padding: 2px 6px; font-weight: bold; margin-right: 8px;">G</span>
-                                Sign in with Google
-                            </button>
-                        </div>
-                        <!-- LOGGED IN VIEW & CHECKLIST (Hidden by Default) -->
-                        <div id="app-container" style="display: none;">
-                            <div
-                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #333;">
-                                <div id="user-profile-name" style="color:#1e90ff; font-size:14px;">Logged in as: ...
-                                </div>
-                                <button id="logout-btn"
-                                    style="background: transparent; border: 1px solid #aaa; color: #aaa; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; transition: 0.2s;">Sign
-                                    Out</button>
-                            </div>
-                            <p style="margin-bottom:15px; color:#aaa; font-size:14px;">Progress syncs live to the cloud
-                                across all your devices.</p>
-                            <div class="checklist-input-group" style="display:flex; gap:10px; margin-bottom: 20px;">
-                                <input id="new-task-input" placeholder="Add a new custom task..."
-                                    style="flex:1; padding: 10px; border-radius: 4px; border: 1px solid #444; background: #222; color: #fff;"
-                                    type="text" />
-                                <select id="new-task-category"
-                                    style="padding: 10px; border-radius: 4px; border: 1px solid #444; background: #222; color: #fff;">
-                                    <option value="Hardware">Hardware</option>
-                                    <option value="Software/Config">Software/Config</option>
-                                    <option value="Other">Other</option>
-                                </select>
-                                <button class="action-btn" id="add-task-btn" style="padding: 0 15px;">Add</button>
-                            </div>
-                            <div class="checklist-container" id="checklist-container">
-                                <!-- JS will populate the categories and items here -->
-                            </div>
-                            <div style="text-align: right; margin-top: 15px;">
-                                <button id="reset-checklist-btn"
-                                    style="background: transparent; border: 1px solid #e74c3c; color: #e74c3c; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; transition: 0.2s;">Reset
-                                    All Checkmarks</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- 7. VirtualSky Interactive Map (Desktop) / Stellarium + TheSkyLive (Mobile) -->
-                <div class="tool-card wide-card" id="skymap-tool">
-                    <div class="tool-icon">🌌</div>
-                    <h2 data-i18n="live_skymap">Live Sky Map (Interactive)</h2>
-                    <div class="tool-content">
-                        <p style="margin-bottom:15px; color:#aaa; font-size:14px;">Interactive view (Drag to pan).</p>
-                        <!-- Mobile Text (Replaces map on phone) -->
-                        <div class="mobile-hint"
-                            style="margin-bottom:15px; font-size:14px; display:none; text-align:center;">
-                            <p style="color:#1e90ff; margin-bottom:15px;">Launch external map App:</p>
-                            <div style="display:flex; flex-direction:column; gap:10px; align-items:center;">
-                                <a class="action-btn" href="https://theskylive.com/planetarium"
-                                    style="text-decoration:none; display:inline-block; width:100%; max-width:300px; background:#222; border:1px solid #444;"
-                                    target="_blank">
-                                    Open TheSkyLive ↗
-                                </a>
-                            </div>
-                        </div>
-                        <!-- Iframe Container (Hidden on Mobile) -->
-                        <div class="iframe-container">
-                            <iframe allowtransparency="true" frameborder="0" height="100%" loading="lazy"
-                                marginheight="0" marginwidth="0" scrolling="no"
-                                src="https://virtualsky.lco.global/embed/index.html?longitude=34.851&amp;latitude=31.046&amp;projection=stereo&amp;constellations=true&amp;constellationlabels=true&amp;sho=false&amp;showstarlabels=true&amp;live=true&amp;az=180"
-                                style="border-radius:8px;" width="100%">
-                            </iframe>
-                        </div>
-                        <!-- Desktop Button -->
-                        <div class="desktop-only-btn" style="margin-top:10px; text-align:center;">
-                            <a class="action-btn"
-                                href="https://virtualsky.lco.global/embed/index.html?longitude=34.851&amp;latitude=31.046&amp;projection=stereo&amp;constellations=true&amp;constellationlabels=true&amp;sho=false&amp;showstarlabels=true&amp;live=true&amp;az=180"
-                                style="text-decoration:none; display:inline-block;" target="_blank">
-                                Open Full Screen Map ↗
-                            </a>
-                        </div>
-                    </div>
-                </div>
             </div>
             <footer class="site-footer">
                 <p>© 2026 Shimon Avitan | dsoimage.com</p>

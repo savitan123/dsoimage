@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="https://dsoimage.com/tools.html" rel="canonical" />
+    <title>Live Sky Map (Interactive) — Shimon Avitan</title>
+    <meta
+        content="Live Sky Map (Interactive) — Shimon Avitan - Explore the night sky dynamically with an interactive star map."
+        name="description" />
+    <!-- FORCE NEW VERSION v=11 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="css/style.css?v=34" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="container">
+        <!-- TOPBAR (mobile) -->
+        <!-- TOPBAR (mobile) -->
+        <header class="topbar"></header>
+        <div class="overlay" hidden="" id="overlay"></div>
+        <nav aria-label="Site menu" class="top-nav" id="top-nav">
+            <div class="top-nav-container">
+                <div class="top-nav-logo"><a href="index.html">DSOImage</a></div>
+                <ul class="top-nav-links" id="top-nav-links">
+                    <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropbtn"><i class="fa-solid fa-images"></i> Galleries
+                            &#9662;</a>
+                        <div class="dropdown-content">
+                            <a href="galaxies.html"><i class="fa-solid fa-hurricane"></i> Galaxies</a>
+                            <a href="nebulae.html"><i class="fa-solid fa-smog"></i> Nebulae</a>
+                            <a href="clusters.html"><i class="fa-solid fa-certificate"></i> Star Clusters</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropbtn"><i class="fa-solid fa-book"></i> Resources
+                            &#9662;</a>
+                        <div class="dropdown-content">
+                            <a href="equipment.html"><i class="fa-solid fa-camera-retro"></i> Equipment</a>
+                            <a href="processing.html"><i class="fa-solid fa-laptop-code"></i> Processing</a>
+                            <a href="knowledge.html"><i class="fa-solid fa-book-open"></i> Knowledge Base</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropbtn"><i class="fa-solid fa-toolbox"></i> Tools
+                            &#9662;</a>
+                        <div class="dropdown-content">
+                            <a href="weather.html"><i class="fa-solid fa-cloud-moon"></i> Weather</a>
+                            <a href="planner.html"><i class="fa-solid fa-calendar-days"></i> Planned Session</a>
+                            <a href="astronomy-tools.html"><i class="fa-solid fa-toolbox"></i> Astronomy Tools</a>
+                            <a href="coordinate-converter.html"><i class="fa-solid fa-globe"></i> Coordinate
+                                Converter</a>
+                            <a href="checklist.html"><i class="fa-solid fa-check-double"></i> Pre-Flight Checklist</a>
+                            <a class="active" href="live-sky-map.html"><i class="fa-solid fa-map-location-dot"></i> Live
+                                Sky Map (Interactive)</a>
+                        </div>
+                    </li>
+                    <li><a href="about.html"><i class="fa-solid fa-user-astronaut"></i> About</a></li>
+                    <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+                </ul>
+                <div class="top-nav-actions">
+                    <button class="mode-toggle-btn" id="red-mode-toggle" title="Night Vision"><span
+                            class="circle-icon"></span></button>
+                    <div class="nv-controls" id="nv-container"
+                        style="display:none;position:absolute;top:60px;right:20px;background:#111;padding:10px;border:1px solid #333;z-index:2000;border-radius:8px;">
+                        <label for="nv-slider"
+                            style="font-size:13px;color:#aaa;display:block;margin-bottom:5px;">Dimmer</label>
+                        <input id="nv-slider" max="100" min="20" type="range" value="80" />
+                    </div>
+                    <button id="mobile-nav-toggle" aria-label="Toggle navigation" title="Menu">&#9776;</button>
+                    <button class="search-trigger" title="Search">&#128269;</button>
+                </div>
+            </div>
+        </nav>
+        <div id="image-stats" style="display:none;"></div>
+        <!-- MAIN -->
+        <main class="main-content">
+            <main class="main-content">
+                <h1>Live Sky Map (Interactive)</h1>
+                <p class="subtitle">
+                    Explore the night sky directly from your browser.
+                </p>
+                <div class="tools-grid">
+                    <!-- 7. VirtualSky Interactive Map -->
+                    <div class="tool-card wide-card" id="skymap-tool">
+                        <div class="tool-icon">🌌</div>
+                        <h2 data-i18n="live_skymap">Live Sky Map (Interactive)</h2>
+                        <div class="tool-content">
+                            <p style="margin-bottom:15px; color:#aaa; font-size:14px;">Interactive view (Drag to pan).
+                            </p>
+                            <!-- Mobile Text (Replaces map on phone) -->
+                            <div class="mobile-hint"
+                                style="margin-bottom:15px; font-size:14px; display:none; text-align:center;">
+                                <p style="color:#1e90ff; margin-bottom:15px;">Launch external map App:</p>
+                                <div style="display:flex; flex-direction:column; gap:10px; align-items:center;">
+                                    <a class="action-btn" href="https://theskylive.com/planetarium"
+                                        style="text-decoration:none; display:inline-block; width:100%; max-width:300px; background:#222; border:1px solid #444;"
+                                        target="_blank">
+                                        Open TheSkyLive ↗
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- Iframe Container (Hidden on Mobile) -->
+                            <div class="iframe-container">
+                                <iframe allowtransparency="true" frameborder="0" height="100%" loading="lazy"
+                                    marginheight="0" marginwidth="0" scrolling="no"
+                                    src="https://virtualsky.lco.global/embed/index.html?longitude=34.851&amp;latitude=31.046&amp;projection=stereo&amp;constellations=true&amp;constellationlabels=true&amp;sho=false&amp;showstarlabels=true&amp;live=true&amp;az=180"
+                                    style="border-radius:8px;" width="100%">
+                                </iframe>
+                            </div>
+                            <!-- Desktop Button -->
+                            <div class="desktop-only-btn" style="margin-top:10px; text-align:center;">
+                                <a class="action-btn"
+                                    href="https://virtualsky.lco.global/embed/index.html?longitude=34.851&amp;latitude=31.046&amp;projection=stereo&amp;constellations=true&amp;constellationlabels=true&amp;sho=false&amp;showstarlabels=true&amp;live=true&amp;az=180"
+                                    style="text-decoration:none; display:inline-block;" target="_blank">
+                                    Open Full Screen Map ↗
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="site-footer">
+                    <p>© 2026 Shimon Avitan | dsoimage.com</p>
+                </footer>
+            </main>
+    </div>
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="search-overlay">
+        <div class="search-box">
+            <span class="search-close">×</span>
+            <input autocomplete="off" class="search-input" id="search-input" placeholder="Search objects (e.g., M31)..."
+                type="search" />
+            <div class="search-results" id="search-results"></div>
+        </div>
+    </div>
+    <!-- Firebase Compat SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <!-- Updated for Mobile Layout Fixes -->
+    <script src="js/script.js?v=37"></script>
+    <script src="js/stats.js"></script>
+</body>
+
+</html>
