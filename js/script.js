@@ -832,6 +832,11 @@ function initDSOImage() {
   }
 }
 
+// Ensure the Moon Phase updates dynamically on load if the widget is on the page
+if (typeof updateMoonPhase === 'function') {
+  updateMoonPhase();
+}
+
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initDSOImage);
 } else {
@@ -849,8 +854,9 @@ function updateMoonPhase() {
   const moonNameEl = document.getElementById("moon-phase-name");
   const moonIllumEl = document.getElementById("moon-illumination");
   const daysToNewEl = document.getElementById("days-to-new-moon");
+  const homeMoonWidget = document.getElementById("home-lunar-widget-content");
 
-  if (!moonNameEl) return;
+  if (!moonNameEl && !homeMoonWidget) return;
 
   // Synodic month
   const synodic = 29.53058867;
@@ -888,9 +894,27 @@ function updateMoonPhase() {
   const daysRemaining = Math.round(synodic - currentCycleAge);
 
   // Update UI
-  moonNameEl.innerText = `${icon} ${phaseName}`;
-  moonIllumEl.innerText = `Illumination: ${illumination}%`;
+  if (moonNameEl) moonNameEl.innerText = `${icon} ${phaseName}`;
+  if (moonIllumEl) moonIllumEl.innerText = `Illumination: ${illumination}%`;
   if (daysToNewEl) daysToNewEl.innerText = daysRemaining;
+
+  // Update Home Widget if exists
+  if (homeMoonWidget) {
+    let textRecommendation = "Consider narrowband imaging.";
+    if (illumination < 50) textRecommendation = "Good conditions for broadband imaging.";
+    if (illumination > 80) textRecommendation = "Ideal for narrowband (H-alpha). Broadband galaxy hunting not recommended tonight.";
+
+    homeMoonWidget.innerHTML = `
+      <div style="font-size: 4rem; filter: grayscale(0.2) drop-shadow(0px 0px 10px rgba(255,255,255,0.2));">
+        ${icon}
+      </div>
+      <div>
+        <div style="font-size: 22px; font-weight: bold; color: #fff;">${phaseName}</div>
+        <div style="color: #bbb; font-size: 14px;">Illumination: ${illumination}%</div>
+        <div style="color: #888; font-size: 13px; margin-top: 5px;">${textRecommendation}</div>
+      </div>
+    `;
+  }
 }
 
 // 2. ISS Tracker (Fetch API)
