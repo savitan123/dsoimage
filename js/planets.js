@@ -92,18 +92,19 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
 
             html += `
-            <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #222; padding-bottom: 5px;">
-               <div style="display: flex; align-items: center; gap: 8px; width: 30%;">
+            <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; border-bottom: 1px solid #222; padding: 8px 0; gap: 10px;">
+               <div style="display: flex; align-items: center; gap: 8px; flex: 1; min-width: 90px; white-space: nowrap;">
                    <i class="${b.label}" style="color: ${b.color}; width: 16px; text-align: center;"></i>
                    <span style="${visStyle}">${b.name}</span>
                </div>
-               <div style="width: 15%; text-align: center;">${visIcon}</div>
-               <div style="width: 25%; color: #aaa; text-align: center;" title="Rise / Set">
-                   <i class="fa-solid fa-arrow-up" style="font-size: 9px;"></i> <span style="font-family: monospace;">${riseStr}</span><br>
+               <div style="flex: 0 0 40px; text-align: center;">${visIcon}</div>
+               <div style="flex: 1.5; min-width: 100px; color: #aaa; text-align: center; white-space: nowrap;" title="Rise / Set">
+                   <i class="fa-solid fa-arrow-up" style="font-size: 9px;"></i> <span style="font-family: monospace;">${riseStr}</span>
+                   <span style="margin: 0 6px; color: #444;">|</span>
                    <i class="fa-solid fa-arrow-down" style="font-size: 9px;"></i> <span style="font-family: monospace;">${setStr}</span>
                </div>
-               <div style="width: 30%; color: #888; text-align: right; font-size: 11px;">
-                   Mag: ${mag}<br>${constel.name}
+               <div style="flex: 1; min-width: 90px; color: #888; text-align: right; font-size: 11px; white-space: nowrap;">
+                   Mag: ${mag} <span style="margin: 0 4px; color: #444;">|</span> ${constel.name}
                </div>
             </div>`;
         }
