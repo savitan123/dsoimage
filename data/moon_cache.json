@@ -2,12 +2,12 @@
   "date": "2026-03-06",
   "phase": "Waning Gibbous",
   "illumination": 90,
-  "moonrise": "20:42",
-  "moonset": "07:15",
+  "moonrise": "18:43",
+  "moonset": "05:50",
   "closestphase": {
-    "phase": "Full Moon",
-    "date": "2026-04-02",
-    "time": "03:23"
+    "phase": "Last Quarter",
+    "date": "2026-03-11",
+    "time": "09:38"
   },
-  "updated": "2026-03-06T12:00:00Z"
+  "updated": "2026-03-06T12:49:06Z"
 }
