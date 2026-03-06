@@ -832,10 +832,7 @@ function initDSOImage() {
   }
 }
 
-// Ensure the Moon Phase updates dynamically on load if the widget is on the page
-if (typeof updateMoonPhase === 'function') {
-  updateMoonPhase();
-}
+// Moon phase widget is handled by js/moon.js (USNO API cache)
 
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initDSOImage);
@@ -849,73 +846,9 @@ if (document.readyState === 'loading') {
 // ASTRONOMY TOOLS MODULE
 // ===============================
 
-// 1. Moon Phase Calculator
-function updateMoonPhase() {
-  const moonNameEl = document.getElementById("moon-phase-name");
-  const moonIllumEl = document.getElementById("moon-illumination");
-  const daysToNewEl = document.getElementById("days-to-new-moon");
-  const homeMoonWidget = document.getElementById("home-lunar-widget-content");
-
-  if (!moonNameEl && !homeMoonWidget) return;
-
-  // Synodic month
-  const synodic = 29.53058867;
-  // Known New Moon: Jan 18, 2026 17:55 UTC (Epoch)
-  const knownNewMoon = new Date(Date.UTC(2026, 0, 18, 17, 55, 0));
-  const now = new Date();
-
-  // Diff in days
-  const diffMs = now - knownNewMoon;
-  const diffDays = diffMs / (1000 * 60 * 60 * 24);
-
-  const cycleCount = Math.floor(diffDays / synodic);
-  const currentCycleAge = diffDays % synodic;
-
-  // Normalized Phase (0 to 1)
-  const phase = currentCycleAge / synodic; // 0.0 = New, 0.5 = Full
-
-  // Naming
-  let phaseName = "";
-  let icon = "";
-  if (phase < 0.02) { phaseName = "New Moon"; icon = "🌑"; }
-  else if (phase < 0.24) { phaseName = "Waxing Crescent"; icon = "🌒"; }
-  else if (phase < 0.26) { phaseName = "First Quarter"; icon = "🌓"; }
-  else if (phase < 0.49) { phaseName = "Waxing Gibbous"; icon = "🌔"; }
-  else if (phase < 0.51) { phaseName = "Full Moon"; icon = "🌕"; }
-  else if (phase < 0.74) { phaseName = "Waning Gibbous"; icon = "🌖"; }
-  else if (phase < 0.76) { phaseName = "Last Quarter"; icon = "🌗"; }
-  else if (phase < 0.98) { phaseName = "Waning Crescent"; icon = "🌘"; }
-  else { phaseName = "New Moon"; icon = "🌑"; }
-
-  // Illumination (Approx sinusoidal)
-  const illumination = Math.round((1 - Math.cos(phase * 2 * Math.PI)) / 2 * 100);
-
-  // Time to next New Moon
-  const daysRemaining = Math.round(synodic - currentCycleAge);
-
-  // Update UI
-  if (moonNameEl) moonNameEl.innerText = `${icon} ${phaseName}`;
-  if (moonIllumEl) moonIllumEl.innerText = `Illumination: ${illumination}%`;
-  if (daysToNewEl) daysToNewEl.innerText = daysRemaining;
-
-  // Update Home Widget if exists
-  if (homeMoonWidget) {
-    let textRecommendation = "Consider narrowband imaging.";
-    if (illumination < 50) textRecommendation = "Good conditions for broadband imaging.";
-    if (illumination > 80) textRecommendation = "Ideal for narrowband (H-alpha). Broadband galaxy hunting not recommended tonight.";
-
-    homeMoonWidget.innerHTML = `
-      <div style="font-size: 4rem; filter: grayscale(0.2) drop-shadow(0px 0px 10px rgba(255,255,255,0.2));">
-        ${icon}
-      </div>
-      <div>
-        <div style="font-size: 22px; font-weight: bold; color: #fff;">${phaseName}</div>
-        <div style="color: #bbb; font-size: 14px;">Illumination: ${illumination}%</div>
-        <div style="color: #888; font-size: 13px; margin-top: 5px;">${textRecommendation}</div>
-      </div>
-    `;
-  }
-}
+// 1. Moon Phase — handled by js/moon.js (reads USNO API cache from data/moon_cache.json)
+// updateMoonPhase() has been removed; moon.js populates both the home widget
+// (#home-lunar-widget-content) and the tools page elements (#moon-phase-name, etc.)
 
 // 2. ISS Tracker (Fetch API)
 async function updateISS() {
@@ -1093,7 +1026,7 @@ function initSkyMap() {
 
 // Run Tools
 function initTools() {
-  updateMoonPhase();
+  // Moon phase is handled by js/moon.js (USNO API cache) — no call needed here
   updateISS();
   updateTwilight();
   updatePlanets();

@@ -1,0 +1,120 @@
+name: Daily Moon Phase Cache
+
+on:
+  schedule:
+    # Runs every day at 05:00 UTC (before site traffic peaks)
+    - cron: '0 5 * * *'
+  workflow_dispatch: # Allow manual runs for testing
+
+jobs:
+  fetch-moon:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Fetch Moon Phase from USNO API
+        id: fetch
+        run: |
+          DATE=$(date -u +%Y-%m-%d)
+          echo "Fetching moon data for date: $DATE"
+
+          # USNO Astronomical Applications API — no API key required
+          # coords = Tel Aviv, Israel (31.05N, 34.85E), UTC+2
+          HTTP_STATUS=$(curl -s -o /tmp/moon_response.json -w "%{http_code}" \
+            "https://aa.usno.navy.mil/api/rstt/oneday?date=${DATE}&coords=31.05N,34.85E&tz=2")
+
+          echo "HTTP status: $HTTP_STATUS"
+
+          if [ "$HTTP_STATUS" -ne 200 ]; then
+            echo "USNO API call failed with status $HTTP_STATUS — keeping existing cache."
+            cat /tmp/moon_response.json || true
+            exit 0
+          fi
+
+          # Validate response has moondata
+          PHASE_CHECK=$(cat /tmp/moon_response.json | python3 -c "
+          import json, sys
+          data = json.load(sys.stdin)
+          moon = data.get('properties', {}).get('data', {}).get('moondata', [])
+          print('ok' if moon else 'missing')
+          " 2>/dev/null || echo "error")
+
+          if [ "$PHASE_CHECK" != "ok" ]; then
+            echo "Response missing moon data — keeping existing cache."
+            cat /tmp/moon_response.json || true
+            exit 0
+          fi
+
+          # Extract and write clean JSON to cache file
+          python3 -c "
+          import json, sys, datetime
+
+          data = json.load(open('/tmp/moon_response.json'))
+          props = data.get('properties', {}).get('data', {})
+
+          # Moon phase info
+          moon_phase_raw = props.get('curphase', '')
+          fracillum_raw  = props.get('fracillum', '0%')
+          closestphase   = props.get('closestphase', {})
+
+          # fracillum is returned as e.g. '72%' — strip the %
+          try:
+              illumination = int(fracillum_raw.replace('%', '').strip())
+          except Exception:
+              illumination = 0
+
+          # moondata array: entries with 'phen' = 'Rise', 'Set', 'Transit', etc.
+          moondata = props.get('moondata', [])
+          moonrise = ''
+          moonset  = ''
+          for entry in moondata:
+              phen = entry.get('phen', '')
+              time = entry.get('time', '')
+              if phen == 'Rise' and not moonrise:
+                  moonrise = time
+              if phen == 'Set' and not moonset:
+                  moonset = time
+
+          date_str = props.get('day', datetime.date.today().isoformat())
+          if isinstance(date_str, int):
+              # day is integer day-of-month; reconstruct with year/month
+              month = props.get('month', datetime.date.today().month)
+              year  = props.get('year',  datetime.date.today().year)
+              date_str = f'{year:04d}-{month:02d}-{date_str:02d}'
+
+          out = {
+              'date':          str(date_str),
+              'phase':         moon_phase_raw,
+              'illumination':  illumination,
+              'moonrise':      moonrise,
+              'moonset':       moonset,
+              'closestphase':  closestphase,
+              'updated':       datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
+          }
+
+          with open('data/moon_cache.json', 'w') as f:
+              json.dump(out, f, indent=2)
+
+          print('Moon cache written successfully.')
+          print(json.dumps(out, indent=2))
+          "
+
+          echo "Fetch and write succeeded."
+
+      - name: Commit updated cache if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add data/moon_cache.json
+
+          if git diff --cached --quiet; then
+            echo "No changes to moon_cache.json — nothing to commit."
+          else
+            git commit -m "chore: update moon phase cache [skip ci]"
+            git push
+          fi
