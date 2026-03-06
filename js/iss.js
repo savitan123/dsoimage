@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // We center it initially on 0,0 with zoom level 3
     const map = L.map('issMap', {
         minZoom: 2,
-        maxZoom: 7
+        maxZoom: 18
     }).setView([0, 0], 3);
 
     // 2. Add Colorful OpenStreetMap Tiles
