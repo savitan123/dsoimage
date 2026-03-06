@@ -768,6 +768,7 @@ img {
     height: auto;
     min-height: 52px;
     padding: 0 15px;
+    position: relative;
   }
 
   .top-nav-logo {
