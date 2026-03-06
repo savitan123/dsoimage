@@ -13,13 +13,13 @@ document.addEventListener('DOMContentLoaded', () => {
         maxZoom: 20
     }).addTo(map);
 
-    // 3. Create Custom ISS Marker Icon
-    const issIcon = L.icon({
-        // Using a built-in emoji/svg or generic marker is fine, but let's try to make it look cool
-        iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/d/d0/International_Space_Station.svg',
-        iconSize: [50, 50],
-        iconAnchor: [25, 25],
-        popupAnchor: [0, -25]
+    // 3. Create Custom ISS Marker Icon (Bright and visible)
+    const issIcon = L.divIcon({
+        className: 'custom-iss-marker',
+        html: '<div style="background: rgba(0,0,0,0.5); padding: 8px; border-radius: 50%; border: 2px solid #eedc82; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; box-shadow: 0 0 15px rgba(238,220,130,0.6);"><i class="fa-solid fa-satellite" style="color: #eedc82; font-size: 20px;"></i></div>',
+        iconSize: [40, 40],
+        iconAnchor: [20, 20],
+        popupAnchor: [0, -20]
     });
 
     const issMarker = L.marker([0, 0], { icon: issIcon }).addTo(map);
