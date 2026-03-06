@@ -2,8 +2,8 @@ name: Daily Moon Phase Cache
 
 on:
   schedule:
-    # Runs every day at 05:00 UTC
-    - cron: '0 5 * * *'
+    # Runs every 4 hours to keep the moon phase highly accurate
+    - cron: '0 */4 * * *'
   workflow_dispatch: # Allow manual runs
 
 jobs:
