@@ -269,16 +269,21 @@ function openDayModal(year, month, day) {
 // Precision Moon Age Calculator based on Synodic Month
 function getMoonAge(year, month, day) {
     const synodic = 29.53058867;
-    // Known New Moon: Jan 18, 2026 17:55 UTC
-    const knownNewMoon = new Date(Date.UTC(2026, 0, 18, 17, 55, 0));
+    // Precise Known Full Moon: April 2, 2026 03:23:29 UTC
+    const knownFullMoon = new Date(Date.UTC(2026, 3, 2, 3, 23, 29));
+
     // Set to noon to avoid timezone/daylight saving edge cases
     const targetDate = new Date(Date.UTC(year, month, day, 12, 0, 0));
 
-    const diffMs = targetDate.getTime() - knownNewMoon.getTime();
+    const diffMs = targetDate.getTime() - knownFullMoon.getTime();
     const diffDays = diffMs / (1000 * 60 * 60 * 24);
 
-    let phase = diffDays % synodic;
-    if (phase < 0) phase += synodic;
+    // Calculate phase (offset by 0.5 because anchor is a Full Moon)
+    let phaseFraction = (diffDays / synodic) + 0.5;
 
-    return phase;
+    // Normalize to 0.0 -> 1.0
+    phaseFraction = phaseFraction - Math.floor(phaseFraction);
+
+    // Return age in days (0 -> 29.53)
+    return phaseFraction * synodic;
 }
