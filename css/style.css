@@ -797,12 +797,12 @@ img {
     left: -280px;
     /* Hidden off-canvas edge */
     width: 280px;
-    height: 100vh;
-    /* changed from 100% to fill the screen */
+    height: 100%;
+    /* changed from 100vh to 100% to prevent overflow/springing */
     background: #111;
     border-top: none;
     border-right: 1px solid #333;
-    padding: 60px 0 20px 0;
+    padding: 60px 0 100px 0;
     gap: 0;
     margin: 0;
     z-index: 10000;
