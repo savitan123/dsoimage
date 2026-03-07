@@ -808,6 +808,7 @@ img {
     z-index: 10000;
     box-shadow: 4px 0 15px rgba(0, 0, 0, 0.7);
     overflow-y: auto;
+    overscroll-behavior: contain;
     transition: left 0.3s ease;
   }
 
@@ -2363,5 +2364,4 @@ body.red-mode img {
 body.no-scroll {
   overflow: hidden !important;
   height: 100vh !important;
-  touch-action: none !important;
 }
