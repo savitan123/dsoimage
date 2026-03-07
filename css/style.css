@@ -828,7 +828,7 @@ img {
     border-bottom: 1px solid #1a1a1a;
     display: flex;
     width: 100%;
-    font-size: 14px;
+    font-size: 18px;
     box-sizing: border-box;
   }
 
@@ -847,7 +847,7 @@ img {
 
   .top-nav-links .dropdown-content a {
     padding: 9px 20px 9px 38px;
-    font-size: 13px;
+    font-size: 16px;
     border-bottom: 1px solid #1a1a1a;
     display: flex;
     align-items: center;
