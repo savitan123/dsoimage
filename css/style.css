@@ -12,9 +12,9 @@ body {
   line-height: 1.6;
   margin: 0;
   padding: 0;
-  /* Default: Observatory Red background */
+  /* Default: Deep Space background */
   background: #141414;
-  color: #FF3366;
+  color: #FFF3E0;
   overflow-x: hidden;
   position: relative;
   /* For fixed bg context */
@@ -96,8 +96,8 @@ img {
   left: 0;
   right: 0;
   height: 56px;
-  background: #FFE5EA;
-  border-bottom: 1px solid rgba(255, 51, 102, 0.1);
+  background: #FFAB40;
+  border-bottom: 1px solid rgba(5, 14, 23, 0.1);
   z-index: 200;
   align-items: center;
   padding: 0 12px;
@@ -114,16 +114,16 @@ img {
 /* Button that opens the menu (hamburger) */
 .menu-toggle {
   appearance: none;
-  border: 1px solid rgba(255, 51, 102, 0.2);
+  border: 1px solid rgba(5, 14, 23, 0.2);
   background: transparent;
-  color: #FF3366;
+  color: #050E17;
   border-radius: 8px;
   padding: 8px 10px;
   cursor: pointer;
 }
 
 .menu-toggle:hover {
-  border-color: #FF3366;
+  border-color: #050E17;
 }
 
 /* =========================
@@ -155,10 +155,10 @@ img {
   position: sticky;
   top: 0;
   width: 100%;
-  background: #FFE5EA;
+  background: #FFAB40;
   backdrop-filter: blur(10px);
   z-index: 1000;
-  border-bottom: 1px solid rgba(255, 51, 102, 0.1);
+  border-bottom: 1px solid rgba(5, 14, 23, 0.1);
   display: flex;
   justify-content: center;
 }
@@ -175,7 +175,7 @@ img {
 }
 
 .top-nav-logo a {
-  color: #FF3366;
+  color: #050E17;
   font-size: 22px;
   font-weight: 800;
   text-decoration: none;
@@ -192,7 +192,7 @@ img {
 }
 
 .top-nav-links>li>a {
-  color: #FF3366;
+  color: #050E17;
   text-decoration: none;
   font-weight: 600;
   font-size: 15px;
@@ -204,7 +204,7 @@ img {
 
 .top-nav-links>li>a:hover,
 .top-nav-links>li>a.active {
-  color: rgba(255, 51, 102, 0.7);
+  color: rgba(5, 14, 23, 0.7);
 }
 
 /* Dropdown styling */
@@ -217,24 +217,24 @@ img {
   display: flex;
   align-items: center;
   cursor: pointer;
-  color: #FF3366;
+  color: #050E17;
   font-weight: 600;
   transition: color 0.2s;
   gap: 6px;
 }
 
 .dropbtn:hover {
-  color: rgba(255, 51, 102, 0.7);
+  color: rgba(5, 14, 23, 0.7);
 }
 
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #FFE5EA;
+  background-color: #FFAB40;
   min-width: 180px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
   z-index: 1001;
-  border: 1px solid rgba(255, 51, 102, 0.1);
+  border: 1px solid rgba(5, 14, 23, 0.1);
   border-radius: 6px;
   top: 100%;
   left: 0;
@@ -242,7 +242,7 @@ img {
 }
 
 .dropdown-content a {
-  color: #FF3366;
+  color: #050E17;
   padding: 10px 16px;
   text-decoration: none;
   display: flex;
@@ -252,8 +252,8 @@ img {
 }
 
 .dropdown-content a:hover {
-  background-color: rgba(255, 51, 102, 0.05);
-  color: rgba(255, 51, 102, 0.7);
+  background-color: rgba(5, 14, 23, 0.05);
+  color: #000;
 }
 
 .dropdown:hover .dropdown-content {
@@ -796,9 +796,9 @@ img {
     width: 280px;
     height: 100%;
     /* changed from 100vh to 100% to prevent overflow/springing */
-    background: #FFE5EA;
+    background: #FFAB40;
     border-top: none;
-    border-right: 1px solid rgba(255, 51, 102, 0.1);
+    border-right: 1px solid rgba(5, 14, 23, 0.1);
     padding: 60px 0 100px 0;
     gap: 0;
     margin: 0;
@@ -839,7 +839,7 @@ img {
     min-width: unset;
     width: 100%;
     padding: 0;
-    background: rgba(255, 51, 102, 0.05);
+    background: rgba(5, 14, 23, 0.05);
   }
 
   .top-nav-links .dropdown-content a {
