@@ -67,19 +67,23 @@ document.addEventListener('DOMContentLoaded', async () => {
                 visStyle = `color: #888;`;
             }
             html += `
-            <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; border-bottom: 1px solid #222; padding: 8px 0; gap: 10px;">
-               <div style="display: flex; align-items: center; gap: 8px; flex: 1; min-width: 90px; white-space: nowrap;">
-                   <i class="${b.label}" style="color: ${b.color}; width: 16px; text-align: center;"></i>
-                   <span style="${visStyle}">${b.name}</span>
+            <div style="display: flex; flex-direction: column; border-bottom: 1px solid #222; padding: 12px 0; gap: 8px;">
+               <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;">
+                   <div style="display: flex; align-items: center; gap: 8px;">
+                       <i class="${b.label}" style="color: ${b.color}; width: 16px; text-align: center;"></i>
+                       <span style="${visStyle}; font-size: 15px;">${b.name}</span>
+                   </div>
+                   <div style="text-align: right;">${visIcon}</div>
                </div>
-               <div style="flex: 0 0 40px; text-align: center;">${visIcon}</div>
-               <div style="flex: 1.5; min-width: 100px; color: #aaa; text-align: center; white-space: nowrap;" title="Rise / Set">
-                   <i class="fa-solid fa-arrow-up" style="font-size: 9px;"></i> <span style="font-family: monospace;">${riseStr}</span>
-                   <span style="margin: 0 6px; color: #444;">|</span>
-                   <i class="fa-solid fa-arrow-down" style="font-size: 9px;"></i> <span style="font-family: monospace;">${setStr}</span>
-               </div>
-               <div style="flex: 1; min-width: 90px; color: #888; text-align: right; font-size: 11px; white-space: nowrap;">
-                   Mag: ${mag} <span style="margin: 0 4px; color: #444;">|</span> ${constel.name}
+               <div style="display: flex; justify-content: space-between; align-items: center; font-size: 12.5px;">
+                   <div style="color: #aaa;" title="Rise / Set">
+                       <i class="fa-solid fa-arrow-up" style="font-size: 9px;"></i> <span style="font-family: monospace;">${riseStr}</span>
+                       <span style="margin: 0 4px; color: #444;">|</span>
+                       <i class="fa-solid fa-arrow-down" style="font-size: 9px;"></i> <span style="font-family: monospace;">${setStr}</span>
+                   </div>
+                   <div style="color: #888; text-align: right; font-size: 11.5px;">
+                       Mag: ${mag} <span style="margin: 0 4px; color: #444;">|</span> ${constel.name}
+                   </div>
                </div>
             </div>`;
         }
@@ -207,16 +211,20 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const topo = Astronomy.Horizon(date, observer, c.ra, c.dec, 'normal');
                 let nowStr = topo.altitude > 0 ? `Alt: ${topo.altitude.toFixed(0)}°` : "Below Horizon";
                 cContainer.innerHTML += `
-                <div style="${blockStyle}">
-                   <div style="display: flex; align-items: center; gap: 8px; flex: 1; min-width: 90px; white-space: nowrap;">
-                       <i class="fa-solid fa-star" style="color: #FFAB40; width: 16px; text-align: center;"></i>
-                       <span style="color: #fff; font-weight: bold; font-size: 15px;">${c.name}</span>
+                <div style="display: flex; flex-direction: column; border-bottom: 1px solid #222; padding: 12px 0; gap: 8px;">
+                   <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;">
+                       <div style="display: flex; align-items: flex-start; gap: 8px;">
+                           <i class="fa-solid fa-star" style="color: #FFAB40; width: 16px; text-align: center; margin-top: 3px;"></i>
+                           <span style="color: #fff; font-weight: bold; font-size: 15px; line-height: 1.3; word-break: break-word;">${c.name}</span>
+                       </div>
                    </div>
-                   <div style="flex: 1.5; min-width: 100px; color: #aaa; text-align: center; white-space: nowrap;">
-                       ${formatTimes(times)}
-                   </div>
-                   <div style="flex: 1; min-width: 90px; color: #888; text-align: right; font-size: 11px; white-space: nowrap;">
-                       Max: ${c.maxAlt.toFixed(0)}° <span style="margin: 0 4px; color: #444;">|</span> ${nowStr}
+                   <div style="display: flex; justify-content: space-between; align-items: center; font-size: 12.5px;">
+                       <div style="color: #aaa;">
+                           ${formatTimes(times)}
+                       </div>
+                       <div style="color: #888; text-align: right; font-size: 11.5px;">
+                           Max: ${c.maxAlt.toFixed(0)}° <span style="margin: 0 4px; color: #444;">|</span> ${nowStr}
+                       </div>
                    </div>
                 </div>`;
             });
@@ -240,16 +248,23 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const topo = Astronomy.Horizon(date, observer, d.ra, d.dec, 'normal');
                 let nowStr = topo.altitude > 0 ? `Alt: ${topo.altitude.toFixed(0)}°` : "Below Horizon";
                 dContainer.innerHTML += `
-                <div style="${blockStyle}">
-                   <div style="display: flex; align-items: center; gap: 8px; flex: 1; min-width: 120px; white-space: nowrap;">
-                       <i class="fa-solid fa-camera-retro" style="color: #FFAB40; width: 16px; text-align: center;"></i>
-                       <span style="color: #fff; font-weight: bold; font-size: 15px;">${d.name}</span>
+                <div style="display: flex; flex-direction: column; border-bottom: 1px solid #222; padding: 12px 0; gap: 8px;">
+                   <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;">
+                       <div style="display: flex; align-items: flex-start; gap: 8px;">
+                           <i class="fa-solid fa-camera-retro" style="color: #FFAB40; width: 16px; text-align: center; margin-top: 3px;"></i>
+                           <span style="color: #fff; font-weight: bold; font-size: 15px; line-height: 1.3; word-break: break-word;">${d.name}</span>
+                       </div>
+                       <div style="color: #888; text-align: right; font-size: 11.5px; white-space: nowrap;">
+                           Mg: ${d.mag}
+                       </div>
                    </div>
-                   <div style="flex: 1.5; min-width: 100px; color: #aaa; text-align: center; white-space: nowrap;">
-                       ${formatTimes(times)}
-                   </div>
-                   <div style="flex: 1; min-width: 120px; color: #888; text-align: right; font-size: 11px; white-space: nowrap;">
-                       Mg: ${d.mag} <span style="margin: 0 4px; color: #444;">|</span> ${d.type} <br/> Max: ${d.maxAlt.toFixed(0)}°
+                   <div style="display: flex; justify-content: space-between; align-items: center; font-size: 12.5px;">
+                       <div style="color: #aaa;">
+                           ${formatTimes(times)}
+                       </div>
+                       <div style="color: #888; text-align: right; font-size: 11.5px;">
+                           ${d.type} <span style="margin: 0 4px; color: #444;">|</span> Max: ${d.maxAlt.toFixed(0)}°
+                       </div>
                    </div>
                 </div>`;
             });
