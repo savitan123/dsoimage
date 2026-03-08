@@ -6,11 +6,12 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <link href="https://dsoimage.com/astronomy-tools.html" rel="canonical" />
-    <title>Planets Visible Tonight | DSOImage</title>
+    <title>Tonight's Best | DSOImage</title>
     <meta
         content="Astronomy Tools — Shimon Avitan - Deep Sky Astrophotography by Shimon Avitan. High-resolution LRGB imaging featuring nebulae, galaxies, and star clusters captured with FLT 132."
         name="description" />
-    <meta name="keywords" content="Shimon Avitan, DSOImage, Astrophotography, Deep Sky Objects, DSO, Gallery, Astronomy, Galaxies, Nebulae, Space, Telescope, Night Sky, FLT 132, ASI2600MM, APOD, ISS Tracker, Planet Visibility" />
+    <meta name="keywords"
+        content="Shimon Avitan, DSOImage, Astrophotography, Deep Sky Objects, DSO, Gallery, Astronomy, Galaxies, Nebulae, Space, Telescope, Night Sky, FLT 132, ASI2600MM, APOD, ISS Tracker, Planet Visibility" />
     <!-- FORCE NEW VERSION v=11 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="css/style.css?v=45" rel="stylesheet" />
@@ -41,8 +42,10 @@
                         <a href="javascript:void(0)" class="dropbtn"><i class="fa-solid fa-book"></i> Resources
                             &#9662;</a>
                         <div class="dropdown-content">
-                            <a data-i18n="menu_equipment" href="equipment.html"><i class="fa-solid fa-camera-retro"></i> Equipment</a>
-                            <a data-i18n="menu_processing" href="processing.html"><i class="fa-solid fa-laptop-code"></i> Processing</a>
+                            <a data-i18n="menu_equipment" href="equipment.html"><i class="fa-solid fa-camera-retro"></i>
+                                Equipment</a>
+                            <a data-i18n="menu_processing" href="processing.html"><i
+                                    class="fa-solid fa-laptop-code"></i> Processing</a>
                             <a href="knowledge.html"><i class="fa-solid fa-book-open"></i> Knowledge Base</a>
                         </div>
                     </li>
@@ -50,13 +53,16 @@
                         <a href="javascript:void(0)" class="dropbtn"><i class="fa-solid fa-toolbox"></i> Tools
                             &#9662;</a>
                         <div class="dropdown-content">
-                            <a data-i18n="menu_weather" href="weather.html"><i class="fa-solid fa-cloud-sun"></i> Weather</a>
+                            <a data-i18n="menu_weather" href="weather.html"><i class="fa-solid fa-cloud-sun"></i>
+                                Weather</a>
                             <a href="planner.html"><i class="fa-solid fa-calendar-days"></i> Planned Session</a>
-                            <a href="coordinate-converter.html"><i class="fa-solid fa-globe"></i> Coordinate Converter</a>
+                            <a href="coordinate-converter.html"><i class="fa-solid fa-globe"></i> Coordinate
+                                Converter</a>
                             <a href="checklist.html"><i class="fa-solid fa-check-double"></i> Pre-Flight Checklist</a>
-                            <a href="live-sky-map.html"><i class="fa-solid fa-map-location-dot"></i> Live Sky Map (Interactive)</a>
+                            <a href="live-sky-map.html"><i class="fa-solid fa-map-location-dot"></i> Live Sky Map
+                                (Interactive)</a>
                             <a href="apod.html"><i class="fa-solid fa-satellite"></i> NASA APOD</a>
-                            <a href="planets.html"><i class="fa-solid fa-earth-americas"></i> Planets Visible Tonight</a>
+                            <a href="tonights_best.html"><i class="fa-solid fa-star"></i> Tonight's Best</a>
                             <a href="iss.html"><i class="fa-solid fa-rocket"></i> Where is the ISS?</a>
                         </div>
                     </li>
@@ -80,22 +86,54 @@
         <div id="image-stats" style="display:none;"></div>
         <!-- MAIN -->
         <main class="main-content">
-            <h1 style="color:#eedc82; font-size:36px; text-shadow:0px 0px 10px rgba(255,255,255,0.2);"><i
-                    class="fa-solid fa-earth-americas"></i> Planets Visible Tonight</h1>
+            <h1 style="color:#FFAB40; font-size:36px; text-shadow:0px 0px 10px rgba(255,255,255,0.2);"><i
+                    class="fa-solid fa-star"></i> Tonight's Best</h1>
             <p class="subtitle">
-                Real-time visibility overview of the solar system.
+                Real-time visibility overview of the solar system, featured constellation, and deep sky target.
                 <br />
                 <small style="color:#888;">These calculations are localized in your browser based on your current
                     connection.</small>
             </p>
-            <div class="widget-card" id="planets-widget"
-                style="background:#111; border: 1px solid #333; border-radius: 12px; padding: 40px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); max-width: 800px; margin: 0 auto; display: flex; flex-direction: column;">
-                <div id="planets-container"
-                    style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 15px;">
-                    <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 3rem; color: #555;"></i>
-                    <div style="color: #888; font-size: 16px;">Locating and computing...</div>
+
+            <div class="dashboard-grid"
+                style="display: flex; flex-direction: column; gap: 40px; max-width: 900px; margin: 0 auto; padding-bottom: 40px;">
+                <!-- Planets Widget -->
+                <div class="widget-card" id="planets-widget"
+                    style="background:#111; border: 1px solid #333; border-radius: 12px; padding: 40px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); display: flex; flex-direction: column;">
+                    <h2 style="margin-top:0; color:#FFAB40;"><i class="fa-solid fa-earth-americas"></i> Planets Visible
+                        Tonight</h2>
+                    <div id="planets-container"
+                        style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 15px;">
+                        <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 3rem; color: #555;"></i>
+                        <div style="color: #888; font-size: 16px;">Locating and computing...</div>
+                    </div>
+                </div>
+
+                <!-- Constellation Widget -->
+                <div class="widget-card" id="constellation-widget"
+                    style="background:#111; border: 1px solid #333; border-radius: 12px; padding: 40px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); display: flex; flex-direction: column;">
+                    <h2 style="margin-top:0; color:#FFAB40;"><i class="fa-solid fa-draw-polygon"></i> Featured
+                        Constellation Tonight</h2>
+                    <div id="constellation-container"
+                        style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 15px;">
+                        <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 3rem; color: #555;"></i>
+                        <div style="color: #888; font-size: 16px;">Locating and computing...</div>
+                    </div>
+                </div>
+
+                <!-- DSO Widget -->
+                <div class="widget-card" id="dso-widget"
+                    style="background:#111; border: 1px solid #333; border-radius: 12px; padding: 40px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); display: flex; flex-direction: column;">
+                    <h2 style="margin-top:0; color:#FFAB40;"><i class="fa-solid fa-hurricane"></i> Best Deep Sky Object
+                        Tonight</h2>
+                    <div id="dso-container"
+                        style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 15px;">
+                        <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 3rem; color: #555;"></i>
+                        <div style="color: #888; font-size: 16px;">Locating and computing...</div>
+                    </div>
                 </div>
             </div>
+
             <footer class="site-footer">
                 <p>© 2026 Shimon Avitan | dsoimage.com</p>
             </footer>
@@ -117,7 +155,7 @@
     <!-- Updated for Mobile Layout Fixes -->
     <script src="js/script.js?v=38"></script>
     <script src="js/stats.js"></script>
-    <script src="js/planets.js?v=2"></script>
+    <script src="js/tonights_best.js?v=1"></script>
 </body>
 
 </html>

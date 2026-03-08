@@ -8,7 +8,7 @@ $pages = @(
     @{ file = "clusters.html"; url = "/clusters.html"; priority = "0.8"; changefreq = "weekly" },
     @{ file = "planner.html"; url = "/planner.html"; priority = "0.9"; changefreq = "weekly" },
     @{ file = "apod.html"; url = "/apod.html"; priority = "0.8"; changefreq = "daily" },
-    @{ file = "planets.html"; url = "/planets.html"; priority = "0.8"; changefreq = "daily" },
+    @{ file = "tonights_best.html"; url = "/tonights_best.html"; priority = "0.8"; changefreq = "daily" },
     @{ file = "iss.html"; url = "/iss.html"; priority = "0.9"; changefreq = "always" },
     @{ file = "coordinate-converter.html"; url = "/coordinate-converter.html"; priority = "0.8"; changefreq = "monthly" },
     @{ file = "checklist.html"; url = "/checklist.html"; priority = "0.8"; changefreq = "monthly" },
