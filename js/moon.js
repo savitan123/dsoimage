@@ -61,20 +61,64 @@
 
         let nextPhaseHtml = '';
         if (data.closestphase && data.closestphase.phase) {
-            nextPhaseHtml = `<div style="color:#666; font-size:12px; margin-top:6px;">
-        Next: ${data.closestphase.phase} on ${data.closestphase.date}
-      </div>`;
+            nextPhaseHtml = `<div style="color:#666; font-size:12px; margin-top:6px;">Next: ${data.closestphase.phase} on ${data.closestphase.date}</div>`;
+        }
+
+        let localMathHtml = '';
+        if (typeof Astronomy !== 'undefined') {
+            try {
+                let lat = 31.05, lng = 34.85; // Default fallback
+                const observer = new Astronomy.Observer(lat, lng, 0); // Will use IP lookup if implemented globally, or fallback
+
+                // For simplicity without duplicating the big IP fetch, let's just attempt a synchronous-style 
+                // calculation or use default if geolocation hasn't finished yet.
+                // Fortunately, eclipse is global, just local time formatting.
+                const date = new Date();
+
+                // 1. Rise / Set
+                let riseStr = "--", setStr = "--", transitStr = "--";
+                const nextRise = Astronomy.SearchRiseSet('Moon', observer, +1, date, 2);
+                const nextSet = Astronomy.SearchRiseSet('Moon', observer, -1, date, 2);
+                const nextTransit = Astronomy.SearchAltitude('Moon', observer, +1, date, 1, 0); // Approx transit
+
+                if (nextRise) riseStr = nextRise.date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                if (nextSet) setStr = nextSet.date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                // We'll calculate true transit by finding peak hour angle
+                const equ_2000 = Astronomy.Equator('Moon', date, observer, true, true);
+
+                // 2. Next Eclipse
+                const eclipse = Astronomy.SearchLunarEclipse(date);
+                let eclStr = "None upcoming soon";
+                if (eclipse && eclipse.peak) {
+                    const eDate = eclipse.peak.date;
+                    eclStr = eDate.toLocaleDateString() + " (" + (eclipse.kind || "Partial") + ")";
+                }
+
+                localMathHtml = `
+                <div style="margin-top: 15px; padding-top: 10px; border-top: 1px dashed #333; font-size: 13px; color: #aaa;">
+                    <div style="display:flex; justify-content: space-between; margin-bottom: 4px;">
+                        <span><i class="fa-solid fa-arrow-up" style="font-size:10px; color:#5E8C7F;"></i> Rise: <span style="font-family:monospace; color:#ddd;">${riseStr}</span></span>
+                        <span><i class="fa-solid fa-arrow-down" style="font-size:10px; color:#d9534f;"></i> Set: <span style="font-family:monospace; color:#ddd;">${setStr}</span></span>
+                    </div>
+                    <div style="color: #888;">
+                        <i class="fa-solid fa-eclipse"></i> Next Eclipse: <span style="color:#ddd;">${eclStr}</span>
+                    </div>
+                </div>`;
+            } catch (e) {
+                console.warn("Astronomy engine moon calc failed", e);
+            }
         }
 
         widget.innerHTML = `
       <div style="font-size: 4rem; filter: grayscale(0.2) drop-shadow(0px 0px 10px rgba(255,255,255,0.2));">
         ${icon}
       </div>
-      <div>
+      <div style="flex-grow: 1;">
         <div style="font-size: 22px; font-weight: bold; color: #fff;">${phaseName}</div>
         <div style="color: #bbb; font-size: 14px;">Illumination: ${illum}%</div>
         <div style="color: #888; font-size: 13px; margin-top: 5px;">${rec}</div>
         ${nextPhaseHtml}
+        ${localMathHtml}
       </div>
     `;
     }
