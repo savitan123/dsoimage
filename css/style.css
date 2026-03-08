@@ -2362,3 +2362,30 @@ body.no-scroll {
   overflow: hidden !important;
   height: 100vh !important;
 }
+
+/* =========================
+   Dashboard Grid (Tonight's Best)
+   ========================= */
+
+.dashboard-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding-bottom: 40px;
+}
+
+@media (min-width: 992px) {
+  .dashboard-grid {
+    flex-direction: row;
+    max-width: 1500px;
+    align-items: stretch;
+    justify-content: center;
+  }
+
+  .dashboard-grid .widget-card {
+    flex: 1;
+    margin: 0;
+  }
+}
