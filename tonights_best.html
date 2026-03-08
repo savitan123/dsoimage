@@ -112,24 +112,28 @@
                 <!-- Constellation Widget -->
                 <div class="widget-card" id="constellation-widget"
                     style="background:#111; border: 1px solid #333; border-radius: 12px; padding: 40px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); display: flex; flex-direction: column;">
-                    <h2 style="margin-top:0; color:#FFAB40;"><i class="fa-solid fa-draw-polygon"></i> Featured
-                        Constellation Tonight</h2>
+                    <h2 style="margin-top:0; color:#FFAB40;"><i class="fa-solid fa-draw-polygon"></i> Constellations
+                        Visible Tonight</h2>
                     <div id="constellation-container"
-                        style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 15px;">
-                        <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 3rem; color: #555;"></i>
-                        <div style="color: #888; font-size: 16px;">Locating and computing...</div>
+                        style="flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; align-items: stretch; text-align: left; gap: 0; max-height: 400px; overflow-y: auto; padding-right: 15px;">
+                        <div style="text-align: center; padding: 20px;"><i class="fa-solid fa-circle-notch fa-spin"
+                                style="font-size: 3rem; color: #555;"></i></div>
+                        <div style="text-align: center; color: #888; font-size: 16px;">Scanning sky between 20:00 and
+                            05:00...</div>
                     </div>
                 </div>
 
                 <!-- DSO Widget -->
                 <div class="widget-card" id="dso-widget"
                     style="background:#111; border: 1px solid #333; border-radius: 12px; padding: 40px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); display: flex; flex-direction: column;">
-                    <h2 style="margin-top:0; color:#FFAB40;"><i class="fa-solid fa-hurricane"></i> Best Deep Sky Object
-                        Tonight</h2>
+                    <h2 style="margin-top:0; color:#FFAB40;"><i class="fa-solid fa-hurricane"></i> DSOs Visible Tonight
+                    </h2>
                     <div id="dso-container"
-                        style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 15px;">
-                        <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 3rem; color: #555;"></i>
-                        <div style="color: #888; font-size: 16px;">Locating and computing...</div>
+                        style="flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; align-items: stretch; text-align: left; gap: 0; max-height: 400px; overflow-y: auto; padding-right: 15px;">
+                        <div style="text-align: center; padding: 20px;"><i class="fa-solid fa-circle-notch fa-spin"
+                                style="font-size: 3rem; color: #555;"></i></div>
+                        <div style="text-align: center; color: #888; font-size: 16px;">Scanning sky between 20:00 and
+                            05:00...</div>
                     </div>
                 </div>
             </div>
@@ -155,7 +159,7 @@
     <!-- Updated for Mobile Layout Fixes -->
     <script src="js/script.js?v=38"></script>
     <script src="js/stats.js"></script>
-    <script src="js/tonights_best.js?v=1"></script>
+    <script src="js/tonights_best.js?v=2"></script>
 </body>
 
 </html>
