@@ -105,10 +105,19 @@ img {
   backdrop-filter: blur(8px);
 }
 
-.topbar-title {
-  font-size: 14px;
-  color: #bbb;
-  letter-spacing: 0.4px;
+.topbar-logo {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+
+.topbar-logo a {
+  color: #050E17;
+  font-size: 18px;
+  font-weight: 800;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
 }
 
 /* Button that opens the menu (hamburger) */
@@ -176,10 +185,11 @@ img {
 
 .top-nav-logo a {
   color: #050E17;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 800;
   text-decoration: none;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
 }
 
 .top-nav-links {
@@ -455,16 +465,16 @@ img {
   letter-spacing: 0.4px;
 }
 
-.color-header .red {
-  color: #ff3333;
+.red {
+  color: #ff3333 !important;
 }
 
-.color-header .green {
-  color: #33cc66;
+.green {
+  color: #33cc66 !important;
 }
 
-.color-header .blue {
-  color: #3399ff;
+.blue {
+  color: #3399ff !important;
 }
 
 /* =========================
