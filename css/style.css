@@ -12,9 +12,9 @@ body {
   line-height: 1.6;
   margin: 0;
   padding: 0;
-  /* Default: Matte Coal Black */
-  background: #121212;
-  color: #fff;
+  /* Default: Pale Blue Dot background */
+  background: #050E17;
+  color: #E8F4FF;
   overflow-x: hidden;
   position: relative;
   /* For fixed bg context */
@@ -29,7 +29,7 @@ body {
   height: 100%;
   z-index: -1;
   /* Behind everything */
-  background-color: #121212;
+  background-color: #050E17;
   /* Fallback */
   background-size: cover;
   background-position: center;
@@ -96,8 +96,8 @@ img {
   left: 0;
   right: 0;
   height: 56px;
-  background: rgba(11, 11, 11, 0.92);
-  border-bottom: 1px solid #222;
+  background: #FFAB40;
+  border-bottom: 1px solid rgba(10, 17, 40, 0.1);
   z-index: 200;
   align-items: center;
   padding: 0 12px;
@@ -114,16 +114,16 @@ img {
 /* Button that opens the menu (hamburger) */
 .menu-toggle {
   appearance: none;
-  border: 1px solid #333;
-  background: #111;
-  color: #fff;
+  border: 1px solid rgba(10, 17, 40, 0.2);
+  background: transparent;
+  color: #0A1128;
   border-radius: 8px;
   padding: 8px 10px;
   cursor: pointer;
 }
 
 .menu-toggle:hover {
-  border-color: #555;
+  border-color: #0A1128;
 }
 
 /* =========================
@@ -155,10 +155,10 @@ img {
   position: sticky;
   top: 0;
   width: 100%;
-  background: rgba(17, 17, 17, 0.95);
+  background: #FFAB40;
   backdrop-filter: blur(10px);
   z-index: 1000;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid rgba(10, 17, 40, 0.1);
   display: flex;
   justify-content: center;
 }
@@ -175,7 +175,7 @@ img {
 }
 
 .top-nav-logo a {
-  color: #fff;
+  color: #0A1128;
   font-size: 22px;
   font-weight: 800;
   text-decoration: none;
@@ -192,8 +192,7 @@ img {
 }
 
 .top-nav-links>li>a {
-  color: #eedc82;
-  /* Desert Yellow */
+  color: #0A1128;
   text-decoration: none;
   font-weight: 600;
   font-size: 15px;
@@ -205,7 +204,7 @@ img {
 
 .top-nav-links>li>a:hover,
 .top-nav-links>li>a.active {
-  color: #fff;
+  color: rgba(10, 17, 40, 0.7);
 }
 
 /* Dropdown styling */
@@ -218,25 +217,24 @@ img {
   display: flex;
   align-items: center;
   cursor: pointer;
-  color: #eedc82;
-  /* Desert Yellow */
+  color: #0A1128;
   font-weight: 600;
   transition: color 0.2s;
   gap: 6px;
 }
 
 .dropbtn:hover {
-  color: #fff;
+  color: rgba(10, 17, 40, 0.7);
 }
 
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: rgba(17, 17, 17, 0.98);
+  background-color: #FFAB40;
   min-width: 180px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
   z-index: 1001;
-  border: 1px solid #333;
+  border: 1px solid rgba(10, 17, 40, 0.1);
   border-radius: 6px;
   top: 100%;
   left: 0;
@@ -244,8 +242,7 @@ img {
 }
 
 .dropdown-content a {
-  color: #eedc82;
-  /* Desert Yellow */
+  color: #0A1128;
   padding: 10px 16px;
   text-decoration: none;
   display: flex;
@@ -255,8 +252,8 @@ img {
 }
 
 .dropdown-content a:hover {
-  background-color: #2a2a2a;
-  color: #fff;
+  background-color: rgba(10, 17, 40, 0.05);
+  color: #000;
 }
 
 .dropdown:hover .dropdown-content {
@@ -799,9 +796,9 @@ img {
     width: 280px;
     height: 100%;
     /* changed from 100vh to 100% to prevent overflow/springing */
-    background: #111;
+    background: #FFAB40;
     border-top: none;
-    border-right: 1px solid #333;
+    border-right: 1px solid rgba(10, 17, 40, 0.1);
     padding: 60px 0 100px 0;
     gap: 0;
     margin: 0;
@@ -842,7 +839,7 @@ img {
     min-width: unset;
     width: 100%;
     padding: 0;
-    background: rgba(0, 0, 0, 0.25);
+    background: rgba(10, 17, 40, 0.05);
   }
 
   .top-nav-links .dropdown-content a {
