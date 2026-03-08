@@ -59,10 +59,8 @@
         const illum = (data.illumination !== undefined) ? data.illumination : '?';
         const rec = getImagingRecommendation(data.illumination);
 
+        // Remove old static 'next phase' string
         let nextPhaseHtml = '';
-        if (data.closestphase && data.closestphase.phase) {
-            nextPhaseHtml = `<div style="color:#666; font-size:12px; margin-top:6px;">Next: ${data.closestphase.phase} on ${data.closestphase.date}</div>`;
-        }
 
         let localMathHtml = '';
         if (typeof Astronomy !== 'undefined') {
@@ -94,14 +92,47 @@
                     eclStr = eDate.toLocaleDateString() + " (" + (eclipse.kind || "Partial") + ")";
                 }
 
+                // 3. Next 4 Primary Phases
+                let phasesHtml = '';
+                const phaseTargets = [
+                    { name: 'New Moon', angle: 0, icon: '🌑' },
+                    { name: 'First Quarter', angle: 90, icon: '🌓' },
+                    { name: 'Full Moon', angle: 180, icon: '🌕' },
+                    { name: 'Last Quarter', angle: 270, icon: '🌗' }
+                ];
+
+                let phaseDates = [];
+                for (let pt of phaseTargets) {
+                    const event = Astronomy.SearchMoonPhase(pt.angle, date, 40); // Search up to 40 days ahead
+                    if (event) {
+                        phaseDates.push({ ...pt, date: event.date });
+                    }
+                }
+
+                // Sort by date so they appear in chronological order
+                phaseDates.sort((a, b) => a.date - b.date);
+
+                phasesHtml = `<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 10px; padding-top: 10px; border-top: 1px dashed #333; font-size: 11.5px; color: #aaa;">`;
+                phaseDates.forEach(p => {
+                    const dateStr = p.date.toLocaleDateString([], { month: 'short', day: 'numeric' });
+                    const timeStr = p.date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    phasesHtml += `<div style="display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.2); border-radius: 4px; padding: 4px 6px;">
+                        <span>${p.icon} <span style="color:#ddd;">${p.name}</span></span>
+                        <span style="font-family: monospace; color:#888;">${dateStr} ${timeStr}</span>
+                    </div>`;
+                });
+                phasesHtml += `</div>`;
+
                 localMathHtml = `
-                <div style="margin-top: 15px; padding-top: 10px; border-top: 1px dashed #333; font-size: 13px; color: #aaa;">
+                ${phasesHtml}
+                <div style="margin-top: 8px; font-size: 12.5px; color: #aaa;">
                     <div style="display:flex; justify-content: space-between; margin-bottom: 4px;">
                         <span><i class="fa-solid fa-arrow-up" style="font-size:10px; color:#5E8C7F;"></i> Rise: <span style="font-family:monospace; color:#ddd;">${riseStr}</span></span>
                         <span><i class="fa-solid fa-arrow-down" style="font-size:10px; color:#d9534f;"></i> Set: <span style="font-family:monospace; color:#ddd;">${setStr}</span></span>
                     </div>
-                    <div style="color: #888;">
-                        <i class="fa-solid fa-eclipse"></i> Next Eclipse: <span style="color:#ddd;">${eclStr}</span>
+                    <div style="display:flex; justify-content: space-between;">
+                        <span><i class="fa-solid fa-eclipse" style="font-size:10px; color:#e3bb76;"></i> Next Eclipse:</span> 
+                        <span style="color:#ddd;">${eclStr}</span>
                     </div>
                 </div>`;
             } catch (e) {
