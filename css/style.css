@@ -2388,4 +2388,20 @@ body.no-scroll {
     flex: 1;
     margin: 0;
   }
+
+  .dynamic-scroll-list {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-height: none;
+  }
+}
+
+/* Dynamic Scroll Lists for Widgets (Mobile Default) */
+.dynamic-scroll-list {
+  position: static;
+  max-height: 400px;
+  overflow-y: auto;
 }

@@ -14,7 +14,7 @@
         content="Shimon Avitan, DSOImage, Astrophotography, Deep Sky Objects, DSO, Gallery, Astronomy, Galaxies, Nebulae, Space, Telescope, Night Sky, FLT 132, ASI2600MM, APOD, ISS Tracker, Planet Visibility" />
     <!-- FORCE NEW VERSION v=11 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="css/style.css?v=46" rel="stylesheet" />
+    <link href="css/style.css?v=47" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.min.js"></script>
 </head>
 
@@ -113,12 +113,15 @@
                     style="background:#111; border: 1px solid #333; border-radius: 12px; padding: 40px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); display: flex; flex-direction: column;">
                     <h2 style="margin-top:0; color:#FFAB40;"><i class="fa-solid fa-draw-polygon"></i> Constellations
                         Visible Tonight</h2>
-                    <div id="constellation-container"
-                        style="flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; align-items: stretch; text-align: left; gap: 0; max-height: 400px; overflow-y: auto; padding-right: 15px;">
-                        <div style="text-align: center; padding: 20px;"><i class="fa-solid fa-circle-notch fa-spin"
-                                style="font-size: 3rem; color: #555;"></i></div>
-                        <div style="text-align: center; color: #888; font-size: 16px;">Scanning sky between 20:00 and
-                            05:00...</div>
+                    <div class="dynamic-scroll-wrapper" style="flex-grow: 1; position: relative; min-height: 0;">
+                        <div id="constellation-container" class="dynamic-scroll-list"
+                            style="display: flex; flex-direction: column; justify-content: flex-start; align-items: stretch; text-align: left; gap: 0; padding-right: 15px;">
+                            <div style="text-align: center; padding: 20px;"><i class="fa-solid fa-circle-notch fa-spin"
+                                    style="font-size: 3rem; color: #555;"></i></div>
+                            <div style="text-align: center; color: #888; font-size: 16px;">Scanning sky between 20:00
+                                and
+                                05:00...</div>
+                        </div>
                     </div>
                 </div>
 
@@ -127,12 +130,15 @@
                     style="background:#111; border: 1px solid #333; border-radius: 12px; padding: 40px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); display: flex; flex-direction: column;">
                     <h2 style="margin-top:0; color:#FFAB40;"><i class="fa-solid fa-hurricane"></i> DSOs Visible Tonight
                     </h2>
-                    <div id="dso-container"
-                        style="flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; align-items: stretch; text-align: left; gap: 0; max-height: 400px; overflow-y: auto; padding-right: 15px;">
-                        <div style="text-align: center; padding: 20px;"><i class="fa-solid fa-circle-notch fa-spin"
-                                style="font-size: 3rem; color: #555;"></i></div>
-                        <div style="text-align: center; color: #888; font-size: 16px;">Scanning sky between 20:00 and
-                            05:00...</div>
+                    <div class="dynamic-scroll-wrapper" style="flex-grow: 1; position: relative; min-height: 0;">
+                        <div id="dso-container" class="dynamic-scroll-list"
+                            style="display: flex; flex-direction: column; justify-content: flex-start; align-items: stretch; text-align: left; gap: 0; padding-right: 15px;">
+                            <div style="text-align: center; padding: 20px;"><i class="fa-solid fa-circle-notch fa-spin"
+                                    style="font-size: 3rem; color: #555;"></i></div>
+                            <div style="text-align: center; color: #888; font-size: 16px;">Scanning sky between 20:00
+                                and
+                                05:00...</div>
+                        </div>
                     </div>
                 </div>
             </div>
