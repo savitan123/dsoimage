@@ -26,6 +26,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     const renderPlanets = () => {
         const container = document.getElementById('planets-container');
         if (!container) return;
+
+        const isHome = document.getElementById('apod-widget') !== null;
+        const padStyle = isHome ? "padding: 5px 0;" : "padding: 12px 0;";
+        const gapStyle = isHome ? "gap: 4px;" : "gap: 8px;";
+        const titleSize = isHome ? "13.5px" : "15px";
+
         const bodies = [
             { id: 'Mercury', name: "Mercury", label: "fa-solid fa-circle", color: "#888" },
             { id: 'Venus', name: "Venus", label: "fa-solid fa-circle", color: "#e3bb76" },
@@ -67,11 +73,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                 visStyle = `color: #888;`;
             }
             html += `
-            <div style="display: flex; flex-direction: column; border-bottom: 1px solid #222; padding: 12px 0; gap: 8px;">
+            <div style="display: flex; flex-direction: column; border-bottom: 1px solid #222; ${padStyle} ${gapStyle}">
                <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;">
                    <div style="display: flex; align-items: center; gap: 8px;">
                        <i class="${b.label}" style="color: ${b.color}; width: 16px; text-align: center;"></i>
-                       <span style="${visStyle}; font-size: 15px;">${b.name}</span>
+                       <span style="${visStyle}; font-size: ${titleSize};">${b.name}</span>
                    </div>
                    <div style="text-align: right;">${visIcon}</div>
                </div>
