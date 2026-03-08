@@ -132,27 +132,42 @@ function renderCalendar(date) {
         dayHeader.innerText = day;
         cell.appendChild(dayHeader);
 
-        // Moon Phase Calculation
-        const moonAge = getMoonAge(year, month, day);
-        const synodic = 29.53058867;
-        const fraction = moonAge / synodic;
-        const distToNew = Math.min(fraction, 1.0 - fraction);
-        const distToFull = Math.abs(fraction - 0.5);
-        const THRESHOLD = 0.5 / synodic; // Ensures exactly 1 day gets marked
+        // Moon Phase Calculation using astronomy-engine
+        if (typeof Astronomy !== 'undefined') {
+            const checkDate = new Date(year, month, day, 12, 0, 0);
 
-        if (distToNew <= THRESHOLD) {
-            const moon = document.createElement('div');
-            moon.classList.add('event-marker', 'new-moon');
-            moon.title = "New Moon";
-            moon.innerHTML = '🌑';
-            cell.appendChild(moon);
-        } else if (distToFull <= THRESHOLD) {
-            const moon = document.createElement('div');
-            moon.classList.add('event-marker', 'full-moon');
-            moon.title = "Full Moon";
-            moon.innerHTML = '🌕';
-            cell.appendChild(moon);
+            // Check if this specific day has a primary phase
+            // SearchMoonPhase searches for the NEXT occurrence of a phase from a given time.
+            // To see if TODAY has a phase, we check if the next phase is within this day.
+            const startOfDay = new Date(year, month, day, 0, 0, 0);
+            const endOfDay = new Date(year, month, day, 23, 59, 59);
+
+            const phases = [
+                { name: 'New Moon', angle: 0, icon: '🌑' },
+                { name: 'First Quarter', angle: 90, icon: '🌓' },
+                { name: 'Full Moon', angle: 180, icon: '🌕' },
+                { name: 'Last Quarter', angle: 270, icon: '🌗' }
+            ];
+
+            phases.forEach(p => {
+                const event = Astronomy.SearchMoonPhase(p.angle, startOfDay, 1.5); // Search 1.5 days to be safe
+                if (event && event.date >= startOfDay && event.date <= endOfDay) {
+                    console.log(`Found ${p.name} on ${day}/${month + 1}/${year} at ${event.date}`);
+                    const moon = document.createElement('div');
+                    moon.classList.add('event-marker', 'moon-phase');
+                    moon.title = p.name;
+                    moon.innerHTML = p.icon;
+                    cell.appendChild(moon);
+                }
+            });
         }
+
+        // Add Click Listener for Modal
+        cell.style.cursor = 'pointer'; // Visual hint
+        cell.onclick = () => {
+            console.log(`Cell clicked: Day ${day}`);
+            openDayModal(year, month, day);
+        };
 
         // Meteor Showers
         const shower = meteorShowers.find(s => s.month === month && s.day === day);
@@ -239,21 +254,24 @@ function openDayModal(year, month, day) {
     });
 
     // Add special events like meteors/moon for this specific day
-    const moonAge = getMoonAge(year, month, day);
-    const synodic = 29.53058867;
-    const fraction = moonAge / synodic;
-    const distToNew = Math.min(fraction, 1.0 - fraction);
-    const distToFull = Math.abs(fraction - 0.5);
-    const THRESHOLD = 0.5 / synodic; // Ensures exactly 1 day gets marked
+    if (typeof Astronomy !== 'undefined') {
+        const startOfDay = new Date(year, month, day, 0, 0, 0);
+        const endOfDay = new Date(year, month, day, 23, 59, 59);
+        const phases = [
+            { name: 'New Moon', angle: 0, icon: '🌑', desc: 'Perfect for Deep Sky!' },
+            { name: 'First Quarter', angle: 90, icon: '🌓', desc: 'Good conditions.' },
+            { name: 'Full Moon', angle: 180, icon: '🌕', desc: 'Bright sky, focus on planets.' },
+            { name: 'Last Quarter', angle: 270, icon: '🌗', desc: 'Good conditions after midnight.' }
+        ];
 
-    if (distToNew <= THRESHOLD) {
-        const li = document.createElement('li');
-        li.innerHTML = "🌑 <strong>New Moon</strong> - Perfect for Deep Sky!";
-        obsList.prepend(li); // Add to top
-    } else if (distToFull <= THRESHOLD) {
-        const li = document.createElement('li');
-        li.innerHTML = "🌕 <strong>Full Moon</strong> - Bright sky, focus on planets.";
-        obsList.prepend(li);
+        phases.forEach(p => {
+            const event = Astronomy.SearchMoonPhase(p.angle, startOfDay, 1.2);
+            if (event && event.date >= startOfDay && event.date <= endOfDay) {
+                const li = document.createElement('li');
+                li.innerHTML = `${p.icon} <strong>${p.name}</strong> - ${p.desc}`;
+                obsList.prepend(li);
+            }
+        });
     }
 
     const shower = meteorShowers.find(s => s.month === month && s.day === day);
@@ -266,24 +284,3 @@ function openDayModal(year, month, day) {
     modal.style.display = 'block';
 }
 
-// Precision Moon Age Calculator based on Synodic Month
-function getMoonAge(year, month, day) {
-    const synodic = 29.53058867;
-    // Precise Known Full Moon: April 2, 2026 03:23:29 UTC
-    const knownFullMoon = new Date(Date.UTC(2026, 3, 2, 3, 23, 29));
-
-    // Set to noon to avoid timezone/daylight saving edge cases
-    const targetDate = new Date(Date.UTC(year, month, day, 12, 0, 0));
-
-    const diffMs = targetDate.getTime() - knownFullMoon.getTime();
-    const diffDays = diffMs / (1000 * 60 * 60 * 24);
-
-    // Calculate phase (offset by 0.5 because anchor is a Full Moon)
-    let phaseFraction = (diffDays / synodic) + 0.5;
-
-    // Normalize to 0.0 -> 1.0
-    phaseFraction = phaseFraction - Math.floor(phaseFraction);
-
-    // Return age in days (0 -> 29.53)
-    return phaseFraction * synodic;
-}
