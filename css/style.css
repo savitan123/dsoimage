@@ -112,7 +112,7 @@ img {
 }
 
 .topbar-logo a {
-  color: #050E17;
+  color: #FFF3E0;
   font-size: 18px;
   font-weight: 800;
   text-decoration: none;
@@ -769,12 +769,12 @@ img {
     align-items: center;
   }
 
-  /* Nav bar can wrap to a second row */
+  /* Nav bar stays in one line */
   .top-nav-container {
-    flex-wrap: wrap;
-    height: auto;
-    min-height: 52px;
-    padding: 0 15px;
+    flex-wrap: nowrap;
+    height: 52px;
+    padding: 0 10px;
+    gap: 8px;
   }
 
   /* Fix iOS constraint trap (backdrop-filter makes parents act as viewport) */
@@ -785,6 +785,15 @@ img {
 
   .top-nav-logo {
     order: 1;
+    flex-shrink: 1;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .top-nav-logo a {
+    font-size: 14px;
+    color: #FFF3E0;
+    letter-spacing: 0.2px;
   }
 
   .top-nav-actions {
