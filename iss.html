@@ -1,28 +1,20 @@
 <!DOCTYPE html>
 
 <html lang="en">
-
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <link href="https://dsoimage.com/iss.html" rel="canonical" />
-    <title>Where is the ISS? | DSOImage</title>
-    <meta
-        content="Real-time tracking map of the International Space Station (ISS) over the Earth. See exactly where the ISS is right now, its altitude, and its velocity."
-        name="description" />
-    <meta name="keywords" content="Shimon Avitan, DSOImage, Astrophotography, Deep Sky Objects, DSO, Gallery, Astronomy, Galaxies, Nebulae, Space, Telescope, Night Sky, FLT 132, ASI2600MM, APOD, ISS Tracker, Planet Visibility" />
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="css/style.css?v=52" rel="stylesheet" />
-
-    <!-- Leaflet CSS for Map -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://dsoimage.com/iss.html" rel="canonical"/>
+<title>Where is the ISS? | DSOImage</title>
+<meta content="Where is the ISS? | DSOImage - Deep Sky Astrophotography by Shimon Avitan. High-resolution LRGB imaging featuring nebulae, galaxies, and star clusters captured with FLT 132." name="description"/>
+<meta content="Shimon Avitan, DSOImage, Astrophotography, Deep Sky Objects, DSO, Gallery, Astronomy, Galaxies, Nebulae, Space, Telescope, Night Sky, FLT 132, ASI2600MM, APOD, ISS Tracker, Planet Visibility" name="keywords"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="css/style.css?v=52" rel="stylesheet">
+<!-- Leaflet CSS for Map -->
+<link crossorigin="" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" rel="stylesheet"/>
+<!-- Leaflet JS -->
+<script crossorigin="" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
         .iss-stats {
             display: flex;
             justify-content: space-around;
@@ -54,134 +46,123 @@
             font-family: monospace;
         }
     </style>
-</head>
-
+</link></head>
 <body>
-    <div class="container">
-        <!-- TOPBAR (mobile) -->
-        <header class="topbar">
-			<div class="topbar-logo"><a href="index.html">Imaging <span class="red">D</span>eep <span class="green">S</span>ky <span class="blue">O</span>bject</a></div></header>
-        <div class="overlay" hidden="" id="overlay"></div>
-        <nav aria-label="Site menu" class="top-nav" id="top-nav">
-            <div class="top-nav-container">
-                <div class="top-nav-logo"><a href="index.html">Imaging <span class="red">D</span>eep <span class="green">S</span>ky <span class="blue">O</span>bject</a></div>
-                <ul class="top-nav-links" id="top-nav-links">
-                    <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
-                    <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropbtn"><i class="fa-solid fa-images"></i> Galleries
-                            &#9662;</a>
-                        <div class="dropdown-content">
-                            <a href="galaxies.html"><i class="fa-solid fa-hurricane"></i> Galaxies</a>
-                            <a href="nebulae.html"><i class="fa-solid fa-smog"></i> Nebulae</a>
-                            <a href="clusters.html"><i class="fa-solid fa-certificate"></i> Star Clusters</a>
-                        </div>
-                    </li>
-                    <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropbtn"><i class="fa-solid fa-book"></i> Resources
-                            &#9662;</a>
-                        <div class="dropdown-content">
-                            <a data-i18n="menu_equipment" href="equipment.html"><i class="fa-solid fa-camera-retro"></i> Equipment</a>
-                            <a data-i18n="menu_processing" href="processing.html"><i class="fa-solid fa-laptop-code"></i> Processing</a>
-                            <a href="knowledge.html"><i class="fa-solid fa-book-open"></i> Knowledge Base</a>
-                        </div>
-                    </li>
-                    <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropbtn"><i class="fa-solid fa-toolbox"></i> Tools
-                            &#9662;</a>
-                        <div class="dropdown-content">
-                            <a data-i18n="menu_weather" href="weather.html"><i class="fa-solid fa-cloud-sun"></i> Weather</a>
-                            <a href="planner.html"><i class="fa-solid fa-calendar-days"></i> Planned Session</a>
-                            <a href="coordinate-converter.html"><i class="fa-solid fa-globe"></i> Coordinate Converter</a>
-                            <a href="checklist.html"><i class="fa-solid fa-check-double"></i> Pre-Flight Checklist</a>
-                            <a href="live-sky-map.html"><i class="fa-solid fa-map-location-dot"></i> Live Sky Map (Interactive)</a>
-                            <a href="apod.html"><i class="fa-solid fa-satellite"></i> NASA APOD</a>
-                            <a href="tonights_best.html"><i class="fa-solid fa-star"></i> Tonight's Best</a>
-                            <a href="iss.html"><i class="fa-solid fa-rocket"></i> Where is the ISS?</a>
-                        </div>
-                    </li>
-                    <li><a href="about.html"><i class="fa-solid fa-user-astronaut"></i> About</a></li>
-                    <li><a href="contact.html"><i class="fa-regular fa-envelope"></i> Contact</a></li>
-                </ul>
-                <div class="top-nav-actions">
-                    <button aria-label="Search" class="search-trigger" id="master-search-btn">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                    <!-- Mobile Nav Toggle -->
-                    <button aria-label="Toggle menu" class="menu-toggle" id="mobile-nav-toggle">
-                        <i class="fa-solid fa-bars"></i>
-                    </button>
-                </div>
-            </div>
-        </nav>
-        <!-- SEARCH OVERLAY -->
-        <div class="search-overlay" id="search-overlay">
-            <div class="search-container">
-                <input id="search-input" placeholder="Search targets (e.g. Orion, M31)..." type="text" />
-                <button class="search-close"><i class="fa-solid fa-xmark"></i></button>
-                <div class="search-results" id="search-results"></div>
-            </div>
-        </div>
-        <!-- LIGHTBOX -->
-        <div id="lightbox">
-            <span id="close">&times;</span>
-            <img id="lightbox-img" src="" />
-            <div id="lightbox-caption"></div>
-        </div>
-        <div id="image-stats" style="display:none;"></div>
-        <!-- MAIN -->
-        <main class="main-content">
-            <h1 style="color:#eedc82; font-size:36px; text-shadow:0px 0px 10px rgba(255,255,255,0.2);"><i
-                    class="fa-solid fa-rocket"></i> Where is the ISS?</h1>
-            <p class="subtitle">
+<div class="container">
+<!-- TOPBAR (mobile) -->
+<header class="topbar">
+<div class="topbar-logo"><a href="index.html">Imaging <span class="red">D</span>eep <span class="green">S</span>ky <span class="blue">O</span>bject</a></div></header>
+<div class="overlay" hidden="" id="overlay"></div>
+<nav aria-label="Site menu" class="top-nav" id="top-nav">
+<div class="top-nav-container">
+<div class="top-nav-logo"><a href="index.html">Imaging <span class="red">D</span>eep <span class="green">S</span>ky <span class="blue">O</span>bject</a></div>
+<ul class="top-nav-links" id="top-nav-links">
+<li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+<li class="dropdown">
+<a class="dropbtn" href="javascript:void(0)"><i class="fa-solid fa-images"></i> Galleries
+                            ▾</a>
+<div class="dropdown-content">
+<a href="galaxies.html"><i class="fa-solid fa-hurricane"></i> Galaxies</a>
+<a href="nebulae.html"><i class="fa-solid fa-smog"></i> Nebulae</a>
+<a href="clusters.html"><i class="fa-solid fa-certificate"></i> Star Clusters</a>
+</div>
+</li>
+<li class="dropdown">
+<a class="dropbtn" href="javascript:void(0)"><i class="fa-solid fa-book"></i> Resources
+                            ▾</a>
+<div class="dropdown-content">
+<a data-i18n="menu_equipment" href="equipment.html"><i class="fa-solid fa-camera-retro"></i> Equipment</a>
+<a data-i18n="menu_processing" href="processing.html"><i class="fa-solid fa-laptop-code"></i> Processing</a>
+<a href="knowledge.html"><i class="fa-solid fa-book-open"></i> Knowledge Base</a>
+</div>
+</li>
+<li class="dropdown">
+<a class="dropbtn" href="javascript:void(0)"><i class="fa-solid fa-toolbox"></i> Tools
+                            ▾</a>
+<div class="dropdown-content">
+<a data-i18n="menu_weather" href="weather.html"><i class="fa-solid fa-cloud-sun"></i> Weather</a>
+<a href="planner.html"><i class="fa-solid fa-calendar-days"></i> Planned Session</a>
+<a href="coordinate-converter.html"><i class="fa-solid fa-globe"></i> Coordinate Converter</a>
+<a href="checklist.html"><i class="fa-solid fa-check-double"></i> Pre-Flight Checklist</a>
+<a href="live-sky-map.html"><i class="fa-solid fa-map-location-dot"></i> Live Sky Map (Interactive)</a>
+<a href="apod.html"><i class="fa-solid fa-satellite"></i> NASA APOD</a>
+<a href="tonights_best.html"><i class="fa-solid fa-star"></i> Tonight's Best</a>
+<a href="catalog-explorer.html"><i class="fa-solid fa-magnifying-glass-chart"></i> Catalog Explorer</a>
+<a href="iss.html"><i class="fa-solid fa-rocket"></i> Where is the ISS?</a>
+</div>
+</li>
+<li><a href="about.html"><i class="fa-solid fa-user-astronaut"></i> About</a></li>
+<li><a href="contact.html"><i class="fa-regular fa-envelope"></i> Contact</a></li>
+</ul>
+<div class="top-nav-actions">
+<button aria-label="Search" class="search-trigger" id="master-search-btn">
+<i class="fa-solid fa-magnifying-glass"></i>
+</button>
+<!-- Mobile Nav Toggle -->
+<button aria-label="Toggle menu" class="menu-toggle" id="mobile-nav-toggle">
+<i class="fa-solid fa-bars"></i>
+</button>
+</div>
+</div>
+</nav>
+<!-- SEARCH OVERLAY -->
+<div class="search-overlay" id="search-overlay">
+<div class="search-container">
+<input id="search-input" placeholder="Search targets (e.g. Orion, M31)..." type="text"/>
+<button class="search-close"><i class="fa-solid fa-xmark"></i></button>
+<div class="search-results" id="search-results"></div>
+</div>
+</div>
+<!-- LIGHTBOX -->
+<div id="lightbox">
+<span id="close">×</span>
+<img id="lightbox-img" src=""/>
+<div id="lightbox-caption"></div>
+</div>
+<div id="image-stats" style="display:none;"></div>
+<!-- MAIN -->
+<main class="main-content">
+<h1 style="color:#eedc82; font-size:36px; text-shadow:0px 0px 10px rgba(255,255,255,0.2);"><i class="fa-solid fa-rocket"></i> Where is the ISS?</h1>
+<p class="subtitle">
                 Live trajectory mapping of the International Space Station.
-                <br />
-                <small style="color:#888;">Position data updates automatically every 3 seconds from the wheretheiss.at
+                <br/>
+<small style="color:#888;">Position data updates automatically every 3 seconds from the wheretheiss.at
                     API.</small>
-            </p>
-
-            <div class="widget-card" id="iss-widget"
-                style="background:#111; border: 1px solid #333; border-radius: 12px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); max-width: 1600px; width: 95%; margin: 0 auto; display: flex; flex-direction: column;">
-                <!-- Leaflet Map Container -->
-                <div id="issMap"
-                    style="height: 60vh; min-height: 400px; width: 100%; border-radius: 8px; border: 1px solid #444; background: #000;">
-                </div>
-
-                <!-- Live Stats Data -->
-                <div class="iss-stats">
-                    <div class="stat-box">
-                        <div class="stat-label">Latitude</div>
-                        <div class="stat-val" id="iss-lat">--.----&deg;</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-label">Longitude</div>
-                        <div class="stat-val" id="iss-lon">--.----&deg;</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-label">Altitude</div>
-                        <div class="stat-val" id="iss-alt">--- km</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-label">Velocity</div>
-                        <div class="stat-val" id="iss-vel">--,--- km/h</div>
-                    </div>
-                </div>
-            </div>
-
-            <footer class="site-footer">
-                <p> 2026 Shimon Avitan | dsoimage.com</p>
-                <div style="margin-top:8px;">
-                    <a href="https://www.instagram.com/shimonavitan2/"
-                        style="color:#bbb; text-decoration:none; margin:0 10px;" target="_blank"><i
-                            class="fa-brands fa-instagram"></i> Instagram</a>
-                    <a href="https://www.facebook.com/shimon.avitan.56/"
-                        style="color:#bbb; text-decoration:none; margin:0 10px;" target="_blank"><i
-                            class="fa-brands fa-facebook"></i> Facebook</a>
-                </div>
-            </footer>
-        </main>
-    </div>
-    <script src="js/script.js?v=38"></script>
-    <script src="js/iss.js?v=3"></script>
+</p>
+<div class="widget-card" id="iss-widget" style="background:#111; border: 1px solid #333; border-radius: 12px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); max-width: 1600px; width: 95%; margin: 0 auto; display: flex; flex-direction: column;">
+<!-- Leaflet Map Container -->
+<div id="issMap" style="height: 60vh; min-height: 400px; width: 100%; border-radius: 8px; border: 1px solid #444; background: #000;">
+</div>
+<!-- Live Stats Data -->
+<div class="iss-stats">
+<div class="stat-box">
+<div class="stat-label">Latitude</div>
+<div class="stat-val" id="iss-lat">--.----°</div>
+</div>
+<div class="stat-box">
+<div class="stat-label">Longitude</div>
+<div class="stat-val" id="iss-lon">--.----°</div>
+</div>
+<div class="stat-box">
+<div class="stat-label">Altitude</div>
+<div class="stat-val" id="iss-alt">--- km</div>
+</div>
+<div class="stat-box">
+<div class="stat-label">Velocity</div>
+<div class="stat-val" id="iss-vel">--,--- km/h</div>
+</div>
+</div>
+</div>
+<footer class="site-footer">
+<p> 2026 Shimon Avitan | dsoimage.com</p>
+<div style="margin-top:8px;">
+<a href="https://www.instagram.com/shimonavitan2/" style="color:#bbb; text-decoration:none; margin:0 10px;" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram</a>
+<a href="https://www.facebook.com/shimon.avitan.56/" style="color:#bbb; text-decoration:none; margin:0 10px;" target="_blank"><i class="fa-brands fa-facebook"></i> Facebook</a>
+</div>
+</footer>
+</main>
+</div>
+<script src="js/script.js?v=38"></script>
+<script src="js/iss.js?v=3"></script>
 </body>
-
 </html>

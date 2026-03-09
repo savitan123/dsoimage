@@ -1,317 +1,1432 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+<?xml version='1.0' encoding='utf-8'?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://dsoimage.com/</loc>
-    <lastmod>2026-03-07</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://dsoimage.com/galaxies.html</loc>
-    <lastmod>2026-03-07</lastmod>
+    <loc>https://dsoimage.com/about.html</loc>
+    <lastmod>2026-03-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/Andromeda_Galaxy_rev2.jpg</image:loc>
-      <image:caption>Andromeda Galaxy (M31)</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/Needle_Galaxy.jpg</image:loc>
-      <image:caption>Needle Galaxy (NGC 4565)</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/M106_Galaxy_Rev2.jpg</image:loc>
-      <image:caption>M106 Galaxy</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/M64_Galaxy.jpg</image:loc>
-      <image:caption>Black Eye Galaxy (M64)</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/M51_Galaxy.jpg</image:loc>
-      <image:caption>Whirlpool Galaxy (M51)</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/Fireworks_Galaxy.jpg</image:loc>
-      <image:caption>Fireworks Galaxy</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/Andromeda_Galaxy.jpg</image:loc>
-      <image:caption>Andromeda Galaxy (M31)</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/Triangulum_Galaxy.jpg</image:loc>
-      <image:caption>Triangulum Galaxy (M33)</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/M101.jpg</image:loc>
-      <image:caption>M101 Pinwheel Galaxy</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/M77.jpg</image:loc>
-      <image:caption>M77 Galaxy</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/Abell2151.jpg</image:loc>
-      <image:caption>Hercules Galaxy Cluster (Abell 2151)</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/M81_M82_Galaxies.jpg</image:loc>
-      <image:caption>Bode&apos;s Galaxy and Cigar Galaxy</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/M106_Galaxy.jpg</image:loc>
-      <image:caption>M106 - Spiral Galaxy in Canes Venatici</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/NGC_2903.jpg</image:loc>
-      <image:caption>NGC 2903 Barred Spiral Galaxy</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/Leo_Triplet.jpg</image:loc>
-      <image:caption>Leo Triplet Galaxy Group</image:caption>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://dsoimage.com/nebulae.html</loc>
-    <lastmod>2026-03-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/Tadpole_Hubble_Palette.jpg</image:loc>
-      <image:caption>Tadpole Nebula (IC 410)</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/Monkey_Head_Nebula_Hubble_Palette.jpg</image:loc>
-      <image:caption>Monkey Head Nebula (NGC 2174)</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/Pacman_Nebula_Hubble_Palette.jpg</image:loc>
-      <image:caption>Pacman Nebula (NGC 281)</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/Pacman_Nebula_SHO.jpg</image:loc>
-      <image:caption>Pacman Nebula (NGC 281)</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/Orion_and_Running_Man_Nebulae.jpg</image:loc>
-      <image:caption>Orion &amp;amp; Running Man Nebulae</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/M27.jpg</image:loc>
-      <image:caption>Dumbbell Nebula (M27)</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/NGC_7822.jpg</image:loc>
-      <image:caption>NGC 7822 (Question Mark Nebula)</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/Cygnus_wall_HA.jpg</image:loc>
-      <image:caption>Cygnus Wall (HA)</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/north_america_nebula_rev3.jpg</image:loc>
-      <image:caption>North America Nebula (SHO Starless)</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/north_america_nebula_rev2.jpg</image:loc>
-      <image:caption>North America Nebula (SHO)</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/M52_Star_Cluster_Bubble_Nebula.jpg</image:loc>
-      <image:caption>M52 &amp;amp; Bubble Nebula</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/Owl_Nebula.jpg</image:loc>
-      <image:caption>Owl Nebula (M97)</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/Eagle_Nebula.jpg</image:loc>
-      <image:caption>Eagle Nebula (M16)</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/Cocoon_Nebula.jpg</image:loc>
-      <image:caption>Cocoon Nebula</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/Cave_Nebula.jpg</image:loc>
-      <image:caption>Cave Nebula</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/Pacman_Nebula.jpg</image:loc>
-      <image:caption>Pacman Nebula</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/California_Nebula.jpg</image:loc>
-      <image:caption>California Nebula</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/HorseHead_Flame_Nebula.jpg</image:loc>
-      <image:caption>HorseHead and Flame Nebulae</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/ic405_410_417.jpg</image:loc>
-      <image:caption>Flaming Star, Tadpole &amp;amp; Spider Nebulae</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/ngc_1333.jpg</image:loc>
-      <image:caption>NGC 1333 â€“ Star Forming Region</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/M16_hubble_pallete.jpg</image:loc>
-      <image:caption>Eagle Nebula (M16)</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/Tulip_Nebula.jpg</image:loc>
-      <image:caption>Tulip Nebula (Sh2-101)</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/Bubble_Nebula_HOO.jpg</image:loc>
-      <image:caption>Bubble Nebula</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/wizard_nebula_1.jpg</image:loc>
-      <image:caption>Wizard Nebula</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/wizard_nebula_2.jpg</image:loc>
-      <image:caption>Wizard Nebula (Version 2)</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/north_america_nebula.jpg</image:loc>
-      <image:caption>North America Nebula</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/helix_nebula.jpg</image:loc>
-      <image:caption>Helix Nebula</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/veil_nebula.jpg</image:loc>
-      <image:caption>Veil Nebula</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/Trifid_Nebula.jpg</image:loc>
-      <image:caption>Trifid Nebula</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/Jellyfish_Nebula.jpg</image:loc>
-      <image:caption>Jellyfish Nebula</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/IC405_IC410_Nebulae.jpg</image:loc>
-      <image:caption>IC405_IC410_Nebulae</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/Rosette_Nebula.jpg</image:loc>
-      <image:caption>Rosette Nebula (NGC 2237)</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/IC417_NGC1931.jpg</image:loc>
-      <image:caption>Spider and Fly Nebulae</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/IC443.jpg</image:loc>
-      <image:caption>Jellyfish Nebula (IC 443)</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/Seagull_Nebula.jpg</image:loc>
-      <image:caption>Seagull Nebula</image:caption>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://dsoimage.com/clusters.html</loc>
-    <lastmod>2026-03-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/M52_Star_Cluster_Bubble_Nebula.jpg</image:loc>
-      <image:caption>M52 &amp;amp; Bubble Nebula</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/M13.jpg</image:loc>
-      <image:caption>Great Hercules Cluster (M13)</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/ngc_869_ngc_884.jpg</image:loc>
-      <image:caption>Double Cluster</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://dsoimage.com/images/full/M35_NGC2158_Open_Clusters.jpg</image:loc>
-      <image:caption>Messier 35 and NGC 2158</image:caption>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://dsoimage.com/planner.html</loc>
-    <lastmod>2026-03-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://dsoimage.com/apod.html</loc>
-    <lastmod>2026-03-07</lastmod>
-    <changefreq>daily</changefreq>
+    <lastmod>2026-03-09</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dsoimage.com/tonights_best.html</loc>
-    <lastmod>2026-03-07</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://dsoimage.com/iss.html</loc>
-    <lastmod>2026-03-07</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://dsoimage.com/coordinate-converter.html</loc>
-    <lastmod>2026-03-07</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://dsoimage.com/catalog-explorer.html</loc>
+    <lastmod>2026-03-09</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://dsoimage.com/checklist.html</loc>
-    <lastmod>2026-03-07</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-03-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/clusters.html</loc>
+    <lastmod>2026-03-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/M52_Star_Cluster_Bubble_Nebula.jpg</image:loc>
+      <image:title>M52 &amp; Bubble Nebula</image:title>
+      <image:caption>The Bubble Nebula (NGC 7635) and M52 are a classic deep-sky duo in Cassiopeia, offering a beautiful contrast between a gas nebula and a star cluster.The Bubble Nebula (NGC 7635) is a massive emission nebula sculpted by the fierce stellar winds of a hot, giant star at its center.The Shape: The star 'blows' a literal bubble in space, pushing surrounding gas into a shell roughly 7 light-years wide.Distance: Located about 7,000—11,000 light-years away.M52 is a rich, bright open star cluster containing about 200 stars.The Illusion: Although they appear side-by-side in your telescope, M52 is much closer to Earth (approx. 5,000 light-years) than the Bubble Nebula.Age: A young cluster, only about 35 million years old.Technical Details:Scope: FLT 132Camera: ATIK 16200Filters: HA and O3Location: Backyard (Bortle 6)View high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/M13.jpg</image:loc>
+      <image:title>Great Hercules Cluster (M13)</image:title>
+      <image:caption>A globular cluster of several hundred thousand stars in the constellation of Hercules. ~145 light-years in diameter. View high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/ngc_869_ngc_884.jpg</image:loc>
+      <image:title>Double Cluster</image:title>
+      <image:caption>The Double Cluster (NGC 869 and NGC 884) is a famous naked-eye pair of open clusters in the constellation Perseus. Located about 7,500 light-years away, they are part of the Perseus Arm of the Milky Way. These young clusters are essentially twins, both around 13 million years old, and contain hundreds of hot blue-white supergiant stars.Technical Details:Scope: FLT 132Camera: Atik 16200Mount: Losmandy G11Filters: RGBView high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/M35_NGC2158_Open_Clusters.jpg</image:loc>
+      <image:title>Messier 35 and NGC 2158</image:title>
+      <image:caption>A contrasting visual duo in the constellation Gemini. M35 (Shoe Buckle Cluster) is a large, relatively young open cluster (~100 million years old) located about 2,800 light-years away. Its bright blue stars are scattered over an area the size of the full moon.In the background lies NGC 2158, a much older and richer cluster (~2 billion years old) located significantly further away at roughly 16,000 light-years. Its compact, yellowish appearance (due to older evolved stars) provides a stunning depth perception against the loose, blue foreground of M35.Technical Details:Scope: FLT 132Camera: Atik 16200Filters: RGBView high resolution.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellations-northern.html</loc>
+    <lastmod>2026-03-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellations-southern.html</loc>
+    <lastmod>2026-03-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/contact.html</loc>
+    <lastmod>2026-03-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/coordinate-converter.html</loc>
+    <lastmod>2026-03-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/equipment.html</loc>
+    <lastmod>2026-03-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/galaxies.html</loc>
+    <lastmod>2026-03-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/Andromeda_Galaxy_rev2.jpg</image:loc>
+      <image:title>Andromeda Galaxy (M31)</image:title>
+      <image:caption>The Andromeda Galaxy (M31) is the closest major spiral galaxy to our Milky Way, located approximately 2.5 million light-years away in the constellation Andromeda. Spanning roughly 220,000 light-years, it contains about one trillion stars. This detailed image reveals its dust lanes, star-forming regions, and its two satellite galaxies, M32 and M110.Technical Details:Telescope: RedCat 51Camera: ASI 2600Mount: Losmandy G11Filters: LRGBLocation: Golan HeightsTotal Integration: 20hView high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/Needle_Galaxy.jpg</image:loc>
+      <image:title>Needle Galaxy (NGC 4565)</image:title>
+      <image:caption>The Needle Galaxy (NGC 4565) is a magnificent edge-on spiral galaxy in the constellation Coma Berenices. It is famous for its narrow, needle-like profile and a prominent dark dust lane that bisects its bright central core.Located about 30 to 50 million light-years away, it spans roughly 100,000 light-years, making it larger than the Andromeda Galaxy. It is often cited as a superb example of how our own Milky Way galaxy would look if viewed from the side.Technical Details:Scope: FLT 132Mount: Losmandy G11Camera: ASI 2600 monoFilters: RGBView high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/M106_Galaxy_Rev2.jpg</image:loc>
+      <image:title>M106 Galaxy</image:title>
+      <image:caption>M106 (NGC 4258) is a spiral galaxy in the constellation Canes Venatici. It is famous for its anomalous arms, which are not aligned with the galactic plane and are believed to be caused by jets from the central supermassive black hole. At a distance of about 23 million light-years, it is a Seyfert II galaxy with an active nucleus.Technical Data:Scope: WO FLT 132Camera: ASI 2600 monoMount: Losmandy G11Integration Time: LRGB (163 X 180 sec)View High-Res on Flickr</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/M64_Galaxy.jpg</image:loc>
+      <image:title>Black Eye Galaxy (M64)</image:title>
+      <image:caption>The Black Eye Galaxy (M64) is a spiral galaxy located 17 million light-years away in Coma Berenices. It is famous for its heavily absorbing band of dust in front of the galaxy's bright nucleus, giving rise to its nicknames of the 'Black Eye' or 'Evil Eye' galaxy. M64 is well known among amateur astronomers because it is visible in small telescopes. The image was captured in the Negev Desert. The outer gas of this galaxy rotates in the opposite direction from the inner stars and gas, likely due to a past merger.Technical Details:Mount: Losmandy G11Telescope: William Optics FLT132 F/7Camera: ZWO ASI2600 MonoGuider: WO f/4, ZWO ASI224MCFilters: ZWO 1.25" Mounted (LRGBC)Capture: SGP (Sequence Generator Pro)Processing: PixInsightTotal Integration Time: RGB: 4.5 hours (3 X 30 X 180 sec), Luminance: 3 hours (60 X 180 sec).View High-Res on Flickr</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/M51_Galaxy.jpg</image:loc>
+      <image:title>Whirlpool Galaxy (M51)</image:title>
+      <image:caption>The Whirlpool Galaxy (M51) is a striking grand-design spiral galaxy located approximately 23-31 million light-years away in the constellation Canes Venatici. It is interacting with a smaller companion galaxy, NGC 5195, which enhances its prominent spiral structure. The raw data of this image was given to me by my friend Nikita Pritzker and i processed the image. Use the link for high res.View High-Res on Flickr</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/Fireworks_Galaxy.jpg?v=2</image:loc>
+      <image:title>Fireworks Galaxy</image:title>
+      <image:caption>The Fireworks Galaxy (NGC 6946) is a face-on intermediate spiral galaxy with a small, bright nucleus.
+It is located at a distance of about 25.2 million light-years away, straddling the borderline between the constellations Cepheus and Cygnus.
+It is nicknamed the 'Fireworks Galaxy' due to the phenomenal number of supernovae discovered in it (ten in the last century).
+Technical Details:
+Mount: AP Mach 2
+Telescope: WO FLT 132
+Camera: ZWO ASI 2600 Mono
+Filters: LRGB
+Total Integration Time: Approx. 6 Hours. View high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/Andromeda_Galaxy.jpg</image:loc>
+      <image:title>Andromeda Galaxy (M31)</image:title>
+      <image:caption>The nearest spiral galaxy to the Milky Way, ~2.6 million light-years away. Two-panel mosaic captured with WO FLT 132. View high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/Triangulum_Galaxy.jpg</image:loc>
+      <image:title>Triangulum Galaxy (M33)</image:title>
+      <image:caption>Spiral galaxy located ~2.9 million light-years away. Captured using dual focal lengths for high-res luminance. View high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/M101.jpg</image:loc>
+      <image:title>M101 Pinwheel Galaxy</image:title>
+      <image:caption>Face-on spiral galaxy in Ursa Major, ~23 Mly away. Captured with WO FLT 132 and AP Mach 2. View high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/M77.jpg</image:loc>
+      <image:title>M77 Galaxy</image:title>
+      <image:caption>Barred spiral galaxy in Cetus with an active nucleus. Captured with Celestron Edge 9.25 . RGB : 3 X 30 X 180 sec. Mount: AP Mach 2. View high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/Abell2151.jpg</image:loc>
+      <image:title>Hercules Galaxy Cluster (Abell 2151)</image:title>
+      <image:caption>Hundreds of galaxies ~260 million light-years away. 10 hours exposure with FLT132 and AP Mach 2. View high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/M81_M82_Galaxies.jpg</image:loc>
+      <image:title>Bode's Galaxy and Cigar Galaxy</image:title>
+      <image:caption>Located in Ursa Major, M81 (Bode’s Galaxy) and M82 (The Cigar Galaxy) are a famous pair of interacting galaxies. M81 is a classic Grand Design spiral, known for its elegant, symmetrical arms and bright core. 
+M82 is an edge-on 'Starburst' galaxy, glowing intensely as it creates stars at an incredible rate. The two are gravitationally linked; a close encounter millions of years ago reshaped both systems.
+This interaction triggered the violent star formation and red gas plumes seen exploding from M82’s center. Despite their proximity, they appear vastly different—one a perfect spiral, the other a chaotic rod of light.
+They are a favorite target for astrophotographers because both can often be captured in a single frame.
+The image was taken using FLT 132 and AP Mach2 with LRGB and HA filters. Total of 10h.View high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/M106_Galaxy.jpg</image:loc>
+      <image:title>M106 - Spiral Galaxy in Canes Venatici</image:title>
+      <image:caption>Located about 23 million light-years away in Canes Venatici, Messier 106 is a spectacular intermediate spiral galaxy. It is classified as a Seyfert II galaxy due to its highly active nucleus, powered by a central supermassive black hole.
+A unique feature of M106 is its 'extra' pair of anomalous arms composed of hot gas rather than stars. These ghostly arms are actually shockwaves caused by powerful jets of matter erupting from the galaxy's core.
+The galaxy also hosts a rare water megamaser, which allows astronomers to measure cosmic distances with extreme precision. For astrophotographers, it offers a wealth of detail, from intricate dust lanes to vibrant pink star-forming regions. 
+Its large size and high surface brightness make it one of the most rewarding spiral targets in the northern spring sky.
+The image was taken using FLT 132 and AP Mach2 RGB filters : 3 X 180sec View high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/NGC_2903.jpg</image:loc>
+      <image:title>NGC 2903 Barred Spiral Galaxy</image:title>
+      <image:caption>NGC 2903 is a stunning barred spiral galaxy in the constellation Leo, located about 30 million light-years away. Discovered by William Herschel in 1784, it resembles the Milky Way in size and structure but has a much higher rate of star formation near its center, likely fueled by its prominent bar. This 'starburst' activity makes it a brilliant target. It is one of the brightest galaxies not included in the Messier catalog.Technical Details:Scope: FLT 132Mount: Losmandy G11Filters: LRGBView high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/Leo_Triplet.jpg</image:loc>
+      <image:title>Leo Triplet Galaxy Group</image:title>
+      <image:caption>The Leo Triplet, also known as the M66 Group, is a fascinating collection of three interacting spiral galaxies located approximately 30 to 35 million light-years away in the constellation Leo. The group consists of Messier 66 (M66), Messier 65 (M65), and NGC 3628 (the Hamburger Galaxy). These galaxies are gravitationally bound and engaged in a constant tug-of-war, significantly influencing their shapes and structures.Technical Data:Telescope: FLT 132Camera: ZWO ASI 2600 monoFilters: LRGBMount: AP MACH 2Total Integration: ~14.5hLocation: Imaged in the Desert with some dusty hazeView High-Res on Flickr.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/</loc>
+    <lastmod>2026-03-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/iss.html</loc>
+    <lastmod>2026-03-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/knowledge.html</loc>
+    <lastmod>2026-03-09</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://dsoimage.com/live-sky-map.html</loc>
-    <lastmod>2026-03-07</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-03-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/nebulae.html</loc>
+    <lastmod>2026-03-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/Tadpole_Hubble_Palette.jpg</image:loc>
+      <image:title>Tadpole Nebula (IC 410)</image:title>
+      <image:caption>The Tadpole Nebula (IC 410) is a star-forming emission nebula located approximately 12,000 light-years away in the constellation Auriga. It is illuminated by the young, massive star cluster NGC 1893 at its center. The nebula gets its name from two dense, 'tadpole-shaped' clumps of gas and dust that are being sculpted and eroded by the intense radiation and stellar winds from the cluster's hot stars. These tadpoles are approximately 10 light-years long and are potential sites of ongoing star formation.Technical Details:Scope: FLT 132Camera: ASI 2600Mount: Losmandy G11Filters: SHO Hubble PaletteView high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/Monkey_Head_Nebula_Hubble_Palette.jpg</image:loc>
+      <image:title>Monkey Head Nebula (NGC 2174)</image:title>
+      <image:caption>The Monkey Head Nebula (NGC 2174) is a rich H II emission nebula located in the constellation Orion, approximately 6,400 light-years away. It is associated with the open star cluster NGC 2175. The nebula gets its name from the complex pillars of glowing gas and dark dust lanes that create the shape of a monkey's head in profile. It is a site of active star formation, sculpted by the intense radiation from young, massive stars.Technical Details:Imaged using two Rigs:1. Scope: FLT 132, Camera: ASI 2600, Mount: Losmandy G11, Filters: SHO2. Scope: Edge 9.25 with 0.7 Reducer, Camera: ATIK 16200, Mount: Paramount Mx+, Filters: SHO.View high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/Pacman_Nebula_Hubble_Palette.jpg</image:loc>
+      <image:title>Pacman Nebula (NGC 281)</image:title>
+      <image:caption>NGC 281, also known as the Pacman Nebula, is a bright emission nebula in the constellation Cassiopeia. Named for its resemblance to the video game character, it features dark dust lanes (Bok globules) and is powered by the young open cluster IC 1590 at its center. It lies about 9,200 light-years away and spans roughly 80 light-years.Technical Details:Telescope: FLT 132Mount: Losmandy G11Camera: ASI 2600 monoFilters: SHO (Hubble Palette)View high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/Pacman_Nebula_SHO.jpg</image:loc>
+      <image:title>Pacman Nebula (NGC 281)</image:title>
+      <image:caption>NGC 281, also known as the Pacman Nebula, is a bright emission nebula in the constellation Cassiopeia. Named for its resemblance to the video game character, it features dark dust lanes (Bok globules) and is powered by the young open cluster IC 1590 at its center. It lies about 9,200 light-years away and spans roughly 80 light-years.Technical Details:Telescope: FLT 132Mount: Losmandy G11Camera: ASI 2600 monoFilters: SHO View high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/Orion_and_Running_Man_Nebulae.jpg</image:loc>
+      <image:title>Orion &amp; Running Man Nebulae</image:title>
+      <image:caption>The Orion Nebula (M42) is one of the brightest and most famous nebulae in the night sky, visible to the naked eye as the middle 'star' in Orion's Sword. It is a massive stellar nursery located about 1,344 light-years away, where new stars are being born from collapsing clouds of gas and dust. Beside it lies the Running Man Nebula (NGC 1977), a blue reflection nebula named for the dark dust lanes that resemble a running figure.Technical Details:Telescope: FLT 132Mount: Losmandy G11Camera: ASI 2600 monoFilters: LRGBView high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/M27.jpg</image:loc>
+      <image:title>Dumbbell Nebula (M27)</image:title>
+      <image:caption>The Dumbbell Nebula (M27) is a bright planetary nebula in the constellation Vulpecula, approximately 1,360 light-years away. Discovered by Charles Messier in 1764, it was the first planetary nebula ever identified. It consists of expanding layers of gas ejected by a dying star, which is now a hot white dwarf at its center. Its distinctive shape resembles an apple core or dumbbell.Technical Details:Scope: Edge 9.25 with 0.7 reducerCamera: Atik 16200Mount: Paramount MX+Filters: SHOLocation: HomeView high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/NGC_7822.jpg</image:loc>
+      <image:title>NGC 7822 (Question Mark Nebula)</image:title>
+      <image:caption>NGC 7822, often called the Question Mark Nebula, is a young, active star-forming complex in the constellation Cepheus, roughly 3,000 light-years away. It contains the emission region Sh2-171 and the cluster Berkeley 59. The nebula features dark dust lanes and 'elephant trunk' pillars being eroded by radiation from hot, massive stars.Technical Details:Scope: RedCat 250Mount: Losmandy G11Filters: SHOLocation: Home backyardView high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/Cygnus_wall_HA.jpg</image:loc>
+      <image:title>Cygnus Wall (HA)</image:title>
+      <image:caption>The Cygnus Wall is a prominent ridge of dense, star-forming gas within the North America Nebula (NGC 7000). Spanning approximately 20 light-years, this structure exhibits the most intense star formation activity in the nebula. The intricate shapes are sculpted by the radiation from hot, young stars eroding the dark dust clouds.Technical Details:Scope: Edge 9.25 with 0.7 reducerCamera: Atik 16200Mount: Paramount MX+Filter: HATotal Integration: 20hView high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/north_america_nebula_rev3.jpg</image:loc>
+      <image:title>North America Nebula (SHO Starless)</image:title>
+      <image:caption>The North America Nebula (NGC 7000) is a large emission nebula in the constellation Cygnus, named for its striking resemblance to the North American continent.It lies approximately 1,700–2,600 light-years from Earth and spans about 100 light-years across. The nebula glows due to ionized hydrogen gas, energized by a massive, hot star hidden behind interstellar dust. It is part of the same complex as the nearby Pelican Nebula.Technical Details:Scope: RedCat 250Mount: Losmandy G11Filters: Ha, O3, S2Location: Home backyardView high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/north_america_nebula_rev2.jpg</image:loc>
+      <image:title>North America Nebula (SHO)</image:title>
+      <image:caption>The North America Nebula (NGC 7000) is a large emission nebula in the constellation Cygnus, named for its striking resemblance to the North American continent.It lies approximately 1,700–2,600 light-years from Earth and spans about 100 light-years across. The nebula glows due to ionized hydrogen gas, energized by a massive, hot star hidden behind interstellar dust. It is part of the same complex as the nearby Pelican Nebula.Technical Details:Scope: RedCat 250Mount: Losmandy G11Filters: Ha, O3, S2Location: Home backyardView high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/M52_Star_Cluster_Bubble_Nebula.jpg</image:loc>
+      <image:title>M52 &amp; Bubble Nebula</image:title>
+      <image:caption>The Bubble Nebula (NGC 7635) and M52 are a classic deep-sky duo in Cassiopeia, offering a beautiful contrast between a gas nebula and a star cluster.The Bubble Nebula (NGC 7635) is a massive emission nebula sculpted by the fierce stellar winds of a hot, giant star at its center.The Shape: The star 'blows' a literal bubble in space, pushing surrounding gas into a shell roughly 7 light-years wide.Distance: Located about 7,000–11,000 light-years away.M52 is a rich, bright open star cluster containing about 200 stars.The Illusion: Although they appear side-by-side in your telescope, M52 is much closer to Earth (approx. 5,000 light-years) than the Bubble Nebula.Age: A young cluster, only about 35 million years old.Technical Details:Scope: FLT 132Camera: ATIK 16200Filters: HA and O3Location: Backyard (Bortle 6)View high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/Owl_Nebula.jpg</image:loc>
+      <image:title>Owl Nebula (M97)</image:title>
+      <image:caption>The Owl Nebula (M97, NGC 3587) is a planetary nebula located approximately 2,030 light-years away in the constellation Ursa Major. It is famous for its appearance, resembling a pair of 'owl eyes' in a round face, which are actually two expanding shells of material ejected by a dying star. Estimated to be around 8,000 years old, the nebula spans about 0.91 light-years in diameter and is expanding at a rate of 27–39 km/s. The central star is a faint 16th-magnitude white dwarf.Technical Data:Rig 1: Edge 9.25, HA O3 S2 on Paramount MX+Rig 2: WO FLT 132, HA O3 S2 on Losmandy G11View High-Res on Flickr</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/Eagle_Nebula.jpg</image:loc>
+      <image:title>Eagle Nebula (M16)</image:title>
+      <image:caption>The Eagle Nebula (M16) is a young open cluster of stars in the constellation Serpens, known for its active star-forming regions and the famous 'Pillars of Creation', which are towering structures of interstellar gas and dust acting as incubators for new stars. Located approximately 7,000 light-years away, the nebula spans about 70 by 55 light-years and is illuminated by the intense radiation from massive young stars in the cluster NGC 6611. The image was taken from my home backyard, using the FLT 132 scope mounted on the Losmandy G11, with HA, O3 and S2 filters. Total of 230 X 120 sec. Use the link for high res.Technical Details:Mount: Losmandy G11Telescope: WO FLT 132Filters: HA, O3, S2 (Hubble Palette)Total Integration Time: 230 x 120 sec (~7.6 hours)View High-Res on Flickr</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/Cocoon_Nebula.jpg</image:loc>
+      <image:title>Cocoon Nebula</image:title>
+      <image:caption>IC 5146: The Cocoon Nebula
+Cataloged as IC 5146, this beautiful object, nestled within a dense star field, is a combination of an emission nebula and an open star cluster. It is located approximately 4,000 light-years away in the constellation Cygnus.
+The nebula has a visual magnitude of about 7.2 and an apparent diameter of 12 arcminutes, which corresponds to a physical diameter of about 15 light-years.
+True to its nature as a stellar nursery, the Cocoon Nebula features a red emission cloud, a blue reflection nebula, and a dark absorption nebula (the dark lane leading into the cluster). Within the nebula, a 'new' star cluster is forming. The massive primary star at its center, born only about 100,000 years ago—a mere infant in cosmic terms—is responsible for ionizing the hydrogen gas (the red emission) and illuminating the surrounding dust (the blue reflection).
+This image was captured in two parts. The first part consisted of Narrowband (H$\alpha$) imaging with a total integration of 11.5 hours from home. The second part involved Broadband (RGB) imaging with 4.1 hours of integration from the Golan Heights.
+
+Technical Details:
+Mount: AP MACH 2
+Telescope: WO FLT 132
+Camera: ZWO ASI 2600 Mono
+Filters: HA, RGB
+Total Integration Time: HA (11.5h), RGB (4.1h)
+
+View High-Res on Flickr</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/Cave_Nebula.jpg</image:loc>
+      <image:title>Cave Nebula</image:title>
+      <image:caption>The Cave Nebula (Sh2-155) is a dim and very diffuse emission nebula within a larger nebula complex containing emission, reflection, and dark nebulosity. Noted for its distinct cave-like appearance.
+Located in the constellation Cepheus, approximately 2,400 light-years from Earth.
+It is part of the Cepheus B molecular cloud and is a region of active star formation.
+Technical Details: Image captured using Dual Rig RedCat 250 mounted on Losmandy G11 at September 2023.
+Filters: HA RGB (Total of 134 x 300 sec). View high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/Pacman_Nebula.jpg</image:loc>
+      <image:title>Pacman Nebula</image:title>
+      <image:caption>The Pacman Nebula (NGC 281) represents an emission nebula in the constellation of Cassiopeia. The nebula is an active star-forming region located at a distance of approx 9200 light-years.
+Its popular nickname derives from its resemblance to the character from the popular video game, Pac-Man.
+It was discovered in August 1883 by E. E. Barnard.
+Prominent features include dark dust lanes and Bok globules (small, dense dark nebulae where star formation takes place).
+Technical Details: Image captured using RedCat Scope mounted on Losmandy G11 at September 2023.
+Filters: HA RGB (Total of 171 x 300 sec). View high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/California_Nebula.jpg</image:loc>
+      <image:title>California Nebula</image:title>
+      <image:caption>The California Nebula (NGC 1499) is a large emission nebula located in the constellation Perseus. It is so named because it appears to resemble the outline of the US State of California on long exposure photographs.
+It is almost 2.5 degrees long on the sky and, because of its very low surface brightness, it is extremely difficult to observe visually.
+It lies at a distance of about 1,000 light years from Earth. Its fluorescence is due to excitation of the H-beta line in the nebula by the nearby prodigiously energetic O7 star, Xi Persei.
+The nebula was discovered by E. E. Barnard in 1884.
+Technical Details: Image captured using a RedCat scope with HA and RGB filters.
+Total Integration: 112 x 300 sec (approx 9.3 hours). View high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/HorseHead_Flame_Nebula.jpg</image:loc>
+      <image:title>HorseHead and Flame Nebulae</image:title>
+      <image:caption>A dark absorption nebula silhouetted against emission nebula IC 434. Part of the Orion complex. Captured with FLT 132 (Ha) and RedCat 51 (RGB). Total integration: ~25 hours. View high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/ic405_410_417.jpg</image:loc>
+      <image:title>Flaming Star, Tadpole &amp; Spider Nebulae</image:title>
+      <image:caption>Rich star-forming region in Auriga. Captured using narrowband and RGB filters with a RedCat 51. View high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/ngc_1333.jpg</image:loc>
+      <image:title>NGC 1333 – Star Forming Region</image:title>
+      <image:caption>Reflection nebula in Perseus. Captured over two nights in the Negev desert using a WO FLT 132 and ASI 2600 mono. View high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/M16_hubble_pallete.jpg</image:loc>
+      <image:title>Eagle Nebula (M16)</image:title>
+      <image:caption>Famous for the Pillars of Creation. Captured using narrowband SHO filters. View high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/Tulip_Nebula.jpg</image:loc>
+      <image:title>Tulip Nebula (Sh2-101)</image:title>
+      <image:caption>Emission nebula in Cygnus. Captured using RGB and Ha filters with a WO FLT 132. View high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/Bubble_Nebula_HOO.jpg</image:loc>
+      <image:title>Bubble Nebula</image:title>
+      <image:caption>The Bubble Nebula (NGC 7635) is a peculiar 12th magnitude planetary nebula. Captured with Celestron Edge 9.25 . HA O3 : 2 X 84 X 300sec. Mount: AP Mach 2. View high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/wizard_nebula_1.jpg</image:loc>
+      <image:title>Wizard Nebula</image:title>
+      <image:caption>Bright nebula in Cepheus. also known as NGC 7380. located ~ 1800 ly. Captured with Celestron Edge 9.25 . SHO : 161 X 300sec. Mount: AP Mach 2. View high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/wizard_nebula_2.jpg</image:loc>
+      <image:title>Wizard Nebula (Version 2)</image:title>
+      <image:caption>Bright nebula in Cepheus. also known as NGC 7380. located ~ 1800 ly. Captured with Celestron Edge 9.25 . SHO : 161 X 300sec. Mount: AP Mach 2. View high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/north_america_nebula.jpg</image:loc>
+      <image:title>North America Nebula</image:title>
+      <image:caption>The North America Nebula , NGC 7000, is an emission nebula in the constellation Cygnus, close to Deneb (it's btightest star). located ~ 2600 ly from us. 
+Image taken with the following set up: Scope: WO RedCat 51 . Mount : AP Mach2. Camera: ASI 2600 mono. RGB: 153 X 180 sec , HA: 77 X 300 sec .View high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/helix_nebula.jpg</image:loc>
+      <image:title>Helix Nebula</image:title>
+      <image:caption>The Helix Nebula, also known as NGC 7293, is a large planetary nebula in the constellation Aquarios. it is perhaps the nearest planetary nebula to our solar system.
+The Helix Nebula has been reffered to as the 'Eye of God'. Located ~ 900 ly from us. Captured with Celestron HD 9.25 / 0.7 Reducer with ZWO ASI 2600 mono and Filters : R, G , B , HA , O3
+Mount : AP Mach 2.View high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/veil_nebula.jpg</image:loc>
+      <image:title>Veil Nebula</image:title>
+      <image:caption>The Veil Nebula , also known as NGC 6960 and NGC 6992, spans an exceptionally wide field—about six times the diameter of the full Moon—and is the remnant of a supernova in the constellation Cygnus.
+The nebula is located approximately 2,600 light-years away and has an estimated diameter of about 45 light-years.
+It is imaged against the background of the Orion Arm of the Milky Way, which is why numerous white points are visible in the background of the image—these are suns, i.e., distant stars.
+The image was captured using a dual RedCat 51, combining RGB data with Hα and OIII filters, from the Negev Desert..View high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/Trifid_Nebula.jpg</image:loc>
+      <image:title>Trifid Nebula</image:title>
+      <image:caption>The Trifid Nebula (catalogued as Messier 20 or M20 and as NGC 6514) is an H II region in the north-west of Sagittarius in a star-forming region in the Milky Way's Scutum–Centaurus Arm.
+It was discovered by Charles Messier on June 5, 1764. Its name means 'three-lobe'. The object is an unusual combination of an open cluster of stars, an emission nebula
+Located approximately 5,200 light-years away from us, with an estimated diameter of about 44 light-years.
+Photon collection was carried out in collaboration with my friend Nikita Pritsker in the desert. In total, about 192 LRGB frames were captured, each with an exposure time of 3 minutes.
+Telescope: WO FLT 132 . Camera: ASI 2600 Mono . Mount: AP Mach 2 View high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/Jellyfish_Nebula.jpg</image:loc>
+      <image:title>Jellyfish Nebula</image:title>
+      <image:caption>The Jellyfish Nebula and Beyond...
+What do we see in this image besides thousands of suns?
+At the bottom of the frame, resembling a mushroom cloud from an explosion, is the object IC 443, popularly known as the Jellyfish Nebula. It is a Galactic Supernova Remnant (SNR) located in the constellation Gemini. It is estimated that the supernova occurred approximately 30,000 years ago, an event that also gave birth to a neutron star.
+Directly below the Jellyfish Nebula lies the star Propus. Propus (Eta Geminorum) is the primary component of a triple star system located about 700 light-years away. A red giant and the sixth-brightest star in Gemini, it marks the foot of Castor, one of the celestial twins.
+In the upper part of the image, a bluish patch is visible—this is a reflection nebula. Surrounding and above it is a vast region of emission nebula (Hydrogen), interspersed with intricate dark nebulae.
+To the left of the emission nebula sits another prominent star named Tejat (Mu Geminorum). This red giant is located roughly 230 light-years away. With an average apparent magnitude of 2.9, it is the fourth-brightest star in Gemini, following Pollux, Castor, and Alhena.
+As a reminder, a red giant is a star that has exhausted the supply of hydrogen in its core and begun the thermonuclear fusion of hydrogen in a shell surrounding the core. These stars have radii tens to hundreds of times larger than the Sun. However, their outer envelope is lower in temperature, which gives them their characteristic yellowish-orange hue.
+Technical Setup: The image was captured using a dual setup of Mono cameras with RGB and Ha (Hydrogen Alpha) filters. These were mounted on two RedCat 51 telescopes, sitting steadily on an Astro-Physics (AP) mount. View high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/IC405_IC410_Nebulae.jpg</image:loc>
+      <image:title>IC405_IC410_Nebulae</image:title>
+      <image:caption>IC 405 and IC 410 Nebulae.
+The nebula in the center (leaning slightly to the left) is IC 405, famously known as the Flaming Star Nebula. Located in the constellation Auriga, it is illuminated by the variable star AE Aurigae, the bright star at the nebula's core. This object is a combination of an emission and reflection nebula. As a reminder, emission nebulae are formed by the ionization of hydrogen atoms by radiation from young, energetic stars, while reflection nebulae scatter and reflect the light from surrounding stars.
+IC 405 is located approximately 1,500 light-years away from us and spans about 5 light-years across.
+In the right corner, you can see the Tadpole Nebula (IC 410)—named after the two 'tadpole' structures visible within it. I have previously captured this nebula at a higher resolution using a different telescope and camera setup from my home using narrowband filters; you can view that version here: [Link to Flickr].
+IC 410 is also an emission nebula, somewhat resembling the Rosette Nebula found in the constellation Monoceros. At its center lies the star cluster NGC 1893, also known as the 'Y' Cluster—see if you can spot the letter Y in the formation. IC 410 is located much further away, at about 12,000 light-years from Earth.
+Technical Details: This image was captured using a dual-rig setup of two RedCat 51 telescopes, each equipped with an ASI2600 Mono camera. One side captured HA (Hydrogen-alpha) data, while the other side simultaneously captured RGB frames. Total integration: 172 frames at 5 minutes each. View high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/Rosette_Nebula.jpg</image:loc>
+      <image:title>Rosette Nebula (NGC 2237)</image:title>
+      <image:caption>The Rosette Nebula (NGC 2237) is a vast emission nebula located approximately 5,000 light-years away in the constellation Monoceros. Its distinctive flower-like shape is sculpted by the stellar winds and radiation from the central open cluster NGC 2244. The nebula spans about 130 light-years across and is a region of active star formation.Technical Details:Scope: FLT 132Mount: Losmandy G11Filters: LRGB Ha O3 S2View high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/IC417_NGC1931.jpg</image:loc>
+      <image:title>Spider and Fly Nebulae</image:title>
+      <image:caption>A beautiful cosmic pair in the constellation Auriga, often referred to as the 'Spider and the Fly'. The Spider (IC 417) is a large emission nebula embedded with the open cluster Stock 8. It lies approximately 10,000 light-years away and is an active site of star formation.The Fly (NGC 1931) is a smaller, compact emission and reflection nebula located about 7,000 light-years away. It is often described as a miniature version of the Orion Nebula due to its mixed nature and young stellar population.Technical Details:Scope: FLT 132Camera: ASI 2600 MonoMount: Losmandy G11Filters: HA, O3 (HOO)View high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/IC443.jpg</image:loc>
+      <image:title>Jellyfish Nebula (IC 443)</image:title>
+      <image:caption>The Jellyfish Nebula (IC 443) is a galactic supernova remnant in the constellation Gemini, located approximately 5,000 light-years from Earth. It is the expanding debris cloud from a massive star that exploded roughly 3,000 to 30,000 years ago. This detailed close-up reveals the complex filamentary structure of the shock waves interacting with the surrounding molecular clouds.Technical Details:Scope: FLT 132Mount: Losmandy G11Filters: SHO (Hubble Palette)Location: HomeView high resolution.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/Seagull_Nebula.jpg</image:loc>
+      <image:title>Seagull Nebula</image:title>
+      <image:caption>The Seagull Nebula, officially cataloged as IC 2177, is a vast and striking emission nebula located along the border of the constellations Monoceros and Canis Major. Approximately 3,650 to 3,800 light-years away, it spans about 100 light-years across. This cosmic bird is an active star-forming region glowing with ionized hydrogen gas, energized by young, massive stars like the central HD 53367 that forms the 'head' of the seagull.Technical Data:Scope: WO RedCat 51Camera: ZWO ASI 2600 monoFilters: R,G,B, HA,O3,S2Mount: Losmandy G11View High-Res on Flickr.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/planner.html</loc>
+    <lastmod>2026-03-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/processing.html</loc>
+    <lastmod>2026-03-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/test-glossary.html</loc>
+    <lastmod>2026-03-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/tonights_best.html</loc>
+    <lastmod>2026-03-09</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://dsoimage.com/weather.html</loc>
-    <lastmod>2026-03-07</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2026-03-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dsoimage.com/processing.html</loc>
-    <lastmod>2026-03-07</lastmod>
+    <loc>https://dsoimage.com/constellation.html?id=AND</loc>
+    <lastmod>2026-02-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/AND.png</image:loc>
+      <image:title>Andromeda Constellation Map</image:title>
+      <image:caption>Detailed map of the Andromeda constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
   </url>
   <url>
-    <loc>https://dsoimage.com/equipment.html</loc>
-    <lastmod>2026-03-07</lastmod>
+    <loc>https://dsoimage.com/constellation.html?id=ANT</loc>
+    <lastmod>2026-02-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/ANT.png</image:loc>
+      <image:title>Antlia Constellation Map</image:title>
+      <image:caption>Detailed map of the Antlia constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
   </url>
   <url>
-    <loc>https://dsoimage.com/about.html</loc>
-    <lastmod>2026-03-07</lastmod>
+    <loc>https://dsoimage.com/constellation.html?id=APS</loc>
+    <lastmod>2026-02-28</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/APS.png</image:loc>
+      <image:title>Apus Constellation Map</image:title>
+      <image:caption>Detailed map of the Apus constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
   </url>
   <url>
-    <loc>https://dsoimage.com/contact.html</loc>
-    <lastmod>2026-03-07</lastmod>
+    <loc>https://dsoimage.com/constellation.html?id=AQR</loc>
+    <lastmod>2026-02-28</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/AQR.png</image:loc>
+      <image:title>Aquarius Constellation Map</image:title>
+      <image:caption>Detailed map of the Aquarius constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=AQL</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/AQL.png</image:loc>
+      <image:title>Aquila Constellation Map</image:title>
+      <image:caption>Detailed map of the Aquila constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=ARA</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/ARA.png</image:loc>
+      <image:title>Ara Constellation Map</image:title>
+      <image:caption>Detailed map of the Ara constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=ARI</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/ARI.png</image:loc>
+      <image:title>Aries Constellation Map</image:title>
+      <image:caption>Detailed map of the Aries constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=AUR</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/AUR.png</image:loc>
+      <image:title>Auriga Constellation Map</image:title>
+      <image:caption>Detailed map of the Auriga constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=BOO</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/BOO.png</image:loc>
+      <image:title>Boötes Constellation Map</image:title>
+      <image:caption>Detailed map of the Boötes constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=CAE</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/CAE.png</image:loc>
+      <image:title>Caelum Constellation Map</image:title>
+      <image:caption>Detailed map of the Caelum constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=CAM</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/CAM.png</image:loc>
+      <image:title>Camelopardalis Constellation Map</image:title>
+      <image:caption>Detailed map of the Camelopardalis constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=CNC</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/CNC.png</image:loc>
+      <image:title>Cancer Constellation Map</image:title>
+      <image:caption>Detailed map of the Cancer constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=CVN</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/CVN.png</image:loc>
+      <image:title>Canes Venatici Constellation Map</image:title>
+      <image:caption>Detailed map of the Canes Venatici constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=CMA</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/CMA.png</image:loc>
+      <image:title>Canis Major Constellation Map</image:title>
+      <image:caption>Detailed map of the Canis Major constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=CMI</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/CMI.png</image:loc>
+      <image:title>Canis Minor Constellation Map</image:title>
+      <image:caption>Detailed map of the Canis Minor constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=CAP</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/CAP.png</image:loc>
+      <image:title>Capricornus Constellation Map</image:title>
+      <image:caption>Detailed map of the Capricornus constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=CAR</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/CAR.png</image:loc>
+      <image:title>Carina Constellation Map</image:title>
+      <image:caption>Detailed map of the Carina constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=CAS</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/CAS.png</image:loc>
+      <image:title>Cassiopeia Constellation Map</image:title>
+      <image:caption>Detailed map of the Cassiopeia constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=CEN</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/CEN.png</image:loc>
+      <image:title>Centaurus Constellation Map</image:title>
+      <image:caption>Detailed map of the Centaurus constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=CEP</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/CEP.png</image:loc>
+      <image:title>Cepheus Constellation Map</image:title>
+      <image:caption>Detailed map of the Cepheus constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=CET</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/CET.png</image:loc>
+      <image:title>Cetus Constellation Map</image:title>
+      <image:caption>Detailed map of the Cetus constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=CHA</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/CHA.png</image:loc>
+      <image:title>Chamaeleon Constellation Map</image:title>
+      <image:caption>Detailed map of the Chamaeleon constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=CIR</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/CIR.png</image:loc>
+      <image:title>Circinus Constellation Map</image:title>
+      <image:caption>Detailed map of the Circinus constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=COL</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/COL.png</image:loc>
+      <image:title>Columba Constellation Map</image:title>
+      <image:caption>Detailed map of the Columba constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=COM</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/COM.png</image:loc>
+      <image:title>Coma Berenices Constellation Map</image:title>
+      <image:caption>Detailed map of the Coma Berenices constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=CRA</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/CRA.png</image:loc>
+      <image:title>Corona Australis Constellation Map</image:title>
+      <image:caption>Detailed map of the Corona Australis constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=CRB</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/CRB.png</image:loc>
+      <image:title>Corona Borealis Constellation Map</image:title>
+      <image:caption>Detailed map of the Corona Borealis constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=CRV</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/CRV.png</image:loc>
+      <image:title>Corvus Constellation Map</image:title>
+      <image:caption>Detailed map of the Corvus constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=CRT</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/CRT.png</image:loc>
+      <image:title>Crater Constellation Map</image:title>
+      <image:caption>Detailed map of the Crater constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=CRU</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/CRU.png</image:loc>
+      <image:title>Crux Constellation Map</image:title>
+      <image:caption>Detailed map of the Crux constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=CYG</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/CYG.png</image:loc>
+      <image:title>Cygnus Constellation Map</image:title>
+      <image:caption>Detailed map of the Cygnus constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=DEL</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/DEL.png</image:loc>
+      <image:title>Delphinus Constellation Map</image:title>
+      <image:caption>Detailed map of the Delphinus constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=DOR</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/DOR.png</image:loc>
+      <image:title>Dorado Constellation Map</image:title>
+      <image:caption>Detailed map of the Dorado constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=DRA</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/DRA.png</image:loc>
+      <image:title>Draco Constellation Map</image:title>
+      <image:caption>Detailed map of the Draco constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=EQU</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/EQU.png</image:loc>
+      <image:title>Equuleus Constellation Map</image:title>
+      <image:caption>Detailed map of the Equuleus constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=ERI</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/ERI.png</image:loc>
+      <image:title>Eridanus Constellation Map</image:title>
+      <image:caption>Detailed map of the Eridanus constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=FOR</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/FOR.png</image:loc>
+      <image:title>Fornax Constellation Map</image:title>
+      <image:caption>Detailed map of the Fornax constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=GEM</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/GEM.png</image:loc>
+      <image:title>Gemini Constellation Map</image:title>
+      <image:caption>Detailed map of the Gemini constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=GRU</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/GRU.png</image:loc>
+      <image:title>Grus Constellation Map</image:title>
+      <image:caption>Detailed map of the Grus constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=HER</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/HER.png</image:loc>
+      <image:title>Hercules Constellation Map</image:title>
+      <image:caption>Detailed map of the Hercules constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=HOR</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/HOR.png</image:loc>
+      <image:title>Horologium Constellation Map</image:title>
+      <image:caption>Detailed map of the Horologium constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=HYA</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/HYA.png</image:loc>
+      <image:title>Hydra Constellation Map</image:title>
+      <image:caption>Detailed map of the Hydra constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=HYI</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/HYI.png</image:loc>
+      <image:title>Hydrus Constellation Map</image:title>
+      <image:caption>Detailed map of the Hydrus constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=IND</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/IND.png</image:loc>
+      <image:title>Indus Constellation Map</image:title>
+      <image:caption>Detailed map of the Indus constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=LAC</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/LAC.png</image:loc>
+      <image:title>Lacerta Constellation Map</image:title>
+      <image:caption>Detailed map of the Lacerta constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=LEO</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/LEO.png</image:loc>
+      <image:title>Leo Constellation Map</image:title>
+      <image:caption>Detailed map of the Leo constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=LMI</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/LMI.png</image:loc>
+      <image:title>Leo Minor Constellation Map</image:title>
+      <image:caption>Detailed map of the Leo Minor constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=LEP</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/LEP.png</image:loc>
+      <image:title>Lepus Constellation Map</image:title>
+      <image:caption>Detailed map of the Lepus constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=LIB</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/LIB.png</image:loc>
+      <image:title>Libra Constellation Map</image:title>
+      <image:caption>Detailed map of the Libra constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=LUP</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/LUP.png</image:loc>
+      <image:title>Lupus Constellation Map</image:title>
+      <image:caption>Detailed map of the Lupus constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=LYN</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/LYN.png</image:loc>
+      <image:title>Lynx Constellation Map</image:title>
+      <image:caption>Detailed map of the Lynx constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=LYR</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/LYR.png</image:loc>
+      <image:title>Lyra Constellation Map</image:title>
+      <image:caption>Detailed map of the Lyra constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=MEN</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/MEN.png</image:loc>
+      <image:title>Mensa Constellation Map</image:title>
+      <image:caption>Detailed map of the Mensa constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=MIC</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/MIC.png</image:loc>
+      <image:title>Microscopium Constellation Map</image:title>
+      <image:caption>Detailed map of the Microscopium constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=MON</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/MON.png</image:loc>
+      <image:title>Monoceros Constellation Map</image:title>
+      <image:caption>Detailed map of the Monoceros constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=MUS</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/MUS.png</image:loc>
+      <image:title>Musca Constellation Map</image:title>
+      <image:caption>Detailed map of the Musca constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=NOR</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/NOR.png</image:loc>
+      <image:title>Norma Constellation Map</image:title>
+      <image:caption>Detailed map of the Norma constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=OCT</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/OCT.png</image:loc>
+      <image:title>Octans Constellation Map</image:title>
+      <image:caption>Detailed map of the Octans constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=OPH</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/OPH.png</image:loc>
+      <image:title>Ophiuchus Constellation Map</image:title>
+      <image:caption>Detailed map of the Ophiuchus constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=ORI</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/ORI.png</image:loc>
+      <image:title>Orion Constellation Map</image:title>
+      <image:caption>Detailed map of the Orion constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=PAV</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/PAV.png</image:loc>
+      <image:title>Pavo Constellation Map</image:title>
+      <image:caption>Detailed map of the Pavo constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=PEG</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/PEG.png</image:loc>
+      <image:title>Pegasus Constellation Map</image:title>
+      <image:caption>Detailed map of the Pegasus constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=PER</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/PER.png</image:loc>
+      <image:title>Perseus Constellation Map</image:title>
+      <image:caption>Detailed map of the Perseus constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=PHE</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/PHE.png</image:loc>
+      <image:title>Phoenix Constellation Map</image:title>
+      <image:caption>Detailed map of the Phoenix constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=PIC</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/PIC.png</image:loc>
+      <image:title>Pictor Constellation Map</image:title>
+      <image:caption>Detailed map of the Pictor constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=PSC</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/PSC.png</image:loc>
+      <image:title>Pisces Constellation Map</image:title>
+      <image:caption>Detailed map of the Pisces constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=PSA</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/PSA.png</image:loc>
+      <image:title>Piscis Austrinus Constellation Map</image:title>
+      <image:caption>Detailed map of the Piscis Austrinus constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=PUP</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/PUP.png</image:loc>
+      <image:title>Puppis Constellation Map</image:title>
+      <image:caption>Detailed map of the Puppis constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=PYX</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/PYX.png</image:loc>
+      <image:title>Pyxis Constellation Map</image:title>
+      <image:caption>Detailed map of the Pyxis constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=RET</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/RET.png</image:loc>
+      <image:title>Reticulum Constellation Map</image:title>
+      <image:caption>Detailed map of the Reticulum constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=SGE</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/SGE.png</image:loc>
+      <image:title>Sagitta Constellation Map</image:title>
+      <image:caption>Detailed map of the Sagitta constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=SGR</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/SGR.png</image:loc>
+      <image:title>Sagittarius Constellation Map</image:title>
+      <image:caption>Detailed map of the Sagittarius constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=SCO</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/SCO.png</image:loc>
+      <image:title>Scorpius Constellation Map</image:title>
+      <image:caption>Detailed map of the Scorpius constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=SCL</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/SCL.png</image:loc>
+      <image:title>Sculptor Constellation Map</image:title>
+      <image:caption>Detailed map of the Sculptor constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=SCT</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/SCT.png</image:loc>
+      <image:title>Scutum Constellation Map</image:title>
+      <image:caption>Detailed map of the Scutum constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=SER</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/SER.png</image:loc>
+      <image:title>Serpens Constellation Map</image:title>
+      <image:caption>Detailed map of the Serpens constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=SEX</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/SEX.png</image:loc>
+      <image:title>Sextans Constellation Map</image:title>
+      <image:caption>Detailed map of the Sextans constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=TAU</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/TAU.png</image:loc>
+      <image:title>Taurus Constellation Map</image:title>
+      <image:caption>Detailed map of the Taurus constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=TEL</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/TEL.png</image:loc>
+      <image:title>Telescopium Constellation Map</image:title>
+      <image:caption>Detailed map of the Telescopium constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=TRI</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/TRI.png</image:loc>
+      <image:title>Triangulum Constellation Map</image:title>
+      <image:caption>Detailed map of the Triangulum constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=TRA</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/TRA.png</image:loc>
+      <image:title>Triangulum Australe Constellation Map</image:title>
+      <image:caption>Detailed map of the Triangulum Australe constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=TUC</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/TUC.png</image:loc>
+      <image:title>Tucana Constellation Map</image:title>
+      <image:caption>Detailed map of the Tucana constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=UMA</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/UMA.png</image:loc>
+      <image:title>Ursa Major Constellation Map</image:title>
+      <image:caption>Detailed map of the Ursa Major constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=UMI</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/UMI.png</image:loc>
+      <image:title>Ursa Minor Constellation Map</image:title>
+      <image:caption>Detailed map of the Ursa Minor constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=VEL</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/VEL.png</image:loc>
+      <image:title>Vela Constellation Map</image:title>
+      <image:caption>Detailed map of the Vela constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=VIR</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/VIR.png</image:loc>
+      <image:title>Virgo Constellation Map</image:title>
+      <image:caption>Detailed map of the Virgo constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=VOL</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/VOL.png</image:loc>
+      <image:title>Volans Constellation Map</image:title>
+      <image:caption>Detailed map of the Volans constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://dsoimage.com/constellation.html?id=VUL</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/constellations/VUL.png</image:loc>
+      <image:title>Vulpecula Constellation Map</image:title>
+      <image:caption>Detailed map of the Vulpecula constellation showing stars and deep sky objects.</image:caption>
+    </image:image>
   </url>
 </urlset>
-

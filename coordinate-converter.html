@@ -1,141 +1,132 @@
 <!DOCTYPE html>
 
 <html lang="en">
-
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <link href="https://dsoimage.com/coordinate-converter.html" rel="canonical" />
-    <title>Coordinate Converter — Shimon Avitan</title>
-    <meta
-        content="Coordinate Converter — Shimon Avitan - Convert Dec to DMS and vice versa seamlessly for astrophotography planning."
-        name="description" />
-    <meta name="keywords" content="Shimon Avitan, DSOImage, Astrophotography, Deep Sky Objects, DSO, Gallery, Astronomy, Galaxies, Nebulae, Space, Telescope, Night Sky, FLT 132, ASI2600MM, APOD, ISS Tracker, Planet Visibility" />
-    <!-- FORCE NEW VERSION v=11 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="css/style.css?v=52" rel="stylesheet" />
-</head>
-
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://dsoimage.com/coordinate-converter.html" rel="canonical"/>
+<title>Coordinate Converter — Shimon Avitan</title>
+<meta content="Coordinate Converter — Shimon Avitan - Deep Sky Astrophotography by Shimon Avitan. High-resolution LRGB imaging featuring nebulae, galaxies, and star clusters captured with FLT 132." name="description"/>
+<meta content="Shimon Avitan, DSOImage, Astrophotography, Deep Sky Objects, DSO, Gallery, Astronomy, Galaxies, Nebulae, Space, Telescope, Night Sky, FLT 132, ASI2600MM, APOD, ISS Tracker, Planet Visibility" name="keywords"/>
+<!-- FORCE NEW VERSION v=11 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="css/style.css?v=52" rel="stylesheet">
+</link></head>
 <body>
-    <div class="container">
-        <!-- TOPBAR (mobile) -->
-        <!-- TOPBAR (mobile) -->
-        <header class="topbar">
-			<div class="topbar-logo"><a href="index.html">Imaging <span class="red">D</span>eep <span class="green">S</span>ky <span class="blue">O</span>bject</a></div></header>
-        <div class="overlay" hidden="" id="overlay"></div>
-        <nav aria-label="Site menu" class="top-nav" id="top-nav">
-            <div class="top-nav-container">
-                <div class="top-nav-logo"><a href="index.html">Imaging <span class="red">D</span>eep <span class="green">S</span>ky <span class="blue">O</span>bject</a></div>
-                <ul class="top-nav-links" id="top-nav-links">
-                    <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
-                    <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropbtn"><i class="fa-solid fa-images"></i> Galleries
-                            &#9662;</a>
-                        <div class="dropdown-content">
-                            <a href="galaxies.html"><i class="fa-solid fa-hurricane"></i> Galaxies</a>
-                            <a href="nebulae.html"><i class="fa-solid fa-smog"></i> Nebulae</a>
-                            <a href="clusters.html"><i class="fa-solid fa-certificate"></i> Star Clusters</a>
-                        </div>
-                    </li>
-                    <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropbtn"><i class="fa-solid fa-book"></i> Resources
-                            &#9662;</a>
-                        <div class="dropdown-content">
-                            <a data-i18n="menu_equipment" href="equipment.html"><i class="fa-solid fa-camera-retro"></i> Equipment</a>
-                            <a data-i18n="menu_processing" href="processing.html"><i class="fa-solid fa-laptop-code"></i> Processing</a>
-                            <a href="knowledge.html"><i class="fa-solid fa-book-open"></i> Knowledge Base</a>
-                        </div>
-                    </li>
-                    <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropbtn"><i class="fa-solid fa-toolbox"></i> Tools
-                            &#9662;</a>
-                        <div class="dropdown-content">
-                            <a data-i18n="menu_weather" href="weather.html"><i class="fa-solid fa-cloud-sun"></i> Weather</a>
-                            <a href="planner.html"><i class="fa-solid fa-calendar-days"></i> Planned Session</a>
-                            <a href="coordinate-converter.html"><i class="fa-solid fa-globe"></i> Coordinate Converter</a>
-                            <a href="checklist.html"><i class="fa-solid fa-check-double"></i> Pre-Flight Checklist</a>
-                            <a href="live-sky-map.html"><i class="fa-solid fa-map-location-dot"></i> Live Sky Map (Interactive)</a>
-                            <a href="apod.html"><i class="fa-solid fa-satellite"></i> NASA APOD</a>
-                            <a href="tonights_best.html"><i class="fa-solid fa-star"></i> Tonight's Best</a>
-                            <a href="iss.html"><i class="fa-solid fa-rocket"></i> Where is the ISS?</a>
-                        </div>
-                    </li>
-                    <li><a href="about.html"><i class="fa-solid fa-user-astronaut"></i> About</a></li>
-                    <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
-                </ul>
-                <div class="top-nav-actions">
-                    <button class="mode-toggle-btn" id="red-mode-toggle" title="Night Vision"><span
-                            class="circle-icon"></span></button>
-                    <div class="nv-controls" id="nv-container"
-                        style="display:none;position:absolute;top:60px;right:20px;background:#111;padding:10px;border:1px solid #333;z-index:2000;border-radius:8px;">
-                        <label for="nv-slider"
-                            style="font-size:13px;color:#aaa;display:block;margin-bottom:5px;">Dimmer</label>
-                        <input id="nv-slider" max="100" min="20" type="range" value="80" />
-                    </div>
-                    <button id="mobile-nav-toggle" aria-label="Toggle navigation" title="Menu">&#9776;</button>
-                    <button class="search-trigger" title="Search">&#128269;</button>
-                </div>
-            </div>
-        </nav>
-        <div id="image-stats" style="display:none;"></div>
-        <!-- MAIN -->
-        <main class="main-content">
-            <main class="main-content">
-                <h1>Coordinate Converter</h1>
-                <p class="subtitle">
+<div class="container">
+<!-- TOPBAR (mobile) -->
+<!-- TOPBAR (mobile) -->
+<header class="topbar">
+<div class="topbar-logo"><a href="index.html">Imaging <span class="red">D</span>eep <span class="green">S</span>ky <span class="blue">O</span>bject</a></div></header>
+<div class="overlay" hidden="" id="overlay"></div>
+<nav aria-label="Site menu" class="top-nav" id="top-nav">
+<div class="top-nav-container">
+<div class="top-nav-logo"><a href="index.html">Imaging <span class="red">D</span>eep <span class="green">S</span>ky <span class="blue">O</span>bject</a></div>
+<ul class="top-nav-links" id="top-nav-links">
+<li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+<li class="dropdown">
+<a class="dropbtn" href="javascript:void(0)"><i class="fa-solid fa-images"></i> Galleries
+                            ▾</a>
+<div class="dropdown-content">
+<a href="galaxies.html"><i class="fa-solid fa-hurricane"></i> Galaxies</a>
+<a href="nebulae.html"><i class="fa-solid fa-smog"></i> Nebulae</a>
+<a href="clusters.html"><i class="fa-solid fa-certificate"></i> Star Clusters</a>
+</div>
+</li>
+<li class="dropdown">
+<a class="dropbtn" href="javascript:void(0)"><i class="fa-solid fa-book"></i> Resources
+                            ▾</a>
+<div class="dropdown-content">
+<a data-i18n="menu_equipment" href="equipment.html"><i class="fa-solid fa-camera-retro"></i> Equipment</a>
+<a data-i18n="menu_processing" href="processing.html"><i class="fa-solid fa-laptop-code"></i> Processing</a>
+<a href="knowledge.html"><i class="fa-solid fa-book-open"></i> Knowledge Base</a>
+</div>
+</li>
+<li class="dropdown">
+<a class="dropbtn" href="javascript:void(0)"><i class="fa-solid fa-toolbox"></i> Tools
+                            ▾</a>
+<div class="dropdown-content">
+<a data-i18n="menu_weather" href="weather.html"><i class="fa-solid fa-cloud-sun"></i> Weather</a>
+<a href="planner.html"><i class="fa-solid fa-calendar-days"></i> Planned Session</a>
+<a href="coordinate-converter.html"><i class="fa-solid fa-globe"></i> Coordinate Converter</a>
+<a href="checklist.html"><i class="fa-solid fa-check-double"></i> Pre-Flight Checklist</a>
+<a href="live-sky-map.html"><i class="fa-solid fa-map-location-dot"></i> Live Sky Map (Interactive)</a>
+<a href="apod.html"><i class="fa-solid fa-satellite"></i> NASA APOD</a>
+<a href="tonights_best.html"><i class="fa-solid fa-star"></i> Tonight's Best</a>
+<a href="catalog-explorer.html"><i class="fa-solid fa-magnifying-glass-chart"></i> Catalog Explorer</a>
+<a href="iss.html"><i class="fa-solid fa-rocket"></i> Where is the ISS?</a>
+</div>
+</li>
+<li><a href="about.html"><i class="fa-solid fa-user-astronaut"></i> About</a></li>
+<li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+</ul>
+<div class="top-nav-actions">
+<button class="mode-toggle-btn" id="red-mode-toggle" title="Night Vision"><span class="circle-icon"></span></button>
+<div class="nv-controls" id="nv-container" style="display:none;position:absolute;top:60px;right:20px;background:#111;padding:10px;border:1px solid #333;z-index:2000;border-radius:8px;">
+<label for="nv-slider" style="font-size:13px;color:#aaa;display:block;margin-bottom:5px;">Dimmer</label>
+<input id="nv-slider" max="100" min="20" type="range" value="80"/>
+</div>
+<button aria-label="Toggle navigation" id="mobile-nav-toggle" title="Menu">☰</button>
+<button class="search-trigger" title="Search">🔍</button>
+</div>
+</div>
+</nav>
+<div id="image-stats" style="display:none;"></div>
+<!-- MAIN -->
+<main class="main-content">
+<main class="main-content">
+<h1>Coordinate Converter</h1>
+<p class="subtitle">
                     Quickly switch between Decimal Degrees and Degree-Minute-Second formats.
                 </p>
-                <div class="tools-grid">
-                    <!-- 5. Coordinate Converter -->
-                    <div class="tool-card wide-card" id="coord-tool">
-                        <div class="tool-icon">🌐</div>
-                        <h2>Coordinate Converter</h2>
-                        <div class="tabs">
-                            <button class="tab-btn active" onclick="switchTab('dec-to-dms')">Dec to DMS</button>
-                            <button class="tab-btn" onclick="switchTab('dms-to-dec')">DMS to Dec</button>
-                        </div>
-                        <!-- Dec to DMS Form -->
-                        <div class="tab-content active" id="dec-to-dms">
-                            <div class="converter-row">
-                                <input id="input-dec" placeholder="Decimal Degrees (e.g. 34.56)" step="any"
-                                    type="number" />
-                                <button class="action-btn" onclick="convertDecToDms()">Convert</button>
-                            </div>
-                            <div class="result-box" id="result-dms">Result: --° --' --"</div>
-                        </div>
-                        <div class="tab-content" id="dms-to-dec">
-                            <div class="converter-row multi-input">
-                                <input class="small-input" id="input-d" placeholder="Deg" type="number" />
-                                <input class="small-input" id="input-m" placeholder="Min" type="number" />
-                                <input class="small-input" id="input-s" placeholder="Sec" type="number" />
-                                <button class="action-btn" onclick="convertDmsToDec()">Convert</button>
-                            </div>
-                            <div class="result-box" id="result-dec">Result: --</div>
-                        </div>
-                    </div>
-                </div>
-    </div>
-    <footer class="site-footer">
-        <p>© 2026 Shimon Avitan | dsoimage.com</p>
-    </footer>
-    </main>
-    </div>
-    <!-- Search Overlay -->
-    <div class="search-overlay" id="search-overlay">
-        <div class="search-box">
-            <span class="search-close">×</span>
-            <input autocomplete="off" class="search-input" id="search-input" placeholder="Search objects (e.g., M31)..."
-                type="search" />
-            <div class="search-results" id="search-results"></div>
-        </div>
-    </div>
-    <!-- Firebase Compat SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-    <!-- Updated for Mobile Layout Fixes -->
-    <script src="js/script.js?v=37"></script>
-    <script src="js/stats.js"></script>
-</body>
+<div class="tools-grid">
+<!-- 5. Coordinate Converter -->
+<div class="tool-card wide-card" id="coord-tool">
+<div class="tool-icon">🌐</div>
+<h2>Coordinate Converter</h2>
+<div class="tabs">
+<button class="tab-btn active" onclick="switchTab('dec-to-dms')">Dec to DMS</button>
+<button class="tab-btn" onclick="switchTab('dms-to-dec')">DMS to Dec</button>
+</div>
+<!-- Dec to DMS Form -->
+<div class="tab-content active" id="dec-to-dms">
+<div class="converter-row">
+<input id="input-dec" placeholder="Decimal Degrees (e.g. 34.56)" step="any" type="number"/>
+<button class="action-btn" onclick="convertDecToDms()">Convert</button>
+</div>
+<div class="result-box" id="result-dms">Result: --° --' --"</div>
+</div>
+<div class="tab-content" id="dms-to-dec">
+<div class="converter-row multi-input">
+<input class="small-input" id="input-d" placeholder="Deg" type="number"/>
+<input class="small-input" id="input-m" placeholder="Min" type="number"/>
+<input class="small-input" id="input-s" placeholder="Sec" type="number"/>
+<button class="action-btn" onclick="convertDmsToDec()">Convert</button>
+</div>
+<div class="result-box" id="result-dec">Result: --</div>
+</div>
+</div>
+</div>
+</main></main></div>
+<footer class="site-footer">
+<p>© 2026 Shimon Avitan | dsoimage.com</p>
+</footer>
 
+
+<!-- Search Overlay -->
+<div class="search-overlay" id="search-overlay">
+<div class="search-box">
+<span class="search-close">×</span>
+<input autocomplete="off" class="search-input" id="search-input" placeholder="Search objects (e.g., M31)..." type="search"/>
+<div class="search-results" id="search-results"></div>
+</div>
+</div>
+<!-- Firebase Compat SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<!-- Updated for Mobile Layout Fixes -->
+<script src="js/script.js?v=37"></script>
+<script src="js/stats.js"></script>
+</body>
 </html>

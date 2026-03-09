@@ -1,0 +1,434 @@
+[
+  {
+    "title": "Andromeda Galaxy (M31)",
+    "aliases": "M31, NGC 224",
+    "thumb": "images/preview/Andromeda_Galaxy_rev2.jpg",
+    "full": "images/full/Andromeda_Galaxy_rev2.jpg",
+    "page": "galaxies.html",
+    "cleanName": "M31"
+  },
+  {
+    "title": "Needle Galaxy (NGC 4565)",
+    "aliases": "NGC 4565, Caldwell 38",
+    "thumb": "images/preview/Needle_Galaxy.jpg",
+    "full": "images/full/Needle_Galaxy.jpg",
+    "page": "galaxies.html",
+    "cleanName": "NGC 4565"
+  },
+  {
+    "title": "M106 Galaxy",
+    "aliases": "M106, NGC 4258",
+    "thumb": "images/preview/M106_Galaxy_Rev2.jpg?v=1",
+    "full": "images/full/M106_Galaxy_Rev2.jpg",
+    "page": "galaxies.html",
+    "cleanName": "M106"
+  },
+  {
+    "title": "Black Eye Galaxy (M64)",
+    "aliases": "M64, NGC 4826",
+    "thumb": "images/preview/M64_Galaxy.jpg?v=1",
+    "full": "images/full/M64_Galaxy.jpg",
+    "page": "galaxies.html",
+    "cleanName": "M64"
+  },
+  {
+    "title": "Whirlpool Galaxy (M51)",
+    "aliases": "M51, NGC 5194, Arp 85",
+    "thumb": "images/preview/M51_Galaxy.jpg?v=1",
+    "full": "images/full/M51_Galaxy.jpg",
+    "page": "galaxies.html",
+    "cleanName": "M51"
+  },
+  {
+    "title": "Fireworks Galaxy",
+    "aliases": "NGC 6946, Caldwell 12, Arp 29",
+    "thumb": "images/preview/Fireworks_Galaxy.jpg?v=2",
+    "full": "images/full/Fireworks_Galaxy.jpg?v=2",
+    "page": "galaxies.html",
+    "cleanName": "NGC 6946"
+  },
+  {
+    "title": "Andromeda Galaxy (M31)",
+    "aliases": "M31, NGC 224",
+    "thumb": "images/preview/Andromeda_Galaxy.jpg",
+    "full": "images/full/Andromeda_Galaxy.jpg",
+    "page": "galaxies.html",
+    "cleanName": "M31"
+  },
+  {
+    "title": "Triangulum Galaxy (M33)",
+    "aliases": "M33, NGC 598",
+    "thumb": "images/preview/Triangulum_Galaxy.jpg",
+    "full": "images/full/Triangulum_Galaxy.jpg",
+    "page": "galaxies.html",
+    "cleanName": "M33"
+  },
+  {
+    "title": "M101 Pinwheel Galaxy",
+    "aliases": "M101, NGC 5457",
+    "thumb": "images/preview/M101.jpg",
+    "full": "images/full/M101.jpg",
+    "page": "galaxies.html",
+    "cleanName": "M101"
+  },
+  {
+    "title": "M77 Galaxy",
+    "aliases": "M77, NGC 1068",
+    "thumb": "images/preview/M77.jpg",
+    "full": "images/full/M77.jpg",
+    "page": "galaxies.html",
+    "cleanName": "M77"
+  },
+  {
+    "title": "Hercules Galaxy Cluster (Abell 2151)",
+    "aliases": "Abell 2151",
+    "thumb": "images/preview/Abell2151.jpg",
+    "full": "images/full/Abell2151.jpg",
+    "page": "galaxies.html",
+    "cleanName": "Abell 2151"
+  },
+  {
+    "title": "Bode's Galaxy and Cigar Galaxy",
+    "aliases": "M81, NGC 3031, M82, NGC 3034",
+    "thumb": "images/preview/M81_M82_Galaxies.jpg",
+    "full": "images/full/M81_M82_Galaxies.jpg",
+    "page": "galaxies.html",
+    "cleanName": "M81"
+  },
+  {
+    "title": "M106 - Spiral Galaxy in Canes Venatici",
+    "aliases": "Messier 106 , NGC 4258, UGC 7353, PGC 39600",
+    "thumb": "images/preview/M106_Galaxy.jpg",
+    "full": "images/full/M106_Galaxy.jpg",
+    "page": "galaxies.html",
+    "cleanName": "Messier 106"
+  },
+  {
+    "title": "NGC 2903 Barred Spiral Galaxy",
+    "aliases": "NGC 2903, UGC 5079",
+    "thumb": "images/preview/NGC_2903.jpg",
+    "full": "images/full/NGC_2903.jpg",
+    "page": "galaxies.html",
+    "cleanName": "NGC 2903"
+  },
+  {
+    "title": "Leo Triplet Galaxy Group",
+    "aliases": "Leo Triplet, M66 Group, M66, M65, NGC 3628",
+    "thumb": "images/preview/Leo_Triplet.jpg",
+    "full": "images/full/Leo_Triplet.jpg",
+    "page": "galaxies.html",
+    "cleanName": "Leo Triplet"
+  },
+  {
+    "title": "Tadpole Nebula (IC 410)",
+    "aliases": "IC 410, NGC 1893",
+    "thumb": "images/preview/Tadpole_Hubble_Palette.jpg",
+    "full": "images/full/Tadpole_Hubble_Palette.jpg",
+    "page": "nebulae.html",
+    "cleanName": "IC 410"
+  },
+  {
+    "title": "Monkey Head Nebula (NGC 2174)",
+    "aliases": "NGC 2174, Sh2-252",
+    "thumb": "images/preview/Monkey_Head_Nebula_Hubble_Palette.jpg",
+    "full": "images/full/Monkey_Head_Nebula_Hubble_Palette.jpg",
+    "page": "nebulae.html",
+    "cleanName": "NGC 2174"
+  },
+  {
+    "title": "Pacman Nebula (NGC 281)",
+    "aliases": "NGC 281, IC 1590",
+    "thumb": "images/preview/Pacman_Nebula_Hubble_Palette.jpg",
+    "full": "images/full/Pacman_Nebula_Hubble_Palette.jpg",
+    "page": "nebulae.html",
+    "cleanName": "NGC 281"
+  },
+  {
+    "title": "Pacman Nebula (NGC 281)",
+    "aliases": "NGC 281, IC 1590",
+    "thumb": "images/preview/Pacman_Nebula_SHO.jpg",
+    "full": "images/full/Pacman_Nebula_SHO.jpg",
+    "page": "nebulae.html",
+    "cleanName": "NGC 281"
+  },
+  {
+    "title": "Orion & Running Man Nebulae",
+    "aliases": "M42, M43, NGC 1976, NGC 1977",
+    "thumb": "images/preview/Orion_and_Running_Man_Nebulae.jpg",
+    "full": "images/full/Orion_and_Running_Man_Nebulae.jpg",
+    "page": "nebulae.html",
+    "cleanName": "M42"
+  },
+  {
+    "title": "Dumbbell Nebula (M27)",
+    "aliases": "M27, NGC 6853, Apple Core Nebula",
+    "thumb": "images/preview/M27.jpg?v=1",
+    "full": "images/full/M27.jpg",
+    "page": "nebulae.html",
+    "cleanName": "M27"
+  },
+  {
+    "title": "NGC 7822 (Question Mark Nebula)",
+    "aliases": "NGC 7822, Sh2-171, Cederblad 214",
+    "thumb": "images/preview/NGC_7822.jpg",
+    "full": "images/full/NGC_7822.jpg",
+    "page": "nebulae.html",
+    "cleanName": "NGC 7822"
+  },
+  {
+    "title": "Cygnus Wall (HA)",
+    "aliases": "NGC 7000, Cygnus Wall",
+    "thumb": "images/preview/Cygnus_wall_HA.jpg",
+    "full": "images/full/Cygnus_wall_HA.jpg",
+    "page": "nebulae.html",
+    "cleanName": "NGC 7000"
+  },
+  {
+    "title": "North America Nebula (SHO Starless)",
+    "aliases": "NGC 7000, Caldwell 20",
+    "thumb": "images/preview/north_america_nebula_rev3.jpg",
+    "full": "images/full/north_america_nebula_rev3.jpg",
+    "page": "nebulae.html",
+    "cleanName": "NGC 7000"
+  },
+  {
+    "title": "North America Nebula (SHO)",
+    "aliases": "NGC 7000, Caldwell 20",
+    "thumb": "images/preview/north_america_nebula_rev2.jpg",
+    "full": "images/full/north_america_nebula_rev2.jpg",
+    "page": "nebulae.html",
+    "cleanName": "NGC 7000"
+  },
+  {
+    "title": "M52 & Bubble Nebula",
+    "aliases": "M52, NGC 7654, NGC 7635",
+    "thumb": "images/preview/M52_Star_Cluster_Bubble_Nebula.jpg",
+    "full": "images/full/M52_Star_Cluster_Bubble_Nebula.jpg",
+    "page": "nebulae.html",
+    "cleanName": "M52"
+  },
+  {
+    "title": "Owl Nebula (M97)",
+    "aliases": "M97, NGC 3587",
+    "thumb": "images/preview/Owl_Nebula.jpg?v=1",
+    "full": "images/full/Owl_Nebula.jpg",
+    "page": "nebulae.html",
+    "cleanName": "M97"
+  },
+  {
+    "title": "Eagle Nebula (M16)",
+    "aliases": "M16, NGC 6611, IC 4703",
+    "thumb": "images/preview/Eagle_Nebula.jpg?v=1",
+    "full": "images/full/Eagle_Nebula.jpg",
+    "page": "nebulae.html",
+    "cleanName": "M16"
+  },
+  {
+    "title": "Cocoon Nebula",
+    "aliases": "IC 5146, Caldwell 19, Sh2-125",
+    "thumb": "images/preview/Cocoon_Nebula.jpg?v=1",
+    "full": "images/full/Cocoon_Nebula.jpg",
+    "page": "nebulae.html",
+    "cleanName": "IC 5146"
+  },
+  {
+    "title": "Cave Nebula",
+    "aliases": "Sh2-155, Caldwell 9, LBN 529",
+    "thumb": "images/preview/Cave_Nebula.jpg",
+    "full": "images/full/Cave_Nebula.jpg",
+    "page": "nebulae.html",
+    "cleanName": "Sh2-155"
+  },
+  {
+    "title": "Pacman Nebula",
+    "aliases": "NGC 281, IC 11, Sh2-184",
+    "thumb": "images/preview/Pacman_Nebula.jpg",
+    "full": "images/full/Pacman_Nebula.jpg",
+    "page": "nebulae.html",
+    "cleanName": "NGC 281"
+  },
+  {
+    "title": "California Nebula",
+    "aliases": "NGC 1499, Sh2-220, LBN 756",
+    "thumb": "images/preview/California_Nebula.jpg",
+    "full": "images/full/California_Nebula.jpg",
+    "page": "nebulae.html",
+    "cleanName": "NGC 1499"
+  },
+  {
+    "title": "HorseHead and Flame Nebulae",
+    "aliases": "IC 434, Barnard 33, NGC 2024",
+    "thumb": "images/preview/HorseHead_Flame_Nebula.jpg",
+    "full": "images/full/HorseHead_Flame_Nebula.jpg",
+    "page": "nebulae.html",
+    "cleanName": "IC 434"
+  },
+  {
+    "title": "Flaming Star, Tadpole & Spider Nebulae",
+    "aliases": "IC 405, IC 410, IC 417",
+    "thumb": "images/preview/ic405_410_417.jpg",
+    "full": "images/full/ic405_410_417.jpg",
+    "page": "nebulae.html",
+    "cleanName": "IC 405"
+  },
+  {
+    "title": "NGC 1333 \u2013 Star Forming Region",
+    "aliases": "NGC 1333",
+    "thumb": "images/preview/ngc_1333.jpg",
+    "full": "images/full/ngc_1333.jpg",
+    "page": "nebulae.html",
+    "cleanName": "NGC 1333"
+  },
+  {
+    "title": "Eagle Nebula (M16)",
+    "aliases": "M16, NGC 6611",
+    "thumb": "images/preview/M16_hubble_pallete.jpg",
+    "full": "images/full/M16_hubble_pallete.jpg",
+    "page": "nebulae.html",
+    "cleanName": "M16"
+  },
+  {
+    "title": "Tulip Nebula (Sh2-101)",
+    "aliases": "Sh2-101",
+    "thumb": "images/preview/Tulip_Nebula.jpg",
+    "full": "images/full/Tulip_Nebula.jpg",
+    "page": "nebulae.html",
+    "cleanName": "Sh2-101"
+  },
+  {
+    "title": "Bubble Nebula",
+    "aliases": "NGC 7635",
+    "thumb": "images/preview/Bubble_Nebula_HOO.jpg",
+    "full": "images/full/Bubble_Nebula_HOO.jpg",
+    "page": "nebulae.html",
+    "cleanName": "NGC 7635"
+  },
+  {
+    "title": "Wizard Nebula",
+    "aliases": "NGC 7380",
+    "thumb": "images/preview/wizard_nebula_1.jpg",
+    "full": "images/full/wizard_nebula_1.jpg",
+    "page": "nebulae.html",
+    "cleanName": "NGC 7380"
+  },
+  {
+    "title": "Wizard Nebula (Version 2)",
+    "aliases": "NGC 7380",
+    "thumb": "images/preview/wizard_nebula_2.jpg",
+    "full": "images/full/wizard_nebula_2.jpg",
+    "page": "nebulae.html",
+    "cleanName": "NGC 7380"
+  },
+  {
+    "title": "North America Nebula",
+    "aliases": "NGC 7000",
+    "thumb": "images/preview/north_america_nebula.jpg",
+    "full": "images/full/north_america_nebula.jpg",
+    "page": "nebulae.html",
+    "cleanName": "NGC 7000"
+  },
+  {
+    "title": "Helix Nebula",
+    "aliases": "NGC 7293",
+    "thumb": "images/preview/helix_nebula.jpg",
+    "full": "images/full/helix_nebula.jpg",
+    "page": "nebulae.html",
+    "cleanName": "NGC 7293"
+  },
+  {
+    "title": "Veil Nebula",
+    "aliases": "NGC 6960, NGC 6992",
+    "thumb": "images/preview/veil_nebula.jpg",
+    "full": "images/full/veil_nebula.jpg",
+    "page": "nebulae.html",
+    "cleanName": "NGC 6960"
+  },
+  {
+    "title": "Trifid Nebula",
+    "aliases": "M20, NGC 6514",
+    "thumb": "images/preview/Trifid_Nebula.jpg",
+    "full": "images/full/Trifid_Nebula.jpg",
+    "page": "nebulae.html",
+    "cleanName": "M20"
+  },
+  {
+    "title": "Jellyfish Nebula",
+    "aliases": "IC 443",
+    "thumb": "images/preview/Jellyfish_Nebula.jpg",
+    "full": "images/full/Jellyfish_Nebula.jpg",
+    "page": "nebulae.html",
+    "cleanName": "IC 443"
+  },
+  {
+    "title": "IC405_IC410_Nebulae",
+    "aliases": "IC 405 , IC 410",
+    "thumb": "images/preview/IC405_IC410_Nebulae.jpg",
+    "full": "images/full/IC405_IC410_Nebulae.jpg",
+    "page": "nebulae.html",
+    "cleanName": "IC 405"
+  },
+  {
+    "title": "Rosette Nebula (NGC 2237)",
+    "aliases": "NGC 2237, NGC 2244, Caldwell 49",
+    "thumb": "images/preview/Rosette_Nebula.jpg",
+    "full": "images/full/Rosette_Nebula.jpg",
+    "page": "nebulae.html",
+    "cleanName": "NGC 2237"
+  },
+  {
+    "title": "Spider and Fly Nebulae",
+    "aliases": "IC 417, NGC 1931",
+    "thumb": "images/preview/IC417_NGC1931.jpg",
+    "full": "images/full/IC417_NGC1931.jpg",
+    "page": "nebulae.html",
+    "cleanName": "IC 417"
+  },
+  {
+    "title": "Jellyfish Nebula (IC 443)",
+    "aliases": "IC 443, Sh2-248, SNR G189.1+03.0",
+    "thumb": "images/preview/IC443.jpg",
+    "full": "images/full/IC443.jpg",
+    "page": "nebulae.html",
+    "cleanName": "IC 443"
+  },
+  {
+    "title": "Seagull Nebula",
+    "aliases": "IC 2177, Sh2-296",
+    "thumb": "images/preview/Seagull_Nebula.jpg",
+    "full": "images/full/Seagull_Nebula.jpg",
+    "page": "nebulae.html",
+    "cleanName": "IC 2177"
+  },
+  {
+    "title": "M52 & Bubble Nebula",
+    "aliases": "M52, NGC 7654, NGC 7635",
+    "thumb": "images/preview/M52_Star_Cluster_Bubble_Nebula.jpg",
+    "full": "images/full/M52_Star_Cluster_Bubble_Nebula.jpg",
+    "page": "clusters.html",
+    "cleanName": "M52"
+  },
+  {
+    "title": "Great Hercules Cluster (M13)",
+    "aliases": "M13, NGC 6205",
+    "thumb": "images/preview/M13.jpg?v=1",
+    "full": "images/full/M13.jpg",
+    "page": "clusters.html",
+    "cleanName": "M13"
+  },
+  {
+    "title": "Double Cluster",
+    "aliases": "NGC 869, NGC 884, Caldwell 14",
+    "thumb": "images/preview/ngc_869_ngc_884.jpg",
+    "full": "images/full/ngc_869_ngc_884.jpg",
+    "page": "clusters.html",
+    "cleanName": "NGC 869"
+  },
+  {
+    "title": "Messier 35 and NGC 2158",
+    "aliases": "M35, NGC 2168, NGC 2158",
+    "thumb": "images/preview/M35_NGC2158_Open_Clusters.jpg",
+    "full": "images/full/M35_NGC2158_Open_Clusters.jpg",
+    "page": "clusters.html",
+    "cleanName": "M35"
+  }
+]

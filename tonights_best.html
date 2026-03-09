@@ -1,171 +1,148 @@
 <!DOCTYPE html>
 
 <html lang="en">
-
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <link href="https://dsoimage.com/astronomy-tools.html" rel="canonical" />
-    <title>Tonight's Best | DSOImage</title>
-    <meta
-        content="Astronomy Tools — Shimon Avitan - Deep Sky Astrophotography by Shimon Avitan. High-resolution LRGB imaging featuring nebulae, galaxies, and star clusters captured with FLT 132."
-        name="description" />
-    <meta name="keywords"
-        content="Shimon Avitan, DSOImage, Astrophotography, Deep Sky Objects, DSO, Gallery, Astronomy, Galaxies, Nebulae, Space, Telescope, Night Sky, FLT 132, ASI2600MM, APOD, ISS Tracker, Planet Visibility" />
-    <!-- FORCE NEW VERSION v=11 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="css/style.css?v=52" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.min.js"></script>
-</head>
-
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://dsoimage.com/tonights_best.html" rel="canonical"/>
+<title>Tonight's Best | DSOImage</title>
+<meta content="Astronomy Tools — Shimon Avitan - Deep Sky Astrophotography by Shimon Avitan. High-resolution LRGB imaging featuring nebulae, galaxies, and star clusters captured with FLT 132." name="description"/>
+<meta content="Shimon Avitan, DSOImage, Astrophotography, Deep Sky Objects, DSO, Gallery, Astronomy, Galaxies, Nebulae, Space, Telescope, Night Sky, FLT 132, ASI2600MM, APOD, ISS Tracker, Planet Visibility" name="keywords"/>
+<!-- FORCE NEW VERSION v=11 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="css/style.css?v=52" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.min.js"></script>
+</link></head>
 <body>
-    <div class="container">
-        <!-- TOPBAR (mobile) -->
-        <!-- TOPBAR (mobile) -->
-        <header class="topbar">
-			<div class="topbar-logo"><a href="index.html">Imaging <span class="red">D</span>eep <span class="green">S</span>ky <span class="blue">O</span>bject</a></div></header>
-        <div class="overlay" hidden="" id="overlay"></div>
-        <nav aria-label="Site menu" class="top-nav" id="top-nav">
-            <div class="top-nav-container">
-                <div class="top-nav-logo"><a href="index.html">Imaging <span class="red">D</span>eep <span class="green">S</span>ky <span class="blue">O</span>bject</a></div>
-                <ul class="top-nav-links" id="top-nav-links">
-                    <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
-                    <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropbtn"><i class="fa-solid fa-images"></i> Galleries
-                            &#9662;</a>
-                        <div class="dropdown-content">
-                            <a href="galaxies.html"><i class="fa-solid fa-hurricane"></i> Galaxies</a>
-                            <a href="nebulae.html"><i class="fa-solid fa-smog"></i> Nebulae</a>
-                            <a href="clusters.html"><i class="fa-solid fa-certificate"></i> Star Clusters</a>
-                        </div>
-                    </li>
-                    <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropbtn"><i class="fa-solid fa-book"></i> Resources
-                            &#9662;</a>
-                        <div class="dropdown-content">
-                            <a data-i18n="menu_equipment" href="equipment.html"><i class="fa-solid fa-camera-retro"></i>
+<div class="container">
+<!-- TOPBAR (mobile) -->
+<!-- TOPBAR (mobile) -->
+<header class="topbar">
+<div class="topbar-logo"><a href="index.html">Imaging <span class="red">D</span>eep <span class="green">S</span>ky <span class="blue">O</span>bject</a></div></header>
+<div class="overlay" hidden="" id="overlay"></div>
+<nav aria-label="Site menu" class="top-nav" id="top-nav">
+<div class="top-nav-container">
+<div class="top-nav-logo"><a href="index.html">Imaging <span class="red">D</span>eep <span class="green">S</span>ky <span class="blue">O</span>bject</a></div>
+<ul class="top-nav-links" id="top-nav-links">
+<li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+<li class="dropdown">
+<a class="dropbtn" href="javascript:void(0)"><i class="fa-solid fa-images"></i> Galleries
+                            ▾</a>
+<div class="dropdown-content">
+<a href="galaxies.html"><i class="fa-solid fa-hurricane"></i> Galaxies</a>
+<a href="nebulae.html"><i class="fa-solid fa-smog"></i> Nebulae</a>
+<a href="clusters.html"><i class="fa-solid fa-certificate"></i> Star Clusters</a>
+</div>
+</li>
+<li class="dropdown">
+<a class="dropbtn" href="javascript:void(0)"><i class="fa-solid fa-book"></i> Resources
+                            ▾</a>
+<div class="dropdown-content">
+<a data-i18n="menu_equipment" href="equipment.html"><i class="fa-solid fa-camera-retro"></i>
                                 Equipment</a>
-                            <a data-i18n="menu_processing" href="processing.html"><i
-                                    class="fa-solid fa-laptop-code"></i> Processing</a>
-                            <a href="knowledge.html"><i class="fa-solid fa-book-open"></i> Knowledge Base</a>
-                        </div>
-                    </li>
-                    <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropbtn"><i class="fa-solid fa-toolbox"></i> Tools
-                            &#9662;</a>
-                        <div class="dropdown-content">
-                            <a data-i18n="menu_weather" href="weather.html"><i class="fa-solid fa-cloud-sun"></i>
+<a data-i18n="menu_processing" href="processing.html"><i class="fa-solid fa-laptop-code"></i> Processing</a>
+<a href="knowledge.html"><i class="fa-solid fa-book-open"></i> Knowledge Base</a>
+</div>
+</li>
+<li class="dropdown">
+<a class="dropbtn" href="javascript:void(0)"><i class="fa-solid fa-toolbox"></i> Tools
+                            ▾</a>
+<div class="dropdown-content">
+<a data-i18n="menu_weather" href="weather.html"><i class="fa-solid fa-cloud-sun"></i>
                                 Weather</a>
-                            <a href="planner.html"><i class="fa-solid fa-calendar-days"></i> Planned Session</a>
-                            <a href="coordinate-converter.html"><i class="fa-solid fa-globe"></i> Coordinate
+<a href="planner.html"><i class="fa-solid fa-calendar-days"></i> Planned Session</a>
+<a href="coordinate-converter.html"><i class="fa-solid fa-globe"></i> Coordinate
                                 Converter</a>
-                            <a href="checklist.html"><i class="fa-solid fa-check-double"></i> Pre-Flight Checklist</a>
-                            <a href="live-sky-map.html"><i class="fa-solid fa-map-location-dot"></i> Live Sky Map
+<a href="checklist.html"><i class="fa-solid fa-check-double"></i> Pre-Flight Checklist</a>
+<a href="live-sky-map.html"><i class="fa-solid fa-map-location-dot"></i> Live Sky Map
                                 (Interactive)</a>
-                            <a href="apod.html"><i class="fa-solid fa-satellite"></i> NASA APOD</a>
-                            <a href="tonights_best.html"><i class="fa-solid fa-star"></i> Tonight's Best</a>
-                            <a href="iss.html"><i class="fa-solid fa-rocket"></i> Where is the ISS?</a>
-                        </div>
-                    </li>
-                    <li><a href="about.html"><i class="fa-solid fa-user-astronaut"></i> About</a></li>
-                    <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
-                </ul>
-                <div class="top-nav-actions">
-                    <button class="mode-toggle-btn" id="red-mode-toggle" title="Night Vision"><span
-                            class="circle-icon"></span></button>
-                    <div class="nv-controls" id="nv-container"
-                        style="display:none;position:absolute;top:60px;right:20px;background:#111;padding:10px;border:1px solid #333;z-index:2000;border-radius:8px;">
-                        <label for="nv-slider"
-                            style="font-size:13px;color:#aaa;display:block;margin-bottom:5px;">Dimmer</label>
-                        <input id="nv-slider" max="100" min="20" type="range" value="80" />
-                    </div>
-                    <button id="mobile-nav-toggle" aria-label="Toggle navigation" title="Menu">&#9776;</button>
-                    <button class="search-trigger" title="Search">&#128269;</button>
-                </div>
-            </div>
-        </nav>
-        <div id="image-stats" style="display:none;"></div>
-        <!-- MAIN -->
-        <main class="main-content">
-            <h1 style="color:#FFAB40; font-size:36px; text-shadow:0px 0px 10px rgba(255,255,255,0.2);"><i
-                    class="fa-solid fa-star"></i> Tonight's Best</h1>
-            <p class="subtitle">
+<a href="apod.html"><i class="fa-solid fa-satellite"></i> NASA APOD</a>
+<a href="tonights_best.html"><i class="fa-solid fa-star"></i> Tonight's Best</a>
+<a href="catalog-explorer.html"><i class="fa-solid fa-magnifying-glass-chart"></i> Catalog Explorer</a>
+<a href="iss.html"><i class="fa-solid fa-rocket"></i> Where is the ISS?</a>
+</div>
+</li>
+<li><a href="about.html"><i class="fa-solid fa-user-astronaut"></i> About</a></li>
+<li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+</ul>
+<div class="top-nav-actions">
+<button class="mode-toggle-btn" id="red-mode-toggle" title="Night Vision"><span class="circle-icon"></span></button>
+<div class="nv-controls" id="nv-container" style="display:none;position:absolute;top:60px;right:20px;background:#111;padding:10px;border:1px solid #333;z-index:2000;border-radius:8px;">
+<label for="nv-slider" style="font-size:13px;color:#aaa;display:block;margin-bottom:5px;">Dimmer</label>
+<input id="nv-slider" max="100" min="20" type="range" value="80"/>
+</div>
+<button aria-label="Toggle navigation" id="mobile-nav-toggle" title="Menu">☰</button>
+<button class="search-trigger" title="Search">🔍</button>
+</div>
+</div>
+</nav>
+<div id="image-stats" style="display:none;"></div>
+<!-- MAIN -->
+<main class="main-content">
+<h1 style="color:#FFAB40; font-size:36px; text-shadow:0px 0px 10px rgba(255,255,255,0.2);"><i class="fa-solid fa-star"></i> Tonight's Best</h1>
+<p class="subtitle">
                 Real-time visibility overview of the solar system, featured constellation, and deep sky target.
-                <br />
-                <small style="color:#888;">These calculations are localized in your browser based on your current
+                <br/>
+<small style="color:#888;">These calculations are localized in your browser based on your current
                     connection.</small>
-            </p>
-
-            <div class="dashboard-grid">
-                <!-- Planets Widget -->
-                <div class="widget-card" id="planets-widget"
-                    style="background:#111; border: 1px solid #333; border-radius: 12px; padding: 40px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); display: flex; flex-direction: column;">
-                    <h2 style="margin-top:0; color:#FFAB40;"><i class="fa-solid fa-earth-americas"></i> Planets Visible
+</p>
+<div class="dashboard-grid">
+<!-- Planets Widget -->
+<div class="widget-card" id="planets-widget" style="background:#111; border: 1px solid #333; border-radius: 12px; padding: 40px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); display: flex; flex-direction: column;">
+<h2 style="margin-top:0; color:#FFAB40;"><i class="fa-solid fa-earth-americas"></i> Planets Visible
                         Tonight</h2>
-                    <div id="planets-container"
-                        style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 15px;">
-                        <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 3rem; color: #555;"></i>
-                        <div style="color: #888; font-size: 16px;">Locating and computing...</div>
-                    </div>
-                </div>
-
-                <!-- Constellation Widget -->
-                <div class="widget-card" id="constellation-widget"
-                    style="background:#111; border: 1px solid #333; border-radius: 12px; padding: 40px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); display: flex; flex-direction: column;">
-                    <h2 style="margin-top:0; color:#FFAB40;"><i class="fa-solid fa-draw-polygon"></i> Constellations
+<div id="planets-container" style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 15px;">
+<i class="fa-solid fa-circle-notch fa-spin" style="font-size: 3rem; color: #555;"></i>
+<div style="color: #888; font-size: 16px;">Locating and computing...</div>
+</div>
+</div>
+<!-- Constellation Widget -->
+<div class="widget-card" id="constellation-widget" style="background:#111; border: 1px solid #333; border-radius: 12px; padding: 40px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); display: flex; flex-direction: column;">
+<h2 style="margin-top:0; color:#FFAB40;"><i class="fa-solid fa-draw-polygon"></i> Constellations
                         Visible Tonight</h2>
-                    <div class="dynamic-scroll-wrapper" style="flex-grow: 1; position: relative; min-height: 0;">
-                        <div id="constellation-container" class="dynamic-scroll-list"
-                            style="display: flex; flex-direction: column; justify-content: flex-start; align-items: stretch; text-align: left; gap: 0; padding-right: 15px;">
-                            <div style="text-align: center; padding: 20px;"><i class="fa-solid fa-circle-notch fa-spin"
-                                    style="font-size: 3rem; color: #555;"></i></div>
-                            <div style="text-align: center; color: #888; font-size: 16px;">Scanning sky between 20:00
+<div class="dynamic-scroll-wrapper" style="flex-grow: 1; position: relative; min-height: 0;">
+<div class="dynamic-scroll-list" id="constellation-container" style="display: flex; flex-direction: column; justify-content: flex-start; align-items: stretch; text-align: left; gap: 0; padding-right: 15px;">
+<div style="text-align: center; padding: 20px;"><i class="fa-solid fa-circle-notch fa-spin" style="font-size: 3rem; color: #555;"></i></div>
+<div style="text-align: center; color: #888; font-size: 16px;">Scanning sky between 20:00
                                 and
                                 05:00...</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- DSO Widget -->
-                <div class="widget-card" id="dso-widget"
-                    style="background:#111; border: 1px solid #333; border-radius: 12px; padding: 40px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); display: flex; flex-direction: column;">
-                    <h2 style="margin-top:0; color:#FFAB40;"><i class="fa-solid fa-hurricane"></i> DSOs Visible Tonight
+</div>
+</div>
+</div>
+<!-- DSO Widget -->
+<div class="widget-card" id="dso-widget" style="background:#111; border: 1px solid #333; border-radius: 12px; padding: 40px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); display: flex; flex-direction: column;">
+<h2 style="margin-top:0; color:#FFAB40;"><i class="fa-solid fa-hurricane"></i> DSOs Visible Tonight
                     </h2>
-                    <div class="dynamic-scroll-wrapper" style="flex-grow: 1; position: relative; min-height: 0;">
-                        <div id="dso-container" class="dynamic-scroll-list"
-                            style="display: flex; flex-direction: column; justify-content: flex-start; align-items: stretch; text-align: left; gap: 0; padding-right: 15px;">
-                            <div style="text-align: center; padding: 20px;"><i class="fa-solid fa-circle-notch fa-spin"
-                                    style="font-size: 3rem; color: #555;"></i></div>
-                            <div style="text-align: center; color: #888; font-size: 16px;">Scanning sky between 20:00
+<div class="dynamic-scroll-wrapper" style="flex-grow: 1; position: relative; min-height: 0;">
+<div class="dynamic-scroll-list" id="dso-container" style="display: flex; flex-direction: column; justify-content: flex-start; align-items: stretch; text-align: left; gap: 0; padding-right: 15px;">
+<div style="text-align: center; padding: 20px;"><i class="fa-solid fa-circle-notch fa-spin" style="font-size: 3rem; color: #555;"></i></div>
+<div style="text-align: center; color: #888; font-size: 16px;">Scanning sky between 20:00
                                 and
                                 05:00...</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <footer class="site-footer">
-                <p>© 2026 Shimon Avitan | dsoimage.com</p>
-            </footer>
-        </main>
-    </div>
-    <!-- Search Overlay -->
-    <div class="search-overlay" id="search-overlay">
-        <div class="search-box">
-            <span class="search-close">×</span>
-            <input autocomplete="off" class="search-input" id="search-input" placeholder="Search objects (e.g., M31)..."
-                type="search" />
-            <div class="search-results" id="search-results"></div>
-        </div>
-    </div>
-    <!-- Firebase Compat SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-    <!-- Updated for Mobile Layout Fixes -->
-    <script src="js/script.js?v=38"></script>
-    <script src="js/stats.js"></script>
-    <script src="js/tonights_best.js?v=3"></script>
+</div>
+</div>
+</div>
+</div>
+<footer class="site-footer">
+<p>© 2026 Shimon Avitan | dsoimage.com</p>
+</footer>
+</main>
+</div>
+<!-- Search Overlay -->
+<div class="search-overlay" id="search-overlay">
+<div class="search-box">
+<span class="search-close">×</span>
+<input autocomplete="off" class="search-input" id="search-input" placeholder="Search objects (e.g., M31)..." type="search"/>
+<div class="search-results" id="search-results"></div>
+</div>
+</div>
+<!-- Firebase Compat SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<!-- Updated for Mobile Layout Fixes -->
+<script src="js/script.js?v=38"></script>
+<script src="js/stats.js"></script>
+<script src="js/tonights_best.js?v=3"></script>
 </body>
-
 </html>
