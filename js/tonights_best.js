@@ -22,6 +22,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     const sunTopo = Astronomy.Horizon(date, observer, sunEqu.ra, sunEqu.dec, 'normal');
     const isDark = sunTopo.altitude < -6;
 
+    // i18n helpers
+    function t(key, fallback) {
+        return (window.i18nStrings && window.i18nStrings[key]) || fallback;
+    }
+    function tConst(name) {
+        return t('const_' + name, name);
+    }
+
     // PLANETS WIDGET (Preserved)
     const renderPlanets = () => {
         const container = document.getElementById('planets-container');
@@ -42,7 +50,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             { id: 'Neptune', name: "Neptune", label: "fa-solid fa-circle", color: "#274687" }
         ];
 
-        let html = `<div style="font-size: 11px; text-transform: uppercase; color: #777; margin-bottom: 8px; text-align: left; width: 100%;">Data calculated for ${city}</div>`;
+        let html = `<div style="font-size: 11px; text-transform: uppercase; color: #777; margin-bottom: 8px; text-align: left; width: 100%;">${t('planets_data_for', 'Data calculated for')} ${city}</div>`;
         html += `<div style="display: flex; flex-direction: column; gap: 8px; width: 100%; text-align: left; font-size: 13px;">`;
 
         for (const b of bodies) {
@@ -77,7 +85,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;">
                    <div style="display: flex; align-items: center; gap: 8px;">
                        <i class="${b.label}" style="color: ${b.color}; width: 16px; text-align: center;"></i>
-                       <span style="${visStyle}; font-size: ${titleSize};">${b.name}</span>
+                       <span style="${visStyle}; font-size: ${titleSize};">${t('planet_' + b.id, b.name)}</span>
                    </div>
                    <div style="text-align: right;">${visIcon}</div>
                </div>
@@ -88,7 +96,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                        <i class="fa-solid fa-arrow-down" style="font-size: 9px;"></i> <span style="font-family: monospace;">${setStr}</span>
                    </div>
                    <div style="color: #888; text-align: right; font-size: 11.5px;">
-                       Mag: ${mag} <span style="margin: 0 4px; color: #444;">|</span> ${constel.name}
+                       Mag: ${mag} <span style="margin: 0 4px; color: #444;">|</span> ${tConst(constel.name)}
                    </div>
                </div>
             </div>`;
@@ -97,6 +105,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         container.innerHTML = html;
     };
     renderPlanets();
+
+    // Re-render when language changes
+    window.addEventListener('languageChanged', () => {
+        renderPlanets();
+    });
 
     // CUSTOM RISE/SET MATH
     function getRiseSet(raHours, decDeg, latDeg, lngDeg, currentDate) {
