@@ -231,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         // Capitalize the first letter for aesthetics
                         let rawDesc = wdData.search[0].description;
                         let cleanDesc = rawDesc.charAt(0).toUpperCase() + rawDesc.slice(1);
-                        descEl.innerText = cleanDesc;
+                        descEl.innerHTML = `<i class="fa-solid fa-book-open"></i> <strong>Wikidata:</strong> ${cleanDesc}`;
                     } else {
                         descEl.style.display = 'none'; // hide if no description found
                     }
