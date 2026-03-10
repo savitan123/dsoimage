@@ -2500,6 +2500,31 @@ body.no-scroll {
   unicode-bidi: embed;
 }
 
+/* Mobile RTL overrides */
+@media (max-width: 767px) {
+  [dir="rtl"] .top-nav-links {
+    right: auto;
+    left: -280px;
+  }
+
+  [dir="rtl"] .top-nav-links.nav-open {
+    left: auto;
+    right: 0;
+  }
+
+  [dir="rtl"] .top-nav-links>li>a,
+  [dir="rtl"] .top-nav-links>li>.dropbtn {
+    text-align: right;
+    direction: rtl;
+  }
+
+  [dir="rtl"] .top-nav-links .dropdown-content a {
+    text-align: right;
+    direction: rtl;
+    padding: 9px 38px 9px 20px;
+  }
+}
+
 /* Language toggle hover */
 #lang-toggle-btn:hover {
   background: rgba(255, 255, 255, 0.1) !important;
