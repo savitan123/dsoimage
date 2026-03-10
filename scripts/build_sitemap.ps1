@@ -11,6 +11,7 @@ $pages = @(
     @{ file = "tonights_best.html"; url = "/tonights_best.html"; priority = "0.8"; changefreq = "daily" },
     @{ file = "iss.html"; url = "/iss.html"; priority = "0.9"; changefreq = "always" },
     @{ file = "coordinate-converter.html"; url = "/coordinate-converter.html"; priority = "0.8"; changefreq = "monthly" },
+    @{ file = "catalog-explorer.html"; url = "/catalog-explorer.html"; priority = "0.9"; changefreq = "weekly" },
     @{ file = "checklist.html"; url = "/checklist.html"; priority = "0.8"; changefreq = "monthly" },
     @{ file = "live-sky-map.html"; url = "/live-sky-map.html"; priority = "0.8"; changefreq = "monthly" },
     @{ file = "weather.html"; url = "/weather.html"; priority = "0.7"; changefreq = "daily" },
