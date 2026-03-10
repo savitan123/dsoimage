@@ -1715,8 +1715,9 @@ document.addEventListener("DOMContentLoaded", () => {
     { id: 'sw4', category: 'Software/Config', text: 'Load Sequence in NINA/SGP', checked: false }
   ];
 
-  let checklistData = [];
-  let dbRef = null;
+  let currentFilterData = {}; // Will hold the full list object
+  let dbRefLists = null;
+  let activeListId = null;
 
   // Listen for Auth State Changes
   auth.onAuthStateChanged((user) => {
@@ -1726,22 +1727,41 @@ document.addEventListener("DOMContentLoaded", () => {
       appContainer.style.display = 'block';
       profileName.innerText = `👤 Logged in as: ${user.email}`;
 
-      // Unsubscribe from any previous listeners
-      if (dbRef) dbRef.off();
+      if (dbRefLists) dbRefLists.off();
 
-      // Setup new listener for THIS user's private data path
-      dbRef = db.ref('users/' + user.uid + '/checklist');
+      // Target the new 'lists' directory
+      dbRefLists = db.ref('users/' + user.uid + '/lists');
 
-      dbRef.on('value', (snapshot) => {
+      dbRefLists.on('value', (snapshot) => {
         const data = snapshot.val();
-        if (data === null) {
-          // First time user! Seed the database with defaults.
-          checklistData = [...defaultChecklist];
-          dbRef.set(checklistData);
+
+        if (!data) {
+          // No lists exist, not even a legacy array migrated yet.
+          // Create a default first list
+          const firstListId = 'list_' + Date.now();
+          const firstListObj = {
+            id: firstListId,
+            name: "Main Checklist",
+            tasks: [...defaultChecklist]
+          };
+
+          let patch = {};
+          patch[firstListId] = firstListObj;
+          dbRefLists.set(patch);
+
+          activeListId = firstListId;
+          currentFilterData = patch;
         } else {
-          // Load existing data from cloud
-          checklistData = data;
+          // Data exists
+          currentFilterData = data;
+
+          // Verify activeListId is still valid, else default to the first available key
+          if (!activeListId || !currentFilterData[activeListId]) {
+            activeListId = Object.keys(currentFilterData)[0];
+          }
         }
+
+        renderListTabs();
         renderChecklist();
       });
 
@@ -1749,26 +1769,148 @@ document.addEventListener("DOMContentLoaded", () => {
       // Logged Out
       authContainer.style.display = 'block';
       appContainer.style.display = 'none';
-      if (dbRef) dbRef.off();
+      if (dbRefLists) dbRefLists.off();
+      currentFilterData = {};
+      activeListId = null;
     }
   });
 
-  function saveChecklist() {
-    if (dbRef && checklistData) {
-      dbRef.set(checklistData).catch(err => {
+  function saveActiveChecklist() {
+    if (dbRefLists && activeListId && currentFilterData[activeListId]) {
+      const targetRef = db.ref(`users/${auth.currentUser.uid}/lists/${activeListId}`);
+      targetRef.set(currentFilterData[activeListId]).catch(err => {
         console.error("Firebase sync error:", err);
-        alert("Failed to save to cloud. Check rules?");
+        alert("Failed to save to cloud.");
       });
     }
   }
 
+  // --- MULTI-LIST UI RENDER ---
+  const tabsContainer = document.getElementById('list-tabs-container');
+  const createListBtn = document.getElementById('create-list-btn');
+  const deleteListBtn = document.getElementById('delete-list-btn');
+  const renameListBtn = document.getElementById('rename-list-btn');
+  const countDisplay = document.getElementById('list-count-display');
+
+  function renderListTabs() {
+    if (!tabsContainer) return;
+    tabsContainer.innerHTML = '';
+
+    const listIds = Object.keys(currentFilterData);
+
+    // Update count display
+    if (countDisplay) {
+      countDisplay.innerText = listIds.length;
+    }
+
+    // Hide create button if at max 3
+    if (createListBtn) {
+      createListBtn.style.display = (listIds.length >= 3) ? 'none' : 'inline-block';
+    }
+
+    listIds.forEach(lId => {
+      const listData = currentFilterData[lId];
+      const tabBtn = document.createElement('button');
+      tabBtn.className = 'action-btn ' + (lId === activeListId ? 'active-tab' : 'inactive-tab');
+
+      // Styling based on active state
+      if (lId === activeListId) {
+        tabBtn.style.background = '#e74c3c';
+        tabBtn.style.color = '#fff';
+        tabBtn.style.border = '1px solid #e74c3c';
+      } else {
+        tabBtn.style.background = 'transparent';
+        tabBtn.style.color = '#aaa';
+        tabBtn.style.border = '1px solid #555';
+      }
+
+      tabBtn.style.padding = '5px 15px';
+      tabBtn.style.borderRadius = '4px';
+      tabBtn.style.cursor = 'pointer';
+
+      tabBtn.innerText = listData.name || "Untitled List";
+
+      tabBtn.onclick = () => {
+        activeListId = lId;
+        renderListTabs();
+        renderChecklist();
+      };
+
+      tabsContainer.appendChild(tabBtn);
+    });
+  }
+
+  // List Management Actions
+  if (createListBtn) {
+    createListBtn.onclick = () => {
+      const listIds = Object.keys(currentFilterData);
+      if (listIds.length >= 3) {
+        alert("You can only have a maximum of 3 lists.");
+        return;
+      }
+      const name = prompt("Enter a name for the new checklist (e.g., 'Travel Rig'):");
+      if (name && name.trim() !== '') {
+        const newListId = 'list_' + Date.now();
+        currentFilterData[newListId] = {
+          id: newListId,
+          name: name.trim(),
+          tasks: [...defaultChecklist] // Start with default template
+        };
+        activeListId = newListId;
+
+        dbRefLists.set(currentFilterData);
+      }
+    };
+  }
+
+  if (deleteListBtn) {
+    deleteListBtn.onclick = () => {
+      const listIds = Object.keys(currentFilterData);
+      if (listIds.length <= 1) {
+        alert("You must have at least one list active. You cannot delete your only list.");
+        return;
+      }
+      if (confirm(`Are you sure you want to permanently delete the list "${currentFilterData[activeListId].name}"?`)) {
+        // Remove list
+        const targetRef = db.ref(`users/${auth.currentUser.uid}/lists/${activeListId}`);
+        targetRef.remove().then(() => {
+          // The general .on('value') will catch this and naturally reassign a new activeListId
+          console.log("Deleted");
+        });
+      }
+    };
+  }
+
+  if (renameListBtn) {
+    renameListBtn.onclick = () => {
+      const currentName = currentFilterData[activeListId].name;
+      const newName = prompt(`Rename "${currentName}" to:`, currentName);
+      if (newName && newName.trim() !== '' && newName !== currentName) {
+        currentFilterData[activeListId].name = newName.trim();
+        saveActiveChecklist();
+      }
+    };
+  }
+
+  // --- TASK RENDERER ---
   function renderChecklist() {
     checklistContainer.innerHTML = '';
-    if (!checklistData || checklistData.length === 0) return;
+
+    if (!activeListId || !currentFilterData[activeListId]) return;
+
+    // Safely get task array, might be undefined if list was artificially cleared
+    let activeTasks = currentFilterData[activeListId].tasks || [];
+    if (activeTasks.length === 0) {
+      // Option to display "List is empty"
+      checklistContainer.innerHTML = '<p style="color:#aaa; font-style:italic;">No tasks in this list. Add one above!</p>';
+      return;
+    }
+
+    // Group by category
 
     // Group by category
     const categories = {};
-    checklistData.forEach(task => {
+    activeTasks.forEach(task => {
       if (!categories[task.category]) categories[task.category] = [];
       categories[task.category].push(task);
     });
@@ -1797,7 +1939,7 @@ document.addEventListener("DOMContentLoaded", () => {
           } else {
             itemDiv.classList.remove('completed');
           }
-          saveChecklist(); // Pushes update to Firebase immediately
+          saveActiveChecklist(); // Pushes update to Firebase immediately
         });
 
         // Text
@@ -1814,7 +1956,7 @@ document.addEventListener("DOMContentLoaded", () => {
           const newText = prompt("Edit task:", task.text);
           if (newText && newText.trim() !== "") {
             task.text = newText.trim();
-            saveChecklist(); // Pushes update to Firebase immediately
+            saveActiveChecklist(); // Pushes update to Firebase immediately
           }
         };
 
@@ -1824,8 +1966,8 @@ document.addEventListener("DOMContentLoaded", () => {
         delBtn.innerHTML = '&times;';
         delBtn.title = "Delete Task";
         delBtn.onclick = () => {
-          checklistData = checklistData.filter(t => t.id !== task.id);
-          saveChecklist();
+          currentFilterData[activeListId].tasks = activeTasks.filter(t => t.id !== task.id);
+          saveActiveChecklist();
         };
 
         itemDiv.appendChild(checkbox);
@@ -1856,11 +1998,13 @@ document.addEventListener("DOMContentLoaded", () => {
       checked: false
     };
 
-    // Firebase arrays are weird, ensure it exists
-    if (!checklistData) checklistData = [];
+    // Ensure array exists safely
+    if (!currentFilterData[activeListId].tasks) {
+      currentFilterData[activeListId].tasks = [];
+    }
 
-    checklistData.push(newTask);
-    saveChecklist();
+    currentFilterData[activeListId].tasks.push(newTask);
+    saveActiveChecklist();
     inputField.value = ''; // clear input
   }
 
@@ -1875,9 +2019,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const resetBtn = document.getElementById('reset-checklist-btn');
   if (resetBtn) {
     resetBtn.addEventListener('click', () => {
-      if (confirm('Are you sure you want to uncheck all items?')) {
-        checklistData.forEach(t => t.checked = false);
-        saveChecklist();
+      if (!activeListId || !currentFilterData[activeListId] || !currentFilterData[activeListId].tasks) return;
+
+      if (confirm(`Are you sure you want to uncheck all items in ${currentFilterData[activeListId].name}?`)) {
+        currentFilterData[activeListId].tasks.forEach(t => t.checked = false);
+        saveActiveChecklist();
       }
     });
   }
