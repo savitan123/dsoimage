@@ -6,6 +6,7 @@ $pages = @(
     @{ file = "galaxies.html"; url = "/galaxies.html"; priority = "0.8"; changefreq = "weekly" },
     @{ file = "nebulae.html"; url = "/nebulae.html"; priority = "0.8"; changefreq = "weekly" },
     @{ file = "clusters.html"; url = "/clusters.html"; priority = "0.8"; changefreq = "weekly" },
+    @{ file = "on-site-photos.html"; url = "/on-site-photos.html"; priority = "0.8"; changefreq = "monthly" },
     @{ file = "planner.html"; url = "/planner.html"; priority = "0.9"; changefreq = "weekly" },
     @{ file = "apod.html"; url = "/apod.html"; priority = "0.8"; changefreq = "daily" },
     @{ file = "tonights_best.html"; url = "/tonights_best.html"; priority = "0.8"; changefreq = "daily" },
