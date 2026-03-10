@@ -2436,7 +2436,7 @@ body.no-scroll {
 }
 
 [dir="rtl"] .top-nav-container {
-  flex-direction: row-reverse;
+  direction: rtl;
 }
 
 [dir="rtl"] .top-nav-links {
@@ -2444,11 +2444,22 @@ body.no-scroll {
 }
 
 [dir="rtl"] .top-nav-actions {
+  direction: rtl;
+}
+
+[dir="rtl"] .top-nav-links>li>a,
+[dir="rtl"] .dropbtn {
   flex-direction: row-reverse;
 }
 
 [dir="rtl"] .dropdown-content {
+  left: auto;
+  right: 0;
   text-align: right;
+}
+
+[dir="rtl"] .dropdown-content a {
+  flex-direction: row-reverse;
 }
 
 [dir="rtl"] .category-card-text {
