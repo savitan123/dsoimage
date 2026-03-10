@@ -34,8 +34,9 @@
             height: 100%;
         }
 
-        .adaptive-container img {
-            display: block;
+        .adaptive-container img,
+        .adaptive-container video {
+            display: none;
             width: auto;
             height: 100%;
             max-width: 100%;
@@ -43,6 +44,11 @@
             border-radius: 10px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
             transition: opacity 0.3s ease-in-out;
+        }
+
+        .adaptive-container img.active,
+        .adaptive-container video.active {
+            display: block;
         }
 
         .carousel-arrow {
@@ -168,8 +174,9 @@
                     <button class="carousel-arrow left" id="btn-prev" aria-label="Previous Photo"><i
                             class="fa-solid fa-chevron-left"></i></button>
 
-                    <img id="active-photo" src="images/full/on_site/5872847665790389886.jpg"
+                    <img id="active-photo" class="active" src="images/full/on_site/5872847665790389886.jpg"
                         alt="On Site Astronomy Setup" />
+                    <video id="active-video" src="" autoplay loop muted controls></video>
 
                     <button class="carousel-arrow right" id="btn-next" aria-label="Next Photo"><i
                             class="fa-solid fa-chevron-right"></i></button>
@@ -208,22 +215,41 @@
                 "images/full/on_site/5872847665790389909.jpg",
                 "images/full/on_site/5872847665790389910.jpg",
                 "images/full/on_site/5872847665790389913.jpg",
-                "images/full/on_site/5872847665790389914.jpg"
+                "images/full/on_site/5872847665790389914.jpg",
+                "images/full/on_site/Golan_Heights.mp4"
             ];
             let currentIndex = 0;
             const imgEl = document.getElementById("active-photo");
+            const vidEl = document.getElementById("active-video");
             const counterEl = document.getElementById("photo-counter");
             const prevBtn = document.getElementById("btn-prev");
             const nextBtn = document.getElementById("btn-next");
 
             function updatePhoto(index) {
+                const src = photos[index];
+                const isVideo = src.endsWith(".mp4");
+
                 imgEl.style.opacity = 0;
+                vidEl.style.opacity = 0;
+
                 setTimeout(() => {
-                    imgEl.src = photos[index];
                     counterEl.innerText = `${index + 1} / ${photos.length}`;
-                    imgEl.onload = () => {
-                        imgEl.style.opacity = 1;
-                    };
+
+                    if (isVideo) {
+                        imgEl.classList.remove("active");
+                        vidEl.classList.add("active");
+                        vidEl.src = src;
+                        vidEl.play();
+                        vidEl.style.opacity = 1;
+                    } else {
+                        vidEl.classList.remove("active");
+                        vidEl.pause();
+                        imgEl.classList.add("active");
+                        imgEl.src = src;
+                        imgEl.onload = () => {
+                            imgEl.style.opacity = 1;
+                        };
+                    }
                 }, 300);
             }
 
