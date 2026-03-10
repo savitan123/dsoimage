@@ -201,10 +201,35 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
 
                 ${galleryHtml}
+
+                <div id="aladin-lite-div" style="width: 100%; height: 400px; margin-top: 20px; border-radius: 10px; overflow: hidden; border: 1px solid #333;"></div>
             </div>
         `;
 
         resultsContainer.style.display = 'block';
+
+        // Initialize Aladin Lite
+        if (window.A) {
+            let targetCoords = data.id; // Target name resolving (like M 1, NGC 224)
+            if (data.ra && data.dec && data.ra !== "N/A" && data.dec !== "N/A") {
+                let cleanRa = data.ra.replace('°', '').trim();
+                let cleanDec = data.dec.replace('°', '').trim();
+                targetCoords = `${cleanRa} ${cleanDec}`; // Use exact coordinates
+            }
+            // Add a small delay for DOM render
+            setTimeout(() => {
+                A.init.then(() => {
+                    A.aladin('#aladin-lite-div', {
+                        target: targetCoords,
+                        fov: 1.0,
+                        survey: "P/DSS2/color",
+                        showReticle: true,
+                        showZoomControl: true,
+                        showFullscreenControl: true
+                    });
+                }).catch(e => console.error("Aladin init error:", e));
+            }, 100);
+        }
     }
 
     function renderError(query) {
