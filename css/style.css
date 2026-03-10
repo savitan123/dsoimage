@@ -2459,7 +2459,7 @@ body.no-scroll {
 }
 
 [dir="rtl"] .dropdown-content a {
-  flex-direction: row-reverse;
+  direction: rtl;
   justify-content: flex-end;
 }
 
