@@ -2516,6 +2516,8 @@ body.no-scroll {
   [dir="rtl"] .top-nav-links>li>.dropbtn {
     text-align: right;
     direction: rtl;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
   }
 
   [dir="rtl"] .top-nav-links .dropdown-content a {
