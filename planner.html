@@ -45,56 +45,56 @@
             <div class="top-nav-container">
                 <div class="top-nav-logo"><a href="index.html">Imaging <span class="red">D</span>eep <span class="green">S</span>ky <span class="blue">O</span>bject</a></div>
                 <ul class="top-nav-links" id="top-nav-links">
-                    <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                    <li><a data-i18n="menu_home" href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
                     <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropbtn"><i class="fa-solid fa-images"></i> Galleries
+                        <a href="javascript:void(0)" class="dropbtn" data-i18n="menu_galleries"><i class="fa-solid fa-images"></i> Galleries
                             &#9662;</a>
                         <div class="dropdown-content">
-                            <a href="galaxies.html"><i class="fa-solid fa-hurricane"></i> Galaxies</a>
-                            <a href="nebulae.html"><i class="fa-solid fa-smog"></i> Nebulae</a>
-                            <a href="clusters.html"><i class="fa-solid fa-certificate"></i> Star Clusters</a>
-                        
-                            <a href="on-site-photos.html"><i class="fa-solid fa-camera"></i> On-site photos</a>
+                            <a data-i18n="menu_galaxies" href="galaxies.html"><i class="fa-solid fa-hurricane"></i> Galaxies</a>
+                            <a data-i18n="menu_nebulae" href="nebulae.html"><i class="fa-solid fa-smog"></i> Nebulae</a>
+                            <a data-i18n="menu_clusters" href="clusters.html"><i class="fa-solid fa-certificate"></i> Star Clusters</a>
+                            <a data-i18n="menu_onsite" href="on-site-photos.html"><i class="fa-solid fa-camera"></i> On-site photos</a>
                         </div>
                     </li>
                     <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropbtn"><i class="fa-solid fa-book"></i> Resources
+                        <a href="javascript:void(0)" class="dropbtn" data-i18n="menu_resources"><i class="fa-solid fa-book"></i> Resources
                             &#9662;</a>
                         <div class="dropdown-content">
                             <a data-i18n="menu_equipment" href="equipment.html"><i class="fa-solid fa-camera-retro"></i>
                                 Equipment</a>
                             <a data-i18n="menu_processing" href="processing.html"><i
                                     class="fa-solid fa-laptop-code"></i> Processing</a>
-                            <a href="knowledge.html"><i class="fa-solid fa-book-open"></i> Knowledge Base</a>
-                            <a href="catalog-explorer.html"><i class="fa-solid fa-magnifying-glass-chart"></i> Catalog Explorer</a>
+                            <a data-i18n="menu_knowledge" href="knowledge.html"><i class="fa-solid fa-book-open"></i> Knowledge Base</a>
+                            <a data-i18n="menu_catalog" href="catalog-explorer.html"><i class="fa-solid fa-magnifying-glass-chart"></i> Catalog Explorer</a>
                         </div>
                     </li>
                     <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropbtn"><i class="fa-solid fa-toolbox"></i> Tools
+                        <a href="javascript:void(0)" class="dropbtn active" data-i18n="menu_tools"><i class="fa-solid fa-toolbox"></i> Tools
                             &#9662;</a>
                         <div class="dropdown-content">
                             <a data-i18n="menu_weather" href="weather.html"><i class="fa-solid fa-cloud-sun"></i>
                                 Weather</a>
-                            <a href="planner.html"><i class="fa-solid fa-calendar-days"></i> Planned Session</a>
-                            <a href="coordinate-converter.html"><i class="fa-solid fa-globe"></i> Coordinate
+                            <a data-i18n="menu_planner" href="planner.html" class="active"><i class="fa-solid fa-calendar-days"></i> Planned Session</a>
+                            <a data-i18n="menu_converter" href="coordinate-converter.html"><i class="fa-solid fa-globe"></i> Coordinate
                                 Converter</a>
-                            <a href="checklist.html"><i class="fa-solid fa-check-double"></i> Pre-Flight Checklist</a>
-                            <a href="live-sky-map.html"><i class="fa-solid fa-map-location-dot"></i> Live Sky Map
+                            <a data-i18n="menu_checklist" href="checklist.html"><i class="fa-solid fa-check-double"></i> Pre-Flight Checklist</a>
+                            <a data-i18n="menu_skymap" href="live-sky-map.html"><i class="fa-solid fa-map-location-dot"></i> Live Sky Map
                                 (Interactive)</a>
-                            <a href="apod.html"><i class="fa-solid fa-satellite"></i> NASA APOD</a>
-                            <a href="tonights_best.html"><i class="fa-solid fa-star"></i> Tonight's Best</a>
-                            <a href="iss.html"><i class="fa-solid fa-rocket"></i> Where is the ISS?</a>
+                            <a data-i18n="menu_apod" href="apod.html"><i class="fa-solid fa-satellite"></i> NASA APOD</a>
+                            <a data-i18n="menu_tonights" href="tonights_best.html"><i class="fa-solid fa-star"></i> Tonight's Best</a>
+                            <a data-i18n="menu_iss" href="iss.html"><i class="fa-solid fa-rocket"></i> Where is the ISS?</a>
                         </div>
                     </li>
-                    <li><a href="about.html"><i class="fa-solid fa-user-astronaut"></i> About</a></li>
-                    <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+                    <li><a data-i18n="menu_about" href="about.html"><i class="fa-solid fa-user-astronaut"></i> About</a></li>
+                    <li><a data-i18n="menu_contact" href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
                 </ul>
                 <div class="top-nav-actions">
                     <button class="mode-toggle-btn" id="red-mode-toggle" title="Night Vision"><span
                             class="circle-icon"></span></button>
+                    <button id="lang-toggle-btn" title="Switch Language" style="background: transparent; border: 1px solid #888; color: #ccc; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: bold; margin-right: 8px; transition: 0.2s;">עב</button>
                     <div class="nv-controls" id="nv-container"
                         style="display:none;position:absolute;top:60px;right:20px;background:#111;padding:10px;border:1px solid #333;z-index:2000;border-radius:8px;">
-                        <label for="nv-slider"
+                        <label data-i18n="nv_dimmer" for="nv-slider"
                             style="font-size:13px;color:#aaa;display:block;margin-bottom:5px;">Dimmer</label>
                         <input id="nv-slider" max="100" min="20" type="range" value="80" />
                     </div>
@@ -106,8 +106,8 @@
         <div id="image-stats" style="display:none;"></div>
         <!-- Main Content -->
         <main class="main-content">
-            <h1>Planned Session</h1>
-            <p class="subtitle">Find targets and plan your imaging night.</p>
+            <h1 data-i18n="plan_title">Planned Session</h1>
+            <p class="subtitle" data-i18n="plan_subtitle">Find targets and plan your imaging night.</p>
             <!-- Suggester / Planner Tool (Moved from Tools) -->
             <div class="tool-card wide-card" id="suggester-tool"
                 style="max-width: 800px; margin: 0 auto 40px auto; background: rgba(0,0,0,0.5);">
@@ -156,28 +156,28 @@
                         <div class="control-group"
                             style="flex-basis: 100%; display: flex; justify-content: center; gap: 15px; align-items: flex-end; flex-wrap: wrap;">
                             <div style="display:flex; flex-direction:column;">
-                                <label style="font-size:12px; color:#888; margin-bottom:5px;">Mode:</label>
+                                <label data-i18n="plan_mode" style="font-size:12px; color:#888; margin-bottom:5px;">Mode:</label>
                                 <select class="suggester-select" id="suggester-mode" onchange="toggleTimeInputs()">
-                                    <option selected="" value="now">Right Now</option>
-                                    <option value="plan">Plan Session</option>
+                                    <option selected="" value="now" data-i18n="plan_now">Right Now</option>
+                                    <option value="plan" data-i18n="plan_session">Plan Session</option>
                                 </select>
                             </div>
                             <div id="time-inputs"
                                 style="display:none; gap:10px; flex-wrap:wrap; justify-content:center;">
                                 <div style="display:flex; flex-direction:column;">
-                                    <label style="font-size:12px; color:#888; margin-bottom:5px;">From Date:</label>
+                                    <label data-i18n="plan_from" style="font-size:12px; color:#888; margin-bottom:5px;">From Date:</label>
                                     <input class="small-input" id="plan-date-start" style="width:110px;" type="date" />
                                 </div>
                                 <div style="display:flex; flex-direction:column;">
-                                    <label style="font-size:12px; color:#888; margin-bottom:5px;">To Date:</label>
+                                    <label data-i18n="plan_to" style="font-size:12px; color:#888; margin-bottom:5px;">To Date:</label>
                                     <input class="small-input" id="plan-date-end" style="width:110px;" type="date" />
                                 </div>
                                 <div style="display:flex; flex-direction:column;">
-                                    <label style="font-size:12px; color:#888; margin-bottom:5px;">Start Time:</label>
+                                    <label data-i18n="plan_start" style="font-size:12px; color:#888; margin-bottom:5px;">Start Time:</label>
                                     <input class="time-input" id="plan-start" type="time" value="18:00" />
                                 </div>
                                 <div style="display:flex; flex-direction:column;">
-                                    <label style="font-size:12px; color:#888; margin-bottom:5px;">End Time:</label>
+                                    <label data-i18n="plan_end" style="font-size:12px; color:#888; margin-bottom:5px;">End Time:</label>
                                     <input class="time-input" id="plan-end" type="time" value="06:00" />
                                 </div>
                             </div>
@@ -213,29 +213,29 @@
             </div>
             <hr style="border-color:#333; margin:40px 0;" />
             <div class="calendar-controls">
-                <button id="prev-month">❮ Prev</button>
+                <button id="prev-month" data-i18n="cal_prev">❮ Prev</button>
                 <h2 id="current-month-year">January 2026</h2>
-                <button id="next-month">Next ❯</button>
+                <button id="next-month" data-i18n="cal_next">Next ❯</button>
             </div>
             <div class="calendar-container">
                 <div class="weekdays">
-                    <div>Sun</div>
-                    <div>Mon</div>
-                    <div>Tue</div>
-                    <div>Wed</div>
-                    <div>Thu</div>
-                    <div>Fri</div>
-                    <div>Sat</div>
+                    <div data-i18n="cal_sun">Sun</div>
+                    <div data-i18n="cal_mon">Mon</div>
+                    <div data-i18n="cal_tue">Tue</div>
+                    <div data-i18n="cal_wed">Wed</div>
+                    <div data-i18n="cal_thu">Thu</div>
+                    <div data-i18n="cal_fri">Fri</div>
+                    <div data-i18n="cal_sat">Sat</div>
                 </div>
                 <div class="calendar-grid" id="calendar-grid">
                     <!-- Days will be injected by JS -->
                 </div>
             </div>
             <div class="calendar-legend">
-                <span>🌑 New Moon (Dark Sky)</span>
-                <span>🌕 Full Moon</span>
-                <span>🌠 Meteor Shower Peak</span>
-                <span>🔭 Best Target</span>
+                <span data-i18n="cal_new">🌑 New Moon (Dark Sky)</span>
+                <span data-i18n="cal_full">🌕 Full Moon</span>
+                <span data-i18n="cal_meteor">🌠 Meteor Shower Peak</span>
+                <span data-i18n="cal_best">🔭 Best Target</span>
             </div>
         </main>
     </div>
@@ -243,8 +243,8 @@
     <div class="modal" id="search-modal">
         <div class="modal-content">
             <span class="close-modal">×</span>
-            <h2>Search Gallery</h2>
-            <input id="site-search-input" placeholder="Search for M42, Rosette, galaxies..." type="text" />
+            <h2 data-i18n="search_gal">Search Gallery</h2>
+            <input id="site-search-input" data-i18n="search_ph" data-i18n-attr="placeholder" placeholder="Search for M42, Rosette, galaxies..." type="text" />
             <div class="search-results-grid" id="search-results"></div>
         </div>
     </div>
@@ -254,11 +254,11 @@
             <span class="close-modal" id="close-details-modal">×</span>
             <h2 id="details-date">Date</h2>
             <div class="details-section">
-                <h3>📷 Imaging Targets</h3>
+                <h3 data-i18n="cal_imaging">📷 Imaging Targets</h3>
                 <ul id="imaging-list"></ul>
             </div>
             <div class="details-section">
-                <h3>🔭 Observing Targets</h3>
+                <h3 data-i18n="cal_observing">🔭 Observing Targets</h3>
                 <ul id="observing-list"></ul>
             </div>
         </div>
@@ -267,6 +267,7 @@
     <script src="js/script.js?v=37"></script>
     <script src="js/stats.js"></script>
     <script src="js/calendar_v2.js?v=3"></script>
+    <script src="js/i18n.js?v=1"></script>
     <script>
         function toggleTimeInputs() {
             const mode = document.getElementById('suggester-mode').value;

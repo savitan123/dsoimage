@@ -32,46 +32,46 @@
                     <a href="index.html">Imaging <span class="red">D</span>eep <span class="green">S</span>ky <span
                             class="blue">O</span>bject</a>
                 </div>
-                <ul class="top-nav-links">
+                <ul class="top-nav-links" id="top-nav-links">
                     <li><a data-i18n="menu_home" href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
                     <li class="dropdown">
-                        <a class="dropbtn" href="javascript:void(0)"><i class="fa-solid fa-images"></i> Galleries ▾</a>
+                        <a class="dropbtn" href="javascript:void(0)" data-i18n="menu_galleries"><i class="fa-solid fa-images"></i> Galleries ▾</a>
                         <div class="dropdown-content">
                             <a data-i18n="menu_galaxies" href="galaxies.html"><i class="fa-solid fa-hurricane"></i>
                                 Galaxies</a>
                             <a data-i18n="menu_nebulae" href="nebulae.html"><i class="fa-solid fa-smog"></i> Nebulae</a>
                             <a data-i18n="menu_clusters" href="clusters.html"><i class="fa-solid fa-certificate"></i>
                                 Star Clusters</a>
-                        
-                            <a href="on-site-photos.html"><i class="fa-solid fa-camera"></i> On-site photos</a>
+                            <a data-i18n="menu_onsite" href="on-site-photos.html"><i class="fa-solid fa-camera"></i> On-site photos</a>
                         </div>
                     </li>
                     <li class="dropdown">
-                        <a class="dropbtn" href="javascript:void(0)"><i class="fa-solid fa-book"></i> Resources ▾</a>
+                        <a class="dropbtn active" href="javascript:void(0)" data-i18n="menu_resources"><i class="fa-solid fa-book"></i> Resources ▾</a>
                         <div class="dropdown-content">
                             <a data-i18n="menu_equipment" href="equipment.html"><i class="fa-solid fa-camera-retro"></i>
                                 Equipment</a>
                             <a data-i18n="menu_processing" href="processing.html"><i
                                     class="fa-solid fa-laptop-code"></i> Processing</a>
-                            <a href="knowledge.html"><i class="fa-solid fa-book-open"></i> Knowledge Base</a>
-                            <a href="catalog-explorer.html" class="active"><i
+                            <a data-i18n="menu_knowledge" href="knowledge.html"><i class="fa-solid fa-book-open"></i> Knowledge Base</a>
+                            <a data-i18n="menu_catalog" href="catalog-explorer.html" class="active"><i
                                     class="fa-solid fa-magnifying-glass-chart"></i> Catalog Explorer</a>
                         </div>
                     </li>
                     <li class="dropdown">
-                        <a class="dropbtn active" href="javascript:void(0)"><i class="fa-solid fa-toolbox"></i> Tools
+                        <a class="dropbtn" href="javascript:void(0)" data-i18n="menu_tools"><i class="fa-solid fa-toolbox"></i> Tools
                             ▾</a>
                         <div class="dropdown-content">
                             <a data-i18n="menu_weather" href="weather.html"><i class="fa-solid fa-cloud-sun"></i>
                                 Weather</a>
-                            <a href="planner.html"><i class="fa-solid fa-calendar-days"></i> Planned Session</a>
-                            <a href="coordinate-converter.html"><i class="fa-solid fa-globe"></i> Coordinate
+                            <a data-i18n="menu_planner" href="planner.html"><i class="fa-solid fa-calendar-days"></i> Planned Session</a>
+                            <a data-i18n="menu_converter" href="coordinate-converter.html"><i class="fa-solid fa-globe"></i> Coordinate
                                 Converter</a>
-                            <a href="checklist.html"><i class="fa-solid fa-check-double"></i> Pre-Flight Checklist</a>
-                            <a href="live-sky-map.html"><i class="fa-solid fa-map-location-dot"></i> Live Sky Map
+                            <a data-i18n="menu_checklist" href="checklist.html"><i class="fa-solid fa-check-double"></i> Pre-Flight Checklist</a>
+                            <a data-i18n="menu_skymap" href="live-sky-map.html"><i class="fa-solid fa-map-location-dot"></i> Live Sky Map
                                 (Interactive)</a>
-                            <a href="apod.html"><i class="fa-solid fa-satellite"></i> NASA APOD</a>
-                            <a href="tonights_best.html"><i class="fa-solid fa-star"></i> Tonight's Best</a>
+                            <a data-i18n="menu_apod" href="apod.html"><i class="fa-solid fa-satellite"></i> NASA APOD</a>
+                            <a data-i18n="menu_tonights" href="tonights_best.html"><i class="fa-solid fa-star"></i> Tonight's Best</a>
+                            <a data-i18n="menu_iss" href="iss.html"><i class="fa-solid fa-rocket"></i> Where is the ISS?</a>
                         </div>
                     </li>
                     <li><a data-i18n="menu_about" href="about.html"><i class="fa-solid fa-user-astronaut"></i> About</a>
@@ -83,6 +83,7 @@
                     <button class="mode-toggle-btn" id="red-mode-toggle" title="Night Vision">
                         <span class="circle-icon"></span>
                     </button>
+                    <button id="lang-toggle-btn" title="Switch Language" style="background: transparent; border: 1px solid #888; color: #ccc; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: bold; margin-right: 8px; transition: 0.2s;">עב</button>
                     <button id="mobile-nav-toggle" aria-label="Toggle navigation" title="Menu"
                         style="background: none; border: none; font-size: 24px; color: #FFF3E0; cursor: pointer; margin: 0 10px;">☰</button>
                 </div>
@@ -101,8 +102,8 @@
         </div>
         <main class="main-content" style="padding-top: 80px; max-width: 800px; margin: 0 auto; min-height: 80vh;">
             <div style="text-align: center; margin-bottom: 40px;">
-                <h1 style="color: #FFAB40; margin-bottom: 10px;">Deep Sky Catalog Explorer</h1>
-                <p style="color: #ccc; font-size: 16px;">Search 14,000+ Deep Sky Objects using OpenNGC and SIMBAD, and
+                <h1 style="color: #FFAB40; margin-bottom: 10px;" data-i18n="cat_exp_title">Deep Sky Catalog Explorer</h1>
+                <p style="color: #ccc; font-size: 16px;" data-i18n="cat_exp_subtitle">Search 14,000+ Deep Sky Objects using OpenNGC and SIMBAD, and
                     link directly to full-resolution captures.</p>
             </div>
             <div class="explorer-search-container" style="position: relative; margin-bottom: 40px;">
@@ -110,10 +111,10 @@
                     style="display: flex; background: #111; border-radius: 30px; border: 1px solid #333; padding: 5px 15px; align-items: center; transition: border-color 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
                     <i class="fa-solid fa-magnifying-glass"
                         style="color: #FFAB40; font-size: 18px; margin-right: 10px;"></i>
-                    <input id="explorer-input" placeholder="Enter Catalog ID (e.g. NGC 224, Sh2-101, M42)"
+                    <input id="explorer-input" data-i18n="cat_exp_placeholder" placeholder="Enter Catalog ID (e.g. NGC 224, Sh2-101, M42)"
                         style="flex: 1; background: transparent; border: none; color: #FFF; font-size: 18px; padding: 15px 0; outline: none;"
                         type="text" />
-                    <button id="explorer-btn"
+                    <button id="explorer-btn" data-i18n="cat_exp_search_btn"
                         style="background: #1e90ff; color: white; border: none; border-radius: 20px; padding: 10px 20px; cursor: pointer; font-weight: bold; font-size: 14px; transition: background 0.3s;">Search</button>
                 </div>
             </div>
@@ -124,7 +125,7 @@
             <!-- Loading Indicator -->
             <div id="explorer-loading" style="display: none; text-align: center; padding: 50px;">
                 <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 40px; color: #FFAB40;"></i>
-                <p style="margin-top: 15px; color: #aaa;">Scanning the cosmos...</p>
+                <p style="margin-top: 15px; color: #aaa;" data-i18n="cat_exp_loading">Scanning the cosmos...</p>
             </div>
         </main>
         <!-- Dynamic Background (handled in script but needs to exist) -->
@@ -133,10 +134,12 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-content" style="text-align: center; width: 100%;">
+            <p data-i18n="footer_text" style="color:#aaa;">© 2026 Shimon Avitan | dsoimage.com</p>
         </div>
     </footer>
     <script src="js/script.js?v=52"></script>
     <script src="js/explorer.js?v=1"></script>
+    <script src="js/i18n.js?v=1"></script>
 </body>
 
 </html>

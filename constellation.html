@@ -27,74 +27,61 @@
                 <!-- Dim background overlay for mobile menu -->
                 <div class="overlay" hidden="" id="overlay"></div>
                 <nav aria-label="Site menu" class="top-nav" id="top-nav">
-                        <div class="top-nav-container">
-                                <div class="top-nav-logo">
-                                        <a href="index.html">Imaging <span class="red">D</span>eep <span class="green">S</span>ky <span class="blue">O</span>bject</a>
-                                </div>
-                                <ul class="top-nav-links">
-                                        <li><a data-i18n="menu_home" href="index.html"><i
-                                                                class="fa-solid fa-house"></i> Home</a></li>
-                                        <li class="dropdown">
-                                                <a href="javascript:void(0)" class="dropbtn"><i
-                                                                class="fa-solid fa-images"></i> Galleries ▾</a>
-                                                <div class="dropdown-content">
-                                                        <a data-i18n="menu_galaxies" href="galaxies.html"><i
-                                                                        class="fa-solid fa-hurricane"></i> Galaxies</a>
-                                                        <a data-i18n="menu_nebulae" href="nebulae.html"><i
-                                                                        class="fa-solid fa-smog"></i> Nebulae</a>
-                                                        <a data-i18n="menu_clusters" href="clusters.html"><i
-                                                                        class="fa-solid fa-certificate"></i> Star
-                                                                Clusters</a>
-                                                
-                            <a href="on-site-photos.html"><i class="fa-solid fa-camera"></i> On-site photos</a>
-                        </div>
-                                        </li>
-                                        <li class="dropdown">
-                                                <a href="javascript:void(0)" class="dropbtn"><i
-                                                                class="fa-solid fa-book"></i> Resources ▾</a>
-                                                <div class="dropdown-content">
-                            <a data-i18n="menu_equipment" href="equipment.html"><i class="fa-solid fa-camera-retro"></i> Equipment</a>
-                            <a data-i18n="menu_processing" href="processing.html"><i class="fa-solid fa-laptop-code"></i> Processing</a>
-                            <a href="knowledge.html"><i class="fa-solid fa-book-open"></i> Knowledge Base</a>
-                            <a href="catalog-explorer.html"><i class="fa-solid fa-magnifying-glass-chart"></i> Catalog Explorer</a>
-                        </div>
-                                        </li>
-                                        <li class="dropdown">
-                                                <a href="javascript:void(0)" class="dropbtn"><i
-                                                                class="fa-solid fa-toolbox"></i> Tools ▾</a>
-                                                <div class="dropdown-content">
-                            <a data-i18n="menu_weather" href="weather.html"><i class="fa-solid fa-cloud-sun"></i> Weather</a>
-                            <a href="planner.html"><i class="fa-solid fa-calendar-days"></i> Planned Session</a>
-                            <a href="coordinate-converter.html"><i class="fa-solid fa-globe"></i> Coordinate Converter</a>
-                            <a href="checklist.html"><i class="fa-solid fa-check-double"></i> Pre-Flight Checklist</a>
-                            <a href="live-sky-map.html"><i class="fa-solid fa-map-location-dot"></i> Live Sky Map (Interactive)</a>
-                            <a href="apod.html"><i class="fa-solid fa-satellite"></i> NASA APOD</a>
-                            <a href="tonights_best.html"><i class="fa-solid fa-star"></i> Tonight's Best</a>
-                            <a href="iss.html"><i class="fa-solid fa-rocket"></i> Where is the ISS?</a>
-                        </div>
-                                        </li>
-                                        <li><a data-i18n="menu_about" href="about.html"><i
-                                                                class="fa-solid fa-user-astronaut"></i> About</a></li>
-                                        <li><a data-i18n="menu_contact" href="contact.html"><i
-                                                                class="fa-solid fa-envelope"></i> Contact</a></li></ul>
-                                <div class="top-nav-actions">
-                                        <button class="mode-toggle-btn" id="red-mode-toggle" title="Night Vision">
-                                                <span class="circle-icon"></span>
-                                        </button>
-                                        <div class="nv-controls" id="nv-container"
-                                                style="display: none; position: absolute; top: 60px; right: 20px; background: #111; padding: 10px; border: 1px solid #333; z-index: 2000; border-radius: 8px;">
-                                                <label for="nv-slider"
-                                                        style="font-size: 13px; color: #aaa; text-align: left; display:block; margin-bottom: 5px;">Dimmer</label>
-                                                <input id="nv-slider" max="100" min="20" type="range" value="80" />
-                                        </div>
-                                        <button id="mobile-nav-toggle" aria-label="Toggle navigation"
-                                                title="Menu">&#9776;</button>
-                                        <button class="search-trigger" title="Search">&#128269;</button>
-                                </div>
-                        </div>
-                </nav>
+<div class="top-nav-container">
+<div class="top-nav-logo"><a href="index.html">Imaging <span class="red">D</span>eep <span class="green">S</span>ky <span class="blue">O</span>bject</a></div>
+<ul class="top-nav-links" id="top-nav-links">
+<li><a data-i18n="menu_home" href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+<li class="dropdown">
+<a class="dropbtn" href="javascript:void(0)" data-i18n="menu_galleries"><i class="fa-solid fa-images"></i> Galleries
+                            ▾</a>
+<div class="dropdown-content">
+<a data-i18n="menu_galaxies" href="galaxies.html"><i class="fa-solid fa-hurricane"></i> Galaxies</a>
+<a data-i18n="menu_nebulae" href="nebulae.html"><i class="fa-solid fa-smog"></i> Nebulae</a>
+<a data-i18n="menu_clusters" href="clusters.html"><i class="fa-solid fa-certificate"></i> Star Clusters</a>
+<a data-i18n="menu_onsite" href="on-site-photos.html"><i class="fa-solid fa-camera"></i> On-site photos</a>
+</div>
+</li>
+<li class="dropdown">
+<a class="dropbtn" href="javascript:void(0)" data-i18n="menu_resources"><i class="fa-solid fa-book"></i> Resources
+                            ▾</a>
+<div class="dropdown-content">
+<a data-i18n="menu_equipment" href="equipment.html"><i class="fa-solid fa-camera-retro"></i> Equipment</a>
+<a data-i18n="menu_processing" href="processing.html"><i class="fa-solid fa-laptop-code"></i> Processing</a>
+<a data-i18n="menu_knowledge" href="knowledge.html"><i class="fa-solid fa-book-open"></i> Knowledge Base</a>
+<a data-i18n="menu_catalog" href="catalog-explorer.html"><i class="fa-solid fa-magnifying-glass-chart"></i> Catalog Explorer</a>
+</div>
+</li>
+<li class="dropdown">
+<a class="dropbtn" href="javascript:void(0)" data-i18n="menu_tools"><i class="fa-solid fa-toolbox"></i> Tools
+                            ▾</a>
+<div class="dropdown-content">
+<a data-i18n="menu_weather" href="weather.html"><i class="fa-solid fa-cloud-sun"></i> Weather</a>
+<a data-i18n="menu_planner" href="planner.html"><i class="fa-solid fa-calendar-days"></i> Planned Session</a>
+<a data-i18n="menu_converter" href="coordinate-converter.html"><i class="fa-solid fa-globe"></i> Coordinate Converter</a>
+<a data-i18n="menu_checklist" href="checklist.html"><i class="fa-solid fa-check-double"></i> Pre-Flight Checklist</a>
+<a data-i18n="menu_skymap" href="live-sky-map.html"><i class="fa-solid fa-map-location-dot"></i> Live Sky Map (Interactive)</a>
+<a data-i18n="menu_apod" href="apod.html"><i class="fa-solid fa-satellite"></i> NASA APOD</a>
+<a data-i18n="menu_tonights" href="tonights_best.html"><i class="fa-solid fa-star"></i> Tonight's Best</a>
+<a data-i18n="menu_iss" href="iss.html"><i class="fa-solid fa-rocket"></i> Where is the ISS?</a>
+</div>
+</li>
+<li><a data-i18n="menu_about" href="about.html"><i class="fa-solid fa-user-astronaut"></i> About</a></li>
+<li><a data-i18n="menu_contact" href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+</ul>
+<div class="top-nav-actions">
+<button class="mode-toggle-btn" id="red-mode-toggle" title="Night Vision"><span class="circle-icon"></span></button>
+<button id="lang-toggle-btn" title="Switch Language" style="background: transparent; border: 1px solid #888; color: #ccc; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: bold; margin-right: 8px; transition: 0.2s;">עב</button>
+<div class="nv-controls" id="nv-container" style="display:none;position:absolute;top:60px;right:20px;background:#111;padding:10px;border:1px solid #333;z-index:2000;border-radius:8px;">
+<label data-i18n="nv_dimmer" for="nv-slider" style="font-size:13px;color:#aaa;display:block;margin-bottom:5px;">Dimmer</label>
+<input id="nv-slider" max="100" min="20" type="range" value="80"/>
+</div>
+<button aria-label="Toggle navigation" id="mobile-nav-toggle" title="Menu">☰</button>
+<button class="search-trigger" title="Search">🔍</button>
+</div>
+</div>
+</nav>
         <main class="main-content">
-            <a class="back-link" href="javascript:history.back()"
+            <a class="back-link" data-i18n="back_to_maps" href="javascript:history.back()"
                 style="display:inline-block; margin-bottom: 20px; color:#1e90ff; text-decoration:none;">← Back to
                 Maps</a>
             <h1 id="constellation-title">Loading...</h1>
@@ -111,14 +98,14 @@
                 <!-- Right Side: Data Panels -->
                 <div class="const-data-box">
                     <div class="kb-card data-panel">
-                        <h3>✨ Brightest Stars</h3>
+                        <h3>✨ <span data-i18n="const_brightest_stars">Brightest Stars</span></h3>
                         <div class="table-container">
                             <table class="data-table" id="stars-table">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Mag</th>
-                                        <th>Type</th>
+                                        <th><span data-i18n="const_name">Name</span></th>
+                                        <th><span data-i18n="const_mag">Mag</span></th>
+                                        <th><span data-i18n="const_type">Type</span></th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -126,14 +113,14 @@
                         </div>
                     </div>
                     <div class="kb-card data-panel">
-                        <h3>🔭 Deep Sky Objects</h3>
+                        <h3>🔭 <span data-i18n="const_dsos_title">Deep Sky Objects</span></h3>
                         <div class="table-container">
                             <table class="data-table" id="dsos-table">
                                 <thead>
                                     <tr>
-                                        <th>Object</th>
-                                        <th>Type</th>
-                                        <th>Mag</th>
+                                        <th><span data-i18n="const_object">Object</span></th>
+                                        <th><span data-i18n="const_type">Type</span></th>
+                                        <th><span data-i18n="const_mag">Mag</span></th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -153,14 +140,14 @@
     <div class="search-modal" hidden="" id="search-modal">
         <div class="search-modal-content">
             <span class="close-search">×</span>
-            <input aria-label="Search" id="search-input" placeholder="Search galaxies, nebulae, clusters..."
+            <input aria-label="Search" data-i18n="search_ph" data-i18n-attr="placeholder" id="search-input" placeholder="Search galaxies, nebulae, clusters..."
                 type="text" />
             <div class="search-results" id="search-results"></div>
         </div>
     </div>
     <script src="js/constellations.js"></script>
-    <!-- Main logic script -->
     <script src="js/script.js?v=37"></script>
+    <script src="js/i18n.js?v=1"></script>
 </body>
 
 </html>
