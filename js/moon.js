@@ -26,6 +26,30 @@
         'Waning Crescent': '🌘'
     };
 
+    /** Map English phase names to i18n keys */
+    const PHASE_I18N_KEYS = {
+        'New Moon': 'moon_new',
+        'Waxing Crescent': 'moon_waxing_crescent',
+        'First Quarter': 'moon_first_quarter',
+        'Waxing Gibbous': 'moon_waxing_gibbous',
+        'Full Moon': 'moon_full',
+        'Waning Gibbous': 'moon_waning_gibbous',
+        'Last Quarter': 'moon_last_quarter',
+        'Waning Crescent': 'moon_waning_crescent'
+    };
+
+    function translatePhase(engName) {
+        const key = PHASE_I18N_KEYS[engName];
+        if (key && window.i18nStrings && window.i18nStrings[key]) {
+            return window.i18nStrings[key];
+        }
+        return engName;
+    }
+
+    function t(key, fallback) {
+        return (window.i18nStrings && window.i18nStrings[key]) || fallback;
+    }
+
     /**
      * Derive a normalised phase name from the USNO curphase string.
      * USNO values include: "Waxing Crescent", "First Quarter", "Waxing Gibbous",
@@ -117,7 +141,7 @@
                     const dateStr = p.date.toLocaleDateString([], { month: 'short', day: 'numeric' });
                     const timeStr = p.date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
                     phasesHtml += `<div style="display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.2); border-radius: 4px; padding: 4px 6px;">
-                        <span>${p.icon} <span style="color:#ddd;">${p.name}</span></span>
+                        <span>${p.icon} <span style="color:#ddd;">${translatePhase(p.name)}</span></span>
                         <span style="font-family: monospace; color:#888;">${dateStr} ${timeStr}</span>
                     </div>`;
                 });
@@ -145,8 +169,8 @@
         ${icon}
       </div>
       <div style="flex-grow: 1;">
-        <div style="font-size: 22px; font-weight: bold; color: #fff;">${phaseName}</div>
-        <div style="color: #bbb; font-size: 14px;">Illumination: ${illum}%</div>
+        <div style="font-size: 22px; font-weight: bold; color: #fff;">${translatePhase(phaseName)}</div>
+        <div style="color: #bbb; font-size: 14px;">${t('moon_illumination', 'Illumination')}: ${illum}%</div>
         <div style="color: #888; font-size: 13px; margin-top: 5px;">${rec}</div>
         ${nextPhaseHtml}
         ${localMathHtml}
@@ -195,11 +219,15 @@
         }
     }
 
+    // Listen for language changes and re-render
+    let _cachedMoonData = null;
+
     async function loadMoonPhase() {
         try {
             const res = await fetch(CACHE_URL);
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             const data = await res.json();
+            _cachedMoonData = data;
 
             if (!data.phase) throw new Error('No phase field in cache');
 
@@ -210,6 +238,12 @@
             renderFallback();
         }
     }
+
+    window.addEventListener('languageChanged', () => {
+        if (_cachedMoonData) {
+            renderHomeWidget(_cachedMoonData);
+        }
+    });
 
     // Run after DOM is ready
     if (document.readyState === 'loading') {

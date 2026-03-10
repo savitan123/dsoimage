@@ -2424,3 +2424,73 @@ body.no-scroll {
   max-height: 400px;
   overflow-y: auto;
 }
+
+/* =============================================
+   RTL (Hebrew) Layout Overrides
+   Only active when <html dir="rtl">
+   ============================================= */
+
+[dir="rtl"] body {
+  direction: rtl;
+  text-align: right;
+}
+
+[dir="rtl"] .top-nav-container {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .top-nav-links {
+  direction: rtl;
+}
+
+[dir="rtl"] .top-nav-actions {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .dropdown-content {
+  text-align: right;
+}
+
+[dir="rtl"] .category-card-text {
+  text-align: right;
+}
+
+[dir="rtl"] .subtitle {
+  text-align: center !important;
+}
+
+[dir="rtl"] .site-footer {
+  text-align: center;
+}
+
+[dir="rtl"] .search-box {
+  direction: rtl;
+}
+
+[dir="rtl"] .search-input {
+  text-align: right;
+}
+
+/* Widget internal content — keep LTR for numbers / data but align labels right */
+[dir="rtl"] .widget-card h3 {
+  text-align: right;
+  direction: rtl;
+}
+
+[dir="rtl"] .widget-card {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Keep numeric data like coordinates/magnitudes LTR */
+[dir="rtl"] .widget-card [style*="monospace"] {
+  direction: ltr;
+  unicode-bidi: embed;
+}
+
+/* Language toggle hover */
+#lang-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #fff !important;
+  border-color: #fff !important;
+}
