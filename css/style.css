@@ -875,6 +875,22 @@ img {
     margin-left: 0;
     width: 100%;
     padding: 20px 15px 15px;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  /* Force dashboard widgets to stack on mobile */
+  .dashboard-widgets {
+    grid-template-columns: 1fr !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+
+  .widget-card {
+    max-width: 100% !important;
+    overflow: hidden;
+    box-sizing: border-box;
   }
 
   .hero {

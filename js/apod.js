@@ -117,9 +117,8 @@
       mediaHtml = `
         <a href="${hdUrl}" target="_blank" rel="noopener noreferrer" title="Open HD version" style="display:block;width:100%;">
           <img src="${imgUrl}" alt="${title}"
-               style="width:100%;max-height:220px;object-fit:cover;border-radius:8px;display:block;transition:opacity 0.3s;"
-               loading="lazy"
-               onerror="this.src='${FALLBACK.url}'">
+               style="width:100%;min-height:100px;max-height:220px;object-fit:cover;border-radius:8px;display:block;transition:opacity 0.3s;"
+               onerror="this.onerror=null; this.src='${FALLBACK.url}'">
         </a>`;
     }
 
