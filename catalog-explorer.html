@@ -1,135 +1,144 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<link href="https://dsoimage.com/catalog-explorer.html" rel="canonical"/>
-<meta content="Shimon Avitan" name="author"/>
-<meta content="Deep Sky Catalog Explorer | DSOImage - Deep Sky Astrophotography by Shimon Avitan. High-resolution LRGB imaging featuring nebulae, galaxies, and star clusters captured with FLT 132." name="description"/>
-<title>Deep Sky Catalog Explorer | DSOImage</title>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
-<link href="css/style.css?v=52" rel="stylesheet">
-</link></head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="https://dsoimage.com/catalog-explorer.html" rel="canonical" />
+    <meta content="Shimon Avitan" name="author" />
+    <meta
+        content="Deep Sky Catalog Explorer | DSOImage - Deep Sky Astrophotography by Shimon Avitan. High-resolution LRGB imaging featuring nebulae, galaxies, and star clusters captured with FLT 132."
+        name="description" />
+    <title>Deep Sky Catalog Explorer | DSOImage</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <link href="css/style.css?v=52" rel="stylesheet">
+    </link>
+</head>
+
 <body>
-<div class="container">
-<!-- Mobile top bar -->
-<header class="topbar">
-<div class="topbar-logo"><a href="index.html">Imaging <span class="red">D</span>eep <span class="green">S</span>ky <span class="blue">O</span>bject</a></div>
-<button aria-label="Open menu" class="menu-toggle" id="mobile-nav-toggle">
-<i class="fa-solid fa-bars"></i>
-</button>
-</header>
-<!-- Dim background overlay for mobile menu -->
-<div class="overlay" hidden="" id="overlay"></div>
-<!-- Nav menu placeholder (will inject via script/manually for now) -->
-<nav aria-label="Site menu" class="top-nav" id="top-nav">
-<div class="top-nav-container">
-<div class="top-nav-logo">
-<a href="index.html">Imaging <span class="red">D</span>eep <span class="green">S</span>ky <span class="blue">O</span>bject</a>
-</div>
-<ul class="top-nav-links">
-<li><a data-i18n="menu_home" href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
-<li class="dropdown">
-<a class="dropbtn" href="javascript:void(0)"><i class="fa-solid fa-images"></i> Galleries ▾</a>
-<div class="dropdown-content">
-<a data-i18n="menu_galaxies" href="galaxies.html"><i class="fa-solid fa-hurricane"></i>
+    <div class="container">
+
+        <!-- Dim background overlay for mobile menu -->
+        <div class="overlay" hidden="" id="overlay"></div>
+        <!-- Nav menu placeholder (will inject via script/manually for now) -->
+        <nav aria-label="Site menu" class="top-nav" id="top-nav">
+            <div class="top-nav-container">
+                <div class="top-nav-logo">
+                    <a href="index.html">Imaging <span class="red">D</span>eep <span class="green">S</span>ky <span
+                            class="blue">O</span>bject</a>
+                </div>
+                <ul class="top-nav-links">
+                    <li><a data-i18n="menu_home" href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                    <li class="dropdown">
+                        <a class="dropbtn" href="javascript:void(0)"><i class="fa-solid fa-images"></i> Galleries ▾</a>
+                        <div class="dropdown-content">
+                            <a data-i18n="menu_galaxies" href="galaxies.html"><i class="fa-solid fa-hurricane"></i>
                                 Galaxies</a>
-<a data-i18n="menu_nebulae" href="nebulae.html"><i class="fa-solid fa-smog"></i> Nebulae</a>
-<a data-i18n="menu_clusters" href="clusters.html"><i class="fa-solid fa-certificate"></i>
+                            <a data-i18n="menu_nebulae" href="nebulae.html"><i class="fa-solid fa-smog"></i> Nebulae</a>
+                            <a data-i18n="menu_clusters" href="clusters.html"><i class="fa-solid fa-certificate"></i>
                                 Star Clusters</a>
-</div>
-</li>
-<li class="dropdown">
-<a class="dropbtn" href="javascript:void(0)"><i class="fa-solid fa-book"></i> Resources ▾</a>
-<div class="dropdown-content">
-<a data-i18n="menu_equipment" href="equipment.html"><i class="fa-solid fa-camera-retro"></i>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropbtn" href="javascript:void(0)"><i class="fa-solid fa-book"></i> Resources ▾</a>
+                        <div class="dropdown-content">
+                            <a data-i18n="menu_equipment" href="equipment.html"><i class="fa-solid fa-camera-retro"></i>
                                 Equipment</a>
-<a data-i18n="menu_processing" href="processing.html"><i class="fa-solid fa-laptop-code"></i> Processing</a>
-<a href="knowledge.html"><i class="fa-solid fa-book-open"></i> Knowledge Base</a>
-</div>
-</li>
-<li class="dropdown">
-<a class="dropbtn active" href="javascript:void(0)"><i class="fa-solid fa-toolbox"></i> Tools
+                            <a data-i18n="menu_processing" href="processing.html"><i
+                                    class="fa-solid fa-laptop-code"></i> Processing</a>
+                            <a href="knowledge.html"><i class="fa-solid fa-book-open"></i> Knowledge Base</a>
+                            <a href="catalog-explorer.html" class="active"><i
+                                    class="fa-solid fa-magnifying-glass-chart"></i> Catalog Explorer</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropbtn active" href="javascript:void(0)"><i class="fa-solid fa-toolbox"></i> Tools
                             ▾</a>
-<div class="dropdown-content">
-<a data-i18n="menu_weather" href="weather.html"><i class="fa-solid fa-cloud-sun"></i>
+                        <div class="dropdown-content">
+                            <a data-i18n="menu_weather" href="weather.html"><i class="fa-solid fa-cloud-sun"></i>
                                 Weather</a>
-<a href="planner.html"><i class="fa-solid fa-calendar-days"></i> Planned Session</a>
-<a href="coordinate-converter.html"><i class="fa-solid fa-globe"></i> Coordinate
+                            <a href="planner.html"><i class="fa-solid fa-calendar-days"></i> Planned Session</a>
+                            <a href="coordinate-converter.html"><i class="fa-solid fa-globe"></i> Coordinate
                                 Converter</a>
-<a href="checklist.html"><i class="fa-solid fa-check-double"></i> Pre-Flight Checklist</a>
-<a href="live-sky-map.html"><i class="fa-solid fa-map-location-dot"></i> Live Sky Map
+                            <a href="checklist.html"><i class="fa-solid fa-check-double"></i> Pre-Flight Checklist</a>
+                            <a href="live-sky-map.html"><i class="fa-solid fa-map-location-dot"></i> Live Sky Map
                                 (Interactive)</a>
-<a href="apod.html"><i class="fa-solid fa-satellite"></i> NASA APOD</a>
-<a href="tonights_best.html"><i class="fa-solid fa-star"></i> Tonight's Best</a>
-<a class="active" href="catalog-explorer.html"><i class="fa-solid fa-magnifying-glass-chart"></i> Catalog Explorer</a>
-</div>
-</li>
-<li><a data-i18n="menu_about" href="about.html"><i class="fa-solid fa-user-astronaut"></i> About</a>
-</li>
-<li><a data-i18n="menu_contact" href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a>
-</li>
-</ul>
-<div class="top-nav-actions">
-<button class="mode-toggle-btn" id="red-mode-toggle" title="Night Vision">
-<span class="circle-icon"></span>
-</button>
-<!-- Small Desktop Search Icon to open overlay -->
-<button aria-label="Search" class="search-trigger desktop-search" title="Search Images">
-<i class="fa-solid fa-search"></i>
-</button>
-<button class="lang-toggle-btn" id="lang-toggle-btn">🇺🇸 English</button>
-</div>
-</div>
-</nav>
-<!-- Full-screen Search Overlay -->
-<div class="search-overlay" id="search-overlay">
-<span class="search-close"><i class="fa-solid fa-times"></i></span>
-<div class="search-box">
-<input autocomplete="off" class="search-input" id="search-input" placeholder="Search galaxies, nebulae, stars..." type="text"/>
-</div>
-<div class="search-results" id="search-results">
-<!-- Results generated by JS -->
-</div>
-</div>
-<div class="night-vision-controls" id="nv-container">
-<label for="nv-slider"><i class="fa-solid fa-lightbulb"></i> Brightness</label>
-<input id="nv-slider" max="100" min="10" type="range" value="80"/>
-</div>
-<main class="main-content" style="padding-top: 80px; max-width: 800px; margin: 0 auto; min-height: 80vh;">
-<div style="text-align: center; margin-bottom: 40px;">
-<h1 style="color: #FFAB40; margin-bottom: 10px;">Deep Sky Catalog Explorer</h1>
-<p style="color: #ccc; font-size: 16px;">Search 14,000+ Deep Sky Objects using OpenNGC and SIMBAD, and
+                            <a href="apod.html"><i class="fa-solid fa-satellite"></i> NASA APOD</a>
+                            <a href="tonights_best.html"><i class="fa-solid fa-star"></i> Tonight's Best</a>
+                            <a class="active" href="catalog-explorer.html"><i
+                                    class="fa-solid fa-magnifying-glass-chart"></i> Catalog Explorer</a>
+                        </div>
+                    </li>
+                    <li><a data-i18n="menu_about" href="about.html"><i class="fa-solid fa-user-astronaut"></i> About</a>
+                    </li>
+                    <li><a data-i18n="menu_contact" href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a>
+                    </li>
+                </ul>
+                <div class="top-nav-actions">
+                    <button class="mode-toggle-btn" id="red-mode-toggle" title="Night Vision">
+                        <span class="circle-icon"></span>
+                    </button>
+                    <button id="mobile-nav-toggle" aria-label="Toggle navigation" title="Menu"
+                        style="background: none; border: none; font-size: 24px; color: #FFF3E0; cursor: pointer; margin: 0 10px;">☰</button>
+                    <button class="lang-toggle-btn" id="lang-toggle-btn">🇺🇸 English</button>
+                </div>
+            </div>
+        </nav>
+        <!-- Full-screen Search Overlay -->
+        <div class="search-overlay" id="search-overlay">
+            <span class="search-close"><i class="fa-solid fa-times"></i></span>
+            <div class="search-box">
+                <input autocomplete="off" class="search-input" id="search-input"
+                    placeholder="Search galaxies, nebulae, stars..." type="text" />
+            </div>
+            <div class="search-results" id="search-results">
+                <!-- Results generated by JS -->
+            </div>
+        </div>
+        <div class="night-vision-controls" id="nv-container">
+            <label for="nv-slider"><i class="fa-solid fa-lightbulb"></i> Brightness</label>
+            <input id="nv-slider" max="100" min="10" type="range" value="80" />
+        </div>
+        <main class="main-content" style="padding-top: 80px; max-width: 800px; margin: 0 auto; min-height: 80vh;">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h1 style="color: #FFAB40; margin-bottom: 10px;">Deep Sky Catalog Explorer</h1>
+                <p style="color: #ccc; font-size: 16px;">Search 14,000+ Deep Sky Objects using OpenNGC and SIMBAD, and
                     link directly to full-resolution captures.</p>
-</div>
-<div class="explorer-search-container" style="position: relative; margin-bottom: 40px;">
-<div class="explorer-search-wrapper" style="display: flex; background: #111; border-radius: 30px; border: 1px solid #333; padding: 5px 15px; align-items: center; transition: border-color 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
-<i class="fa-solid fa-magnifying-glass" style="color: #FFAB40; font-size: 18px; margin-right: 10px;"></i>
-<input id="explorer-input" placeholder="Enter Catalog ID (e.g. NGC 224, Sh2-101, M42)" style="flex: 1; background: transparent; border: none; color: #FFF; font-size: 18px; padding: 15px 0; outline: none;" type="text"/>
-<button id="explorer-btn" style="background: #1e90ff; color: white; border: none; border-radius: 20px; padding: 10px 20px; cursor: pointer; font-weight: bold; font-size: 14px; transition: background 0.3s;">Search</button>
-</div>
-</div>
-<!-- Results Card -->
-<div class="explorer-results" id="explorer-results" style="display: none;">
-<!-- Filled via JS -->
-</div>
-<!-- Loading Indicator -->
-<div id="explorer-loading" style="display: none; text-align: center; padding: 50px;">
-<i class="fa-solid fa-circle-notch fa-spin" style="font-size: 40px; color: #FFAB40;"></i>
-<p style="margin-top: 15px; color: #aaa;">Scanning the cosmos...</p>
-</div>
-</main>
-<!-- Dynamic Background (handled in script but needs to exist) -->
-<div id="dynamic-bg"></div>
-</div>
-<!-- Footer -->
-<footer class="footer">
-<div class="footer-content" style="text-align: center; width: 100%;">
-<p>© 2024 DSOImage. All rights reserved. Images captured by Shimon Avitan.</p>
-</div>
-</footer>
-<script src="js/script.js?v=52"></script>
-<script src="js/explorer.js?v=1"></script>
+            </div>
+            <div class="explorer-search-container" style="position: relative; margin-bottom: 40px;">
+                <div class="explorer-search-wrapper"
+                    style="display: flex; background: #111; border-radius: 30px; border: 1px solid #333; padding: 5px 15px; align-items: center; transition: border-color 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                    <i class="fa-solid fa-magnifying-glass"
+                        style="color: #FFAB40; font-size: 18px; margin-right: 10px;"></i>
+                    <input id="explorer-input" placeholder="Enter Catalog ID (e.g. NGC 224, Sh2-101, M42)"
+                        style="flex: 1; background: transparent; border: none; color: #FFF; font-size: 18px; padding: 15px 0; outline: none;"
+                        type="text" />
+                    <button id="explorer-btn"
+                        style="background: #1e90ff; color: white; border: none; border-radius: 20px; padding: 10px 20px; cursor: pointer; font-weight: bold; font-size: 14px; transition: background 0.3s;">Search</button>
+                </div>
+            </div>
+            <!-- Results Card -->
+            <div class="explorer-results" id="explorer-results" style="display: none;">
+                <!-- Filled via JS -->
+            </div>
+            <!-- Loading Indicator -->
+            <div id="explorer-loading" style="display: none; text-align: center; padding: 50px;">
+                <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 40px; color: #FFAB40;"></i>
+                <p style="margin-top: 15px; color: #aaa;">Scanning the cosmos...</p>
+            </div>
+        </main>
+        <!-- Dynamic Background (handled in script but needs to exist) -->
+        <div id="dynamic-bg"></div>
+    </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content" style="text-align: center; width: 100%;">
+            <p>© 2024 DSOImage. All rights reserved. Images captured by Shimon Avitan.</p>
+        </div>
+    </footer>
+    <script src="js/script.js?v=52"></script>
+    <script src="js/explorer.js?v=1"></script>
 </body>
+
 </html>

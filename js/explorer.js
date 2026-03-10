@@ -33,26 +33,52 @@ document.addEventListener('DOMContentLoaded', () => {
         loadingIndicator.style.display = 'block';
 
         // Check Gallery first to prepare the "Match" badge
-        const galleryMatch = galleryData.find(item =>
-            item.title.toLowerCase().includes(query) ||
-            item.aliases.toLowerCase().includes(query) ||
-            item.cleanName.toLowerCase() === query.replace(/\s+/g, '')
-        );
+        const queryClean = query.replace(/\s+/g, '').toLowerCase();
+        const galleryMatch = galleryData.find(item => {
+            const titleMatch = item.title.toLowerCase() === query;
+            const cleanMatch = item.cleanName.toLowerCase() === queryClean;
+            const aliases = item.aliases ? item.aliases.split(',').map(s => s.trim().toLowerCase()) : [];
+            const titles = item.title.toLowerCase().split(/[ \-]/);
+            return titleMatch || cleanMatch || aliases.includes(query) || titles.includes(query);
+        });
 
-        // Step A: Check local OpenNGC Data (NGC, IC)
+        // Step A: Check local OpenNGC Data (NGC, IC, M)
         let localMatch = null;
-        if (targetsData && (query.startsWith('ngc') || query.startsWith('ic'))) {
-            // Clean query to match targets.json IDs (e.g., "ngc 224" -> "NGC0224")
+
+        // Messier mapping to OpenNGC equivalents
+        const messierToNgc = {
+            1: "NGC1952", 2: "NGC7089", 3: "NGC5272", 4: "NGC6121", 5: "NGC5904", 6: "NGC6405", 7: "NGC6475", 8: "NGC6523", 9: "NGC6333", 10: "NGC6254",
+            11: "NGC6705", 12: "NGC6218", 13: "NGC6205", 14: "NGC6402", 15: "NGC7078", 16: "NGC6611", 17: "NGC6618", 18: "NGC6613", 19: "NGC6273", 20: "NGC6514",
+            21: "NGC6531", 22: "NGC6656", 23: "NGC6494", 24: "IC4715", 25: "IC4725", 26: "NGC6694", 27: "NGC6853", 28: "NGC6626", 29: "NGC6913", 30: "NGC7099",
+            31: "NGC0224", 32: "NGC0221", 33: "NGC0598", 34: "NGC1039", 35: "NGC2168", 36: "NGC1960", 37: "NGC2099", 38: "NGC1912", 39: "NGC7092", 40: "WIN04",
+            41: "NGC2287", 42: "NGC1976", 43: "NGC1982", 44: "NGC2632", 45: "MEL22", 46: "NGC2437", 47: "NGC2422", 48: "NGC2548", 49: "NGC4472", 50: "NGC2323",
+            51: "NGC5194", 52: "NGC7654", 53: "NGC5024", 54: "NGC6715", 55: "NGC6809", 56: "NGC6779", 57: "NGC6720", 58: "NGC4579", 59: "NGC4621", 60: "NGC4649",
+            61: "NGC4303", 62: "NGC6266", 63: "NGC5055", 64: "NGC4826", 65: "NGC3623", 66: "NGC3627", 67: "NGC2682", 68: "NGC4590", 69: "NGC6637", 70: "NGC6681",
+            71: "NGC6838", 72: "NGC6981", 73: "NGC6994", 74: "NGC0628", 75: "NGC6864", 76: "NGC0650", 77: "NGC1068", 78: "NGC2068", 79: "NGC1904", 80: "NGC6093",
+            81: "NGC3031", 82: "NGC3034", 83: "NGC5236", 84: "NGC4374", 85: "NGC4382", 86: "NGC4406", 87: "NGC4486", 88: "NGC4501", 89: "NGC4552", 90: "NGC4569",
+            91: "NGC4548", 92: "NGC6341", 93: "NGC2447", 94: "NGC4736", 95: "NGC3351", 96: "NGC3368", 97: "NGC3587", 98: "NGC4192", 99: "NGC4254", 100: "NGC4321",
+            101: "NGC5457", 102: "NGC5866", 103: "NGC0581", 104: "NGC4594", 105: "NGC3379", 106: "NGC4258", 107: "NGC6171", 108: "NGC3556", 109: "NGC3992", 110: "NGC0205"
+        };
+
+        let searchId = null;
+        if (query.startsWith('m')) {
+            const mNum = query.match(/\d+/);
+            if (mNum && messierToNgc[mNum[0]]) {
+                searchId = messierToNgc[mNum[0]];
+                dataLabel = query.toUpperCase(); // Retain "M1" display initially
+            }
+        } else if (query.startsWith('ngc') || query.startsWith('ic')) {
             const isNgc = query.startsWith('ngc');
             const prefix = isNgc ? 'NGC' : 'IC';
             const numMatch = query.match(/\d+/);
-
             if (numMatch) {
                 const numPadded = numMatch[0].padStart(4, '0');
-                const searchId = prefix + numPadded;
-
-                localMatch = targetsData.find(item => item.n === searchId);
+                searchId = prefix + numPadded;
             }
+        }
+
+        if (targetsData && searchId) {
+            localMatch = targetsData.find(item => item.n === searchId);
         }
 
         if (localMatch) {
@@ -69,44 +95,60 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Step B: If not found locally, query SIMBAD via CDS Sesame
-        // The Sesame API returns plain text, we parse it
-        const encodedQuery = encodeURIComponent(query);
-        const sesameUrl = `https://cdsweb.u-strasbg.fr/cgi-bin/nph-sesame/-ox/SNVA?${encodedQuery}`;
+        // Step B: If not found locally, query SIMBAD via TAP API for rich data
+        const tapUrl = "https://simbad.cds.unistra.fr/simbad/sim-tap/sync";
+        // Escape single quotes for SQL ADQL
+        const safeQuery = query.replace(/'/g, "''");
+        // ADQL joins basic object properties with its flux properties based on exact ID match
+        const adql = `SELECT TOP 1 b.main_id, b.otype, b.ra, b.dec, b.galdim_majaxis, b.galdim_minaxis, f.V, f.B FROM ident i JOIN basic b ON i.oidref = b.oid LEFT JOIN allfluxes f ON b.oid = f.oidref WHERE i.id = '${safeQuery}'`;
 
-        fetch(sesameUrl)
-            .then(res => res.text())
-            .then(xmlText => {
-                const parser = new DOMParser();
-                const xmlDoc = parser.parseFromString(xmlText, "text/xml");
+        const formData = new URLSearchParams();
+        formData.append('request', 'doQuery');
+        formData.append('lang', 'adql');
+        formData.append('format', 'json');
+        formData.append('query', adql);
 
-                const resolver = xmlDoc.querySelector('Resolver');
-                if (!resolver || !xmlDoc.querySelector('oname')) {
-                    // Not found in SIMBAD either
+        fetch(tapUrl, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (!data.data || data.data.length === 0) {
                     renderError(query);
                     return;
                 }
 
-                // Extract data
-                const oname = xmlDoc.querySelector('oname') ? xmlDoc.querySelector('oname').textContent : query.toUpperCase();
-                const otype = xmlDoc.querySelector('otype') ? xmlDoc.querySelector('otype').textContent : "Unknown";
-                // Pos
-                const jradeg = xmlDoc.querySelector('jradeg') ? xmlDoc.querySelector('jradeg').textContent : "";
-                const jdedeg = xmlDoc.querySelector('jdedeg') ? xmlDoc.querySelector('jdedeg').textContent : "";
+                const row = data.data[0];
+                // Format Data
+                const oname = row[0] || query.toUpperCase();
+                const otype = row[1] || "Unknown";
+                const ra = row[2] ? parseFloat(row[2]).toFixed(4) + "°" : "N/A";
+                const dec = row[3] ? parseFloat(row[3]).toFixed(4) + "°" : "N/A";
+                const maj = row[4];
+                const min = row[5];
+                const size = (maj && min) ? `${parseFloat(maj).toFixed(2)} x ${parseFloat(min).toFixed(2)}` : (maj ? parseFloat(maj).toFixed(2) : "N/A");
+
+                const vMag = row[6] ? parseFloat(row[6]).toFixed(2) : null;
+                const bMag = row[7] ? parseFloat(row[7]).toFixed(2) : null;
+                const magText = vMag ? vMag : (bMag ? bMag : "N/A");
 
                 renderResults({
                     id: oname,
                     type: otype,
-                    mag: "N/A (Simbad Base)",
-                    size: "N/A",
+                    mag: magText,
+                    size: size,
                     constellation: "Resolved via Coords",
-                    ra: jradeg ? parseFloat(jradeg).toFixed(4) + "°" : "N/A",
-                    dec: jdedeg ? parseFloat(jdedeg).toFixed(4) + "°" : "N/A",
-                    source: "SIMBAD (CDS)"
+                    ra: ra,
+                    dec: dec,
+                    source: "SIMBAD (TAP/ADQL)"
                 }, galleryMatch);
             })
             .catch(err => {
-                console.error("SIMBAD error:", err);
+                console.error("SIMBAD TAP error:", err);
                 renderError(query);
             });
     }
