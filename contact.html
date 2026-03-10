@@ -10,7 +10,8 @@
     <meta
         content="Contact — Shimon Avitan - Deep Sky Astrophotography by Shimon Avitan. High-resolution LRGB imaging featuring nebulae, galaxies, and star clusters captured with FLT 132."
         name="description" />
-    <meta name="keywords" content="Shimon Avitan, DSOImage, Astrophotography, Deep Sky Objects, DSO, Gallery, Astronomy, Galaxies, Nebulae, Space, Telescope, Night Sky, FLT 132, ASI2600MM, APOD, ISS Tracker, Planet Visibility" />
+    <meta name="keywords"
+        content="Shimon Avitan, DSOImage, Astrophotography, Deep Sky Objects, DSO, Gallery, Astronomy, Galaxies, Nebulae, Space, Telescope, Night Sky, FLT 132, ASI2600MM, APOD, ISS Tracker, Planet Visibility" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="css/style.css?v=52" rel="stylesheet" />
 
@@ -22,54 +23,79 @@
 <body>
     <div class="container">
         <header class="topbar">
-			<div class="topbar-logo"><a href="index.html">Imaging <span class="red">D</span>eep <span class="green">S</span>ky <span class="blue">O</span>bject</a></div></header>
+            <div class="topbar-logo"><a href="index.html">Imaging <span class="red">D</span>eep <span
+                        class="green">S</span>ky <span class="blue">O</span>bject</a></div>
+        </header>
         <div class="overlay" hidden="" id="overlay"></div>
         <nav aria-label="Site menu" class="top-nav" id="top-nav">
             <div class="top-nav-container">
-                <div class="top-nav-logo"><a href="index.html">Imaging <span class="red">D</span>eep <span class="green">S</span>ky <span class="blue">O</span>bject</a></div>
+                <div class="top-nav-logo"><a href="index.html">Imaging <span class="red">D</span>eep <span
+                            class="green">S</span>ky <span class="blue">O</span>bject</a></div>
                 <ul class="top-nav-links" id="top-nav-links">
-                    <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                    <li><a data-i18n="menu_home" href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
                     <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropbtn"><i class="fa-solid fa-images"></i> Galleries
+                        <a href="javascript:void(0)" class="dropbtn" data-i18n="menu_galleries"><i
+                                class="fa-solid fa-images"></i> Galleries
                             &#9662;</a>
                         <div class="dropdown-content">
-                            <a href="galaxies.html"><i class="fa-solid fa-hurricane"></i> Galaxies</a>
-                            <a href="nebulae.html"><i class="fa-solid fa-smog"></i> Nebulae</a>
-                            <a href="clusters.html"><i class="fa-solid fa-certificate"></i> Star Clusters</a>
-                        
-                            <a href="on-site-photos.html"><i class="fa-solid fa-camera"></i> On-site photos</a>
+                            <a data-i18n="menu_galaxies" href="galaxies.html"><i class="fa-solid fa-hurricane"></i>
+                                Galaxies</a>
+                            <a data-i18n="menu_nebulae" href="nebulae.html"><i class="fa-solid fa-smog"></i> Nebulae</a>
+                            <a data-i18n="menu_clusters" href="clusters.html"><i class="fa-solid fa-certificate"></i>
+                                Star Clusters</a>
+
+                            <a data-i18n="menu_onsite" href="on-site-photos.html"><i class="fa-solid fa-camera"></i>
+                                On-site photos</a>
                         </div>
                     </li>
                     <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropbtn"><i class="fa-solid fa-book"></i> Resources
+                        <a href="javascript:void(0)" class="dropbtn" data-i18n="menu_resources"><i
+                                class="fa-solid fa-book"></i> Resources
                             &#9662;</a>
                         <div class="dropdown-content">
-                            <a data-i18n="menu_equipment" href="equipment.html"><i class="fa-solid fa-camera-retro"></i> Equipment</a>
-                            <a data-i18n="menu_processing" href="processing.html"><i class="fa-solid fa-laptop-code"></i> Processing</a>
-                            <a href="knowledge.html"><i class="fa-solid fa-book-open"></i> Knowledge Base</a>
-                            <a href="catalog-explorer.html"><i class="fa-solid fa-magnifying-glass-chart"></i> Catalog Explorer</a>
+                            <a data-i18n="menu_equipment" href="equipment.html"><i class="fa-solid fa-camera-retro"></i>
+                                Equipment</a>
+                            <a data-i18n="menu_processing" href="processing.html"><i
+                                    class="fa-solid fa-laptop-code"></i> Processing</a>
+                            <a data-i18n="menu_knowledge" href="knowledge.html"><i class="fa-solid fa-book-open"></i>
+                                Knowledge Base</a>
+                            <a data-i18n="menu_catalog" href="catalog-explorer.html"><i
+                                    class="fa-solid fa-magnifying-glass-chart"></i> Catalog Explorer</a>
                         </div>
                     </li>
                     <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropbtn"><i class="fa-solid fa-toolbox"></i> Tools
+                        <a href="javascript:void(0)" class="dropbtn" data-i18n="menu_tools"><i
+                                class="fa-solid fa-toolbox"></i> Tools
                             &#9662;</a>
                         <div class="dropdown-content">
-                            <a data-i18n="menu_weather" href="weather.html"><i class="fa-solid fa-cloud-sun"></i> Weather</a>
-                            <a href="planner.html"><i class="fa-solid fa-calendar-days"></i> Planned Session</a>
-                            <a href="coordinate-converter.html"><i class="fa-solid fa-globe"></i> Coordinate Converter</a>
-                            <a href="checklist.html"><i class="fa-solid fa-check-double"></i> Pre-Flight Checklist</a>
-                            <a href="live-sky-map.html"><i class="fa-solid fa-map-location-dot"></i> Live Sky Map (Interactive)</a>
-                            <a href="apod.html"><i class="fa-solid fa-satellite"></i> NASA APOD</a>
-                            <a href="tonights_best.html"><i class="fa-solid fa-star"></i> Tonight's Best</a>
-                            <a href="iss.html"><i class="fa-solid fa-rocket"></i> Where is the ISS?</a>
+                            <a data-i18n="menu_weather" href="weather.html"><i class="fa-solid fa-cloud-sun"></i>
+                                Weather</a>
+                            <a data-i18n="menu_planner" href="planner.html"><i class="fa-solid fa-calendar-days"></i>
+                                Planned Session</a>
+                            <a data-i18n="menu_converter" href="coordinate-converter.html"><i
+                                    class="fa-solid fa-globe"></i> Coordinate Converter</a>
+                            <a data-i18n="menu_checklist" href="checklist.html"><i class="fa-solid fa-check-double"></i>
+                                Pre-Flight Checklist</a>
+                            <a data-i18n="menu_skymap" href="live-sky-map.html"><i
+                                    class="fa-solid fa-map-location-dot"></i> Live Sky Map (Interactive)</a>
+                            <a data-i18n="menu_apod" href="apod.html"><i class="fa-solid fa-satellite"></i> NASA
+                                APOD</a>
+                            <a data-i18n="menu_tonights" href="tonights_best.html"><i class="fa-solid fa-star"></i>
+                                Tonight's Best</a>
+                            <a data-i18n="menu_iss" href="iss.html"><i class="fa-solid fa-rocket"></i> Where is the
+                                ISS?</a>
                         </div>
                     </li>
-                    <li><a href="about.html"><i class="fa-solid fa-user-astronaut"></i> About</a></li>
-                    <li><a class="active" href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+                    <li><a data-i18n="menu_about" href="about.html"><i class="fa-solid fa-user-astronaut"></i> About</a>
+                    </li>
+                    <li><a data-i18n="menu_contact" class="active" href="contact.html"><i
+                                class="fa-solid fa-envelope"></i> Contact</a></li>
                 </ul>
                 <div class="top-nav-actions">
                     <button class="mode-toggle-btn" id="red-mode-toggle" title="Night Vision"><span
                             class="circle-icon"></span></button>
+                    <button id="lang-toggle-btn" title="Switch Language"
+                        style="background: transparent; border: 1px solid #888; color: #ccc; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: bold; margin-right: 8px; transition: 0.2s;">עב</button>
                     <div class="nv-controls" id="nv-container"
                         style="display:none;position:absolute;top:60px;right:20px;background:#111;padding:10px;border:1px solid #333;z-index:2000;border-radius:8px;">
                         <label for="nv-slider"
@@ -84,9 +110,9 @@
         <div id="image-stats" style="display:none;"></div>
         <!-- MAIN -->
         <main class="main-content">
-            <h1>Contact Me</h1>
+            <h1 data-i18n="contact_title">Contact Me</h1>
             <div class="page-text">
-                <p>
+                <p data-i18n="contact_intro">
                     Have a question about my imaging process, equipment, or potential prints?
                     Feel free to reach out using the form below.
                 </p>
@@ -97,23 +123,25 @@
                     <input name="_honey" style="display:none" type="text" />
                     <input name="_next" type="hidden" value="https://dsoimage.com/contact.html" />
                     <div class="form-group">
-                        <label for="name">Name</label>
-                        <input id="name" name="name" placeholder="Your Name" required="" type="text" />
+                        <label data-i18n="contact_name" for="name">Name</label>
+                        <input id="name" name="name" data-i18n="contact_name_ph" placeholder="Your Name" required=""
+                            type="text" />
                     </div>
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input id="email" name="email" placeholder="Your Email" required="" type="email" />
+                        <label data-i18n="contact_email" for="email">Email</label>
+                        <input id="email" name="email" data-i18n="contact_email_ph" placeholder="Your Email" required=""
+                            type="email" />
                     </div>
                     <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" placeholder="Write your message here..." required=""
-                            rows="6"></textarea>
+                        <label data-i18n="contact_message" for="message">Message</label>
+                        <textarea id="message" name="message" data-i18n="contact_message_ph"
+                            placeholder="Write your message here..." required="" rows="6"></textarea>
                     </div>
-                    <button class="hero-button" type="submit">Send Email</button>
+                    <button data-i18n="contact_send" class="hero-button" type="submit">Send Email</button>
                 </form>
             </div>
             <footer class="site-footer">
-                <p>© 2026 Shimon Avitan | dsoimage.com</p>
+                <p data-i18n="footer_text">© 2026 Shimon Avitan | dsoimage.com</p>
             </footer>
         </main>
     </div>
@@ -128,6 +156,7 @@
     </div>
     <script src="js/script.js?v=37"></script>
     <script src="js/stats.js"></script>
+    <script src="js/i18n.js?v=1"></script>
 </body>
 
 </html>

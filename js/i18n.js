@@ -27,7 +27,7 @@
             const key = el.getAttribute('data-i18n');
             if (strings[key]) {
                 // For input placeholders
-                if (el.tagName === 'INPUT' && el.hasAttribute('placeholder')) {
+                if ((el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') && el.hasAttribute('placeholder')) {
                     el.placeholder = strings[key];
                 } else {
                     // Preserve any leading icon <i> elements
