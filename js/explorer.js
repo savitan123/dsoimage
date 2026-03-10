@@ -84,6 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (localMatch) {
             renderResults({
                 id: localMatch.n,
+                searchId: searchId || localMatch.n,
                 type: localMatch.t,
                 mag: formatNumber(localMatch.m),
                 size: localMatch.sz,
@@ -138,6 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 renderResults({
                     id: oname,
+                    searchId: searchId || oname,
                     type: otype,
                     mag: magText,
                     size: size,
@@ -173,7 +175,10 @@ document.addEventListener('DOMContentLoaded', () => {
         resultsContainer.innerHTML = `
             <div style="background: rgba(20, 20, 20, 0.9); border: 1px solid #333; border-radius: 15px; padding: 30px; margin-top: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
                 <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #444; padding-bottom: 15px; margin-bottom: 20px;">
-                    <h2 style="color: #FFF; margin: 0; font-size: 28px;">${data.id}</h2>
+                    <div>
+                        <h2 style="color: #FFF; margin: 0; font-size: 28px;">${data.id}</h2>
+                        <div id="wikidata-desc" style="color: #aaa; font-style: italic; margin-top: 5px; font-size: 14px;">Loading description...</div>
+                    </div>
                     <span style="background: #333; color: #aaa; padding: 4px 10px; border-radius: 12px; font-size: 12px; height: fit-content;">Source: ${data.source}</span>
                 </div>
                 
@@ -207,6 +212,36 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
 
         resultsContainer.style.display = 'block';
+
+        // Fetch Wikidata Description
+        let wdQuery = data.searchId || data.id;
+        // Wikidata expects spaces in NGC/IC names, format NGC0224 -> NGC 224
+        let wdMatch = wdQuery.match(/^(NGC|IC)0*(\d+)$/i);
+        if (wdMatch) {
+            wdQuery = wdMatch[1].toUpperCase() + " " + parseInt(wdMatch[2], 10);
+        }
+
+        const wdUrl = `https://www.wikidata.org/w/api.php?action=wbsearchentities&search=${encodeURIComponent(wdQuery)}&language=en&format=json&origin=*`;
+        fetch(wdUrl)
+            .then(res => res.json())
+            .then(wdData => {
+                const descEl = document.getElementById('wikidata-desc');
+                if (descEl) {
+                    if (wdData && wdData.search && wdData.search.length > 0 && wdData.search[0].description) {
+                        // Capitalize the first letter for aesthetics
+                        let rawDesc = wdData.search[0].description;
+                        let cleanDesc = rawDesc.charAt(0).toUpperCase() + rawDesc.slice(1);
+                        descEl.innerText = cleanDesc;
+                    } else {
+                        descEl.style.display = 'none'; // hide if no description found
+                    }
+                }
+            })
+            .catch(err => {
+                console.error("Wikidata fetch error:", err);
+                const descEl = document.getElementById('wikidata-desc');
+                if (descEl) descEl.style.display = 'none';
+            });
 
         // Initialize Aladin Lite
         if (window.A) {
