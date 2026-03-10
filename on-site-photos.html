@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
 
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <link href="https://dsoimage.com/on-site-photos.html" rel="canonical" />
-    <meta content="Shimon Avitan" name="author" />
-    <meta content="On-Site Photos — Shimon Avitan - Deep Sky Astrophotography field setups and behind the scenes."
-        name="description" />
-    <title>On-Site Photos | DSOImage</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-    <link href="css/style.css?v=52" rel="stylesheet">
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://dsoimage.com/on-site-photos.html" rel="canonical"/>
+<meta content="Shimon Avitan" name="author"/>
+<meta content="On-Site Photos | DSOImage - Deep Sky Astrophotography by Shimon Avitan. High-resolution LRGB imaging featuring nebulae, galaxies, and star clusters captured with FLT 132." name="description"/>
+<title>On-Site Photos | DSOImage</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="css/style.css?v=52" rel="stylesheet"/>
+<style>
         .on-site-carousel-area {
             display: flex;
             justify-content: center;
@@ -94,109 +93,94 @@
         }
     </style>
 </head>
-
 <body>
-    <div class="container">
-        <!-- Dim background overlay for mobile menu -->
-        <div class="overlay" hidden="" id="overlay"></div>
-        <nav aria-label="Site menu" class="top-nav" id="top-nav">
-            <div class="top-nav-container">
-                <div class="top-nav-logo">
-                    <a href="index.html">Imaging <span class="red">D</span>eep <span class="green">S</span>ky <span
-                            class="blue">O</span>bject</a>
-                </div>
-                <ul class="top-nav-links">
-                    <li><a data-i18n="menu_home" href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
-                    <li class="dropdown">
-                        <a class="dropbtn active" href="javascript:void(0)"><i class="fa-solid fa-images"></i> Galleries
+<div class="container">
+<!-- Dim background overlay for mobile menu -->
+<div class="overlay" hidden="" id="overlay"></div>
+<nav aria-label="Site menu" class="top-nav" id="top-nav">
+<div class="top-nav-container">
+<div class="top-nav-logo">
+<a href="index.html">Imaging <span class="red">D</span>eep <span class="green">S</span>ky <span class="blue">O</span>bject</a>
+</div>
+<ul class="top-nav-links">
+<li><a data-i18n="menu_home" href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+<li class="dropdown">
+<a class="dropbtn active" href="javascript:void(0)"><i class="fa-solid fa-images"></i> Galleries
                             ▾</a>
-                        <div class="dropdown-content">
-                            <a data-i18n="menu_galaxies" href="galaxies.html"><i class="fa-solid fa-hurricane"></i>
+<div class="dropdown-content">
+<a data-i18n="menu_galaxies" href="galaxies.html"><i class="fa-solid fa-hurricane"></i>
                                 Galaxies</a>
-                            <a data-i18n="menu_nebulae" href="nebulae.html"><i class="fa-solid fa-smog"></i> Nebulae</a>
-                            <a data-i18n="menu_clusters" href="clusters.html"><i class="fa-solid fa-certificate"></i>
+<a data-i18n="menu_nebulae" href="nebulae.html"><i class="fa-solid fa-smog"></i> Nebulae</a>
+<a data-i18n="menu_clusters" href="clusters.html"><i class="fa-solid fa-certificate"></i>
                                 Star Clusters</a>
-                            <a class="active" href="on-site-photos.html"><i class="fa-solid fa-camera"></i> On-site
+<a class="active" href="on-site-photos.html"><i class="fa-solid fa-camera"></i> On-site
                                 photos</a>
-                        </div>
-                    </li>
-                    <li class="dropdown">
-                        <a class="dropbtn" href="javascript:void(0)"><i class="fa-solid fa-book"></i> Resources ▾</a>
-                        <div class="dropdown-content">
-                            <a data-i18n="menu_equipment" href="equipment.html"><i class="fa-solid fa-camera-retro"></i>
+</div>
+</li>
+<li class="dropdown">
+<a class="dropbtn" href="javascript:void(0)"><i class="fa-solid fa-book"></i> Resources ▾</a>
+<div class="dropdown-content">
+<a data-i18n="menu_equipment" href="equipment.html"><i class="fa-solid fa-camera-retro"></i>
                                 Equipment</a>
-                            <a data-i18n="menu_processing" href="processing.html"><i
-                                    class="fa-solid fa-laptop-code"></i> Processing</a>
-                            <a href="knowledge.html"><i class="fa-solid fa-book-open"></i> Knowledge Base</a>
-                            <a href="catalog-explorer.html"><i class="fa-solid fa-magnifying-glass-chart"></i> Catalog
+<a data-i18n="menu_processing" href="processing.html"><i class="fa-solid fa-laptop-code"></i> Processing</a>
+<a href="knowledge.html"><i class="fa-solid fa-book-open"></i> Knowledge Base</a>
+<a href="catalog-explorer.html"><i class="fa-solid fa-magnifying-glass-chart"></i> Catalog
                                 Explorer</a>
-                        </div>
-                    </li>
-                    <li class="dropdown">
-                        <a class="dropbtn" href="javascript:void(0)"><i class="fa-solid fa-toolbox"></i> Tools ▾</a>
-                        <div class="dropdown-content">
-                            <a data-i18n="menu_weather" href="weather.html"><i class="fa-solid fa-cloud-sun"></i>
+</div>
+</li>
+<li class="dropdown">
+<a class="dropbtn" href="javascript:void(0)"><i class="fa-solid fa-toolbox"></i> Tools ▾</a>
+<div class="dropdown-content">
+<a data-i18n="menu_weather" href="weather.html"><i class="fa-solid fa-cloud-sun"></i>
                                 Weather</a>
-                            <a href="planner.html"><i class="fa-solid fa-calendar-days"></i> Planned Session</a>
-                            <a href="coordinate-converter.html"><i class="fa-solid fa-globe"></i> Coordinate
+<a href="planner.html"><i class="fa-solid fa-calendar-days"></i> Planned Session</a>
+<a href="coordinate-converter.html"><i class="fa-solid fa-globe"></i> Coordinate
                                 Converter</a>
-                            <a href="checklist.html"><i class="fa-solid fa-check-double"></i> Pre-Flight Checklist</a>
-                            <a href="live-sky-map.html"><i class="fa-solid fa-map-location-dot"></i> Live Sky Map
+<a href="checklist.html"><i class="fa-solid fa-check-double"></i> Pre-Flight Checklist</a>
+<a href="live-sky-map.html"><i class="fa-solid fa-map-location-dot"></i> Live Sky Map
                                 (Interactive)</a>
-                            <a href="apod.html"><i class="fa-solid fa-satellite"></i> NASA APOD</a>
-                            <a href="tonights_best.html"><i class="fa-solid fa-star"></i> Tonight's Best</a>
-                            <a href="iss.html"><i class="fa-solid fa-rocket"></i> Where is the ISS?</a>
-                        </div>
-                    </li>
-                    <li><a data-i18n="menu_about" href="about.html"><i class="fa-solid fa-user-astronaut"></i> About</a>
-                    </li>
-                    <li><a data-i18n="menu_contact" href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a>
-                    </li>
-                </ul>
-                <div class="top-nav-actions">
-                    <button class="mode-toggle-btn" id="red-mode-toggle" title="Night Vision">
-                        <span class="circle-icon"></span>
-                    </button>
-                    <button id="mobile-nav-toggle" aria-label="Toggle navigation" title="Menu"
-                        style="background: none; border: none; font-size: 24px; color: #FFF3E0; cursor: pointer; margin: 0 10px;">☰</button>
-                </div>
-            </div>
-        </nav>
-
-        <main class="main-content" style="padding-top: 80px; max-width: 1200px; margin: 0 auto;">
-            <div style="text-align: center;">
-                <h1 style="color: #FFAB40; margin-bottom: 10px;">On-Site Photos</h1>
-                <p style="color: #ccc; font-size: 16px;">Behind the scenes and field setups.</p>
-            </div>
-
-            <div class="on-site-carousel-area">
-                <div class="adaptive-container">
-                    <button class="carousel-arrow left" id="btn-prev" aria-label="Previous Photo"><i
-                            class="fa-solid fa-chevron-left"></i></button>
-
-                    <img id="active-photo" class="active" src="images/full/on_site/5872847665790389886.jpg"
-                        alt="On Site Astronomy Setup" />
-                    <video id="active-video" src="" autoplay loop muted controls></video>
-
-                    <button class="carousel-arrow right" id="btn-next" aria-label="Next Photo"><i
-                            class="fa-solid fa-chevron-right"></i></button>
-
-                    <div id="photo-counter">1 / 17</div>
-                </div>
-            </div>
-        </main>
-
-        <div id="dynamic-bg"></div>
-    </div>
-
-    <footer class="footer">
-        <div class="footer-content" style="text-align: center; width: 100%;">
-            <p>[PLACEHOLDER FOR MANUAL TEXT]</p>
-        </div>
-    </footer>
-
-    <script src="js/script.js?v=52"></script>
-    <script>
+<a href="apod.html"><i class="fa-solid fa-satellite"></i> NASA APOD</a>
+<a href="tonights_best.html"><i class="fa-solid fa-star"></i> Tonight's Best</a>
+<a href="iss.html"><i class="fa-solid fa-rocket"></i> Where is the ISS?</a>
+</div>
+</li>
+<li><a data-i18n="menu_about" href="about.html"><i class="fa-solid fa-user-astronaut"></i> About</a>
+</li>
+<li><a data-i18n="menu_contact" href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a>
+</li>
+</ul>
+<div class="top-nav-actions">
+<button class="mode-toggle-btn" id="red-mode-toggle" title="Night Vision">
+<span class="circle-icon"></span>
+</button>
+<button aria-label="Toggle navigation" id="mobile-nav-toggle" style="background: none; border: none; font-size: 24px; color: #FFF3E0; cursor: pointer; margin: 0 10px;" title="Menu">☰</button>
+</div>
+</div>
+</nav>
+<main class="main-content" style="padding-top: 80px; max-width: 1200px; margin: 0 auto;">
+<div style="text-align: center;">
+<h1 style="color: #FFAB40; margin-bottom: 10px;">On-Site Photos</h1>
+<p style="color: #ccc; font-size: 16px;">Behind the scenes and field setups.</p>
+</div>
+<div class="on-site-carousel-area">
+<div class="adaptive-container">
+<button aria-label="Previous Photo" class="carousel-arrow left" id="btn-prev"><i class="fa-solid fa-chevron-left"></i></button>
+<img alt="On Site Astronomy Setup" class="active" id="active-photo" src="images/full/on_site/5872847665790389886.jpg"/>
+<video autoplay="" controls="" id="active-video" loop="" muted="" src=""></video>
+<button aria-label="Next Photo" class="carousel-arrow right" id="btn-next"><i class="fa-solid fa-chevron-right"></i></button>
+<div id="photo-counter">1 / 17</div>
+</div>
+</div>
+</main>
+<div id="dynamic-bg"></div>
+</div>
+<footer class="footer">
+<div class="footer-content" style="text-align: center; width: 100%;">
+<p>[PLACEHOLDER FOR MANUAL TEXT]</p>
+</div>
+</footer>
+<script src="js/script.js?v=52"></script>
+<script>
         document.addEventListener("DOMContentLoaded", () => {
             const photos = [
                 "images/full/on_site/5872847665790389886.jpg",
@@ -281,5 +265,4 @@
         });
     </script>
 </body>
-
 </html>
