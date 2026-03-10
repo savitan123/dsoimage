@@ -176,8 +176,9 @@ document.addEventListener('DOMContentLoaded', () => {
             <div style="background: rgba(20, 20, 20, 0.9); border: 1px solid #333; border-radius: 15px; padding: 30px; margin-top: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
                 <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #444; padding-bottom: 15px; margin-bottom: 20px;">
                     <div>
-                        <h2 style="color: #FFF; margin: 0; font-size: 28px;">${data.id}</h2>
-                        <div id="wikidata-desc" style="color: #aaa; font-style: italic; margin-top: 5px; font-size: 14px;">Loading description...</div>
+                        <h2 id="wd-main-title" style="color: #FFF; margin: 0; font-size: 28px;">${data.id}</h2>
+                        <div id="wd-hebrew-title" style="color: #1e90ff; font-weight: bold; font-size: 16px; margin-top: 5px;"></div>
+                        <div id="wikidata-desc" style="color: #aaa; font-style: italic; margin-top: 5px; font-size: 14px;">Querying Wikidata...</div>
                     </div>
                     <span style="background: #333; color: #aaa; padding: 4px 10px; border-radius: 12px; font-size: 12px; height: fit-content;">Source: ${data.source}</span>
                 </div>
@@ -205,6 +206,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
 
+                <!-- NEW WIKIDATA EXPANDED PROPERTIES GRID -->
+                <div id="wd-extended-properties" style="display: none; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; margin-top: 20px; padding-top: 20px; border-top: 1px dashed #444;">
+                     <!-- Injected dynamically -->
+                </div>
+                
+                <div id="wd-satellites-container" style="display: none; margin-top: 20px;">
+                    <span style="display: block; color: #888; font-size: 12px; text-transform: uppercase; margin-bottom: 8px;">Child Bodies / Satellites</span>
+                    <div id="wd-satellites-list" style="display: flex; flex-wrap: wrap; gap: 10px;"></div>
+                </div>
+
                 ${galleryHtml}
 
                 <div id="aladin-lite-div" style="width: 100%; height: 400px; margin-top: 20px; border-radius: 10px; overflow: hidden; border: 1px solid #333;"></div>
@@ -213,34 +224,126 @@ document.addEventListener('DOMContentLoaded', () => {
 
         resultsContainer.style.display = 'block';
 
-        // Fetch Wikidata Description
+        // Fetch Rich SPARQL Wikidata Data
         let wdQuery = data.searchId || data.id;
-        // Wikidata expects spaces in NGC/IC names, format NGC0224 -> NGC 224
         let wdMatch = wdQuery.match(/^(NGC|IC)0*(\d+)$/i);
         if (wdMatch) {
             wdQuery = wdMatch[1].toUpperCase() + " " + parseInt(wdMatch[2], 10);
         }
 
-        const wdUrl = `https://www.wikidata.org/w/api.php?action=wbsearchentities&search=${encodeURIComponent(wdQuery)}&language=en&format=json&origin=*`;
-        fetch(wdUrl)
+        // Wikidata SPARQL Query
+        // Searches for the item using the provided catalog ID, then grabs localized labels, descriptions, and linked data
+        const sparqlQuery = `
+        SELECT ?item ?itemLabel ?itemDescription ?heLabel ?distance ?mass ?radius ?redshift ?radVel (GROUP_CONCAT(DISTINCT ?childLabel; separator=", ") AS ?satellites)
+        WHERE {
+          ?item wdt:P528 "${wdQuery}" . 
+          
+          OPTIONAL { ?item rdfs:label ?heLabel FILTER (LANG(?heLabel) = "he") }
+          OPTIONAL { ?item wdt:P2583 ?distance . }
+          OPTIONAL { ?item wdt:P2067 ?mass . }
+          OPTIONAL { ?item wdt:P2120 ?radius . }
+          OPTIONAL { ?item wdt:P1090 ?redshift . }
+          OPTIONAL { ?item wdt:P2211 ?radVel . }
+          
+          OPTIONAL { 
+              ?child wdt:P397 ?item .
+              ?child rdfs:label ?childLabel FILTER (LANG(?childLabel) = "en")
+          }
+          
+          SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+        } GROUP BY ?item ?itemLabel ?itemDescription ?heLabel ?distance ?mass ?radius ?redshift ?radVel LIMIT 1
+        `;
+
+        const wdUrl = `https://query.wikidata.org/sparql?query=${encodeURIComponent(sparqlQuery)}&format=json`;
+
+        fetch(wdUrl, { headers: { 'Accept': 'application/sparql-results+json' } })
             .then(res => res.json())
             .then(wdData => {
+                const results = wdData.results.bindings;
                 const descEl = document.getElementById('wikidata-desc');
-                if (descEl) {
-                    if (wdData && wdData.search && wdData.search.length > 0 && wdData.search[0].description) {
-                        // Capitalize the first letter for aesthetics
-                        let rawDesc = wdData.search[0].description;
+                const heTitleEl = document.getElementById('wd-hebrew-title');
+                const mainTitleEl = document.getElementById('wd-main-title');
+                const extPropsGrid = document.getElementById('wd-extended-properties');
+                const satsContainer = document.getElementById('wd-satellites-container');
+                const satsList = document.getElementById('wd-satellites-list');
+
+                if (results && results.length > 0) {
+                    const obj = results[0];
+
+                    // Main Titles
+                    // Use the original search term if available so "M31" doesn't become "NGC0224"
+                    let displayTitle = (document.getElementById('explorer-input').value.toUpperCase().startsWith('M'))
+                        ? document.getElementById('explorer-input').value.toUpperCase()
+                        : data.id;
+
+                    if (obj.itemLabel) mainTitleEl.innerHTML = `${displayTitle} <span style="font-size: 18px; color:#aaa; font-weight:normal;">- ${obj.itemLabel.value}</span>`;
+                    if (obj.heLabel) heTitleEl.innerText = obj.heLabel.value;
+
+                    // Description
+                    if (obj.itemDescription) {
+                        let rawDesc = obj.itemDescription.value;
                         let cleanDesc = rawDesc.charAt(0).toUpperCase() + rawDesc.slice(1);
                         descEl.innerHTML = `<i class="fa-solid fa-book-open"></i> <strong>Wikidata:</strong> ${cleanDesc}`;
                     } else {
-                        descEl.style.display = 'none'; // hide if no description found
+                        descEl.style.display = 'none';
                     }
+
+                    // Extended Physical Properties
+                    let extPropsHtml = '';
+
+                    // Helper to format scientific numbers neatly
+                    const formatSci = (val, unit) => {
+                        let num = parseFloat(val);
+                        if (num > 1e6) return (num / 1e6).toFixed(2) + " Million " + unit;
+                        if (num > 1e9) return (num / 1e9).toFixed(2) + " Billion " + unit;
+                        return num.toLocaleString() + " " + unit;
+                    };
+
+                    // Wikidata returns distance in parsecs natively. Multiply by 3.26 to get lightyears.
+                    if (obj.distance) {
+                        let lyVal = parseFloat(obj.distance.value) * 3.26;
+                        extPropsHtml += `<div><span style="display: block; color: #888; font-size: 12px; text-transform: uppercase;">Distance</span><strong style="color: #4CAF50; font-size: 16px;">${formatSci(lyVal, "ly")}</strong></div>`;
+                    }
+                    if (obj.radius) extPropsHtml += `<div><span style="display: block; color: #888; font-size: 12px; text-transform: uppercase;">Radius</span><strong style="color: #4CAF50; font-size: 16px;">${formatSci(obj.radius.value, "ly")}</strong></div>`;
+                    if (obj.mass) extPropsHtml += `<div><span style="display: block; color: #888; font-size: 12px; text-transform: uppercase;">Mass</span><strong style="color: #4CAF50; font-size: 16px;">${parseFloat(obj.mass.value).toExponential(2)} M☉</strong></div>`;
+                    if (obj.radVel) extPropsHtml += `<div><span style="display: block; color: #888; font-size: 12px; text-transform: uppercase;">Radial Velocity</span><strong style="color: #4CAF50; font-size: 16px;">${parseFloat(obj.radVel.value).toFixed(2)} km/s</strong></div>`;
+                    if (obj.redshift) extPropsHtml += `<div><span style="display: block; color: #888; font-size: 12px; text-transform: uppercase;">Redshift</span><strong style="color: #4CAF50; font-size: 16px;">${parseFloat(obj.redshift.value).toFixed(5)}</strong></div>`;
+
+                    if (extPropsHtml) {
+                        extPropsGrid.innerHTML = extPropsHtml;
+                        extPropsGrid.style.display = 'grid';
+                    }
+
+                    // Satellites
+                    if (obj.satellites && obj.satellites.value) {
+                        const satArray = obj.satellites.value.split(', ');
+                        let satHtml = '';
+                        satArray.forEach(sat => {
+                            if (sat.trim() === '') return;
+                            // Make them clickable badges that re-trigger search
+                            satHtml += `<span class="sat-badge" style="background: rgba(255,171,64,0.1); border: 1px solid rgba(255,171,64,0.5); color: #FFAB40; padding: 4px 12px; border-radius: 20px; font-size: 12px; cursor: pointer; margin-bottom: 5px; display: inline-block; transition: 0.2s;" onclick="document.getElementById('explorer-input').value='${sat}'; document.getElementById('explorer-btn').click();">${sat}</span>`;
+                        });
+                        if (satHtml) {
+                            satsList.innerHTML = satHtml;
+                            satsContainer.style.display = 'block';
+
+                            // Add hover effects dynamically
+                            document.querySelectorAll('.sat-badge').forEach(badge => {
+                                badge.addEventListener('mouseenter', e => { e.target.style.background = 'rgba(255,171,64,0.3)'; });
+                                badge.addEventListener('mouseleave', e => { e.target.style.background = 'rgba(255,171,64,0.1)'; });
+                            });
+                        }
+                    }
+
+                } else {
+                    const descEl = document.getElementById('wikidata-desc');
+                    if (descEl) descEl.innerHTML = `< i class="fa-solid fa-database" ></i > Wikidata: No extended data found.`;
                 }
             })
             .catch(err => {
-                console.error("Wikidata fetch error:", err);
+                console.error("Wikidata SPARQL fetch error:", err);
                 const descEl = document.getElementById('wikidata-desc');
-                if (descEl) descEl.style.display = 'none';
+                if (descEl) descEl.innerHTML = `< i class="fa-solid fa-triangle-exclamation" ></i > Wikidata: Network Error`;
             });
 
         // Initialize Aladin Lite
@@ -249,7 +352,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (data.ra && data.dec && data.ra !== "N/A" && data.dec !== "N/A") {
                 let cleanRa = data.ra.replace('°', '').trim();
                 let cleanDec = data.dec.replace('°', '').trim();
-                targetCoords = `${cleanRa} ${cleanDec}`; // Use exact coordinates
+                targetCoords = `${cleanRa} ${cleanDec} `; // Use exact coordinates
             }
             // Add a small delay for DOM render
             setTimeout(() => {
@@ -270,12 +373,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderError(query) {
         loadingIndicator.style.display = 'none';
         resultsContainer.innerHTML = `
-            <div style="text-align: center; padding: 40px; background: rgba(255, 50, 50, 0.1); border: 1px solid #ff4444; border-radius: 15px; margin-top: 20px;">
+            < div style = "text-align: center; padding: 40px; background: rgba(255, 50, 50, 0.1); border: 1px solid #ff4444; border-radius: 15px; margin-top: 20px;" >
                 <i class="fa-solid fa-satellite-dish" style="font-size: 40px; color: #ff4444; margin-bottom: 15px;"></i>
                 <h3 style="color: #FFF;">Object Not Found</h3>
                 <p style="color: #aaa;">We couldn't find "${query}" in the OpenNGC database or via SIMBAD. Please check the ID and try again.</p>
-            </div>
-        `;
+            </div >
+            `;
         resultsContainer.style.display = 'block';
     }
 
