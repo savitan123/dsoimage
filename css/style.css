@@ -1481,6 +1481,7 @@ body.red-mode img {
 }
 
 .carousel-slide {
+  flex: 0 0 100%;
   min-width: 100%;
   width: 100%;
   display: flex;
