@@ -1066,9 +1066,10 @@ function initCarousel() {
     let currentIndex = 0;
 
     const updateCarousel = () => {
-      const slideWidth = slides[0].getBoundingClientRect().width;
+      const isRTL = document.documentElement.getAttribute('dir') === 'rtl';
+      const direction = isRTL ? 1 : -1;
       // Use percentage for reliability
-      track.style.transform = `translateX(-${currentIndex * 100}%)`;
+      track.style.transform = `translateX(${direction * currentIndex * 100}%)`;
 
       // Update Dynamic Background
       if (bgLayer) {
@@ -1127,15 +1128,16 @@ function initCarousel() {
     function handleSwipe() {
       const dx = touchEndX - touchStartX;
       const dy = touchEndY - touchStartY;
+      const isRTL = document.documentElement.getAttribute('dir') === 'rtl';
 
       // Check if horizontal swipe is dominant (more X than Y movement)
       // and meets threshold (50px)
       if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
-        if (dx < 0) {
-          // Swipe Left -> Next
+        // In RTL, swipe left/right meaning is reversed
+        const swipeNext = isRTL ? dx > 0 : dx < 0;
+        if (swipeNext) {
           nextBtn.click();
         } else {
-          // Swipe Right -> Prev
           prevBtn.click();
         }
       }

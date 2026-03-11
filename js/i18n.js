@@ -53,10 +53,11 @@
             htmlEl.setAttribute('lang', 'en');
         }
 
-        // Update toggle button text
+        // Update toggle button label with flag emoji
         const toggleBtn = document.getElementById('lang-toggle-btn');
         if (toggleBtn) {
-            toggleBtn.textContent = strings['lang_toggle_label'] || (lang === 'he' ? 'EN' : 'עב');
+            // Show the flag of the language you'd SWITCH TO
+            toggleBtn.textContent = lang === 'he' ? '🇺🇸 EN' : '🇮🇱 עב';
         }
 
         // Save preference
