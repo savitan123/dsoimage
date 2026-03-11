@@ -1464,6 +1464,7 @@ body.red-mode img {
   /* No max-width limit, let it fill the main view */
   margin: 10px auto;
   overflow: hidden;
+  direction: ltr; /* Force entire carousel block to LTR so anchoring and flex layout are identical to English mode */
 }
 
 .carousel-track-container {
@@ -1477,7 +1478,6 @@ body.red-mode img {
   margin: 0;
   padding: 0;
   list-style: none;
-  direction: ltr; /* Always LTR so translateX works consistently in RTL pages */
 }
 
 .carousel-slide {
