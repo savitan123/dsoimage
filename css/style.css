@@ -1477,6 +1477,7 @@ body.red-mode img {
   margin: 0;
   padding: 0;
   list-style: none;
+  direction: ltr; /* Always LTR so translateX works consistently in RTL pages */
 }
 
 .carousel-slide {

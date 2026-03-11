@@ -471,7 +471,7 @@ function initDSOImage() {
 
     // Update specific inputs/placeholders if needed
     const btn = document.getElementById('lang-toggle-btn');
-    if (btn) btn.textContent = lang === 'en' ? '🇮🇱 עברית' : '🇺🇸 English';
+    if (btn) btn.textContent = lang === 'en' ? '🇮🇱 עב' : '🇺🇸 EN';
 
     // Re-render table headers if they exist dynamically (handled in renderTable theoretically, but ours are HTML or JS generated)
     // Since our table headers are in JS, we need to handle them inside the render function too.
