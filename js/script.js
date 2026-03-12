@@ -1068,10 +1068,21 @@ function initCarousel() {
     const bgLayer = document.getElementById('dynamic-bg');
 
     let currentIndex = 0;
+    const trackContainer = container.querySelector('.carousel-track-container');
 
     const updateCarousel = () => {
-      // Use exact parent clientWidth to bypass browser percentage bugs in LTR/RTL flexbox layout
-      const slidePx = container.clientWidth;
+      // Measure the actual visible container width in pixels.
+      // Using trackContainer (not container) avoids any RTL scroll-gutter
+      // or sub-pixel rounding differences that affect CSS percentage-based widths.
+      const slidePx = (trackContainer || container).clientWidth;
+
+      // Pin every slide to an explicit pixel width so CSS % never causes bleed.
+      slides.forEach(slide => {
+        slide.style.width    = slidePx + 'px';
+        slide.style.minWidth = slidePx + 'px';
+        slide.style.flex     = `0 0 ${slidePx}px`;
+      });
+
       track.style.transform = `translateX(-${currentIndex * slidePx}px)`;
 
       // Update Dynamic Background
