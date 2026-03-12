@@ -13,7 +13,7 @@
 
     async function loadLanguage(lang) {
         try {
-            const resp = await fetch(`lang/${lang}.json?v=107`);
+            const resp = await fetch(`lang/${lang}.json?v=108`);
             strings = await resp.json();
             window.i18nStrings = strings;
             window.currentLang = lang;
