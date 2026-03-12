@@ -30,13 +30,22 @@ jobs:
 
           echo "Fetching APOD with key: ${API_KEY:0:4}****"
 
-          HTTP_STATUS=$(curl -s -o /tmp/apod_response.json -w "%{http_code}" \
-            "https://api.nasa.gov/planetary/apod?api_key=${API_KEY}&thumbs=true")
-
-          echo "HTTP status: $HTTP_STATUS"
+          # Try today first, then fall back up to 3 previous days if NASA's API is broken
+          HTTP_STATUS=0
+          for DAYS_BACK in 0 1 2 3; do
+            DATE_PARAM=$(date -u -d "-${DAYS_BACK} days" +%Y-%m-%d)
+            echo "Trying date: ${DATE_PARAM}"
+            HTTP_STATUS=$(curl -s -o /tmp/apod_response.json -w "%{http_code}" \
+              "https://api.nasa.gov/planetary/apod?api_key=${API_KEY}&date=${DATE_PARAM}&thumbs=true")
+            echo "HTTP status for ${DATE_PARAM}: $HTTP_STATUS"
+            if [ "$HTTP_STATUS" -eq 200 ]; then
+              echo "Success on ${DATE_PARAM}"
+              break
+            fi
+          done
 
           if [ "$HTTP_STATUS" -ne 200 ]; then
-            echo "API call failed with status $HTTP_STATUS — keeping existing cache."
+            echo "All date attempts failed — keeping existing cache."
             cat /tmp/apod_response.json || true
             exit 0
           fi
