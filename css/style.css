@@ -2469,15 +2469,15 @@ body.no-scroll {
 
 [dir="rtl"] .top-nav-links>li>a,
 [dir="rtl"] .dropbtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   justify-content: flex-end;
 }
 
 [dir="rtl"] .top-nav-links>li>a i,
 [dir="rtl"] .top-nav-links>li>.dropbtn i,
-[dir="rtl"] .top-nav-links>li>a .fa-solid,
-[dir="rtl"] .top-nav-links>li>.dropbtn .fa-solid,
-[dir="rtl"] .top-nav-links>li>a .fa-regular,
-[dir="rtl"] .top-nav-links>li>.dropbtn .fa-regular {
+[dir="rtl"] .dropdown-content a i {
   order: 1;
 }
 
@@ -2490,12 +2490,6 @@ body.no-scroll {
 [dir="rtl"] .dropdown-content a {
   direction: rtl;
   justify-content: flex-end;
-}
-
-[dir="rtl"] .dropdown-content a i,
-[dir="rtl"] .dropdown-content a .fa-solid,
-[dir="rtl"] .dropdown-content a .fa-regular {
-  order: 1;
 }
 
 [dir="rtl"] .category-card-text {
