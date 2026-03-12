@@ -192,8 +192,9 @@ function initDSOImage() {
       const img = item.querySelector("img");
       const fullSrc = item.getAttribute("data-full");
       const src = fullSrc || (img ? img.src : "");
-      const title = item.getAttribute("data-title") || "";
-      const notes = item.getAttribute("data-notes") || "";
+      const lang = document.documentElement.getAttribute('lang') || 'en';
+      const title = (lang === 'he' && item.getAttribute("data-title-he")) || item.getAttribute("data-title") || "";
+      const notes = (lang === 'he' && item.getAttribute("data-notes-he")) || item.getAttribute("data-notes") || "";
       const aliases = item.getAttribute("data-aliases") || "";
 
       if (src) openLightbox({ src, title, notes, aliases });
@@ -281,8 +282,9 @@ function initDSOImage() {
           const img = foundItem.querySelector("img");
           const fullSrc = foundItem.getAttribute("data-full");
           const src = fullSrc || (img ? img.src : "");
-          const title = foundItem.getAttribute("data-title") || "";
-          const notes = foundItem.getAttribute("data-notes") || "";
+          const lang = document.documentElement.getAttribute('lang') || 'en';
+          const title = (lang === 'he' && foundItem.getAttribute("data-title-he")) || foundItem.getAttribute("data-title") || "";
+          const notes = (lang === 'he' && foundItem.getAttribute("data-notes-he")) || foundItem.getAttribute("data-notes") || "";
           const aliases = foundItem.getAttribute("data-aliases") || "";
 
           // Open VISUALLY but manually manage state to avoid dupes
