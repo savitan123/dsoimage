@@ -1469,11 +1469,12 @@ body.red-mode img {
 .carousel-track-container {
   overflow: hidden;
   width: 100%;
-  direction: ltr; /* always LTR so RTL page dir never reverses slide order */
+  direction: ltr !important; /* always LTR so RTL page dir never reverses slide order */
 }
 
 .carousel-track {
   display: flex;
+  direction: ltr !important; /* explicit: RTL inheritance must not reach the flex container */
   transition: transform 0.4s ease-in-out;
   margin: 0;
   padding: 0;
@@ -1491,6 +1492,7 @@ body.red-mode img {
   padding: 0;
   /* Removed padding to maximize screen width */
   box-sizing: border-box;
+  direction: ltr !important; /* each slide also locked LTR */
 }
 
 .carousel-slide .gallery-item {
@@ -2632,10 +2634,20 @@ body.no-scroll {
   padding-left: 0;
 }
 
-/* carousel caption */
+/* Carousel — force LTR internally regardless of page direction */
+[dir="rtl"] .carousel-track-container,
+[dir="rtl"] .carousel-track,
+[dir="rtl"] .carousel-slide {
+  direction: ltr !important;
+}
+
+/* carousel caption stays RTL text-aligned */
 [dir="rtl"] .carousel-caption {
   text-align: right;
+  direction: rtl;
 }
+
+/* Carousel buttons keep their physical LTR positions — carousel is internally LTR */
 
 /* Lightbox caption — right-aligned in RTL */
 [dir="rtl"] #lightbox-caption {
