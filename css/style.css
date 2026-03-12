@@ -2472,13 +2472,7 @@ body.no-scroll {
   display: flex;
   align-items: center;
   gap: 6px;
-  justify-content: flex-end;
-}
-
-[dir="rtl"] .top-nav-links>li>a i,
-[dir="rtl"] .top-nav-links>li>.dropbtn i,
-[dir="rtl"] .dropdown-content a i {
-  order: 1;
+  /* direction: rtl inherited from html — flex-start = right, items reverse automatically */
 }
 
 [dir="rtl"] .dropdown-content {
@@ -2488,8 +2482,7 @@ body.no-scroll {
 }
 
 [dir="rtl"] .dropdown-content a {
-  direction: rtl;
-  justify-content: flex-end;
+  /* direction: rtl inherited — icon goes rightmost, text left of it */
 }
 
 [dir="rtl"] .category-card-text {
@@ -2544,14 +2537,11 @@ body.no-scroll {
   [dir="rtl"] .top-nav-links>li>a,
   [dir="rtl"] .top-nav-links>li>.dropbtn {
     text-align: right;
-    direction: rtl;
-    justify-content: flex-end;
+    /* direction: rtl inherited — flex items auto-reverse */
   }
 
   [dir="rtl"] .top-nav-links .dropdown-content a {
     text-align: right;
-    direction: rtl;
-    justify-content: flex-end;
     padding: 9px 38px 9px 20px; /* indent from right side */
   }
 }
