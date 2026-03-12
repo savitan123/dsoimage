@@ -1146,6 +1146,17 @@ function initCarousel() {
         }
       }
     }
+
+    // Keyboard arrow navigation (only when carousel is visible on page)
+    document.addEventListener('keydown', (e) => {
+      // Don't intercept if user is typing in an input
+      if (document.activeElement && ['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) return;
+      // Don't intercept if lightbox is open
+      const lb = document.getElementById('lightbox');
+      if (lb && lb.style.display === 'flex') return;
+      if (e.key === 'ArrowRight') { nextBtn.click(); e.preventDefault(); }
+      if (e.key === 'ArrowLeft')  { prevBtn.click(); e.preventDefault(); }
+    });
   });
 }
 

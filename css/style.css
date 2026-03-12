@@ -1464,12 +1464,12 @@ body.red-mode img {
   /* No max-width limit, let it fill the main view */
   margin: 10px auto;
   overflow: hidden;
-  direction: ltr; /* Force entire carousel block to LTR so anchoring and flex layout are identical to English mode */
 }
 
 .carousel-track-container {
   overflow: hidden;
   width: 100%;
+  direction: ltr; /* always LTR so RTL page dir never reverses slide order */
 }
 
 .carousel-track {
@@ -2521,12 +2521,12 @@ body.no-scroll {
 /* Mobile RTL overrides */
 @media (max-width: 767px) {
   [dir="rtl"] .top-nav-links {
-    right: auto;
-    left: -280px;
+    left: auto;
+    right: -280px; /* off-screen to the right */
+    transition: right 0.3s ease; /* animate right instead of left */
   }
 
   [dir="rtl"] .top-nav-links.nav-open {
-    left: auto;
     right: 0;
   }
 
@@ -2635,6 +2635,18 @@ body.no-scroll {
 /* carousel caption */
 [dir="rtl"] .carousel-caption {
   text-align: right;
+}
+
+/* Lightbox caption — right-aligned in RTL */
+[dir="rtl"] #lightbox-caption {
+  text-align: right;
+  direction: rtl;
+}
+
+/* Close button — move to left in RTL */
+[dir="rtl"] #close {
+  right: auto;
+  left: 22px;
 }
 
 /* Knowledge base accordions */
