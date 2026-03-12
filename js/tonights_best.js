@@ -91,9 +91,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                </div>
                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 12.5px;">
                    <div style="color: #aaa;" title="Rise / Set">
-                       <i class="fa-solid fa-arrow-up" style="font-size: 9px;"></i> <span style="font-family: monospace;">${riseStr}</span>
-                       <span style="margin: 0 4px; color: #444;">|</span>
-                       <i class="fa-solid fa-arrow-down" style="font-size: 9px;"></i> <span style="font-family: monospace;">${setStr}</span>
+                       ${document.documentElement.getAttribute('lang') === 'he'
+                         ? `<span style="font-family: monospace;">${riseStr}</span> <i class="fa-solid fa-arrow-up" style="font-size: 9px;"></i>
+                            <span style="margin: 0 4px; color: #444;">|</span>
+                            <span style="font-family: monospace;">${setStr}</span> <i class="fa-solid fa-arrow-down" style="font-size: 9px;"></i>`
+                         : `<i class="fa-solid fa-arrow-up" style="font-size: 9px;"></i> <span style="font-family: monospace;">${riseStr}</span>
+                            <span style="margin: 0 4px; color: #444;">|</span>
+                            <i class="fa-solid fa-arrow-down" style="font-size: 9px;"></i> <span style="font-family: monospace;">${setStr}</span>`
+                       }
                    </div>
                    <div style="color: #888; text-align: right; font-size: 11.5px;">
                        Mag: ${mag} <span style="margin: 0 4px; color: #444;">|</span> ${tConst(constel.name)}
