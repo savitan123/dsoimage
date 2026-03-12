@@ -2,8 +2,10 @@ name: Daily NASA APOD Cache
 
 on:
   schedule:
-    # Runs every day at 06:00 UTC (shortly after NASA publishes the daily image)
+    # Primary run at 06:00 UTC (shortly after NASA publishes the daily image)
     - cron: '0 6 * * *'
+    # Retry run at 13:00 UTC in case the morning run was skipped or failed
+    - cron: '0 13 * * *'
   workflow_dispatch: # Allow manual runs for testing
 
 jobs:
