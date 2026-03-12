@@ -2470,6 +2470,7 @@ body.no-scroll {
 [dir="rtl"] .top-nav-links>li>a,
 [dir="rtl"] .dropbtn {
   flex-direction: row-reverse;
+  justify-content: flex-start; /* flex-start = right side in row-reverse */
 }
 
 [dir="rtl"] .dropdown-content {
@@ -2480,7 +2481,8 @@ body.no-scroll {
 
 [dir="rtl"] .dropdown-content a {
   direction: rtl;
-  justify-content: flex-start;
+  flex-direction: row-reverse;
+  justify-content: flex-start; /* icon right, text left of it */
 }
 
 [dir="rtl"] .category-card-text {
@@ -2537,13 +2539,15 @@ body.no-scroll {
     text-align: right;
     direction: rtl;
     flex-direction: row-reverse;
-    justify-content: flex-end;
+    justify-content: flex-start; /* flex-start = right in row-reverse */
   }
 
   [dir="rtl"] .top-nav-links .dropdown-content a {
     text-align: right;
     direction: rtl;
-    padding: 9px 38px 9px 20px;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    padding: 9px 20px 9px 38px; /* indent from right side */
   }
 }
 
@@ -2596,16 +2600,7 @@ body.no-scroll {
   text-align: right;
 }
 
-/* List items with icons — flip icon to the right of text */
-[dir="rtl"] .top-nav-links > li > a,
-[dir="rtl"] .top-nav-links > li > .dropbtn {
-  flex-direction: row-reverse;
-}
-
-[dir="rtl"] .dropdown-content a {
-  flex-direction: row-reverse;
-  text-align: right;
-}
+/* RTL nav icon/text order — handled above in the base RTL block */
 
 /* Tool cards */
 [dir="rtl"] .tool-card {
