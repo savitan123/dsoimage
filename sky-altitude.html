@@ -139,11 +139,34 @@
             margin-bottom: 24px;
             position: relative;
         }
-        .alt-chart-wrap canvas { max-height: 410px; }
+        .alt-chart-wrap canvas { max-height: 410px; max-width: 100%; }
         .alt-main-area { display: flex; flex-direction: column; }
+        /* Date picker */
+        .alt-date-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .alt-date-row i { color: #555; font-size: 13px; }
+        .alt-date-row select {
+            background: #111;
+            border: 1px solid #333;
+            color: #ccc;
+            font-size: 13px;
+            padding: 7px 10px;
+            border-radius: 7px;
+            outline: none;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .alt-date-row select:focus { border-color: #E53935; }
+        .alt-date-row label { font-size: 12px; color: #555; }
         @media (max-width: 768px) {
-            .alt-chart-wrap { padding: 12px 6px 12px 0; order: -1; }
+            .alt-chart-wrap { padding: 12px 6px 12px 0; order: -1; overflow: hidden; }
             .alt-chart-wrap canvas { max-height: 360px; }
+            .main-content { overflow-x: hidden; max-width: 100%; }
         }
         .alt-legend {
             display: flex;
@@ -270,6 +293,15 @@
                 <div class="alt-suggestions" id="alt-suggestions"></div>
             </div>
 
+            <!-- Date picker -->
+            <div class="alt-date-row">
+                <i class="fa-solid fa-calendar-days"></i>
+                <label>Date:</label>
+                <select id="alt-sel-day"></select>
+                <select id="alt-sel-month"></select>
+                <select id="alt-sel-year"></select>
+            </div>
+
             <div class="alt-main-area">
             <!-- Status Cards -->
             <div class="alt-status-row">
@@ -394,10 +426,23 @@
         let chart = null;
 
         // ── Time helpers ─────────────────────────────────────────────────────────
-        // Plot from noon today to noon tomorrow (48 points, every 30 min)
-        function getTimePoints() {
+        function getSelectedDate() {
+            const d = parseInt(document.getElementById('alt-sel-day').value);
+            const m = parseInt(document.getElementById('alt-sel-month').value);
+            const y = parseInt(document.getElementById('alt-sel-year').value);
+            return new Date(y, m, d);
+        }
+        function isSelectedToday() {
+            const sel = getSelectedDate();
             const now = new Date();
-            const noon = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 12, 0, 0, 0);
+            return sel.getFullYear() === now.getFullYear() &&
+                   sel.getMonth()    === now.getMonth()    &&
+                   sel.getDate()     === now.getDate();
+        }
+        // Plot from noon of selected date to noon next day (48 points, every 30 min)
+        function getTimePoints() {
+            const base = getSelectedDate();
+            const noon = new Date(base.getFullYear(), base.getMonth(), base.getDate(), 12, 0, 0, 0);
             const pts = [];
             for (let i = 0; i <= 48; i++) {
                 pts.push(new Date(noon.getTime() + i * 30 * 60 * 1000));
@@ -540,10 +585,12 @@
                 }
             };
 
-            // "Now" vertical line plugin
+            // "Now" vertical line plugin (only when viewing today)
+            const showNow = isSelectedToday();
             const nowPlugin = {
                 id: 'nowLine',
                 afterDraw(chart) {
+                    if (!showNow) return;
                     const { ctx, chartArea, scales } = chart;
                     if (!chartArea) return;
                     const x = scales.x.getPixelForValue(nowIdx);
@@ -556,7 +603,6 @@
                     ctx.lineTo(x, chartArea.bottom);
                     ctx.stroke();
                     ctx.setLineDash([]);
-                    // Label "Now"
                     ctx.fillStyle = '#E53935';
                     ctx.font = '11px sans-serif';
                     ctx.textAlign = 'center';
@@ -697,8 +743,41 @@
             if (e.key === 'Escape') { suggestionsBox.style.display = 'none'; searchInput.blur(); }
         });
 
+        // ── Populate date selects ────────────────────────────────────────────────
+        function initDatePicker() {
+            const now = new Date();
+            const MONTHS = ['January','February','March','April','May','June',
+                            'July','August','September','October','November','December'];
+            const dayEl   = document.getElementById('alt-sel-day');
+            const monEl   = document.getElementById('alt-sel-month');
+            const yearEl  = document.getElementById('alt-sel-year');
+
+            for (let d = 1; d <= 31; d++) {
+                const o = document.createElement('option');
+                o.value = d; o.textContent = d;
+                if (d === now.getDate()) o.selected = true;
+                dayEl.appendChild(o);
+            }
+            MONTHS.forEach((m, i) => {
+                const o = document.createElement('option');
+                o.value = i; o.textContent = m;
+                if (i === now.getMonth()) o.selected = true;
+                monEl.appendChild(o);
+            });
+            const curY = now.getFullYear();
+            for (let y = curY - 1; y <= curY + 2; y++) {
+                const o = document.createElement('option');
+                o.value = y; o.textContent = y;
+                if (y === curY) o.selected = true;
+                yearEl.appendChild(o);
+            }
+
+            [dayEl, monEl, yearEl].forEach(el => el.addEventListener('change', renderChart));
+        }
+
         // ── Init ─────────────────────────────────────────────────────────────────
         async function init() {
+            initDatePicker();
             // Get location
             try {
                 const controller = new AbortController();
