@@ -177,9 +177,11 @@
         .alt-date-row select:focus { border-color: #E53935; }
         .alt-date-row label { font-size: 12px; color: #555; }
         @media (max-width: 768px) {
-            .alt-chart-wrap { height: 340px; padding: 10px 8px; overflow: hidden; order: 1; }
-            .alt-tooltip-box { order: 2; }
-            .alt-status-row { order: 3; }
+            .alt-chart-wrap { height: 300px; padding: 8px; overflow: hidden; order: 1; width: calc(100vw - 40px) !important; max-width: calc(100vw - 40px) !important; box-sizing: border-box; }
+            .alt-search-wrap { width: calc(100vw - 40px) !important; max-width: calc(100vw - 40px) !important; box-sizing: border-box; }
+            .alt-tooltip-box { order: 2; width: calc(100vw - 40px); box-sizing: border-box; }
+            .alt-status-row { order: 3; width: calc(100vw - 40px); box-sizing: border-box; }
+            .alt-date-row { width: calc(100vw - 40px); box-sizing: border-box; }
         }
         .alt-legend {
             display: flex;
