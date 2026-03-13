@@ -807,7 +807,7 @@ img {
 
   /* Hide flag icon in lang toggle — show text only */
   #lang-toggle-btn img { display: none !important; }
-  #lang-toggle-btn { min-width: 36px; }
+  #lang-toggle-btn { min-width: 36px !important; padding: 4px 8px !important; }
 
   .top-nav-actions {
     order: 2;
@@ -2515,14 +2515,11 @@ body.no-scroll {
 
 /* Mobile RTL overrides */
 @media (max-width: 768px) {
-  /* Force consistent left→right order on mobile nav bar in Hebrew mode:
-     DSOImage.com | night mode | lang toggle | hamburger */
-  [dir="rtl"] .top-nav-container {
-    direction: ltr;
-  }
-  [dir="rtl"] .top-nav-actions {
-    direction: ltr;
-  }
+  /* In RTL, space-between puts order:1 on physical-right and order:2 on physical-left.
+     Swap logo/actions order so DSOImage.com stays on physical-left in Hebrew mode. */
+  [dir="rtl"] .top-nav-logo { order: 2; }
+  [dir="rtl"] .top-nav-actions { order: 1; }
+  /* Keep direction:rtl on actions so internal order stays: moon → lang → hamburger */
 
   [dir="rtl"] .top-nav-links {
     left: auto;
