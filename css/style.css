@@ -286,14 +286,26 @@ img {
   border: none;
   cursor: pointer;
   font-size: 14px;
-  padding: 6px 12px;
+  padding: 4px 10px;
   border-radius: 6px;
   transition: all 0.2s ease;
+  line-height: 1;
 }
 
 .mode-toggle-btn:hover {
   color: #fff;
   background: rgba(40, 40, 40, 0.8);
+}
+
+.mode-toggle-btn.active {
+  color: #ff3333;
+}
+
+/* PC only: extra gap between moon icon and language button */
+@media (min-width: 769px) {
+  #red-mode-toggle {
+    margin-right: 10px;
+  }
 }
 
 
@@ -1195,29 +1207,9 @@ body.red-mode img {
 }
 
 /* Toggle Switch Styles */
-.mode-toggle-btn {
-  background: none;
-  border: 1px solid #333;
-  color: #ccc;
-  cursor: pointer;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 13px;
-  margin-top: 15px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.mode-toggle-btn:hover {
-  border-color: #ff3333;
-  color: #ff3333;
-}
-
 .mode-toggle-btn.active {
   background: #300;
   color: #ff3333;
-  border-color: #ff3333;
 }
 
 .mode-toggle-btn .fa-moon {
