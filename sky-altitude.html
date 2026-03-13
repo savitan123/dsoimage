@@ -145,11 +145,8 @@
             margin-bottom: 8px;
             position: relative;
             height: 460px;
-            width: 100%;
-            max-width: calc(100vw - 30px);
             overflow: hidden;
             box-sizing: border-box;
-            direction: ltr; /* prevent RTL layout from expanding chart beyond viewport */
         }
         .alt-chart-wrap canvas { width: 100%; height: 100%; display: block; }
         /* Clamp page to viewport width */
@@ -182,7 +179,7 @@
         .alt-date-row select:focus { border-color: #E53935; }
         .alt-date-row label { font-size: 12px; color: #555; }
         @media (max-width: 768px) {
-            .alt-chart-wrap { height: 340px; padding: 10px 8px; max-width: calc(100vw - 20px); overflow: hidden; order: 1; }
+            .alt-chart-wrap { height: 340px; padding: 10px 8px; overflow: hidden; order: 1; }
             .alt-tooltip-box { order: 2; max-width: calc(100vw - 20px); box-sizing: border-box; }
             .alt-status-row { order: 3; max-width: 100%; }
             .main-content { overflow-x: hidden; max-width: 100vw; box-sizing: border-box; padding-left: 10px; padding-right: 10px; }
@@ -350,7 +347,7 @@
             </div>
 
             <!-- Chart -->
-            <div class="alt-chart-wrap" dir="ltr">
+            <div class="alt-chart-wrap">
                 <canvas id="altChart"></canvas>
                 <div class="alt-legend">
                     <div class="alt-legend-item"><div class="alt-legend-dot" style="background:#FDD835;"></div><span data-i18n="alt_card_sun">Sun</span></div>
@@ -674,10 +671,11 @@
                 document.getElementById('obj-legend').style.display = 'none';
             }
 
-            // Clamp wrap width to viewport BEFORE Chart.js measures it (safety for RTL)
+            // Always pin wrap to viewport width — prevents RTL/resize from expanding it
             const wrap = document.getElementById('altChart').closest('.alt-chart-wrap');
             const vw = window.innerWidth;
-            if (wrap.offsetWidth > vw - 20) wrap.style.width = (vw - 20) + 'px';
+            const isMobile = vw <= 768;
+            wrap.style.width = (vw - (isMobile ? 20 : 30)) + 'px';
 
             const ctx2 = document.getElementById('altChart').getContext('2d');
             if (chart) chart.destroy();
