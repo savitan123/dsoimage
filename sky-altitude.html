@@ -671,11 +671,15 @@
                 document.getElementById('obj-legend').style.display = 'none';
             }
 
-            // Always pin wrap to viewport width — prevents RTL/resize from expanding it
+            // On mobile: pin wrap to viewport width to prevent RTL overflow
             const wrap = document.getElementById('altChart').closest('.alt-chart-wrap');
             const vw = window.innerWidth;
             const isMobile = vw <= 768;
-            wrap.style.width = (vw - (isMobile ? 20 : 30)) + 'px';
+            if (isMobile) {
+                wrap.style.width = (vw - 20) + 'px';
+            } else {
+                wrap.style.width = ''; // let container CSS control desktop width
+            }
 
             const ctx2 = document.getElementById('altChart').getContext('2d');
             if (chart) chart.destroy();
