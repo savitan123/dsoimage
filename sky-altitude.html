@@ -140,9 +140,10 @@
             position: relative;
         }
         .alt-chart-wrap canvas { max-height: 410px; }
+        .alt-main-area { display: flex; flex-direction: column; }
         @media (max-width: 768px) {
-            .alt-chart-wrap { padding: 12px 8px 12px 2px; }
-            .alt-chart-wrap canvas { max-height: 300px; }
+            .alt-chart-wrap { padding: 12px 6px 12px 0; order: -1; }
+            .alt-chart-wrap canvas { max-height: 360px; }
         }
         .alt-legend {
             display: flex;
@@ -253,6 +254,7 @@
                 <div class="alt-suggestions" id="alt-suggestions"></div>
             </div>
 
+            <div class="alt-main-area">
             <!-- Status Cards -->
             <div class="alt-status-row">
                 <!-- Sun card -->
@@ -285,6 +287,7 @@
                     <div class="alt-legend-item"><div class="alt-legend-dot" style="background:#E53935; width:2px; height:12px; border-radius:1px;"></div><span data-i18n="alt_now">Now</span></div>
                 </div>
             </div>
+            </div><!-- /.alt-main-area -->
 
             <footer class="site-footer" style="margin-top: 40px; border-top: 1px solid #222; padding-top: 20px;">
                 <p data-i18n="footer_text">© 2026 Shimon Avitan | dsoimage.com</p>
@@ -509,7 +512,7 @@
                         const x1 = xScale.getPixelForValue(i + 1);
                         const s = sunData[i];
                         let color;
-                        if (s > 0)        color = 'rgba(100,80,0,0.13)';       // day
+                        if (s > 0)        color = 'rgba(30,120,210,0.18)';      // day (sky blue)
                         else if (s > -6)  color = 'rgba(50,30,80,0.15)';       // civil twilight
                         else if (s > -12) color = 'rgba(20,20,60,0.18)';       // nautical twilight
                         else              color = 'rgba(0,0,0,0)';              // night (transparent)
