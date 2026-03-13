@@ -1,4 +1,14 @@
 User-agent: *
 Allow: /
 
+# Block development/temp pages from indexing
+Disallow: /cluster_temp.html
+Disallow: /galaxies_temp.html
+Disallow: /nebulae_temp.html
+Disallow: /test-glossary.html
+
+# Block internal paths
+Disallow: /.claude/
+Disallow: /.github/
+
 Sitemap: https://dsoimage.com/sitemap.xml
