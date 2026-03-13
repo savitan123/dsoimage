@@ -144,10 +144,15 @@
             padding: 16px;
             margin-bottom: 24px;
             position: relative;
+            /* Fixed height lets maintainAspectRatio:false work without growing */
+            height: 460px;
+            max-width: 100%;
+            overflow: hidden;
+            box-sizing: border-box;
         }
-        /* Clip overflow at page root — catches RTL canvas bleed on all screen sizes */
-        .container { overflow-x: hidden; }
-        .alt-chart-wrap canvas { width: 100% !important; max-height: 410px; }
+        .alt-chart-wrap canvas { width: 100%; height: 100%; }
+        /* Nuclear overflow clip — page root + html/body */
+        html, body, .container { overflow-x: hidden; max-width: 100vw; }
         .alt-main-area { display: flex; flex-direction: column; }
         /* Date picker — locked LTR so Day/Month/Year stays in logical order */
         .alt-date-row {
@@ -157,6 +162,7 @@
             margin-bottom: 20px;
             flex-wrap: wrap;
             direction: ltr;
+            max-width: 100%;
         }
         .alt-date-row i { color: #555; font-size: 13px; }
         .alt-date-row select {
@@ -173,9 +179,8 @@
         .alt-date-row select:focus { border-color: #E53935; }
         .alt-date-row label { font-size: 12px; color: #555; }
         @media (max-width: 768px) {
-            .alt-chart-wrap { padding: 12px 6px 12px 0; order: -1; overflow: hidden; }
-            .alt-chart-wrap canvas { max-height: 360px; }
-            .main-content { overflow-x: hidden; max-width: 100vw; box-sizing: border-box; }
+            .alt-chart-wrap { height: 340px; padding: 10px 4px 10px 0; order: -1; }
+            .main-content { overflow-x: hidden; max-width: 100vw; box-sizing: border-box; padding-left: 10px; padding-right: 10px; }
             .alt-search-wrap { max-width: 100%; }
             .alt-date-row { max-width: 100%; box-sizing: border-box; }
             .alt-status-row { max-width: 100%; }
@@ -671,6 +676,7 @@
                 data: { labels, datasets },
                 options: {
                     responsive: true,
+                    maintainAspectRatio: false,
                     animation: false,
                     interaction: { mode: 'index', intersect: false },
                     plugins: {
