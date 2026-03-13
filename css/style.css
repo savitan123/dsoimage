@@ -790,11 +790,24 @@ img {
     overflow: hidden;
   }
 
+  /* Hide full site name; show short brand text via pseudo-element */
   .top-nav-logo a {
+    font-size: 0;
+    white-space: nowrap;
+    letter-spacing: 0;
+  }
+  .top-nav-logo a span { display: none; }
+  .top-nav-logo a::after {
+    content: 'DSOImage.com';
     font-size: 14px;
     color: #E53935;
-    letter-spacing: 0.2px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
   }
+
+  /* Hide flag icon in lang toggle — show text only */
+  #lang-toggle-btn img { display: none !important; }
+  #lang-toggle-btn { min-width: 36px; }
 
   .top-nav-actions {
     order: 2;
@@ -2501,7 +2514,16 @@ body.no-scroll {
 }
 
 /* Mobile RTL overrides */
-@media (max-width: 767px) {
+@media (max-width: 768px) {
+  /* Force consistent left→right order on mobile nav bar in Hebrew mode:
+     DSOImage.com | night mode | lang toggle | hamburger */
+  [dir="rtl"] .top-nav-container {
+    direction: ltr;
+  }
+  [dir="rtl"] .top-nav-actions {
+    direction: ltr;
+  }
+
   [dir="rtl"] .top-nav-links {
     left: auto;
     right: -280px; /* off-screen to the right */
