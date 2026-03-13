@@ -2515,11 +2515,15 @@ body.no-scroll {
 
 /* Mobile RTL overrides */
 @media (max-width: 768px) {
-  /* In RTL, space-between puts order:1 on physical-right and order:2 on physical-left.
-     Swap logo/actions order so DSOImage.com stays on physical-left in Hebrew mode. */
+  /* Swap logo/actions so DSOImage.com is on physical-left in Hebrew mode */
   [dir="rtl"] .top-nav-logo { order: 2; }
   [dir="rtl"] .top-nav-actions { order: 1; }
-  /* Keep direction:rtl on actions so internal order stays: moon → lang → hamburger */
+
+  /* direction:rtl on actions reverses button order (moon ends up rightmost and cut off).
+     Use explicit flex order to pin: moon(left)→lang(mid)→hamburger(right) */
+  [dir="rtl"] #red-mode-toggle   { order: 3; } /* RTL end = physical left  */
+  [dir="rtl"] #lang-toggle-btn   { order: 2; }
+  [dir="rtl"] #mobile-nav-toggle { order: 1; } /* RTL start = physical right */
 
   [dir="rtl"] .top-nav-links {
     left: auto;

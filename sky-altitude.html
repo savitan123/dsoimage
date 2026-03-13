@@ -20,7 +20,7 @@
     <link rel="alternate" hreflang="he" href="https://dsoimage.com/sky-altitude.html" />
     <link rel="alternate" hreflang="x-default" href="https://dsoimage.com/sky-altitude.html" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="css/style.css?v=121" rel="stylesheet" />
+    <link href="css/style.css?v=122" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
@@ -670,13 +670,23 @@
             }
 
 
+            // Fix chart size from viewport — prevents any RTL/keyboard/resize from changing it
+            const wrap = document.getElementById('altChart').closest('.alt-chart-wrap');
+            const vw = window.innerWidth;
+            const isMobile = vw <= 768;
+            if (isMobile) {
+                const w = vw - 40;
+                wrap.style.width = w + 'px';
+                wrap.style.maxWidth = w + 'px';
+            }
+
             const ctx2 = document.getElementById('altChart').getContext('2d');
             if (chart) chart.destroy();
             chart = new Chart(ctx2, {
                 type: 'line',
                 data: { labels, datasets },
                 options: {
-                    responsive: true,
+                    responsive: false,
                     maintainAspectRatio: false,
                     animation: false,
                     interaction: { mode: 'index', intersect: false },
