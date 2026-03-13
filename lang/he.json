@@ -19,6 +19,7 @@
     "menu_apod": "NASA APOD",
     "menu_tonights": "הטובים ביותר הלילה",
     "menu_iss": "?היכן תחנת החלל",
+    "menu_altitude": "תרשים גובה",
     "menu_about": "אודות",
     "menu_contact": "צור קשר",
     "home_subtitle": "בחרו קטגוריה לעיון בתצוגות מקדימות. לחצו על כל תמונה לפתיחה ברזולוציה מלאה עם הערות וקישורים.",
@@ -368,5 +369,16 @@
     "sitemap_weather_forecast": "תחזית מזג אוויר",
     "sitemap_planner_link": "מתכנן תצפיות",
     "sitemap_iss_link": "מעקב תחנת החלל",
-    "sitemap_about_person": "אודות שמעון אביטן"
+    "sitemap_about_person": "אודות שמעון אביטן",
+    "sitemap_altitude_link": "תרשים גובה שמיים",
+    "alt_title": "תרשים גובה שמיים",
+    "alt_subtitle": "תרשים גובה לאורך זמן עבור השמש, הירח וכל עצם. המיקום מזוהה אוטומטית.",
+    "alt_locating": "מאתר מיקום…",
+    "alt_search_ph": "חפש עצם (לדוגמה M42, צדק, אנדרומדה…)",
+    "alt_card_sun": "שמש",
+    "alt_card_moon": "ירח",
+    "alt_card_object": "עצם נבחר",
+    "alt_loading": "מחשב…",
+    "alt_no_obj": "חפש עצם למעלה",
+    "alt_now": "עכשיו"
 }

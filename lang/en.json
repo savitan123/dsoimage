@@ -19,6 +19,7 @@
     "menu_apod": "NASA APOD",
     "menu_tonights": "Tonight's Best",
     "menu_iss": "Where is the ISS?",
+    "menu_altitude": "Altitude Chart",
     "menu_about": "About",
     "menu_contact": "Contact",
     "home_subtitle": "Choose a category to browse preview images. Click any preview to open the full resolution with notes and links.",
@@ -331,5 +332,16 @@
     "sitemap_weather_forecast": "Weather Forecast",
     "sitemap_planner_link": "Observation Planner",
     "sitemap_iss_link": "ISS Tracker",
-    "sitemap_about_person": "About Shimon Avitan"
+    "sitemap_about_person": "About Shimon Avitan",
+    "sitemap_altitude_link": "Sky Altitude Chart",
+    "alt_title": "Sky Altitude Chart",
+    "alt_subtitle": "Plot altitude over time for the Sun, Moon, and any object. Observer location is auto-detected.",
+    "alt_locating": "Detecting location…",
+    "alt_search_ph": "Search object (e.g. M42, Jupiter, Andromeda…)",
+    "alt_card_sun": "Sun",
+    "alt_card_moon": "Moon",
+    "alt_card_object": "Selected Object",
+    "alt_loading": "Calculating…",
+    "alt_no_obj": "Search for an object above",
+    "alt_now": "Now"
 }

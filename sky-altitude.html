@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="https://dsoimage.com/sky-altitude.html" rel="canonical" />
+    <title>Sky Altitude Chart — DSOImage by Shimon Avitan</title>
+    <meta name="description" content="Real-time altitude chart for the Sun, Moon and any deep-sky object or planet. See when your target rises, peaks and sets tonight." />
+    <meta name="keywords" content="sky altitude chart, object altitude, when does object rise, astrophotography planning, DSO visibility, moon altitude, sun altitude" />
+    <meta property="og:title" content="Sky Altitude Chart — DSOImage by Shimon Avitan" />
+    <meta property="og:description" content="Plot the altitude over time for the Sun, Moon, and any astronomical object. Plan your imaging session." />
+    <meta property="og:image" content="https://dsoimage.com/images/preview/HorseHead_Flame_Nebula.jpg" />
+    <meta property="og:url" content="https://dsoimage.com/sky-altitude.html" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Sky Altitude Chart — DSOImage by Shimon Avitan" />
+    <meta name="twitter:description" content="Plot the altitude over time for the Sun, Moon, and any astronomical object. Plan your imaging session." />
+    <meta name="twitter:image" content="https://dsoimage.com/images/preview/HorseHead_Flame_Nebula.jpg" />
+    <link rel="alternate" hreflang="en" href="https://dsoimage.com/sky-altitude.html" />
+    <link rel="alternate" hreflang="he" href="https://dsoimage.com/sky-altitude.html" />
+    <link rel="alternate" hreflang="x-default" href="https://dsoimage.com/sky-altitude.html" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="css/style.css?v=118" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        .alt-page-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #eee;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .alt-page-sub {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+        /* Search */
+        .alt-search-wrap {
+            position: relative;
+            max-width: 480px;
+            margin-bottom: 24px;
+        }
+        .alt-search-wrap input {
+            width: 100%;
+            background: #111;
+            border: 1px solid #333;
+            color: #eee;
+            font-size: 14px;
+            padding: 10px 14px 10px 38px;
+            border-radius: 8px;
+            outline: none;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+        .alt-search-wrap input:focus { border-color: #E53935; }
+        .alt-search-wrap .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #555;
+            font-size: 13px;
+        }
+        .alt-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #111;
+            border: 1px solid #333;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            max-height: 220px;
+            overflow-y: auto;
+            z-index: 100;
+            display: none;
+        }
+        .alt-suggestion-item {
+            padding: 9px 14px;
+            cursor: pointer;
+            font-size: 13px;
+            color: #ccc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1e1e1e;
+        }
+        .alt-suggestion-item:hover { background: #1a1a1a; color: #fff; }
+        .alt-suggestion-item .sug-type {
+            font-size: 11px;
+            color: #555;
+            text-transform: uppercase;
+        }
+        /* Status cards */
+        .alt-status-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+        @media (max-width: 600px) { .alt-status-row { grid-template-columns: 1fr; } }
+        .alt-card {
+            background: #0e0e0e;
+            border: 1px solid #1e1e1e;
+            border-radius: 10px;
+            padding: 14px 16px;
+        }
+        .alt-card-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        .alt-card-value {
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+        .alt-card-detail {
+            font-size: 12px;
+            color: #666;
+        }
+        .alt-card-detail b { color: #aaa; }
+        /* Chart */
+        .alt-chart-wrap {
+            background: #0a0a0a;
+            border: 1px solid #1e1e1e;
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 24px;
+            position: relative;
+        }
+        .alt-chart-wrap canvas { max-height: 340px; }
+        .alt-legend {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+            font-size: 12px;
+            color: #888;
+        }
+        .alt-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .alt-legend-dot {
+            width: 10px;
+            height: 3px;
+            border-radius: 2px;
+        }
+        /* Location bar */
+        .alt-location-bar {
+            font-size: 12px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        .alt-location-bar i { margin-right: 4px; color: #444; }
+        /* No object */
+        .alt-no-obj {
+            font-size: 13px;
+            color: #555;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="topbar">
+            <div class="topbar-logo"><a href="index.html">Imaging <span class="red">D</span>eep <span class="green">S</span>ky <span class="blue">O</span>bject</a></div>
+        </header>
+        <div class="overlay" hidden id="overlay"></div>
+        <nav aria-label="Site menu" class="top-nav" id="top-nav">
+            <div class="top-nav-container">
+                <div class="top-nav-logo"><a href="index.html">Imaging <span class="red">D</span>eep <span class="green">S</span>ky <span class="blue">O</span>bject</a></div>
+                <ul class="top-nav-links" id="top-nav-links">
+                    <li><a data-i18n="menu_home" href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropbtn" data-i18n="menu_galleries"><i class="fa-solid fa-images"></i> Galleries &#9662;</a>
+                        <div class="dropdown-content">
+                            <a data-i18n="menu_galaxies" href="galaxies.html"><i class="fa-solid fa-hurricane"></i> Galaxies</a>
+                            <a data-i18n="menu_nebulae" href="nebulae.html"><i class="fa-solid fa-smog"></i> Nebulae</a>
+                            <a data-i18n="menu_clusters" href="clusters.html"><i class="fa-solid fa-certificate"></i> Star Clusters</a>
+                            <a data-i18n="menu_onsite" href="on-site-photos.html"><i class="fa-solid fa-camera"></i> On-site photos</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropbtn" data-i18n="menu_resources"><i class="fa-solid fa-book"></i> Resources &#9662;</a>
+                        <div class="dropdown-content">
+                            <a data-i18n="menu_equipment" href="equipment.html"><i class="fa-solid fa-camera-retro"></i> Equipment</a>
+                            <a data-i18n="menu_processing" href="processing.html"><i class="fa-solid fa-laptop-code"></i> Processing</a>
+                            <a data-i18n="menu_knowledge" href="knowledge.html"><i class="fa-solid fa-book-open"></i> Knowledge Base</a>
+                            <a data-i18n="menu_catalog" href="catalog-explorer.html"><i class="fa-solid fa-magnifying-glass-chart"></i> Catalog Explorer</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropbtn" data-i18n="menu_tools"><i class="fa-solid fa-toolbox"></i> Tools &#9662;</a>
+                        <div class="dropdown-content">
+                            <a data-i18n="menu_weather" href="weather.html"><i class="fa-solid fa-cloud-sun"></i> Weather</a>
+                            <a data-i18n="menu_planner" href="planner.html"><i class="fa-solid fa-calendar-days"></i> Planned Session</a>
+                            <a data-i18n="menu_altitude" href="sky-altitude.html" class="active"><i class="fa-solid fa-chart-line"></i> Altitude Chart</a>
+                            <a data-i18n="menu_converter" href="coordinate-converter.html"><i class="fa-solid fa-globe"></i> Coordinate Converter</a>
+                            <a data-i18n="menu_checklist" href="checklist.html"><i class="fa-solid fa-check-double"></i> Pre-Flight Checklist</a>
+                            <a data-i18n="menu_skymap" href="live-sky-map.html"><i class="fa-solid fa-map-location-dot"></i> Live Sky Map (Interactive)</a>
+                            <a data-i18n="menu_apod" href="apod.html"><i class="fa-solid fa-satellite"></i> NASA APOD</a>
+                            <a data-i18n="menu_tonights" href="tonights_best.html"><i class="fa-solid fa-star"></i> Tonight's Best</a>
+                            <a data-i18n="menu_iss" href="iss.html"><i class="fa-solid fa-rocket"></i> Where is the ISS?</a>
+                        </div>
+                    </li>
+                    <li><a data-i18n="menu_about" href="about.html"><i class="fa-solid fa-user-astronaut"></i> About</a></li>
+                    <li><a data-i18n="menu_contact" href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+                </ul>
+                <div class="top-nav-actions">
+                    <button class="mode-toggle-btn" id="red-mode-toggle" title="Night Vision"><i class="fa-solid fa-moon"></i></button>
+                    <button id="lang-toggle-btn" title="Switch Language"
+                        style="background: transparent; border: 1px solid #888; color: #ccc; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: bold; margin-right: 8px; transition: 0.2s;">עב</button>
+                    <div class="nv-controls" id="nv-container"
+                        style="display:none;position:absolute;top:60px;right:20px;background:#111;padding:10px;border:1px solid #333;z-index:2000;border-radius:8px;">
+                        <label for="nv-slider" data-i18n="nv_dimmer" style="font-size:13px;color:#aaa;display:block;margin-bottom:5px;">Dimmer</label>
+                        <input id="nv-slider" max="100" min="20" type="range" value="80" />
+                    </div>
+                    <button id="mobile-nav-toggle" aria-label="Toggle navigation" title="Menu">&#9776;</button>
+                </div>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <p class="alt-page-title"><i class="fa-solid fa-chart-line" style="color:#E53935;"></i><span data-i18n="alt_title">Sky Altitude Chart</span></p>
+            <p class="alt-page-sub" data-i18n="alt_subtitle">Plot altitude over time for the Sun, Moon, and any object. Observer location is auto-detected.</p>
+
+            <!-- Location -->
+            <div class="alt-location-bar" id="alt-location-bar">
+                <i class="fa-solid fa-location-dot"></i><span data-i18n="alt_locating">Detecting location…</span>
+            </div>
+
+            <!-- Search -->
+            <div class="alt-search-wrap">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="alt-search" data-i18n="alt_search_ph" placeholder="Search object (e.g. M42, Jupiter, Andromeda…)" autocomplete="off" />
+                <div class="alt-suggestions" id="alt-suggestions"></div>
+            </div>
+
+            <!-- Status Cards -->
+            <div class="alt-status-row">
+                <!-- Sun card -->
+                <div class="alt-card">
+                    <div class="alt-card-header"><i class="fa-solid fa-sun" style="color:#FDD835;"></i><span data-i18n="alt_card_sun">Sun</span></div>
+                    <div class="alt-card-value" id="sun-alt" style="color:#FDD835;">--°</div>
+                    <div class="alt-card-detail" id="sun-detail"><span data-i18n="alt_loading">Calculating…</span></div>
+                </div>
+                <!-- Moon card -->
+                <div class="alt-card">
+                    <div class="alt-card-header"><i class="fa-solid fa-moon" style="color:#ccc;"></i><span data-i18n="alt_card_moon">Moon</span></div>
+                    <div class="alt-card-value" id="moon-alt" style="color:#ccc;">--°</div>
+                    <div class="alt-card-detail" id="moon-detail"><span data-i18n="alt_loading">Calculating…</span></div>
+                </div>
+                <!-- Object card -->
+                <div class="alt-card">
+                    <div class="alt-card-header"><i class="fa-solid fa-star" style="color:#E53935;"></i><span data-i18n="alt_card_object">Selected Object</span></div>
+                    <div class="alt-card-value" id="obj-alt" style="color:#E53935;">--°</div>
+                    <div class="alt-card-detail" id="obj-detail"><span class="alt-no-obj" data-i18n="alt_no_obj">Search for an object above</span></div>
+                </div>
+            </div>
+
+            <!-- Chart -->
+            <div class="alt-chart-wrap">
+                <canvas id="altChart"></canvas>
+                <div class="alt-legend">
+                    <div class="alt-legend-item"><div class="alt-legend-dot" style="background:#FDD835;"></div><span data-i18n="alt_card_sun">Sun</span></div>
+                    <div class="alt-legend-item"><div class="alt-legend-dot" style="background:#aaa;"></div><span data-i18n="alt_card_moon">Moon</span></div>
+                    <div class="alt-legend-item" id="obj-legend" style="display:none;"><div class="alt-legend-dot" style="background:#E53935;"></div><span id="obj-legend-name">Object</span></div>
+                    <div class="alt-legend-item"><div class="alt-legend-dot" style="background:#E53935; width:2px; height:12px; border-radius:1px;"></div><span data-i18n="alt_now">Now</span></div>
+                </div>
+            </div>
+
+            <footer class="site-footer" style="margin-top: 40px; border-top: 1px solid #222; padding-top: 20px;">
+                <p data-i18n="footer_text">© 2026 Shimon Avitan | dsoimage.com</p>
+                <p style="margin-top: 8px; font-size: 12px;"><a href="sitemap.html" style="color:#555; text-decoration:none;" onmouseover="this.style.color='#E53935'" onmouseout="this.style.color='#555'"><i class="fa-solid fa-sitemap"></i> Site Map</a></p>
+            </footer>
+        </main>
+    </div>
+
+    <script src="js/script.js?v=114"></script>
+    <script src="js/stats.js"></script>
+    <script src="js/i18n.js?v=117"></script>
+    <script>
+    (function () {
+        // ── Catalog ──────────────────────────────────────────────────────────────
+        const PLANETS = ['Mercury','Venus','Mars','Jupiter','Saturn','Uranus','Neptune'];
+        const catalog = [
+            // Planets
+            { name:'Mercury',   type:'Planet',  isPlanet:true },
+            { name:'Venus',     type:'Planet',  isPlanet:true },
+            { name:'Mars',      type:'Planet',  isPlanet:true },
+            { name:'Jupiter',   type:'Planet',  isPlanet:true },
+            { name:'Saturn',    type:'Planet',  isPlanet:true },
+            { name:'Uranus',    type:'Planet',  isPlanet:true },
+            { name:'Neptune',   type:'Planet',  isPlanet:true },
+            // DSOs
+            { name:'Andromeda Galaxy (M31)',     aliases:['M31','M 31'],       type:'Galaxy',   ra:0.712,  dec:41.27  },
+            { name:'Triangulum Galaxy (M33)',    aliases:['M33','M 33'],       type:'Galaxy',   ra:1.564,  dec:30.66  },
+            { name:'Orion Nebula (M42)',         aliases:['M42','M 42'],       type:'Nebula',   ra:5.588,  dec:-5.39  },
+            { name:'Pleiades (M45)',             aliases:['M45','M 45'],       type:'Cluster',  ra:3.788,  dec:24.11  },
+            { name:'Beehive Cluster (M44)',      aliases:['M44','M 44'],       type:'Cluster',  ra:8.672,  dec:19.98  },
+            { name:'Hercules Cluster (M13)',     aliases:['M13','M 13'],       type:'Cluster',  ra:16.694, dec:36.46  },
+            { name:'Omega Cluster (M4)',         aliases:['M4','M 4'],         type:'Cluster',  ra:16.393, dec:-26.53 },
+            { name:'Lagoon Nebula (M8)',         aliases:['M8','M 8'],         type:'Nebula',   ra:18.064, dec:-24.38 },
+            { name:'Trifid Nebula (M20)',        aliases:['M20','M 20'],       type:'Nebula',   ra:18.043, dec:-22.97 },
+            { name:'Eagle Nebula (M16)',         aliases:['M16','M 16'],       type:'Nebula',   ra:18.313, dec:-13.81 },
+            { name:'Omega Nebula (M17)',         aliases:['M17','M 17'],       type:'Nebula',   ra:18.346, dec:-16.18 },
+            { name:'Dumbbell Nebula (M27)',      aliases:['M27','M 27'],       type:'Nebula',   ra:19.993, dec:22.72  },
+            { name:'Ring Nebula (M57)',          aliases:['M57','M 57'],       type:'Nebula',   ra:18.892, dec:33.03  },
+            { name:'Crab Nebula (M1)',           aliases:['M1','M 1'],         type:'Nebula',   ra:5.575,  dec:22.01  },
+            { name:'Whirlpool Galaxy (M51)',     aliases:['M51','M 51'],       type:'Galaxy',   ra:13.498, dec:47.19  },
+            { name:'Pinwheel Galaxy (M101)',     aliases:['M101','M 101'],     type:'Galaxy',   ra:14.053, dec:54.35  },
+            { name:'Bode\'s Galaxy (M81)',       aliases:['M81','M 81'],       type:'Galaxy',   ra:9.926,  dec:69.07  },
+            { name:'Cigar Galaxy (M82)',         aliases:['M82','M 82'],       type:'Galaxy',   ra:9.926,  dec:69.68  },
+            { name:'Sombrero Galaxy (M104)',     aliases:['M104','M 104'],     type:'Galaxy',   ra:12.664, dec:-11.62 },
+            { name:'Leo Triplet (M65)',          aliases:['M65','M 65'],       type:'Galaxy',   ra:11.315, dec:13.09  },
+            { name:'Leo Triplet (M66)',          aliases:['M66','M 66'],       type:'Galaxy',   ra:11.337, dec:12.99  },
+            { name:'Owl Nebula (M97)',           aliases:['M97','M 97'],       type:'Nebula',   ra:11.247, dec:55.02  },
+            { name:'Globular Cluster (M92)',     aliases:['M92','M 92'],       type:'Cluster',  ra:17.285, dec:43.14  },
+            { name:'Sagittarius Star Cloud (M24)',aliases:['M24','M 24'],      type:'Cluster',  ra:18.283, dec:-18.55 },
+            { name:'Rosette Nebula (NGC 2237)',  aliases:['NGC2237','NGC 2237','Rosette'], type:'Nebula', ra:6.535, dec:4.98  },
+            { name:'Horsehead Nebula',           aliases:['Horsehead','B33'],  type:'Nebula',   ra:5.688,  dec:-2.46  },
+            { name:'Flame Nebula (NGC 2024)',    aliases:['NGC2024','NGC 2024','Flame'],   type:'Nebula', ra:5.683, dec:-1.92  },
+            { name:'North America Nebula (NGC 7000)', aliases:['NGC7000','NGC 7000','NANebula'], type:'Nebula', ra:20.985, dec:44.33 },
+            { name:'Veil Nebula',               aliases:['NGC6960','NGC 6960'],type:'Nebula',   ra:20.763, dec:30.71  },
+            { name:'Pacman Nebula (NGC 281)',    aliases:['NGC281','NGC 281'], type:'Nebula',   ra:0.879,  dec:56.62  },
+            { name:'Bubble Nebula (NGC 7635)',   aliases:['NGC7635','NGC 7635','Bubble'], type:'Nebula', ra:23.347, dec:61.20 },
+            { name:'Wizard Nebula (NGC 7380)',   aliases:['NGC7380','NGC 7380','Wizard'], type:'Nebula', ra:22.782, dec:58.13 },
+            { name:'Heart Nebula (IC 1805)',     aliases:['IC1805','IC 1805'], type:'Nebula',   ra:2.547,  dec:61.45  },
+            { name:'Soul Nebula (IC 1848)',      aliases:['IC1848','IC 1848'], type:'Nebula',   ra:2.847,  dec:60.41  },
+            { name:'Carina Nebula (NGC 3372)',   aliases:['NGC3372','NGC 3372','Carina'], type:'Nebula', ra:10.745, dec:-59.87 },
+            { name:'Omega Centauri (NGC 5139)', aliases:['NGC5139','NGC 5139'],type:'Cluster',  ra:13.446, dec:-47.48 },
+            { name:'Centaurus A (NGC 5128)',    aliases:['NGC5128','NGC 5128','Cen A'], type:'Galaxy', ra:13.426, dec:-43.02 },
+            { name:'Double Cluster (NGC 869/884)', aliases:['NGC869','NGC884','Double Cluster'], type:'Cluster', ra:2.373, dec:57.13 },
+            { name:'Tadpole Nebula (IC 410)',   aliases:['IC410','IC 410'],   type:'Nebula',   ra:5.463,  dec:33.45  },
+            { name:'California Nebula (NGC 1499)', aliases:['NGC1499','NGC 1499','California'], type:'Nebula', ra:4.062, dec:36.42 },
+            { name:'Cocoon Nebula (IC 5146)',   aliases:['IC5146','IC 5146','Cocoon'], type:'Nebula', ra:21.895, dec:47.27 },
+            { name:'Jellyfish Nebula (IC 443)', aliases:['IC443','IC 443','Jellyfish'], type:'Nebula', ra:6.292, dec:22.71 },
+            { name:'Helix Nebula (NGC 7293)',   aliases:['NGC7293','NGC 7293','Helix'], type:'Nebula', ra:22.494, dec:-20.84 },
+            { name:'Seagull Nebula (IC 2177)',  aliases:['IC2177','IC 2177','Seagull'], type:'Nebula', ra:7.040, dec:-10.69 },
+            { name:'Tulip Nebula (Sh2-101)',    aliases:['Sh2-101','Tulip'],  type:'Nebula',   ra:20.033, dec:35.34  },
+            // Stars
+            { name:'Sirius (α CMa)',    aliases:['Sirius'],   type:'Star', ra:6.752,  dec:-16.72 },
+            { name:'Betelgeuse (α Ori)',aliases:['Betelgeuse'],type:'Star', ra:5.919,  dec:7.41   },
+            { name:'Rigel (β Ori)',     aliases:['Rigel'],    type:'Star', ra:5.242,  dec:-8.20  },
+            { name:'Vega (α Lyr)',      aliases:['Vega'],     type:'Star', ra:18.616, dec:38.78  },
+            { name:'Capella (α Aur)',   aliases:['Capella'],  type:'Star', ra:5.278,  dec:45.99  },
+            { name:'Arcturus (α Boo)',  aliases:['Arcturus'], type:'Star', ra:14.261, dec:19.18  },
+            { name:'Deneb (α Cyg)',     aliases:['Deneb'],    type:'Star', ra:20.691, dec:45.28  },
+            { name:'Altair (α Aql)',    aliases:['Altair'],   type:'Star', ra:19.847, dec:8.87   },
+            { name:'Antares (α Sco)',   aliases:['Antares'],  type:'Star', ra:16.490, dec:-26.43 },
+            { name:'Fomalhaut (α PsA)', aliases:['Fomalhaut'],type:'Star', ra:22.961, dec:-29.62 },
+        ];
+
+        // ── State ────────────────────────────────────────────────────────────────
+        let lat = 31.05, lng = 34.85, city = 'Tel Aviv';
+        let selectedObj = null;
+        let chart = null;
+
+        // ── Time helpers ─────────────────────────────────────────────────────────
+        // Plot from noon today to noon tomorrow (48 points, every 30 min)
+        function getTimePoints() {
+            const now = new Date();
+            const noon = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 12, 0, 0, 0);
+            const pts = [];
+            for (let i = 0; i <= 48; i++) {
+                pts.push(new Date(noon.getTime() + i * 30 * 60 * 1000));
+            }
+            return pts;
+        }
+        function formatHHMM(d) {
+            return d.getHours().toString().padStart(2,'0') + ':' + d.getMinutes().toString().padStart(2,'0');
+        }
+
+        // ── Astronomy helpers ────────────────────────────────────────────────────
+        function getBodyAlt(bodyId, time, observer) {
+            const equ = Astronomy.Equator(bodyId, time, observer, true, true);
+            return Astronomy.Horizon(time, observer, equ.ra, equ.dec, 'normal').altitude;
+        }
+        function getFixedAlt(ra, dec, time, observer) {
+            return Astronomy.Horizon(time, observer, ra, dec, 'normal').altitude;
+        }
+        function getRiseSet(bodyId, isFixed, ra, dec, observer) {
+            const now = new Date();
+            let riseStr = '--:--', setStr = '--:--';
+            try {
+                let riseSearch, setSearch;
+                if (isFixed) {
+                    // For fixed objects, find when they cross the horizon
+                    // Use SearchHourAngle as proxy — just iterate for simplicity
+                } else {
+                    riseSearch = Astronomy.SearchRiseSet(bodyId, observer, +1, now, 2);
+                    setSearch  = Astronomy.SearchRiseSet(bodyId, observer, -1, now, 2);
+                    if (riseSearch) riseStr = formatHHMM(riseSearch.date);
+                    if (setSearch)  setStr  = formatHHMM(setSearch.date);
+                }
+            } catch(e) {}
+            return { rise: riseStr, set: setStr };
+        }
+
+        // Moon phase name
+        function moonPhaseName(angle) {
+            if (angle < 22.5)  return 'New Moon';
+            if (angle < 67.5)  return 'Waxing Crescent';
+            if (angle < 112.5) return 'First Quarter';
+            if (angle < 157.5) return 'Waxing Gibbous';
+            if (angle < 202.5) return 'Full Moon';
+            if (angle < 247.5) return 'Waning Gibbous';
+            if (angle < 292.5) return 'Last Quarter';
+            if (angle < 337.5) return 'Waning Crescent';
+            return 'New Moon';
+        }
+
+        // ── Update status cards ──────────────────────────────────────────────────
+        function updateCards() {
+            const now = new Date();
+            const observer = new Astronomy.Observer(lat, lng, 0);
+
+            // Sun
+            const sunAlt = getBodyAlt('Sun', now, observer);
+            document.getElementById('sun-alt').textContent = sunAlt.toFixed(1) + '°';
+            const sunRS = getRiseSet('Sun', false, null, null, observer);
+            const sunStatus = sunAlt > 0 ? 'Above Horizon' : 'Below Horizon';
+            document.getElementById('sun-detail').innerHTML = `<b>${sunStatus}</b> &nbsp;↑${sunRS.rise} ↓${sunRS.set}`;
+
+            // Moon
+            const moonAlt = getBodyAlt('Moon', now, observer);
+            document.getElementById('moon-alt').textContent = moonAlt.toFixed(1) + '°';
+            const moonIll = Astronomy.Illumination('Moon', now);
+            const phase = moonPhaseName(moonIll.phase_angle);
+            const illPct = (moonIll.phase_fraction * 100).toFixed(0);
+            const moonRS = getRiseSet('Moon', false, null, null, observer);
+            document.getElementById('moon-detail').innerHTML = `<b>${phase}</b> ${illPct}% &nbsp;↑${moonRS.rise} ↓${moonRS.set}`;
+
+            // Object
+            if (selectedObj) {
+                let alt;
+                if (selectedObj.isPlanet) {
+                    alt = getBodyAlt(selectedObj.name, now, observer);
+                } else {
+                    alt = getFixedAlt(selectedObj.ra, selectedObj.dec, now, observer);
+                }
+                document.getElementById('obj-alt').textContent = alt.toFixed(1) + '°';
+                const objStatus = alt > 0 ? (sunAlt < -6 ? '✓ Visible now' : 'Up (daylight)') : 'Below horizon';
+                document.getElementById('obj-detail').innerHTML = `<b>${objStatus}</b> &nbsp;<span style="color:#555;">${selectedObj.type}</span>`;
+            } else {
+                document.getElementById('obj-alt').textContent = '--°';
+                document.getElementById('obj-detail').innerHTML = `<span class="alt-no-obj" data-i18n="alt_no_obj">Search for an object above</span>`;
+            }
+        }
+
+        // ── Build chart data ─────────────────────────────────────────────────────
+        function buildChartData() {
+            const pts = getTimePoints();
+            const observer = new Astronomy.Observer(lat, lng, 0);
+            const labels = pts.map(formatHHMM);
+
+            const sunData  = pts.map(t => parseFloat(getBodyAlt('Sun',  t, observer).toFixed(2)));
+            const moonData = pts.map(t => parseFloat(getBodyAlt('Moon', t, observer).toFixed(2)));
+            let objData = null;
+            if (selectedObj) {
+                if (selectedObj.isPlanet) {
+                    objData = pts.map(t => parseFloat(getBodyAlt(selectedObj.name, t, observer).toFixed(2)));
+                } else {
+                    objData = pts.map(t => parseFloat(getFixedAlt(selectedObj.ra, selectedObj.dec, t, observer).toFixed(2)));
+                }
+            }
+
+            // Find "now" index
+            const nowMs = Date.now();
+            const noonMs = pts[0].getTime();
+            const nowIdx = Math.min(Math.round((nowMs - noonMs) / (30 * 60 * 1000)), pts.length - 1);
+
+            return { labels, sunData, moonData, objData, nowIdx };
+        }
+
+        // ── Render chart ─────────────────────────────────────────────────────────
+        function renderChart() {
+            const { labels, sunData, moonData, objData, nowIdx } = buildChartData();
+
+            // Background plugin: shade day (sun>0) vs twilight vs night
+            const bgPlugin = {
+                id: 'altBg',
+                beforeDraw(chart) {
+                    const { ctx, chartArea, scales } = chart;
+                    if (!chartArea) return;
+                    const { left, right, top, bottom } = chartArea;
+                    const xScale = scales.x;
+                    const n = sunData.length;
+                    ctx.save();
+                    for (let i = 0; i < n - 1; i++) {
+                        const x0 = xScale.getPixelForValue(i);
+                        const x1 = xScale.getPixelForValue(i + 1);
+                        const s = sunData[i];
+                        let color;
+                        if (s > 0)        color = 'rgba(100,80,0,0.13)';       // day
+                        else if (s > -6)  color = 'rgba(50,30,80,0.15)';       // civil twilight
+                        else if (s > -12) color = 'rgba(20,20,60,0.18)';       // nautical twilight
+                        else              color = 'rgba(0,0,0,0)';              // night (transparent)
+                        ctx.fillStyle = color;
+                        ctx.fillRect(Math.max(x0, left), top, Math.min(x1, right) - Math.max(x0, left), bottom - top);
+                    }
+                    ctx.restore();
+                }
+            };
+
+            // "Now" vertical line plugin
+            const nowPlugin = {
+                id: 'nowLine',
+                afterDraw(chart) {
+                    const { ctx, chartArea, scales } = chart;
+                    if (!chartArea) return;
+                    const x = scales.x.getPixelForValue(nowIdx);
+                    ctx.save();
+                    ctx.strokeStyle = '#E53935';
+                    ctx.lineWidth = 1.5;
+                    ctx.setLineDash([4, 3]);
+                    ctx.beginPath();
+                    ctx.moveTo(x, chartArea.top);
+                    ctx.lineTo(x, chartArea.bottom);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                    // Label "Now"
+                    ctx.fillStyle = '#E53935';
+                    ctx.font = '11px sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('NOW', x, chartArea.top - 4);
+                    ctx.restore();
+                }
+            };
+
+            const datasets = [
+                {
+                    label: 'Sun',
+                    data: sunData,
+                    borderColor: '#FDD835',
+                    backgroundColor: 'transparent',
+                    borderWidth: 2,
+                    pointRadius: 0,
+                    tension: 0.4,
+                },
+                {
+                    label: 'Moon',
+                    data: moonData,
+                    borderColor: '#aaaaaa',
+                    backgroundColor: 'transparent',
+                    borderWidth: 2,
+                    pointRadius: 0,
+                    tension: 0.4,
+                },
+            ];
+
+            if (objData) {
+                datasets.push({
+                    label: selectedObj.name,
+                    data: objData,
+                    borderColor: '#E53935',
+                    backgroundColor: 'transparent',
+                    borderWidth: 2.5,
+                    pointRadius: 0,
+                    tension: 0.4,
+                });
+                document.getElementById('obj-legend').style.display = 'flex';
+                document.getElementById('obj-legend-name').textContent = selectedObj.name;
+            } else {
+                document.getElementById('obj-legend').style.display = 'none';
+            }
+
+            const ctx2 = document.getElementById('altChart').getContext('2d');
+            if (chart) chart.destroy();
+            chart = new Chart(ctx2, {
+                type: 'line',
+                data: { labels, datasets },
+                options: {
+                    responsive: true,
+                    animation: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#111',
+                            borderColor: '#333',
+                            borderWidth: 1,
+                            titleColor: '#aaa',
+                            bodyColor: '#eee',
+                            callbacks: {
+                                label(ctx) {
+                                    return ` ${ctx.dataset.label}: ${ctx.parsed.y.toFixed(1)}°`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: '#555',
+                                maxTicksLimit: 13,
+                                font: { size: 11 },
+                            },
+                            grid: { color: '#1a1a1a' },
+                        },
+                        y: {
+                            min: -10,
+                            max: 90,
+                            ticks: { color: '#555', font: { size: 11 }, callback: v => v + '°' },
+                            grid: {
+                                color: ctx => ctx.tick.value === 0 ? '#444' : '#1a1a1a',
+                                lineWidth: ctx => ctx.tick.value === 0 ? 1.5 : 1,
+                            },
+                            title: { display: true, text: 'Altitude (°)', color: '#444', font: { size: 11 } }
+                        }
+                    }
+                },
+                plugins: [bgPlugin, nowPlugin]
+            });
+        }
+
+        // ── Object search / suggestions ──────────────────────────────────────────
+        const searchInput = document.getElementById('alt-search');
+        const suggestionsBox = document.getElementById('alt-suggestions');
+
+        function showSuggestions(query) {
+            const q = query.trim().toLowerCase();
+            if (q.length < 1) { suggestionsBox.style.display = 'none'; return; }
+            const matches = catalog.filter(o => {
+                if (o.name.toLowerCase().includes(q)) return true;
+                if (o.aliases && o.aliases.some(a => a.toLowerCase().includes(q))) return true;
+                return false;
+            }).slice(0, 8);
+
+            if (matches.length === 0) { suggestionsBox.style.display = 'none'; return; }
+            suggestionsBox.innerHTML = matches.map((o, i) =>
+                `<div class="alt-suggestion-item" data-idx="${i}">${o.name}<span class="sug-type">${o.type}</span></div>`
+            ).join('');
+            suggestionsBox._matches = matches;
+            suggestionsBox.style.display = 'block';
+
+            suggestionsBox.querySelectorAll('.alt-suggestion-item').forEach(el => {
+                el.addEventListener('mousedown', e => {
+                    e.preventDefault();
+                    const obj = matches[parseInt(el.dataset.idx)];
+                    selectObject(obj);
+                });
+            });
+        }
+
+        function selectObject(obj) {
+            selectedObj = obj;
+            searchInput.value = obj.name;
+            suggestionsBox.style.display = 'none';
+            updateCards();
+            renderChart();
+        }
+
+        searchInput.addEventListener('input', () => showSuggestions(searchInput.value));
+        searchInput.addEventListener('focus', () => showSuggestions(searchInput.value));
+        searchInput.addEventListener('blur', () => setTimeout(() => { suggestionsBox.style.display = 'none'; }, 150));
+        searchInput.addEventListener('keydown', e => {
+            if (e.key === 'Escape') { suggestionsBox.style.display = 'none'; searchInput.blur(); }
+        });
+
+        // ── Init ─────────────────────────────────────────────────────────────────
+        async function init() {
+            // Get location
+            try {
+                const controller = new AbortController();
+                const tid = setTimeout(() => controller.abort(), 3000);
+                const res = await fetch('https://ipapi.co/json/', { signal: controller.signal });
+                clearTimeout(tid);
+                if (res.ok) {
+                    const geo = await res.json();
+                    if (geo.latitude) { lat = geo.latitude; lng = geo.longitude; city = geo.city || geo.country_name || 'your location'; }
+                }
+            } catch(e) {}
+
+            document.getElementById('alt-location-bar').innerHTML =
+                `<i class="fa-solid fa-location-dot"></i> ${city} (${lat.toFixed(2)}°, ${lng.toFixed(2)}°)`;
+
+            updateCards();
+            renderChart();
+            // Refresh cards every minute
+            setInterval(updateCards, 60000);
+        }
+        init();
+
+        // Re-render on language change
+        window.addEventListener('languageChanged', () => { updateCards(); });
+    })();
+    </script>
+</body>
+</html>
