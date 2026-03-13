@@ -193,6 +193,9 @@
             margin-bottom: 20px;
         }
         .alt-location-bar i { margin-right: 4px; color: #444; }
+        /* SIMBAD lookup suggestion */
+        .alt-suggestion-item.simbad-lookup { color: #888; font-style: italic; }
+        .alt-suggestion-item.simbad-lookup i { color: #555; margin-right: 6px; }
         /* No object */
         .alt-no-obj {
             font-size: 13px;
@@ -424,6 +427,7 @@
         let lat = 31.05, lng = 34.85, city = 'Tel Aviv';
         let selectedObj = null;
         let chart = null;
+        let targetsData = null; // OpenNGC — loaded once at init
 
         // ── Time helpers ─────────────────────────────────────────────────────────
         function getSelectedDate() {
@@ -703,29 +707,144 @@
         const searchInput = document.getElementById('alt-search');
         const suggestionsBox = document.getElementById('alt-suggestions');
 
+        // Messier → NGC/IC mapping (same as catalog-explorer)
+        const messierToNgc = {
+            1:'NGC1952',2:'NGC7089',3:'NGC5272',4:'NGC6121',5:'NGC5904',6:'NGC6405',7:'NGC6475',8:'NGC6523',9:'NGC6333',10:'NGC6254',
+            11:'NGC6705',12:'NGC6218',13:'NGC6205',14:'NGC6402',15:'NGC7078',16:'NGC6611',17:'NGC6618',18:'NGC6613',19:'NGC6273',20:'NGC6514',
+            21:'NGC6531',22:'NGC6656',23:'NGC6494',24:'IC4715',25:'IC4725',26:'NGC6694',27:'NGC6853',28:'NGC6626',29:'NGC6913',30:'NGC7099',
+            31:'NGC0224',32:'NGC0221',33:'NGC0598',34:'NGC1039',35:'NGC2168',36:'NGC1960',37:'NGC2099',38:'NGC1912',39:'NGC7092',
+            41:'NGC2287',42:'NGC1976',43:'NGC1982',44:'NGC2632',46:'NGC2437',47:'NGC2422',48:'NGC2548',49:'NGC4472',50:'NGC2323',
+            51:'NGC5194',52:'NGC7654',53:'NGC5024',54:'NGC6715',55:'NGC6809',56:'NGC6779',57:'NGC6720',58:'NGC4579',59:'NGC4621',60:'NGC4649',
+            61:'NGC4303',62:'NGC6266',63:'NGC5055',64:'NGC4826',65:'NGC3623',66:'NGC3627',67:'NGC2682',68:'NGC4590',69:'NGC6637',70:'NGC6681',
+            71:'NGC6838',72:'NGC6981',74:'NGC0628',75:'NGC6864',76:'NGC0650',77:'NGC1068',78:'NGC2068',79:'NGC1904',80:'NGC6093',
+            81:'NGC3031',82:'NGC3034',83:'NGC5236',84:'NGC4374',85:'NGC4382',86:'NGC4406',87:'NGC4486',88:'NGC4501',89:'NGC4552',90:'NGC4569',
+            91:'NGC4548',92:'NGC6341',93:'NGC2447',94:'NGC4736',95:'NGC3351',96:'NGC3368',97:'NGC3587',98:'NGC4192',99:'NGC4254',100:'NGC4321',
+            101:'NGC5457',102:'NGC5866',103:'NGC0581',104:'NGC4594',105:'NGC3379',106:'NGC4258',107:'NGC6171',108:'NGC3556',109:'NGC3992',110:'NGC0205'
+        };
+
+        // Convert "HH:MM:SS.s" → decimal hours
+        function parseRA(s) {
+            const p = s.trim().split(':');
+            return parseFloat(p[0]) + parseFloat(p[1])/60 + parseFloat(p[2])/3600;
+        }
+        // Convert "±DD:MM:SS.s" → decimal degrees
+        function parseDec(s) {
+            const neg = s.trim().startsWith('-');
+            const p = s.trim().replace(/^[+-]/,'').split(':');
+            const v = parseFloat(p[0]) + parseFloat(p[1])/60 + parseFloat(p[2])/3600;
+            return neg ? -v : v;
+        }
+        // Normalise a query to an OpenNGC key like "NGC0224" or "IC1805"
+        function queryToNgcKey(q) {
+            const m = q.match(/^(ngc|ic)\s*(\d+)$/i);
+            if (m) return m[1].toUpperCase() + m[2].padStart(4,'0');
+            return null;
+        }
+        // Make a display name from an OpenNGC entry  e.g. "NGC 224 (Galaxy)"
+        function ngcDisplayName(item) {
+            const id = item.n.replace(/^(NGC|IC)0*(\d+)$/, '$1 $2');
+            return item.cn ? `${id} — ${item.cn}` : id;
+        }
+        // Build a catalog object from an OpenNGC entry
+        function ngcToObj(item) {
+            return {
+                name: item.n.replace(/^(NGC|IC)0*(\d+)$/, '$1 $2'),
+                type: item.t || 'DSO',
+                ra: parseRA(item.r),
+                dec: parseDec(item.d),
+            };
+        }
+
         function showSuggestions(query) {
             const q = query.trim().toLowerCase();
-            if (q.length < 1) { suggestionsBox.style.display = 'none'; return; }
-            const matches = catalog.filter(o => {
+            if (q.length < 2) { suggestionsBox.style.display = 'none'; return; }
+
+            // ── 1. Named catalog (planets, stars, popular DSOs) ──────────────────
+            const namedMatches = catalog.filter(o => {
                 if (o.name.toLowerCase().includes(q)) return true;
                 if (o.aliases && o.aliases.some(a => a.toLowerCase().includes(q))) return true;
                 return false;
-            }).slice(0, 8);
+            }).slice(0, 5);
 
-            if (matches.length === 0) { suggestionsBox.style.display = 'none'; return; }
-            suggestionsBox.innerHTML = matches.map((o, i) =>
-                `<div class="alt-suggestion-item" data-idx="${i}">${o.name}<span class="sug-type">${o.type}</span></div>`
+            // ── 2. OpenNGC / targets.json ────────────────────────────────────────
+            let ngcMatches = [];
+            if (targetsData) {
+                // Resolve Messier aliases
+                let ngcKey = queryToNgcKey(q);
+                if (!ngcKey) {
+                    const mMatch = q.match(/^m\s*(\d+)$/);
+                    if (mMatch && messierToNgc[parseInt(mMatch[1])]) {
+                        ngcKey = messierToNgc[parseInt(mMatch[1])];
+                    }
+                }
+
+                if (ngcKey) {
+                    // Exact key lookup
+                    const exact = targetsData.find(x => x.n === ngcKey);
+                    if (exact) ngcMatches = [exact];
+                } else {
+                    // Prefix search on normalised ID
+                    const qn = q.replace(/\s+/g,'');
+                    ngcMatches = targetsData.filter(x => {
+                        const norm = x.n.toLowerCase().replace(/^(ngc|ic)0*/,'$1');
+                        return norm.startsWith(qn) || x.n.toLowerCase().replace(/0/g,'').startsWith(qn);
+                    }).slice(0, 5);
+                }
+            }
+
+            // ── 3. SIMBAD fallback option ────────────────────────────────────────
+            const looksExternal = /^(sh2|b\d|lbn|ldn|ced|rcw|vdb|barnard|col|mel|cr)\s*[-\s]?\d/i.test(q)
+                                  || (q.length > 2 && namedMatches.length === 0 && ngcMatches.length === 0);
+
+            const allItems = [
+                ...namedMatches.map(o => ({ label: o.name, sub: o.type, _obj: o })),
+                ...ngcMatches.map(item => ({ label: ngcDisplayName(item), sub: item.t || 'DSO', _obj: ngcToObj(item) })),
+                ...(looksExternal ? [{ label: `Look up "${query.trim()}" via SIMBAD`, sub: '', _simbad: query.trim() }] : [])
+            ];
+
+            if (allItems.length === 0) { suggestionsBox.style.display = 'none'; return; }
+
+            suggestionsBox.innerHTML = allItems.map((item, i) =>
+                item._simbad
+                    ? `<div class="alt-suggestion-item simbad-lookup" data-idx="${i}"><i class="fa-solid fa-satellite-dish"></i>${item.label}</div>`
+                    : `<div class="alt-suggestion-item" data-idx="${i}">${item.label}<span class="sug-type">${item.sub}</span></div>`
             ).join('');
-            suggestionsBox._matches = matches;
+            suggestionsBox._items = allItems;
             suggestionsBox.style.display = 'block';
 
             suggestionsBox.querySelectorAll('.alt-suggestion-item').forEach(el => {
                 el.addEventListener('mousedown', e => {
                     e.preventDefault();
-                    const obj = matches[parseInt(el.dataset.idx)];
-                    selectObject(obj);
+                    const item = allItems[parseInt(el.dataset.idx)];
+                    if (item._simbad) {
+                        resolveSimbad(item._simbad);
+                    } else {
+                        selectObject(item._obj);
+                    }
                 });
             });
+        }
+
+        // Resolve any catalog name via SIMBAD TAP, then select it
+        function resolveSimbad(query) {
+            suggestionsBox.style.display = 'none';
+            searchInput.value = query;
+            searchInput.disabled = true;
+            const safeQ = query.replace(/'/g,"''");
+            const adql = `SELECT TOP 1 b.main_id, b.otype, b.ra, b.dec FROM ident i JOIN basic b ON i.oidref=b.oid WHERE i.id='${safeQ}'`;
+            const form = new URLSearchParams({ request:'doQuery', lang:'adql', format:'json', query: adql });
+            fetch('https://simbad.cds.unistra.fr/simbad/sim-tap/sync', { method:'POST', body:form,
+                  headers:{'Content-Type':'application/x-www-form-urlencoded'} })
+                .then(r => r.json())
+                .then(data => {
+                    searchInput.disabled = false;
+                    if (!data.data || !data.data[0]) { alert(`"${query}" not found in SIMBAD.`); return; }
+                    const row = data.data[0];
+                    // SIMBAD returns RA/Dec in degrees
+                    selectObject({ name: row[0] || query, type: row[1] || 'DSO',
+                                   ra: parseFloat(row[2]) / 15, dec: parseFloat(row[3]) });
+                })
+                .catch(() => { searchInput.disabled = false; alert('SIMBAD lookup failed.'); });
         }
 
         function selectObject(obj) {
@@ -778,6 +897,8 @@
         // ── Init ─────────────────────────────────────────────────────────────────
         async function init() {
             initDatePicker();
+            // Load OpenNGC catalog in background
+            fetch('data/targets.json').then(r => r.json()).then(d => { targetsData = d; }).catch(() => {});
             // Get location
             try {
                 const controller = new AbortController();
