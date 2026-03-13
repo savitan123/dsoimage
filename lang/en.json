@@ -315,5 +315,21 @@
     "weather_windy_desc": "Interactive map showing cloud cover. Click the map to check specific locations.",
     "weather_clear_title": "Clear Outside",
     "weather_clear_desc": "Detailed astronomical weather forecast including seeing, transparency, and darkness.",
-    "weather_clear_btn": "Open Clear Outside (Negev)"
+    "weather_clear_btn": "Open Clear Outside (Negev)",
+    "sitemap_title": "Site Map",
+    "sitemap_subtitle": "All pages on DSOImage.com, organized by section.",
+    "sitemap_sec_home": "Home",
+    "sitemap_sec_galleries": "Galleries",
+    "sitemap_sec_constellations": "Constellations",
+    "sitemap_sec_resources": "Resources",
+    "sitemap_sec_tools": "Observation Tools",
+    "sitemap_sec_space": "Space & Sky",
+    "sitemap_sec_about": "About",
+    "sitemap_home_page": "Home Page",
+    "sitemap_northern": "Northern Hemisphere",
+    "sitemap_southern": "Southern Hemisphere",
+    "sitemap_weather_forecast": "Weather Forecast",
+    "sitemap_planner_link": "Observation Planner",
+    "sitemap_iss_link": "ISS Tracker",
+    "sitemap_about_person": "About Shimon Avitan"
 }

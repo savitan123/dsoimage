@@ -352,5 +352,21 @@
     "weather_windy_desc": "מפה אינטראקטיבית המציגה כיסוי ענן. לחץ על המפה לבדיקת מיקומים ספציפיים.",
     "weather_clear_title": "Clear Outside",
     "weather_clear_desc": "תחזית מזג אוויר אסטרונומי מפורטת כולל ראייה, שקיפות ואפלה.",
-    "weather_clear_btn": "פתח Clear Outside (נגב)"
+    "weather_clear_btn": "פתח Clear Outside (נגב)",
+    "sitemap_title": "מפת אתר",
+    "sitemap_subtitle": "כל הדפים באתר DSOImage.com, מסודרים לפי קטגוריה.",
+    "sitemap_sec_home": "ראשי",
+    "sitemap_sec_galleries": "גלריות",
+    "sitemap_sec_constellations": "קבוצות כוכבים",
+    "sitemap_sec_resources": "משאבים",
+    "sitemap_sec_tools": "כלי תצפית",
+    "sitemap_sec_space": "חלל ושמיים",
+    "sitemap_sec_about": "אודות",
+    "sitemap_home_page": "דף הבית",
+    "sitemap_northern": "חצי כדור צפוני",
+    "sitemap_southern": "חצי כדור דרומי",
+    "sitemap_weather_forecast": "תחזית מזג אוויר",
+    "sitemap_planner_link": "מתכנן תצפיות",
+    "sitemap_iss_link": "מעקב תחנת החלל",
+    "sitemap_about_person": "אודות שמעון אביתן"
 }
