@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const titleSize = isHome ? "13.5px" : "15px";
 
         const bodies = [
+            { id: 'Sun', name: "Sun", label: "fa-solid fa-sun", color: "#FDD835" },
             { id: 'Mercury', name: "Mercury", label: "fa-solid fa-circle", color: "#888" },
             { id: 'Venus', name: "Venus", label: "fa-solid fa-circle", color: "#e3bb76" },
             { id: 'Mars', name: "Mars", label: "fa-solid fa-circle", color: "#c1440e" },
@@ -65,8 +66,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             } catch (err) { }
 
             const topo = Astronomy.Horizon(date, observer, equ_2000.ra, equ_2000.dec, 'normal');
-            const ill = Astronomy.Illumination(b.id, date);
-            const mag = ill ? ill.mag.toFixed(1) : "?";
+            const ill = (b.id !== 'Sun') ? Astronomy.Illumination(b.id, date) : null;
+            const mag = ill ? ill.mag.toFixed(1) : "--";
             const isVisibleNow = topo.altitude > 0;
 
             let visIcon = '', visStyle = '';
