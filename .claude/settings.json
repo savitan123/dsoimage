@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(done)",
+      "Bash(grep -c \"og:\" /c/Users/Savit/Documents/dsoimage-site/*.html)",
+      "Bash(grep -r application/ld+json /c/Users/Savit/Documents/dsoimage-site --include=*.html)",
+      "Bash(grep -rn \"style.css?v=113\" *.html)",
+      "Bash(sed -i 's/style\\\\.css?v=113/style.css?v=114/g' *.html)",
+      "Bash(grep -l \"style.css?v=114\" *.html)",
+      "Bash(gh run:*)",
+      "Bash(curl -s -o /tmp/apod_test.json -w \"\\\\nHTTP_STATUS:%{http_code}\" \"https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&thumbs=true\")",
+      "Bash(curl -s -o /tmp/apod_date.json -w \"\\\\nHTTP_STATUS:%{http_code}\" \"https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date=2026-03-12\")",
+      "Bash(curl -s -o /tmp/apod_13.json -w \"\\\\nHTTP_STATUS:%{http_code}\" \"https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date=2026-03-13\")",
+      "Bash(curl -s \"https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date=2026-03-11&thumbs=true\")",
+      "Bash(grep -rn \"tonights_best.js\" *.html)",
+      "Bash(sed -i 's/tonights_best\\\\.js?v=6/tonights_best.js?v=7/' index.html)",
+      "Bash(sed -i 's/tonights_best\\\\.js?v=3/tonights_best.js?v=7/' tonights_best.html)",
+      "Bash(sed -i 's/style\\\\.css?v=114/style.css?v=115/g' *.html)",
+      "Bash(sed -i 's/script\\\\.js?v=112/script.js?v=113/g' *.html)",
+      "Bash(for f:*)",
+      "Bash(do sed:*)",
+      "Bash(grep -c \"search-trigger\\\\|circle-icon\" c:/Users/Savit/Documents/dsoimage-site/*.html)",
+      "Bash(grep -rn \"search-trigger\\\\|circle-icon\" c:/Users/Savit/Documents/dsoimage-site/*.html)",
+      "Bash(perl -0777 -i -pe 's|<span\\\\s*\\\\n\\\\s*class=\"\"circle-icon\"\"></span>|<i class=\"\"fa-solid fa-moon\"\"></i>|g' about.html checklist.html contact.html galaxies.html planner.html weather.html)",
+      "Bash(perl -0777 -i -pe 's|<button[^>]*class=\"\"search-trigger\"\"[^>]*>\\\\s*\\(?:🔍|<i[^>]*></i>\\)\\\\s*</button>\\\\n?||g' apod.html checklist.html constellation.html constellations-northern.html constellations-southern.html coordinate-converter.html galaxies.html knowledge.html live-sky-map.html tonights_best.html weather.html)",
+      "Bash(do perl:*)",
+      "Bash(perl -0777 -i -pe 's{<button aria-label=\"\"Search\"\" class=\"\"search-trigger\"\" id=\"\"master-search-btn\"\">\\\\s*<i class=\"\"fa-solid fa-magnifying-glass\"\"></i>\\\\s*</button>}{}g' iss.html)",
+      "Bash(grep -n \"search-trigger\\\\|circle-icon\" *.html)",
+      "Bash(sed -i 's/style\\\\.css?v=116/style.css?v=117/g' *.html)",
+      "Bash(sed -i 's/tonights_best\\\\.js?v=8/tonights_best.js?v=9/g' *.html)",
+      "Bash(grep -c \"fa-solid fa-moon\" c:/Users/Savit/Documents/dsoimage-site/*.html)",
+      "Bash(grep -n \"id: ''Sun''\" c:/Users/Savit/Documents/dsoimage-site/js/tonights_best.js)",
+      "Bash(grep -rn \"style\\\\.css?v=116\" c:/Users/Savit/Documents/dsoimage-site/*.html)"
+    ]
+  }
+}

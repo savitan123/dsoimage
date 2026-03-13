@@ -1,0 +1,16 @@
+Git commands for CMD
+
+git add -A
+git commit -m "your message here"
+git push origin main
+Or if the push is rejected (remote has newer commits):
+
+
+git pull --rebase origin main
+git push origin main
+git add -A stages everything changed. If you only want to stage specific files:
+
+
+git add lang/he.json sitemap.html
+git commit -m "update Hebrew translations"
+git push origin main
