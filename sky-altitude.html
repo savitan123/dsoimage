@@ -144,16 +144,18 @@
             padding: 16px;
             margin-bottom: 8px;
             position: relative;
-            /* Fixed height lets maintainAspectRatio:false work without growing */
             height: 460px;
             width: 100%;
             max-width: calc(100vw - 30px);
             overflow: hidden;
             box-sizing: border-box;
+            direction: ltr; /* prevent RTL layout from expanding chart beyond viewport */
         }
-        .alt-chart-wrap canvas { width: 100%; height: 100%; }
-        /* Nuclear overflow clip — page root + html/body */
-        html, body, .container { overflow-x: hidden; max-width: 100vw; }
+        .alt-chart-wrap canvas { width: 100%; height: 100%; display: block; }
+        /* Clamp page to viewport width */
+        html { overflow-x: hidden; }
+        body { overflow-x: hidden; max-width: 100vw; }
+        .container { overflow-x: hidden; max-width: 100vw; box-sizing: border-box; }
         .alt-main-area { display: flex; flex-direction: column; }
         /* Date picker — locked LTR so Day/Month/Year stays in logical order */
         .alt-date-row {
@@ -180,12 +182,12 @@
         .alt-date-row select:focus { border-color: #E53935; }
         .alt-date-row label { font-size: 12px; color: #555; }
         @media (max-width: 768px) {
-            .alt-chart-wrap { height: 340px; padding: 10px 4px 10px 0; order: -1; max-width: calc(100vw - 20px); overflow: hidden; }
+            .alt-chart-wrap { height: 340px; padding: 10px 8px; max-width: calc(100vw - 20px); overflow: hidden; order: 1; }
+            .alt-tooltip-box { order: 2; max-width: calc(100vw - 20px); box-sizing: border-box; }
+            .alt-status-row { order: 3; max-width: 100%; }
             .main-content { overflow-x: hidden; max-width: 100vw; box-sizing: border-box; padding-left: 10px; padding-right: 10px; }
             .alt-search-wrap { max-width: 100%; }
             .alt-date-row { max-width: 100%; box-sizing: border-box; }
-            .alt-status-row { max-width: 100%; }
-            .alt-tooltip-box { max-width: calc(100vw - 20px); box-sizing: border-box; }
         }
         .alt-legend {
             display: flex;
@@ -348,7 +350,7 @@
             </div>
 
             <!-- Chart -->
-            <div class="alt-chart-wrap">
+            <div class="alt-chart-wrap" dir="ltr">
                 <canvas id="altChart"></canvas>
                 <div class="alt-legend">
                     <div class="alt-legend-item"><div class="alt-legend-dot" style="background:#FDD835;"></div><span data-i18n="alt_card_sun">Sun</span></div>
@@ -357,6 +359,7 @@
                     <div class="alt-legend-item"><div class="alt-legend-dot" style="background:#E53935; width:2px; height:12px; border-radius:1px;"></div><span data-i18n="alt_now">Now</span></div>
                 </div>
             </div>
+            <!-- Hover tooltip — sits right below chart -->
             <div class="alt-tooltip-box" id="alt-tooltip-box"></div>
             </div><!-- /.alt-main-area -->
 
@@ -671,12 +674,10 @@
                 document.getElementById('obj-legend').style.display = 'none';
             }
 
-            // Clamp wrap width to viewport BEFORE Chart.js measures it
+            // Clamp wrap width to viewport BEFORE Chart.js measures it (safety for RTL)
             const wrap = document.getElementById('altChart').closest('.alt-chart-wrap');
-            const vw = window.innerWidth || document.documentElement.clientWidth;
-            const isMobile = vw <= 768;
-            const clampedW = Math.min(wrap.parentElement.clientWidth || vw, vw - (isMobile ? 22 : 32));
-            wrap.style.width = clampedW + 'px';
+            const vw = window.innerWidth;
+            if (wrap.offsetWidth > vw - 20) wrap.style.width = (vw - 20) + 'px';
 
             const ctx2 = document.getElementById('altChart').getContext('2d');
             if (chart) chart.destroy();
@@ -684,7 +685,7 @@
                 type: 'line',
                 data: { labels, datasets },
                 options: {
-                    responsive: !isMobile,
+                    responsive: true,
                     maintainAspectRatio: false,
                     animation: false,
                     interaction: { mode: 'index', intersect: false },
