@@ -81,6 +81,7 @@
             border-top: none;
             border-radius: 0 0 8px 8px;
             max-height: 220px;
+            overflow-x: hidden;
             overflow-y: auto;
             z-index: 100;
             display: none;
@@ -941,7 +942,13 @@
 
         // Re-render on language change
         window.addEventListener('languageChanged', () => { updateCards(); renderChart(); });
-        window.addEventListener('resize', () => { renderChart(); });
+        // Only re-render on width changes — keyboard show/hide changes height only and
+        // would cause chart to re-measure at a wrong size on mobile
+        let _lastRenderW = window.innerWidth;
+        window.addEventListener('resize', () => {
+            const w = window.innerWidth;
+            if (w !== _lastRenderW) { _lastRenderW = w; renderChart(); }
+        });
     })();
     </script>
 </body>
