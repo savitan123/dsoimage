@@ -669,6 +669,11 @@
                 document.getElementById('obj-legend').style.display = 'none';
             }
 
+            // Clamp wrap width to viewport BEFORE Chart.js measures it
+            const wrap = document.getElementById('altChart').closest('.alt-chart-wrap');
+            const vw = document.documentElement.clientWidth;
+            wrap.style.width = Math.min(wrap.parentElement.clientWidth, vw - 20) + 'px';
+
             const ctx2 = document.getElementById('altChart').getContext('2d');
             if (chart) chart.destroy();
             chart = new Chart(ctx2, {
@@ -940,7 +945,8 @@
         init();
 
         // Re-render on language change
-        window.addEventListener('languageChanged', () => { updateCards(); });
+        window.addEventListener('languageChanged', () => { updateCards(); renderChart(); });
+        window.addEventListener('resize', () => { renderChart(); });
     })();
     </script>
 </body>
