@@ -176,6 +176,22 @@
             color: #555;
             font-style: italic;
         }
+        /* External tooltip below chart */
+        .alt-tooltip-box {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 7px;
+            padding: 8px 12px;
+            margin-top: 8px;
+            font-size: 13px;
+            color: #eee;
+            min-height: 52px;
+            opacity: 0;
+            transition: opacity 0.1s;
+        }
+        .alt-tooltip-box.visible { opacity: 1; }
+        .alt-tt-title { color: #888; font-size: 12px; margin-bottom: 5px; }
+        .alt-tt-line { margin: 2px 0; }
     </style>
 </head>
 <body>
@@ -286,6 +302,7 @@
                     <div class="alt-legend-item" id="obj-legend" style="display:none;"><div class="alt-legend-dot" style="background:#E53935;"></div><span id="obj-legend-name">Object</span></div>
                     <div class="alt-legend-item"><div class="alt-legend-dot" style="background:#E53935; width:2px; height:12px; border-radius:1px;"></div><span data-i18n="alt_now">Now</span></div>
                 </div>
+                <div class="alt-tooltip-box" id="alt-tooltip-box"></div>
             </div>
             </div><!-- /.alt-main-area -->
 
@@ -597,15 +614,17 @@
                     plugins: {
                         legend: { display: false },
                         tooltip: {
-                            backgroundColor: '#111',
-                            borderColor: '#333',
-                            borderWidth: 1,
-                            titleColor: '#aaa',
-                            bodyColor: '#eee',
-                            callbacks: {
-                                label(ctx) {
-                                    return ` ${ctx.dataset.label}: ${ctx.parsed.y.toFixed(1)}°`;
-                                }
+                            enabled: false,
+                            external(context) {
+                                const el = document.getElementById('alt-tooltip-box');
+                                const tt = context.tooltip;
+                                if (!tt || tt.opacity === 0) { el.classList.remove('visible'); return; }
+                                const title = (tt.title && tt.title[0]) || '';
+                                const lines = tt.dataPoints.map(dp =>
+                                    `<div class="alt-tt-line"><span style="color:${dp.dataset.borderColor};margin-right:6px;">&#9644;</span>${dp.dataset.label}: <b>${dp.parsed.y.toFixed(1)}°</b></div>`
+                                ).join('');
+                                el.innerHTML = `<div class="alt-tt-title">${title}</div>${lines}`;
+                                el.classList.add('visible');
                             }
                         }
                     },
