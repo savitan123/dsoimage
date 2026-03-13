@@ -101,8 +101,9 @@ function renderCalendar(date) {
     const year = date.getFullYear();
     const month = date.getMonth(); // 0-11
 
-    // Formatting locale
-    monthYear.innerText = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(date);
+    // Formatting locale — use Hebrew if site is in Hebrew mode
+    const calLocale = (document.documentElement.getAttribute('lang') === 'he') ? 'he-IL' : 'en-US';
+    monthYear.innerText = new Intl.DateTimeFormat(calLocale, { month: 'long', year: 'numeric' }).format(date);
 
     calendarGrid.innerHTML = '';
 
@@ -206,6 +207,9 @@ function renderCalendar(date) {
 
     console.log("Calendar Rendered for", year, month);
 }
+
+// Re-render calendar header when language switches
+window.addEventListener('languageChanged', () => renderCalendar(currentDate));
 
 let plannedRange = null;
 

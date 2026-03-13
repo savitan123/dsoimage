@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Planned Session - Astronomy Planner</title>
-    <link href="css/style.css?v=115" rel="stylesheet" />
+    <link href="css/style.css?v=116" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="images/favicon.png" rel="icon" type="image/png" />
     <meta
@@ -130,11 +130,11 @@
                                 style="display:block; font-size:12px; color:#888; margin-bottom:5px;">Min
                                 Altitude:</label>
                             <select class="suggester-select" id="suggester-alt">
-                                <option value="10">10° (Horizon)</option>
-                                <option value="20">20°</option>
-                                <option selected="" value="30">30° (Good)</option>
-                                <option value="45">45° (High)</option>
-                                <option value="60">60° (Zenith)</option>
+                                <option value="10" data-i18n="opt_horizon">10° (Horizon)</option>
+                                <option value="20" data-i18n="opt_20deg">20°</option>
+                                <option selected="" value="30" data-i18n="opt_30deg">30° (Good)</option>
+                                <option value="45" data-i18n="opt_45deg">45° (High)</option>
+                                <option value="60" data-i18n="opt_60deg">60° (Zenith)</option>
                             </select>
                         </div>
                         <div class="control-group">
@@ -142,8 +142,8 @@
                                 style="display:block; font-size:12px; color:#888; margin-bottom:5px;">Sort
                                 By:</label>
                             <select class="suggester-select" id="suggester-sort">
-                                <option selected="" value="alt_desc">Highest Altitude</option>
-                                <option value="mag_asc">Brightest (Mag)</option>
+                                <option selected="" value="alt_desc" data-i18n="opt_highest_alt">Highest Altitude</option>
+                                <option value="mag_asc" data-i18n="opt_brightest">Brightest (Mag)</option>
                             </select>
                         </div>
                         <div class="control-group">
@@ -151,11 +151,11 @@
                                 style="display:block; font-size:12px; color:#888; margin-bottom:5px;">Filter
                                 Type:</label>
                             <select class="suggester-select" id="suggester-type">
-                                <option selected="" value="all">Everything</option>
-                                <option value="G">Galaxies</option>
-                                <option value="Nb">Nebulae</option>
-                                <option value="Cl">Clusters</option>
-                                <option value="Pn">Planetary Nebs</option>
+                                <option selected="" value="all" data-i18n="opt_all">Everything</option>
+                                <option value="G" data-i18n="opt_galaxies">Galaxies</option>
+                                <option value="Nb" data-i18n="opt_nebulae">Nebulae</option>
+                                <option value="Cl" data-i18n="opt_clusters">Clusters</option>
+                                <option value="Pn" data-i18n="opt_planetary">Planetary Nebs</option>
                             </select>
                         </div>
                         <!-- Time Range Controls -->
@@ -270,9 +270,9 @@
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/satellite.js/4.0.0/satellite.min.js"></script>
-    <script src="js/script.js?v=113"></script>
+    <script src="js/script.js?v=114"></script>
     <script src="js/stats.js"></script>
-    <script src="js/calendar_v2.js?v=3"></script>
+    <script src="js/calendar_v2.js?v=4"></script>
     <script src="js/i18n.js?v=113"></script>
     <script>
         function toggleTimeInputs() {

@@ -2600,6 +2600,12 @@ body.no-scroll {
 /* RTL nav icon/text order — handled above in the base RTL block */
 
 /* Tool cards */
+.tool-card {
+  padding: 30px 35px;
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+
 [dir="rtl"] .tool-card {
   text-align: right;
 }
