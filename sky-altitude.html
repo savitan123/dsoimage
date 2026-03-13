@@ -20,7 +20,7 @@
     <link rel="alternate" hreflang="he" href="https://dsoimage.com/sky-altitude.html" />
     <link rel="alternate" hreflang="x-default" href="https://dsoimage.com/sky-altitude.html" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="css/style.css?v=118" rel="stylesheet" />
+    <link href="css/style.css?v=119" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
@@ -142,12 +142,13 @@
             border: 1px solid #1e1e1e;
             border-radius: 10px;
             padding: 16px;
-            margin-bottom: 24px;
+            margin-bottom: 8px;
             position: relative;
             /* Fixed height lets maintainAspectRatio:false work without growing */
             height: 460px;
-            max-width: 100%;
-            overflow: hidden;
+            width: 100%;
+            max-width: calc(100vw - 30px);
+            overflow: visible;
             box-sizing: border-box;
         }
         .alt-chart-wrap canvas { width: 100%; height: 100%; }
@@ -179,11 +180,12 @@
         .alt-date-row select:focus { border-color: #E53935; }
         .alt-date-row label { font-size: 12px; color: #555; }
         @media (max-width: 768px) {
-            .alt-chart-wrap { height: 340px; padding: 10px 4px 10px 0; order: -1; }
+            .alt-chart-wrap { height: 340px; padding: 10px 4px 10px 0; order: -1; max-width: calc(100vw - 20px); }
             .main-content { overflow-x: hidden; max-width: 100vw; box-sizing: border-box; padding-left: 10px; padding-right: 10px; }
             .alt-search-wrap { max-width: 100%; }
             .alt-date-row { max-width: 100%; box-sizing: border-box; }
             .alt-status-row { max-width: 100%; }
+            .alt-tooltip-box { max-width: calc(100vw - 20px); box-sizing: border-box; }
         }
         .alt-legend {
             display: flex;
@@ -354,8 +356,8 @@
                     <div class="alt-legend-item" id="obj-legend" style="display:none;"><div class="alt-legend-dot" style="background:#E53935;"></div><span id="obj-legend-name">Object</span></div>
                     <div class="alt-legend-item"><div class="alt-legend-dot" style="background:#E53935; width:2px; height:12px; border-radius:1px;"></div><span data-i18n="alt_now">Now</span></div>
                 </div>
-                <div class="alt-tooltip-box" id="alt-tooltip-box"></div>
             </div>
+            <div class="alt-tooltip-box" id="alt-tooltip-box"></div>
             </div><!-- /.alt-main-area -->
 
             <footer class="site-footer" style="margin-top: 40px; border-top: 1px solid #222; padding-top: 20px;">
@@ -595,7 +597,7 @@
                         const x1 = xScale.getPixelForValue(i + 1);
                         const s = sunData[i];
                         let color;
-                        if (s > 0)        color = 'rgba(0,240,255,0.18)';       // day #00F0FF
+                        if (s > 0)        color = 'rgba(0,255,255,0.18)';       // day #00FFFF
                         else if (s > -6)  color = 'rgba(50,30,80,0.15)';       // civil twilight
                         else if (s > -12) color = 'rgba(20,20,60,0.18)';       // nautical twilight
                         else              color = 'rgba(0,0,0,0)';              // night (transparent)
