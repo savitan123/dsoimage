@@ -149,10 +149,8 @@
             box-sizing: border-box;
         }
         .alt-chart-wrap canvas { width: 100%; height: 100%; display: block; }
-        /* Clamp page to viewport width */
-        html { overflow-x: hidden; }
-        body { overflow-x: hidden; max-width: 100vw; }
-        .container { overflow-x: hidden; max-width: 100vw; box-sizing: border-box; }
+        /* Prevent horizontal scroll */
+        html, body { overflow-x: hidden; }
         .alt-main-area { display: flex; flex-direction: column; }
         /* Date picker — locked LTR so Day/Month/Year stays in logical order */
         .alt-date-row {
@@ -180,11 +178,8 @@
         .alt-date-row label { font-size: 12px; color: #555; }
         @media (max-width: 768px) {
             .alt-chart-wrap { height: 340px; padding: 10px 8px; overflow: hidden; order: 1; }
-            .alt-tooltip-box { order: 2; max-width: calc(100vw - 20px); box-sizing: border-box; }
-            .alt-status-row { order: 3; max-width: 100%; }
-            .main-content { overflow-x: hidden; max-width: 100vw; box-sizing: border-box; padding-left: 10px; padding-right: 10px; }
-            .alt-search-wrap { max-width: 100%; }
-            .alt-date-row { max-width: 100%; box-sizing: border-box; }
+            .alt-tooltip-box { order: 2; }
+            .alt-status-row { order: 3; }
         }
         .alt-legend {
             display: flex;
@@ -298,7 +293,7 @@
             </div>
         </nav>
 
-        <main class="main-content">
+        <main class="main-content" style="max-width: 900px; margin: 0 auto; box-sizing: border-box;">
             <p class="alt-page-title"><i class="fa-solid fa-chart-line" style="color:#E53935;"></i><span data-i18n="alt_title">Sky Altitude Chart</span></p>
             <p class="alt-page-sub" data-i18n="alt_subtitle">Plot altitude over time for the Sun, Moon, and any object. Observer location is auto-detected.</p>
 
@@ -671,15 +666,6 @@
                 document.getElementById('obj-legend').style.display = 'none';
             }
 
-            // On mobile: pin wrap to viewport width to prevent RTL overflow
-            const wrap = document.getElementById('altChart').closest('.alt-chart-wrap');
-            const vw = window.innerWidth;
-            const isMobile = vw <= 768;
-            if (isMobile) {
-                wrap.style.width = (vw - 20) + 'px';
-            } else {
-                wrap.style.width = ''; // let container CSS control desktop width
-            }
 
             const ctx2 = document.getElementById('altChart').getContext('2d');
             if (chart) chart.destroy();
