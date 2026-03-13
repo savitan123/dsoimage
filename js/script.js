@@ -1173,6 +1173,26 @@ function initCarousel() {
   });
 }
 
+// Carousel caption i18n: update title/subtitle from data-title-he when in Hebrew
+function updateCarouselCaptions(lang) {
+  document.querySelectorAll('.carousel-caption').forEach(caption => {
+    const item = caption.closest('.gallery-item');
+    if (!item) return;
+    const h3 = caption.querySelector('h3');
+    if (!h3) return;
+    if (lang === 'he') {
+      const heTitle = item.getAttribute('data-title-he');
+      if (heTitle) h3.textContent = heTitle;
+    } else {
+      const enTitle = item.getAttribute('data-title');
+      if (enTitle) h3.textContent = enTitle;
+    }
+  });
+}
+// Run on load and on language switch
+updateCarouselCaptions(document.documentElement.getAttribute('lang') || 'en');
+window.addEventListener('languageChanged', e => updateCarouselCaptions(e.detail.lang));
+
 // 8. Target Suggester (NGC/IC/Messier)
 let targetDatabase = [];
 
