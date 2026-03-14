@@ -153,6 +153,9 @@
         /* Prevent horizontal scroll */
         html, body { overflow-x: hidden; }
         .alt-main-area { display: flex; flex-direction: column; }
+        /* Force LTR for search, chart and status data — RTL misaligns the chart to top-right */
+        [dir="rtl"] .alt-search-wrap,
+        [dir="rtl"] .alt-main-area { direction: ltr; }
         /* Date picker — locked LTR so Day/Month/Year stays in logical order */
         .alt-date-row {
             display: flex;
