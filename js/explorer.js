@@ -104,9 +104,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!focalLength || !sensorW || !sensorH || focalLength <= 0) {
             if (resultDiv) resultDiv.style.display = 'none';
-            if (fovOverlayLayer) { try { aladinInstance.removeLayer(fovOverlayLayer); } catch(e) {} fovOverlayLayer = null; }
-            const oldLbl = document.getElementById('fov-labels-overlay');
-            if (oldLbl) oldLbl.remove();
+            const oldC = document.getElementById('fov-canvas-overlay');
+            if (oldC) oldC.remove();
             return;
         }
 
@@ -119,6 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const dDec = fovH_deg / 2;
         const dRa = (fovW_deg / 2) / Math.cos(dec * Math.PI / 180);
 
+        // corners: TL, TR, BR, BL
         const corners = [
             [ra - dRa, dec + dDec],
             [ra + dRa, dec + dDec],
@@ -126,24 +126,12 @@ document.addEventListener('DOMContentLoaded', () => {
             [ra - dRa, dec - dDec]
         ];
 
-        // Remove old overlay layer and create a fresh one each time
-        if (fovOverlayLayer) {
-            try { aladinInstance.removeLayer(fovOverlayLayer); } catch(e) {}
-            fovOverlayLayer = null;
-        }
-        fovOverlayLayer = A.graphicOverlay({ color: '#FFAB40', lineWidth: 2 });
-        aladinInstance.addLayer(fovOverlayLayer);
-
-        // Use polyline (5 pts, closed) — more reliable than A.polygon in Aladin Lite v3
-        const closedCorners = [corners[0], corners[1], corners[2], corners[3], corners[0]];
-        fovOverlayLayer.add(A.polyline(closedCorners, { color: '#FFAB40', lineWidth: 2 }));
-
-        // Zoom Aladin to show the full FOV
+        // Zoom Aladin to show the full FOV with margin
         const viewFov = Math.max(fovW_deg, fovH_deg) * 1.6;
         aladinInstance.setFov(viewFov);
 
-        // Draw side labels (position updates on pan/zoom)
-        drawFovLabels(ra, dec, dRa, dDec, fovW_arcmin, fovH_arcmin);
+        // Draw rectangle + labels on HTML Canvas overlay (bypasses Aladin layer API)
+        drawFovCanvas(corners, fovW_arcmin, fovH_arcmin);
 
         // Update result bar
         if (resultDiv) {
@@ -163,68 +151,90 @@ document.addEventListener('DOMContentLoaded', () => {
         return `${sec}"`;
     }
 
-    function drawFovLabels(ra, dec, dRa, dDec, fovW_arcmin, fovH_arcmin) {
+    // Draw the FOV rectangle + DMS labels on an HTML Canvas placed over the Aladin div.
+    // This bypasses Aladin's layer API entirely — always visible, always works.
+    function drawFovCanvas(corners, fovW_arcmin, fovH_arcmin) {
         const aladinDiv = document.getElementById('aladin-lite-div');
         if (!aladinDiv || !aladinInstance) return;
         aladinDiv.style.position = 'relative';
 
-        // Remove old label overlay
-        const old = document.getElementById('fov-labels-overlay');
-        if (old) old.remove();
-
-        const overlay = document.createElement('div');
-        overlay.id = 'fov-labels-overlay';
-        overlay.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:100;overflow:hidden;';
-        aladinDiv.appendChild(overlay);
+        // Get or create a persistent <canvas> on top of the Aladin WebGL canvas
+        let canvas = document.getElementById('fov-canvas-overlay');
+        if (!canvas) {
+            canvas = document.createElement('canvas');
+            canvas.id = 'fov-canvas-overlay';
+            canvas.style.cssText = 'position:absolute;top:0;left:0;pointer-events:none;z-index:10;';
+            aladinDiv.appendChild(canvas);
+        }
 
         const wDMS = arcminToDMS(fovW_arcmin);
         const hDMS = arcminToDMS(fovH_arcmin);
 
-        // 4 side midpoints: [ra, dec], label text, whether to rotate vertical
-        const sides = [
-            { sra: ra,       sdec: dec + dDec, text: wDMS, rotate: false }, // top
-            { sra: ra,       sdec: dec - dDec, text: wDMS, rotate: false }, // bottom
-            { sra: ra - dRa, sdec: dec,        text: hDMS, rotate: true  }, // left
-            { sra: ra + dRa, sdec: dec,        text: hDMS, rotate: true  }, // right
-        ];
+        function redraw() {
+            canvas.width  = aladinDiv.offsetWidth  || 600;
+            canvas.height = aladinDiv.offsetHeight || 400;
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        function renderLabels() {
-            overlay.innerHTML = '';
-            for (const s of sides) {
-                let pix;
-                try { pix = aladinInstance.world2pix(s.sra, s.sdec); } catch(e) { continue; }
-                if (!pix || pix[0] == null || isNaN(pix[0])) continue;
-                const [x, y] = pix;
-                const span = document.createElement('span');
-                span.textContent = s.text;
-                const rot = s.rotate ? 'rotate(-90deg) ' : '';
-                span.style.cssText = [
-                    'position:absolute',
-                    `left:${x}px`,
-                    `top:${y}px`,
-                    `transform:${rot}translate(-50%,-50%)`,
-                    'background:rgba(0,0,0,0.75)',
-                    'color:#FFAB40',
-                    'font-size:11px',
-                    'font-weight:700',
-                    'font-family:monospace',
-                    'padding:2px 6px',
-                    'border-radius:4px',
-                    'white-space:nowrap',
-                    'letter-spacing:0.4px'
-                ].join(';');
-                overlay.appendChild(span);
+            // Convert sky coordinates → canvas pixel positions
+            const px = corners.map(c => {
+                try {
+                    const p = aladinInstance.world2pix(c[0], c[1]);
+                    return (p && !isNaN(p[0]) && !isNaN(p[1])) ? p : null;
+                } catch(e) { return null; }
+            });
+            if (px.some(p => p === null)) return;
+
+            // ── Rectangle ──────────────────────────────────────────────────
+            ctx.beginPath();
+            ctx.moveTo(px[0][0], px[0][1]);
+            ctx.lineTo(px[1][0], px[1][1]);
+            ctx.lineTo(px[2][0], px[2][1]);
+            ctx.lineTo(px[3][0], px[3][1]);
+            ctx.closePath();
+            ctx.strokeStyle = '#FFAB40';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // ── Side labels with background boxes ──────────────────────────
+            ctx.font = 'bold 11px monospace';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+
+            function drawLabel(text, x, y, angleDeg) {
+                ctx.save();
+                ctx.translate(x, y);
+                ctx.rotate(angleDeg * Math.PI / 180);
+                const tw = ctx.measureText(text).width;
+                const pad = 3, th = 13;
+                ctx.fillStyle = 'rgba(0,0,0,0.78)';
+                ctx.fillRect(-tw / 2 - pad, -th / 2 - pad, tw + pad * 2, th + pad * 2);
+                ctx.fillStyle = '#FFAB40';
+                ctx.fillText(text, 0, 0);
+                ctx.restore();
             }
+
+            // Midpoints — corners order: TL[0], TR[1], BR[2], BL[3]
+            // Top side: TL → TR
+            drawLabel(wDMS, (px[0][0] + px[1][0]) / 2, (px[0][1] + px[1][1]) / 2, 0);
+            // Bottom side: BL → BR
+            drawLabel(wDMS, (px[3][0] + px[2][0]) / 2, (px[3][1] + px[2][1]) / 2, 0);
+            // Left side: TL → BL  (compute natural angle so label follows the side)
+            const leftAngle = Math.atan2(px[3][1] - px[0][1], px[3][0] - px[0][0]) * 180 / Math.PI;
+            drawLabel(hDMS, (px[0][0] + px[3][0]) / 2, (px[0][1] + px[3][1]) / 2, leftAngle);
+            // Right side: TR → BR
+            const rightAngle = Math.atan2(px[2][1] - px[1][1], px[2][0] - px[1][0]) * 180 / Math.PI;
+            drawLabel(hDMS, (px[1][0] + px[2][0]) / 2, (px[1][1] + px[2][1]) / 2, rightAngle);
         }
 
-        renderLabels();
+        redraw();
 
-        // Reposition labels whenever the user pans or zooms Aladin
+        // Re-render whenever the user pans or zooms Aladin
         if (fovLabelUpdateFn) {
             try { aladinInstance.off('positionChanged', fovLabelUpdateFn); } catch(e) {}
             try { aladinInstance.off('zoomChanged',     fovLabelUpdateFn); } catch(e) {}
         }
-        fovLabelUpdateFn = renderLabels;
+        fovLabelUpdateFn = redraw;
         try { aladinInstance.on('positionChanged', fovLabelUpdateFn); } catch(e) {}
         try { aladinInstance.on('zoomChanged',     fovLabelUpdateFn); } catch(e) {}
     }
@@ -435,7 +445,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Reset aladin instance for new search
         aladinInstance = null;
-        fovOverlayLayer = null;
+        fovLabelUpdateFn = null;
 
         // Store object coordinates for FOV overlay
         if (data.ra && data.dec && data.ra !== "N/A" && data.dec !== "N/A") {
