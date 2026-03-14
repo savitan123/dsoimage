@@ -123,14 +123,17 @@ document.addEventListener('DOMContentLoaded', () => {
             [ra - dRa, dec - dDec]
         ];
 
-        // Reuse existing overlay layer, or create a new one
-        if (!fovOverlayLayer) {
-            fovOverlayLayer = A.graphicOverlay({ color: '#FFAB40', lineWidth: 2 });
-            aladinInstance.addLayer(fovOverlayLayer);
-        } else {
-            fovOverlayLayer.removeAll();
+        // Remove old overlay layer and create a fresh one each time
+        if (fovOverlayLayer) {
+            try { aladinInstance.removeLayer(fovOverlayLayer); } catch(e) {}
+            fovOverlayLayer = null;
         }
-        fovOverlayLayer.add(A.polygon(corners));
+        fovOverlayLayer = A.graphicOverlay({ color: '#FFAB40', lineWidth: 2 });
+        aladinInstance.addLayer(fovOverlayLayer);
+
+        // Use polyline (5 pts, closed) — more reliable than A.polygon in Aladin Lite v3
+        const closedCorners = [corners[0], corners[1], corners[2], corners[3], corners[0]];
+        fovOverlayLayer.add(A.polyline(closedCorners, { color: '#FFAB40', lineWidth: 2 }));
 
         // Zoom Aladin to show the full FOV
         const viewFov = Math.max(fovW_deg, fovH_deg) * 1.6;
@@ -486,8 +489,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         showZoomControl: true,
                         showFullscreenControl: true
                     });
-                    // Draw FOV rectangle if focal length already set
-                    drawFovOverlay();
+                    // Draw FOV rectangle after Aladin finishes its first render
+                    setTimeout(() => drawFovOverlay(), 400);
                 }).catch(e => console.error("Aladin init error:", e));
             }, 100);
         }
