@@ -631,7 +631,7 @@
                     ctx.fillStyle = '#E53935';
                     ctx.font = '11px sans-serif';
                     ctx.textAlign = 'center';
-                    ctx.fillText('NOW', x, chartArea.top - 4);
+                    ctx.fillText('NOW', x, chartArea.top + 12);
                     ctx.restore();
                 }
             };
@@ -714,6 +714,7 @@
                             }
                         }
                     },
+                    layout: { padding: { top: isMobile ? 20 : 4, bottom: isMobile ? 2 : 4 } },
                     scales: {
                         x: {
                             ticks: {
