@@ -449,6 +449,7 @@
         let selectedObj = null;
         let chart = null;
         let targetsData = null; // OpenNGC — loaded once at init
+        let galleryData = null; // Site gallery — loaded once at init
 
         // ── Time helpers ─────────────────────────────────────────────────────────
         function getSelectedDate() {
@@ -803,6 +804,26 @@
                 return false;
             }).slice(0, 5);
 
+            // ── 1b. Gallery objects ──────────────────────────────────────────────
+            let galleryMatches = [];
+            if (galleryData) {
+                const seen = new Set();
+                for (const item of galleryData) {
+                    if (seen.has(item.cleanName)) continue;
+                    const titleLow = item.title.toLowerCase();
+                    const aliasLow = (item.aliases || '').toLowerCase();
+                    if (titleLow.includes(q) || aliasLow.includes(q)) {
+                        // Skip if already covered by named catalog
+                        const inNamed = namedMatches.some(o =>
+                            o.name.toLowerCase().includes(item.cleanName.toLowerCase()) ||
+                            (o.aliases && o.aliases.some(a => a.toLowerCase() === item.cleanName.toLowerCase().replace(/\s+/g,'')))
+                        );
+                        if (!inNamed) { seen.add(item.cleanName); galleryMatches.push(item); }
+                    }
+                    if (galleryMatches.length >= 5) break;
+                }
+            }
+
             // ── 2. OpenNGC / targets.json ────────────────────────────────────────
             let ngcMatches = [];
             if (targetsData) {
@@ -831,10 +852,11 @@
 
             // ── 3. SIMBAD fallback option ────────────────────────────────────────
             const looksExternal = /^(sh2|b\d|lbn|ldn|ced|rcw|vdb|barnard|col|mel|cr)\s*[-\s]?\d/i.test(q)
-                                  || (q.length > 2 && namedMatches.length === 0 && ngcMatches.length === 0);
+                                  || (q.length > 2 && namedMatches.length === 0 && galleryMatches.length === 0 && ngcMatches.length === 0);
 
             const allItems = [
                 ...namedMatches.map(o => ({ label: o.name, sub: o.type, _obj: o })),
+                ...galleryMatches.map(item => ({ label: item.title, sub: 'Gallery', _gallery: item })),
                 ...ngcMatches.map(item => ({ label: ngcDisplayName(item), sub: item.t || 'DSO', _obj: ngcToObj(item) })),
                 ...(looksExternal ? [{ label: `Look up "${query.trim()}" via SIMBAD`, sub: '', _simbad: query.trim() }] : [])
             ];
@@ -853,13 +875,34 @@
                 el.addEventListener('mousedown', e => {
                     e.preventDefault();
                     const item = allItems[parseInt(el.dataset.idx)];
-                    if (item._simbad) {
-                        resolveSimbad(item._simbad);
-                    } else {
-                        selectObject(item._obj);
-                    }
+                    if (item._simbad) { resolveSimbad(item._simbad); }
+                    else if (item._gallery) { selectGalleryObject(item._gallery); }
+                    else { selectObject(item._obj); }
                 });
             });
+        }
+
+        // Resolve a gallery item to RA/Dec, then select it
+        function selectGalleryObject(galleryItem) {
+            const cn = galleryItem.cleanName.trim();
+            const cnLow = cn.toLowerCase().replace(/\s+/g,'');
+            // Try Messier → NGC
+            const mMatch = cnLow.match(/^m(\d+)$/);
+            if (mMatch && messierToNgc[parseInt(mMatch[1])]) {
+                const ngcKey = messierToNgc[parseInt(mMatch[1])];
+                if (targetsData) {
+                    const found = targetsData.find(x => x.n === ngcKey);
+                    if (found) { selectObject({ ...ngcToObj(found), name: galleryItem.title.replace(/\s*\([^)]*\)$/, '').trim() }); return; }
+                }
+            }
+            // Try NGC/IC direct lookup
+            const ngcKey = queryToNgcKey(cnLow);
+            if (ngcKey && targetsData) {
+                const found = targetsData.find(x => x.n === ngcKey);
+                if (found) { selectObject({ ...ngcToObj(found), name: galleryItem.title.replace(/\s*\([^)]*\)$/, '').trim() || ngcToObj(found).name }); return; }
+            }
+            // Fallback: SIMBAD with cleanName
+            resolveSimbad(cn);
         }
 
         // Resolve any catalog name via SIMBAD TAP, then select it
@@ -934,8 +977,9 @@
         // ── Init ─────────────────────────────────────────────────────────────────
         async function init() {
             initDatePicker();
-            // Load OpenNGC catalog in background
+            // Load OpenNGC catalog and gallery in background
             fetch('data/targets.json').then(r => r.json()).then(d => { targetsData = d; }).catch(() => {});
+            fetch('data/gallery.json').then(r => r.json()).then(d => { galleryData = d; }).catch(() => {});
             // Get location
             try {
                 const controller = new AbortController();
