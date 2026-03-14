@@ -25,21 +25,24 @@
         // Apply to all elements with data-i18n
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
-            if (strings[key]) {
-                // For input placeholders
-                if ((el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') && el.hasAttribute('placeholder')) {
-                    el.placeholder = strings[key];
-                } else {
-                    // Preserve any leading icon <i> elements
-                    const icon = el.querySelector('i');
-                    if (icon) {
-                        el.innerHTML = '';
-                        el.appendChild(icon);
-                        el.append(' ' + strings[key]);
-                    } else {
-                        el.textContent = strings[key];
-                    }
-                }
+            if (!strings[key]) return;
+
+            // For input placeholders
+            if ((el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') && el.hasAttribute('placeholder')) {
+                el.placeholder = strings[key];
+                return;
+            }
+
+            // Find existing text nodes — update in place, never touch icon elements
+            const textNodes = Array.from(el.childNodes).filter(n => n.nodeType === Node.TEXT_NODE);
+            const target = textNodes.find(n => n.textContent.trim());
+            if (target) {
+                target.textContent = ' ' + strings[key];
+            } else if (textNodes.length > 0) {
+                textNodes[0].textContent = ' ' + strings[key];
+            } else {
+                // No child elements at all — safe to set textContent directly
+                el.textContent = strings[key];
             }
         });
 
