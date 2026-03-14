@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let targetsData = null;
     let aladinInstance = null;
     let fovOverlayLayer = null;
+    let fovLabelUpdateFn = null;
     let currentObjectCoords = null; // { ra: decDeg, dec: decDeg }
 
     // ── Camera database ─────────────────────────────────────────────────────
@@ -103,7 +104,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!focalLength || !sensorW || !sensorH || focalLength <= 0) {
             if (resultDiv) resultDiv.style.display = 'none';
-            if (fovOverlayLayer) fovOverlayLayer.removeAll();
+            if (fovOverlayLayer) { try { aladinInstance.removeLayer(fovOverlayLayer); } catch(e) {} fovOverlayLayer = null; }
+            const oldLbl = document.getElementById('fov-labels-overlay');
+            if (oldLbl) oldLbl.remove();
             return;
         }
 
@@ -139,11 +142,91 @@ document.addEventListener('DOMContentLoaded', () => {
         const viewFov = Math.max(fovW_deg, fovH_deg) * 1.6;
         aladinInstance.setFov(viewFov);
 
-        // Update result label
+        // Draw side labels (position updates on pan/zoom)
+        drawFovLabels(ra, dec, dRa, dDec, fovW_arcmin, fovH_arcmin);
+
+        // Update result bar
         if (resultDiv) {
             resultDiv.style.display = 'block';
-            resultDiv.innerHTML = `<i class="fa-solid fa-crop-simple" style="color:#FFAB40;"></i>&nbsp; FOV: <strong style="color:#fff;">${fovW_arcmin.toFixed(1)}' &times; ${fovH_arcmin.toFixed(1)}'</strong> &nbsp;<span style="color:#666;">(${fovW_deg.toFixed(2)}&deg; &times; ${fovH_deg.toFixed(2)}&deg;)</span>`;
+            resultDiv.innerHTML = `<i class="fa-solid fa-crop-simple" style="color:#FFAB40;"></i>&nbsp; FOV: <strong style="color:#fff;">${arcminToDMS(fovW_arcmin)} &times; ${arcminToDMS(fovH_arcmin)}</strong> &nbsp;<span style="color:#888;">(${fovW_arcmin.toFixed(1)}' &times; ${fovH_arcmin.toFixed(1)}')</span>`;
         }
+    }
+
+    // ── FOV label helpers ────────────────────────────────────────────────────
+    function arcminToDMS(arcmin) {
+        const totalArcsec = arcmin * 60;
+        const deg = Math.floor(totalArcsec / 3600);
+        const min = Math.floor((totalArcsec % 3600) / 60);
+        const sec = Math.round(totalArcsec % 60);
+        if (deg > 0) return `${deg}\u00b0 ${min}' ${sec}"`;
+        if (min > 0) return `${min}' ${sec}"`;
+        return `${sec}"`;
+    }
+
+    function drawFovLabels(ra, dec, dRa, dDec, fovW_arcmin, fovH_arcmin) {
+        const aladinDiv = document.getElementById('aladin-lite-div');
+        if (!aladinDiv || !aladinInstance) return;
+        aladinDiv.style.position = 'relative';
+
+        // Remove old label overlay
+        const old = document.getElementById('fov-labels-overlay');
+        if (old) old.remove();
+
+        const overlay = document.createElement('div');
+        overlay.id = 'fov-labels-overlay';
+        overlay.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:100;overflow:hidden;';
+        aladinDiv.appendChild(overlay);
+
+        const wDMS = arcminToDMS(fovW_arcmin);
+        const hDMS = arcminToDMS(fovH_arcmin);
+
+        // 4 side midpoints: [ra, dec], label text, whether to rotate vertical
+        const sides = [
+            { sra: ra,       sdec: dec + dDec, text: wDMS, rotate: false }, // top
+            { sra: ra,       sdec: dec - dDec, text: wDMS, rotate: false }, // bottom
+            { sra: ra - dRa, sdec: dec,        text: hDMS, rotate: true  }, // left
+            { sra: ra + dRa, sdec: dec,        text: hDMS, rotate: true  }, // right
+        ];
+
+        function renderLabels() {
+            overlay.innerHTML = '';
+            for (const s of sides) {
+                let pix;
+                try { pix = aladinInstance.world2pix(s.sra, s.sdec); } catch(e) { continue; }
+                if (!pix || pix[0] == null || isNaN(pix[0])) continue;
+                const [x, y] = pix;
+                const span = document.createElement('span');
+                span.textContent = s.text;
+                const rot = s.rotate ? 'rotate(-90deg) ' : '';
+                span.style.cssText = [
+                    'position:absolute',
+                    `left:${x}px`,
+                    `top:${y}px`,
+                    `transform:${rot}translate(-50%,-50%)`,
+                    'background:rgba(0,0,0,0.75)',
+                    'color:#FFAB40',
+                    'font-size:11px',
+                    'font-weight:700',
+                    'font-family:monospace',
+                    'padding:2px 6px',
+                    'border-radius:4px',
+                    'white-space:nowrap',
+                    'letter-spacing:0.4px'
+                ].join(';');
+                overlay.appendChild(span);
+            }
+        }
+
+        renderLabels();
+
+        // Reposition labels whenever the user pans or zooms Aladin
+        if (fovLabelUpdateFn) {
+            try { aladinInstance.off('positionChanged', fovLabelUpdateFn); } catch(e) {}
+            try { aladinInstance.off('zoomChanged',     fovLabelUpdateFn); } catch(e) {}
+        }
+        fovLabelUpdateFn = renderLabels;
+        try { aladinInstance.on('positionChanged', fovLabelUpdateFn); } catch(e) {}
+        try { aladinInstance.on('zoomChanged',     fovLabelUpdateFn); } catch(e) {}
     }
 
     // ── Data fetching ────────────────────────────────────────────────────────
