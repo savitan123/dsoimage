@@ -947,20 +947,61 @@
             if (e.key === 'Escape') { suggestionsBox.style.display = 'none'; searchInput.blur(); }
             if (e.key === 'Enter') {
                 e.preventDefault();
-                // If suggestions are open, pick the first one
-                const items = suggestionsBox._items;
-                if (items && items.length > 0 && suggestionsBox.style.display !== 'none') {
-                    const first = items[0];
-                    suggestionsBox.style.display = 'none';
-                    if (first._simbad) { resolveSimbad(first._simbad); }
-                    else if (first._gallery) { selectGalleryObject(first._gallery); }
-                    else { selectObject(first._obj); }
-                } else if (searchInput.value.trim().length > 0) {
-                    // No suggestions visible — resolve via SIMBAD directly
-                    resolveSimbad(searchInput.value.trim());
-                }
+                suggestionsBox.style.display = 'none';
+                const raw = searchInput.value.trim();
+                if (raw) resolveQuery(raw);
             }
         });
+
+        // ── Resolve query — exact same logic as catalog-explorer ─────────────────
+        function resolveQuery(raw) {
+            const q = raw.toLowerCase().trim();
+
+            // 1. Named catalog (planets, stars, popular DSOs)
+            const namedHit = catalog.find(o => {
+                if (o.name.toLowerCase() === q) return true;
+                if (o.aliases && o.aliases.some(a => a.toLowerCase() === q)) return true;
+                return false;
+            });
+            if (namedHit) { selectObject(namedHit); return; }
+
+            // 2. Gallery by title / alias (exact or contains)
+            if (galleryData) {
+                const qClean = q.replace(/\s+/g, '').toLowerCase();
+                const gHit = galleryData.find(item => {
+                    const titleMatch = item.title.toLowerCase() === q;
+                    const cleanMatch = item.cleanName.toLowerCase().replace(/\s+/g,'') === qClean;
+                    const aliases = item.aliases ? item.aliases.split(',').map(s => s.trim().toLowerCase()) : [];
+                    return titleMatch || cleanMatch || aliases.includes(q);
+                });
+                if (gHit) { selectGalleryObject(gHit); return; }
+            }
+
+            // 3. Messier / NGC / IC → targets.json  (identical to catalog-explorer)
+            let searchId = null;
+            if (q.startsWith('m')) {
+                const mNum = q.match(/\d+/);
+                if (mNum && messierToNgc[parseInt(mNum[0])]) {
+                    searchId = messierToNgc[parseInt(mNum[0])];
+                }
+            } else if (q.startsWith('ngc') || q.startsWith('ic')) {
+                const prefix = q.startsWith('ngc') ? 'NGC' : 'IC';
+                const numMatch = q.match(/\d+/);
+                if (numMatch) searchId = prefix + numMatch[0].padStart(4, '0');
+            }
+
+            if (targetsData && searchId) {
+                const found = targetsData.find(item => item.n === searchId);
+                if (found) {
+                    selectObject({ name: raw.toUpperCase(), type: found.t || 'DSO',
+                                   ra: parseRA(found.r), dec: parseDec(found.d) });
+                    return;
+                }
+            }
+
+            // 4. SIMBAD fallback
+            resolveSimbad(raw);
+        }
 
         // ── Populate date selects ────────────────────────────────────────────────
         function initDatePicker() {
