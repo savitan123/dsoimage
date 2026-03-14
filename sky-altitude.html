@@ -940,6 +940,21 @@
         searchInput.addEventListener('blur', () => setTimeout(() => { suggestionsBox.style.display = 'none'; }, 150));
         searchInput.addEventListener('keydown', e => {
             if (e.key === 'Escape') { suggestionsBox.style.display = 'none'; searchInput.blur(); }
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                // If suggestions are open, pick the first one
+                const items = suggestionsBox._items;
+                if (items && items.length > 0 && suggestionsBox.style.display !== 'none') {
+                    const first = items[0];
+                    suggestionsBox.style.display = 'none';
+                    if (first._simbad) { resolveSimbad(first._simbad); }
+                    else if (first._gallery) { selectGalleryObject(first._gallery); }
+                    else { selectObject(first._obj); }
+                } else if (searchInput.value.trim().length > 0) {
+                    // No suggestions visible — resolve via SIMBAD directly
+                    resolveSimbad(searchInput.value.trim());
+                }
+            }
         });
 
         // ── Populate date selects ────────────────────────────────────────────────
