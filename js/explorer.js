@@ -395,7 +395,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         resultsContainer.innerHTML = `
-            <div style="background: rgba(20, 20, 20, 0.9); border: 1px solid #333; border-radius: 15px; padding: 30px; margin-top: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+            <div class="result-card" style="background: rgba(20, 20, 20, 0.9); border: 1px solid #333; border-radius: 15px; padding: 30px; margin-top: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
                 <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #444; padding-bottom: 15px; margin-bottom: 20px;">
                     <div>
                         <h2 id="wd-main-title" style="color: #FFF; margin: 0; font-size: 28px;">${data.id}</h2>
@@ -405,30 +405,30 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span style="background: #333; color: #aaa; padding: 4px 10px; border-radius: 12px; font-size: 12px; height: fit-content;">Source: ${data.source}</span>
                 </div>
 
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px;">
+                <div class="result-stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px;">
                     <div>
-                        <span style="display: block; color: #888; font-size: 12px; text-transform: uppercase;">Identifier / Type</span>
-                        <strong style="color: #FFAB40; font-size: 18px;">${data.type}</strong>
+                        <span class="stat-label" style="display: block; color: #888; font-size: 12px; text-transform: uppercase;">Identifier / Type</span>
+                        <strong class="stat-value" style="color: #FFAB40; font-size: 18px;">${data.type}</strong>
                     </div>
                     <div>
-                        <span style="display: block; color: #888; font-size: 12px; text-transform: uppercase;">Magnitude</span>
-                        <strong style="color: #FFF; font-size: 18px;">${data.mag}</strong>
+                        <span class="stat-label" style="display: block; color: #888; font-size: 12px; text-transform: uppercase;">Magnitude</span>
+                        <strong class="stat-value" style="color: #FFF; font-size: 18px;">${data.mag}</strong>
                     </div>
                     <div>
-                        <span style="display: block; color: #888; font-size: 12px; text-transform: uppercase;">Size (arcmin)</span>
-                        <strong style="color: #FFF; font-size: 18px;">${data.size}</strong>
+                        <span class="stat-label" style="display: block; color: #888; font-size: 12px; text-transform: uppercase;">Size (arcmin)</span>
+                        <strong class="stat-value" style="color: #FFF; font-size: 18px;">${data.size}</strong>
                     </div>
                     <div>
-                        <span style="display: block; color: #888; font-size: 12px; text-transform: uppercase;">Constellation</span>
-                        <strong style="color: #1e90ff; font-size: 18px;">${data.constellation}</strong>
+                        <span class="stat-label" style="display: block; color: #888; font-size: 12px; text-transform: uppercase;">Constellation</span>
+                        <strong class="stat-value" style="color: #1e90ff; font-size: 18px;">${data.constellation}</strong>
                     </div>
                     <div>
-                        <span style="display: block; color: #888; font-size: 12px; text-transform: uppercase;">RA / DEC</span>
-                        <strong style="color: #FFF; font-size: 14px;">${data.ra} <br> ${data.dec}</strong>
+                        <span class="stat-label" style="display: block; color: #888; font-size: 12px; text-transform: uppercase;">RA / DEC</span>
+                        <strong class="stat-value stat-radec" style="color: #FFF; font-size: 14px;">${data.ra} <br> ${data.dec}</strong>
                     </div>
                 </div>
 
-                <div id="wd-extended-properties" style="display: none; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; margin-top: 20px; padding-top: 20px; border-top: 1px dashed #444;"></div>
+                <div id="wd-extended-properties" style="display: none; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 20px; margin-top: 20px; padding-top: 20px; border-top: 1px dashed #444;"></div>
 
                 <div id="wd-satellites-container" style="display: none; margin-top: 20px;">
                     <span style="display: block; color: #888; font-size: 12px; text-transform: uppercase; margin-bottom: 8px;">Child Bodies / Satellites</span>
