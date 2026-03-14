@@ -25,8 +25,50 @@
     <link rel="alternate" hreflang="x-default" href="https://dsoimage.com/checklist.html" />
     <!-- FORCE NEW VERSION v=11 -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-    <link href="css/style.css?v=122" rel="stylesheet">
-    </link>
+    <link href="css/style.css?v=122" rel="stylesheet" />
+    <style>
+    @media (max-width: 768px) {
+        html, body { overflow-x: hidden; }
+
+        /* Reduce tool-card padding */
+        .tool-card { padding: 16px !important; }
+
+        /* Stack add-task row vertically */
+        .checklist-input-group {
+            flex-direction: column !important;
+            gap: 8px !important;
+        }
+        .checklist-input-group input,
+        .checklist-input-group select,
+        .checklist-input-group button {
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        /* List controls: New List button full-width on its own row, Rename/Delete below */
+        #list-controls {
+            flex-wrap: wrap !important;
+            gap: 8px !important;
+        }
+        #create-list-btn {
+            flex: 1 1 100%;
+        }
+
+        /* Checklist items: allow text to wrap */
+        .checklist-item {
+            flex-wrap: wrap;
+        }
+        .checklist-item span.task-text {
+            word-break: break-word;
+        }
+
+        /* User profile row: wrap on small screens */
+        #app-container > div:first-child {
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+    }
+    </style>
     <!-- Aladin Lite V3 -->
     <link rel="stylesheet" href="https://aladin.cds.unistra.fr/AladinLite/api/v3/latest/aladin.css" />
     <script src="https://aladin.cds.unistra.fr/AladinLite/api/v3/latest/aladin.js" charset="utf-8"></script>
@@ -198,7 +240,7 @@
         </main>
     </div>
     <footer class="site-footer">
-        <p data-i18n="footer_text">© 2026 Shimon Avitan | dsoimage.com</p>
+        <p data-i18n="footer_text">ï¿½ 2026 Shimon Avitan | dsoimage.com</p>
                 <p style="margin-top: 8px; font-size: 12px;"><a href="sitemap.html" style="color:#555; text-decoration:none;" onmouseover="this.style.color='#E53935'" onmouseout="this.style.color='#555'"><i class="fa-solid fa-sitemap"></i> Site Map</a></p>
             </footer>
 
