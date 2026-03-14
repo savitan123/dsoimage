@@ -301,11 +301,27 @@ img {
   color: #ff3333;
 }
 
-/* PC only: extra gap between moon icon and language button */
+/* PC only */
 @media (min-width: 769px) {
   #red-mode-toggle {
     margin-right: 10px;
   }
+
+  /* Replace "Imaging Deep Sky Object" with "DSOImage.com" on desktop */
+  .top-nav-logo a { font-size: 0 !important; white-space: nowrap; }
+  .top-nav-logo a span { display: none; }
+  .top-nav-logo a::after {
+    content: 'DSOImage.com';
+    font-size: 18px;
+    color: #E53935;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+  }
+
+  /* Layout (both languages): actions (left) → links → DSOImage.com (right) */
+  [dir="ltr"] .top-nav-logo   { order: 3; }
+  [dir="ltr"] .top-nav-links  { order: 2; }
+  [dir="ltr"] .top-nav-actions { order: 1; }
 }
 
 
