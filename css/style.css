@@ -805,8 +805,6 @@ img {
     letter-spacing: 0.3px;
   }
 
-  /* Hide flag icon in lang toggle — show text only */
-  #lang-toggle-btn img { display: none !important; }
   #lang-toggle-btn { min-width: 36px !important; padding: 4px 8px !important; }
 
   .top-nav-actions {
