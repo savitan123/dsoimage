@@ -131,6 +131,38 @@
                     <button id="explorer-btn" data-i18n="cat_exp_search_btn"
                         style="background: #1e90ff; color: white; border: none; border-radius: 20px; padding: 10px 20px; cursor: pointer; font-weight: bold; font-size: 14px; transition: background 0.3s;">Search</button>
                 </div>
+                <!-- FOV Calculator Panel -->
+                <div id="fov-panel" style="margin-top: 14px; background: #0e0e0e; border: 1px solid #2a2a2a; border-radius: 14px; padding: 18px 20px;">
+                    <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+                        <i class="fa-solid fa-crop-simple" style="color:#FFAB40;font-size:15px;"></i>
+                        <span style="color:#FFAB40;font-size:14px;font-weight:700;letter-spacing:0.3px;">Field of View Calculator</span>
+                    </div>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;align-items:end;">
+                        <div>
+                            <label style="display:block;color:#888;font-size:10px;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:5px;">Camera Model</label>
+                            <select id="fov-camera" style="width:100%;background:#1a1a1a;color:#fff;border:1px solid #444;border-radius:8px;padding:8px 10px;font-size:12px;box-sizing:border-box;outline:none;cursor:pointer;">
+                                <option value="">— Select Camera —</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="display:block;color:#888;font-size:10px;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:5px;">Sensor Width (mm)</label>
+                            <input id="fov-sensor-w" type="number" step="0.01" min="0" placeholder="e.g. 23.5" style="width:100%;background:#1a1a1a;color:#fff;border:1px solid #444;border-radius:8px;padding:8px 10px;font-size:13px;box-sizing:border-box;outline:none;" />
+                        </div>
+                        <div>
+                            <label style="display:block;color:#888;font-size:10px;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:5px;">Sensor Height (mm)</label>
+                            <input id="fov-sensor-h" type="number" step="0.01" min="0" placeholder="e.g. 15.7" style="width:100%;background:#1a1a1a;color:#fff;border:1px solid #444;border-radius:8px;padding:8px 10px;font-size:13px;box-sizing:border-box;outline:none;" />
+                        </div>
+                        <div>
+                            <label style="display:block;color:#888;font-size:10px;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:5px;">Pixel Size (μm)</label>
+                            <input id="fov-pixel-size" type="number" step="0.01" min="0" placeholder="e.g. 3.76" style="width:100%;background:#1a1a1a;color:#fff;border:1px solid #444;border-radius:8px;padding:8px 10px;font-size:13px;box-sizing:border-box;outline:none;" />
+                        </div>
+                        <div>
+                            <label style="display:block;color:#888;font-size:10px;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:5px;">Focal Length (mm)</label>
+                            <input id="fov-focal" type="number" step="1" min="1" placeholder="e.g. 900" style="width:100%;background:#1a1a1a;color:#fff;border:1px solid #444;border-radius:8px;padding:8px 10px;font-size:13px;box-sizing:border-box;outline:none;" />
+                        </div>
+                    </div>
+                    <div id="fov-result" style="display:none;margin-top:12px;padding:8px 12px;background:rgba(255,171,64,0.07);border:1px solid rgba(255,171,64,0.3);border-radius:8px;font-size:13px;color:#ccc;"></div>
+                </div>
             </div>
             <!-- Results Card -->
             <div class="explorer-results" id="explorer-results" style="display: none;">
@@ -152,7 +184,7 @@
         </div>
     </footer>
     <script src="js/script.js?v=115"></script>
-    <script src="js/explorer.js?v=1"></script>
+    <script src="js/explorer.js?v=2"></script>
     <script src="js/i18n.js?v=119"></script>
 </body>
 

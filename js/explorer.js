@@ -5,15 +5,150 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadingIndicator = document.getElementById('explorer-loading');
 
     let galleryData = [];
-    let targetsData = null; // We'll fetch this on demand or load it once
+    let targetsData = null;
+    let aladinInstance = null;
+    let fovOverlayLayer = null;
+    let currentObjectCoords = null; // { ra: decDeg, dec: decDeg }
 
-    // 1. Fetch the gallery index
+    // ── Camera database ─────────────────────────────────────────────────────
+    const CAMERAS = [
+        // ZWO
+        { name: "ZWO ASI 2600 Mono/Color",  w: 23.5,  h: 15.7,  px: 3.76 },
+        { name: "ZWO ASI 6200 Mono/Color",  w: 35.6,  h: 23.8,  px: 3.76 },
+        { name: "ZWO ASI 2400 Mono/Color",  w: 35.9,  h: 23.9,  px: 2.74 },
+        { name: "ZWO ASI 1600 Mono/Color",  w: 17.7,  h: 13.4,  px: 3.80 },
+        { name: "ZWO ASI 294 Mono/Color",   w: 19.1,  h: 13.0,  px: 4.63 },
+        { name: "ZWO ASI 533 Mono/Color",   w: 11.31, h: 11.31, px: 3.76 },
+        { name: "ZWO ASI 183 Mono/Color",   w: 13.2,  h: 8.8,   px: 2.40 },
+        { name: "ZWO ASI 071 Color Pro",    w: 23.6,  h: 15.6,  px: 4.78 },
+        { name: "ZWO ASI 120 Mini Mono",    w: 4.8,   h: 3.6,   px: 3.75 },
+        // QHY
+        { name: "QHY 600M/C",              w: 35.9,  h: 24.0,  px: 3.76 },
+        { name: "QHY 268M/C",              w: 23.5,  h: 15.7,  px: 3.76 },
+        { name: "QHY 163M",               w: 17.7,  h: 13.4,  px: 3.80 },
+        { name: "QHY 533M",               w: 11.31, h: 11.31, px: 3.76 },
+        // Canon
+        { name: "Canon EOS Ra",            w: 36.0,  h: 24.0,  px: 5.36 },
+        { name: "Canon EOS 6D",            w: 35.8,  h: 23.9,  px: 6.55 },
+        { name: "Canon EOS 6D Mark II",    w: 35.9,  h: 24.0,  px: 5.74 },
+        { name: "Canon EOS 5D Mark IV",    w: 36.0,  h: 24.0,  px: 5.36 },
+        // Nikon
+        { name: "Nikon D810A",             w: 35.9,  h: 24.0,  px: 4.88 },
+        { name: "Nikon Z6 II",             w: 35.9,  h: 24.0,  px: 5.94 },
+        // Sony
+        { name: "Sony A7S III",            w: 35.6,  h: 23.8,  px: 9.40 },
+        { name: "Sony A7R IV",             w: 35.7,  h: 23.8,  px: 3.73 },
+        { name: "Sony A7C II",             w: 35.9,  h: 24.0,  px: 5.93 },
+    ];
+
+    // Populate camera dropdown
+    const cameraSelect = document.getElementById('fov-camera');
+    if (cameraSelect) {
+        CAMERAS.forEach((cam, i) => {
+            const opt = document.createElement('option');
+            opt.value = i;
+            opt.textContent = cam.name;
+            cameraSelect.appendChild(opt);
+        });
+        cameraSelect.addEventListener('change', () => {
+            const idx = parseInt(cameraSelect.value);
+            if (isNaN(idx)) return;
+            const cam = CAMERAS[idx];
+            document.getElementById('fov-sensor-w').value = cam.w;
+            document.getElementById('fov-sensor-h').value = cam.h;
+            document.getElementById('fov-pixel-size').value = cam.px;
+            drawFovOverlay();
+        });
+    }
+
+    // Redraw when focal length or sensor fields change manually
+    ['fov-focal', 'fov-sensor-w', 'fov-sensor-h'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', drawFovOverlay);
+    });
+
+    // ── Coordinate helpers ───────────────────────────────────────────────────
+    // Convert RA string (decimal degrees with "°", or HMS "HH MM SS.ss") to decimal degrees
+    function raToDecDeg(raStr) {
+        raStr = String(raStr).replace('°', '').trim();
+        if (/^[\d.]+$/.test(raStr)) return parseFloat(raStr); // already decimal degrees
+        const parts = raStr.split(/[\s:]+/);
+        const h = parseFloat(parts[0]) || 0;
+        const m = parseFloat(parts[1]) || 0;
+        const s = parseFloat(parts[2]) || 0;
+        return (h + m / 60 + s / 3600) * 15; // hours → degrees
+    }
+
+    // Convert Dec string (decimal degrees with "°", or DMS "+DD MM SS.s") to decimal degrees
+    function decToDecDeg(decStr) {
+        decStr = String(decStr).replace('°', '').trim();
+        if (/^-?[\d.]+$/.test(decStr)) return parseFloat(decStr);
+        const neg = decStr.startsWith('-');
+        const parts = decStr.replace('-', '').split(/[\s:]+/);
+        const d = parseFloat(parts[0]) || 0;
+        const m = parseFloat(parts[1]) || 0;
+        const s = parseFloat(parts[2]) || 0;
+        return (neg ? -1 : 1) * (d + m / 60 + s / 3600);
+    }
+
+    // ── FOV overlay drawing ──────────────────────────────────────────────────
+    function drawFovOverlay() {
+        if (!aladinInstance || !currentObjectCoords) return;
+
+        const focalLength = parseFloat(document.getElementById('fov-focal').value);
+        const sensorW = parseFloat(document.getElementById('fov-sensor-w').value);
+        const sensorH = parseFloat(document.getElementById('fov-sensor-h').value);
+
+        const resultDiv = document.getElementById('fov-result');
+
+        if (!focalLength || !sensorW || !sensorH || focalLength <= 0) {
+            if (resultDiv) resultDiv.style.display = 'none';
+            if (fovOverlayLayer) fovOverlayLayer.removeAll();
+            return;
+        }
+
+        const fovW_arcmin = (sensorW * 3438) / focalLength;
+        const fovH_arcmin = (sensorH * 3438) / focalLength;
+        const fovW_deg = fovW_arcmin / 60;
+        const fovH_deg = fovH_arcmin / 60;
+
+        const { ra, dec } = currentObjectCoords;
+        const dDec = fovH_deg / 2;
+        const dRa = (fovW_deg / 2) / Math.cos(dec * Math.PI / 180);
+
+        const corners = [
+            [ra - dRa, dec + dDec],
+            [ra + dRa, dec + dDec],
+            [ra + dRa, dec - dDec],
+            [ra - dRa, dec - dDec]
+        ];
+
+        // Reuse existing overlay layer, or create a new one
+        if (!fovOverlayLayer) {
+            fovOverlayLayer = A.graphicOverlay({ color: '#FFAB40', lineWidth: 2 });
+            aladinInstance.addLayer(fovOverlayLayer);
+        } else {
+            fovOverlayLayer.removeAll();
+        }
+        fovOverlayLayer.add(A.polygon(corners));
+
+        // Zoom Aladin to show the full FOV
+        const viewFov = Math.max(fovW_deg, fovH_deg) * 1.6;
+        aladinInstance.setFov(viewFov);
+
+        // Update result label
+        if (resultDiv) {
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = `<i class="fa-solid fa-crop-simple" style="color:#FFAB40;"></i>&nbsp; FOV: <strong style="color:#fff;">${fovW_arcmin.toFixed(1)}' &times; ${fovH_arcmin.toFixed(1)}'</strong> &nbsp;<span style="color:#666;">(${fovW_deg.toFixed(2)}&deg; &times; ${fovH_deg.toFixed(2)}&deg;)</span>`;
+        }
+    }
+
+    // ── Data fetching ────────────────────────────────────────────────────────
     fetch('data/gallery.json')
         .then(res => res.json())
         .then(data => galleryData = data)
         .catch(err => console.error("Error loading gallery data:", err));
 
-    // 2. Fetch OpenNGC targets (large file, maybe load once on page load)
     fetch('data/targets.json')
         .then(res => res.json())
         .then(data => targetsData = data)
@@ -28,11 +163,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!query) return;
         query = query.toLowerCase().trim();
 
-        // Show loading
         resultsContainer.style.display = 'none';
         loadingIndicator.style.display = 'block';
 
-        // Check Gallery first to prepare the "Match" badge
+        // Check Gallery for a match badge
         const queryClean = query.replace(/\s+/g, '').toLowerCase();
         const galleryMatch = galleryData.find(item => {
             const titleMatch = item.title.toLowerCase() === query;
@@ -42,10 +176,9 @@ document.addEventListener('DOMContentLoaded', () => {
             return titleMatch || cleanMatch || aliases.includes(query) || titles.includes(query);
         });
 
-        // Step A: Check local OpenNGC Data (NGC, IC, M)
+        // Step A: Check local OpenNGC Data
         let localMatch = null;
 
-        // Messier mapping to OpenNGC equivalents
         const messierToNgc = {
             1: "NGC1952", 2: "NGC7089", 3: "NGC5272", 4: "NGC6121", 5: "NGC5904", 6: "NGC6405", 7: "NGC6475", 8: "NGC6523", 9: "NGC6333", 10: "NGC6254",
             11: "NGC6705", 12: "NGC6218", 13: "NGC6205", 14: "NGC6402", 15: "NGC7078", 16: "NGC6611", 17: "NGC6618", 18: "NGC6613", 19: "NGC6273", 20: "NGC6514",
@@ -65,7 +198,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const mNum = query.match(/\d+/);
             if (mNum && messierToNgc[mNum[0]]) {
                 searchId = messierToNgc[mNum[0]];
-                dataLabel = query.toUpperCase(); // Retain "M1" display initially
             }
         } else if (query.startsWith('ngc') || query.startsWith('ic')) {
             const isNgc = query.startsWith('ngc');
@@ -96,11 +228,9 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Step B: If not found locally, query SIMBAD via TAP API for rich data
+        // Step B: SIMBAD TAP
         const tapUrl = "https://simbad.cds.unistra.fr/simbad/sim-tap/sync";
-        // Escape single quotes for SQL ADQL
         const safeQuery = query.replace(/'/g, "''");
-        // ADQL joins basic object properties with its flux properties based on exact ID match
         const adql = `SELECT TOP 1 b.main_id, b.otype, b.ra, b.dec, b.galdim_majaxis, b.galdim_minaxis, f.V, f.B FROM ident i JOIN basic b ON i.oidref = b.oid LEFT JOIN allfluxes f ON b.oid = f.oidref WHERE i.id = '${safeQuery}'`;
 
         const formData = new URLSearchParams();
@@ -112,9 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch(tapUrl, {
             method: 'POST',
             body: formData,
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         })
             .then(res => res.json())
             .then(data => {
@@ -124,7 +252,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 const row = data.data[0];
-                // Format Data
                 const oname = row[0] || query.toUpperCase();
                 const otype = row[1] || "Unknown";
                 const ra = row[2] ? parseFloat(row[2]).toFixed(4) + "°" : "N/A";
@@ -132,7 +259,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const maj = row[4];
                 const min = row[5];
                 const size = (maj && min) ? `${parseFloat(maj).toFixed(2)} x ${parseFloat(min).toFixed(2)}` : (maj ? parseFloat(maj).toFixed(2) : "N/A");
-
                 const vMag = row[6] ? parseFloat(row[6]).toFixed(2) : null;
                 const bMag = row[7] ? parseFloat(row[7]).toFixed(2) : null;
                 const magText = vMag ? vMag : (bMag ? bMag : "N/A");
@@ -182,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <span style="background: #333; color: #aaa; padding: 4px 10px; border-radius: 12px; font-size: 12px; height: fit-content;">Source: ${data.source}</span>
                 </div>
-                
+
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px;">
                     <div>
                         <span style="display: block; color: #888; font-size: 12px; text-transform: uppercase;">Identifier / Type</span>
@@ -206,11 +332,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
 
-                <!-- NEW WIKIDATA EXPANDED PROPERTIES GRID -->
-                <div id="wd-extended-properties" style="display: none; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; margin-top: 20px; padding-top: 20px; border-top: 1px dashed #444;">
-                     <!-- Injected dynamically -->
-                </div>
-                
+                <div id="wd-extended-properties" style="display: none; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; margin-top: 20px; padding-top: 20px; border-top: 1px dashed #444;"></div>
+
                 <div id="wd-satellites-container" style="display: none; margin-top: 20px;">
                     <span style="display: block; color: #888; font-size: 12px; text-transform: uppercase; margin-bottom: 8px;">Child Bodies / Satellites</span>
                     <div id="wd-satellites-list" style="display: flex; flex-wrap: wrap; gap: 10px;"></div>
@@ -224,32 +347,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
         resultsContainer.style.display = 'block';
 
-        // Fetch Rich SPARQL Wikidata Data
+        // Reset aladin instance for new search
+        aladinInstance = null;
+        fovOverlayLayer = null;
+
+        // Store object coordinates for FOV overlay
+        if (data.ra && data.dec && data.ra !== "N/A" && data.dec !== "N/A") {
+            try {
+                currentObjectCoords = { ra: raToDecDeg(data.ra), dec: decToDecDeg(data.dec) };
+            } catch (e) {
+                currentObjectCoords = null;
+            }
+        } else {
+            currentObjectCoords = null;
+        }
+
+        // Wikidata query
         let wdQuery = data.searchId || data.id;
         let wdMatch = wdQuery.match(/^(NGC|IC)0*(\d+)$/i);
         if (wdMatch) {
             wdQuery = wdMatch[1].toUpperCase() + " " + parseInt(wdMatch[2], 10);
         }
 
-        // Wikidata SPARQL Query
-        // Searches for the item using the provided catalog ID, then grabs localized labels, descriptions, and linked data
         const sparqlQuery = `
         SELECT ?item ?itemLabel ?itemDescription ?heLabel ?distance ?mass ?radius ?redshift ?radVel (GROUP_CONCAT(DISTINCT ?childLabel; separator=", ") AS ?satellites)
         WHERE {
-          ?item wdt:P528 "${wdQuery}" . 
-          
+          ?item wdt:P528 "${wdQuery}" .
           OPTIONAL { ?item rdfs:label ?heLabel FILTER (LANG(?heLabel) = "he") }
           OPTIONAL { ?item wdt:P2583 ?distance . }
           OPTIONAL { ?item wdt:P2067 ?mass . }
           OPTIONAL { ?item wdt:P2120 ?radius . }
           OPTIONAL { ?item wdt:P1090 ?redshift . }
           OPTIONAL { ?item wdt:P2211 ?radVel . }
-          
-          OPTIONAL { 
+          OPTIONAL {
               ?child wdt:P397 ?item .
               ?child rdfs:label ?childLabel FILTER (LANG(?childLabel) = "en")
           }
-          
           SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
         } GROUP BY ?item ?itemLabel ?itemDescription ?heLabel ?distance ?mass ?radius ?redshift ?radVel LIMIT 1
         `;
@@ -270,8 +403,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (results && results.length > 0) {
                     const obj = results[0];
 
-                    // Main Titles
-                    // Use the original search term if available so "M31" doesn't become "NGC0224"
                     let displayTitle = (document.getElementById('explorer-input').value.toUpperCase().startsWith('M'))
                         ? document.getElementById('explorer-input').value.toUpperCase()
                         : data.id;
@@ -279,7 +410,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (obj.itemLabel) mainTitleEl.innerHTML = `${displayTitle} <span style="font-size: 18px; color:#aaa; font-weight:normal;">- ${obj.itemLabel.value}</span>`;
                     if (obj.heLabel) heTitleEl.innerText = obj.heLabel.value;
 
-                    // Description
                     if (obj.itemDescription) {
                         let rawDesc = obj.itemDescription.value;
                         let cleanDesc = rawDesc.charAt(0).toUpperCase() + rawDesc.slice(1);
@@ -288,18 +418,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         descEl.style.display = 'none';
                     }
 
-                    // Extended Physical Properties
                     let extPropsHtml = '';
-
-                    // Helper to format scientific numbers neatly
                     const formatSci = (val, unit) => {
                         let num = parseFloat(val);
-                        if (num > 1e6) return (num / 1e6).toFixed(2) + " Million " + unit;
                         if (num > 1e9) return (num / 1e9).toFixed(2) + " Billion " + unit;
+                        if (num > 1e6) return (num / 1e6).toFixed(2) + " Million " + unit;
                         return num.toLocaleString() + " " + unit;
                     };
 
-                    // Wikidata returns distance in parsecs natively. Multiply by 3.26 to get lightyears.
                     if (obj.distance) {
                         let lyVal = parseFloat(obj.distance.value) * 3.26;
                         extPropsHtml += `<div><span style="display: block; color: #888; font-size: 12px; text-transform: uppercase;">Distance</span><strong style="color: #4CAF50; font-size: 16px;">${formatSci(lyVal, "ly")}</strong></div>`;
@@ -314,20 +440,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         extPropsGrid.style.display = 'grid';
                     }
 
-                    // Satellites
                     if (obj.satellites && obj.satellites.value) {
                         const satArray = obj.satellites.value.split(', ');
                         let satHtml = '';
                         satArray.forEach(sat => {
                             if (sat.trim() === '') return;
-                            // Make them clickable badges that re-trigger search
                             satHtml += `<span class="sat-badge" style="background: rgba(255,171,64,0.1); border: 1px solid rgba(255,171,64,0.5); color: #FFAB40; padding: 4px 12px; border-radius: 20px; font-size: 12px; cursor: pointer; margin-bottom: 5px; display: inline-block; transition: 0.2s;" onclick="document.getElementById('explorer-input').value='${sat}'; document.getElementById('explorer-btn').click();">${sat}</span>`;
                         });
                         if (satHtml) {
                             satsList.innerHTML = satHtml;
                             satsContainer.style.display = 'block';
-
-                            // Add hover effects dynamically
                             document.querySelectorAll('.sat-badge').forEach(badge => {
                                 badge.addEventListener('mouseenter', e => { e.target.style.background = 'rgba(255,171,64,0.3)'; });
                                 badge.addEventListener('mouseleave', e => { e.target.style.background = 'rgba(255,171,64,0.1)'; });
@@ -337,27 +459,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 } else {
                     const descEl = document.getElementById('wikidata-desc');
-                    if (descEl) descEl.innerHTML = `< i class="fa-solid fa-database" ></i > Wikidata: No extended data found.`;
+                    if (descEl) descEl.innerHTML = `<i class="fa-solid fa-database"></i> Wikidata: No extended data found.`;
                 }
             })
             .catch(err => {
                 console.error("Wikidata SPARQL fetch error:", err);
                 const descEl = document.getElementById('wikidata-desc');
-                if (descEl) descEl.innerHTML = `< i class="fa-solid fa-triangle-exclamation" ></i > Wikidata: Network Error`;
+                if (descEl) descEl.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Wikidata: Network Error`;
             });
 
         // Initialize Aladin Lite
         if (window.A) {
-            let targetCoords = data.id; // Target name resolving (like M 1, NGC 224)
+            let targetCoords = data.id;
             if (data.ra && data.dec && data.ra !== "N/A" && data.dec !== "N/A") {
                 let cleanRa = data.ra.replace('°', '').trim();
                 let cleanDec = data.dec.replace('°', '').trim();
-                targetCoords = `${cleanRa} ${cleanDec} `; // Use exact coordinates
+                targetCoords = `${cleanRa} ${cleanDec}`;
             }
-            // Add a small delay for DOM render
             setTimeout(() => {
                 A.init.then(() => {
-                    A.aladin('#aladin-lite-div', {
+                    aladinInstance = A.aladin('#aladin-lite-div', {
                         target: targetCoords,
                         fov: 1.0,
                         survey: "P/DSS2/color",
@@ -365,6 +486,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         showZoomControl: true,
                         showFullscreenControl: true
                     });
+                    // Draw FOV rectangle if focal length already set
+                    drawFovOverlay();
                 }).catch(e => console.error("Aladin init error:", e));
             }, 100);
         }
@@ -373,11 +496,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderError(query) {
         loadingIndicator.style.display = 'none';
         resultsContainer.innerHTML = `
-            < div style = "text-align: center; padding: 40px; background: rgba(255, 50, 50, 0.1); border: 1px solid #ff4444; border-radius: 15px; margin-top: 20px;" >
+            <div style="text-align: center; padding: 40px; background: rgba(255, 50, 50, 0.1); border: 1px solid #ff4444; border-radius: 15px; margin-top: 20px;">
                 <i class="fa-solid fa-satellite-dish" style="font-size: 40px; color: #ff4444; margin-bottom: 15px;"></i>
                 <h3 style="color: #FFF;">Object Not Found</h3>
                 <p style="color: #aaa;">We couldn't find "${query}" in the OpenNGC database or via SIMBAD. Please check the ID and try again.</p>
-            </div >
+            </div>
             `;
         resultsContainer.style.display = 'block';
     }
@@ -397,7 +520,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const q = params.get('q');
     if (q) {
         searchInput.value = q;
-        // Wait briefly for datasets to fetch
         setTimeout(() => searchCatalog(q), 500);
     }
 });
