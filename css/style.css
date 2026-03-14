@@ -319,9 +319,13 @@ img {
   }
 
   /* Layout (both languages): actions (left) → links → DSOImage.com (right) */
-  [dir="ltr"] .top-nav-logo   { order: 3; }
-  [dir="ltr"] .top-nav-links  { order: 2; }
+  [dir="ltr"] .top-nav-logo    { order: 3; }
+  [dir="ltr"] .top-nav-links   { order: 2; }
   [dir="ltr"] .top-nav-actions { order: 1; }
+
+  /* Fix button order inside actions: always lang → moon (same in LTR and RTL) */
+  [dir="ltr"] #lang-toggle-btn { order: 1; }
+  [dir="ltr"] #red-mode-toggle { order: 2; }
 }
 
 
