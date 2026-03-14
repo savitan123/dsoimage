@@ -371,7 +371,7 @@
 
     <script src="js/script.js?v=115"></script>
     <script src="js/stats.js"></script>
-    <script src="js/i18n.js?v=117"></script>
+    <script src="js/i18n.js?v=118"></script>
     <script>
     (function () {
         // ── Catalog ──────────────────────────────────────────────────────────────
@@ -745,16 +745,16 @@
         const searchInput = document.getElementById('alt-search');
         const suggestionsBox = document.getElementById('alt-suggestions');
 
-        // Messier → NGC/IC mapping (same as catalog-explorer)
+        // Messier → NGC/IC mapping (identical to catalog-explorer)
         const messierToNgc = {
             1:'NGC1952',2:'NGC7089',3:'NGC5272',4:'NGC6121',5:'NGC5904',6:'NGC6405',7:'NGC6475',8:'NGC6523',9:'NGC6333',10:'NGC6254',
             11:'NGC6705',12:'NGC6218',13:'NGC6205',14:'NGC6402',15:'NGC7078',16:'NGC6611',17:'NGC6618',18:'NGC6613',19:'NGC6273',20:'NGC6514',
             21:'NGC6531',22:'NGC6656',23:'NGC6494',24:'IC4715',25:'IC4725',26:'NGC6694',27:'NGC6853',28:'NGC6626',29:'NGC6913',30:'NGC7099',
-            31:'NGC0224',32:'NGC0221',33:'NGC0598',34:'NGC1039',35:'NGC2168',36:'NGC1960',37:'NGC2099',38:'NGC1912',39:'NGC7092',
-            41:'NGC2287',42:'NGC1976',43:'NGC1982',44:'NGC2632',46:'NGC2437',47:'NGC2422',48:'NGC2548',49:'NGC4472',50:'NGC2323',
+            31:'NGC0224',32:'NGC0221',33:'NGC0598',34:'NGC1039',35:'NGC2168',36:'NGC1960',37:'NGC2099',38:'NGC1912',39:'NGC7092',40:'WIN04',
+            41:'NGC2287',42:'NGC1976',43:'NGC1982',44:'NGC2632',45:'MEL22',46:'NGC2437',47:'NGC2422',48:'NGC2548',49:'NGC4472',50:'NGC2323',
             51:'NGC5194',52:'NGC7654',53:'NGC5024',54:'NGC6715',55:'NGC6809',56:'NGC6779',57:'NGC6720',58:'NGC4579',59:'NGC4621',60:'NGC4649',
             61:'NGC4303',62:'NGC6266',63:'NGC5055',64:'NGC4826',65:'NGC3623',66:'NGC3627',67:'NGC2682',68:'NGC4590',69:'NGC6637',70:'NGC6681',
-            71:'NGC6838',72:'NGC6981',74:'NGC0628',75:'NGC6864',76:'NGC0650',77:'NGC1068',78:'NGC2068',79:'NGC1904',80:'NGC6093',
+            71:'NGC6838',72:'NGC6981',73:'NGC6994',74:'NGC0628',75:'NGC6864',76:'NGC0650',77:'NGC1068',78:'NGC2068',79:'NGC1904',80:'NGC6093',
             81:'NGC3031',82:'NGC3034',83:'NGC5236',84:'NGC4374',85:'NGC4382',86:'NGC4406',87:'NGC4486',88:'NGC4501',89:'NGC4552',90:'NGC4569',
             91:'NGC4548',92:'NGC6341',93:'NGC2447',94:'NGC4736',95:'NGC3351',96:'NGC3368',97:'NGC3587',98:'NGC4192',99:'NGC4254',100:'NGC4321',
             101:'NGC5457',102:'NGC5866',103:'NGC0581',104:'NGC4594',105:'NGC3379',106:'NGC4258',107:'NGC6171',108:'NGC3556',109:'NGC3992',110:'NGC0205'
@@ -826,18 +826,19 @@
 
             // ── 2. OpenNGC / targets.json ────────────────────────────────────────
             let ngcMatches = [];
+            let resolvedMLabel = null; // track "M2" label when Messier lookup resolves to NGC
             if (targetsData) {
-                // Resolve Messier aliases
                 let ngcKey = queryToNgcKey(q);
                 if (!ngcKey) {
-                    const mMatch = q.match(/^m\s*(\d+)$/);
-                    if (mMatch && messierToNgc[parseInt(mMatch[1])]) {
-                        ngcKey = messierToNgc[parseInt(mMatch[1])];
+                    // Messier lookup — same logic as catalog-explorer
+                    const mNum = q.startsWith('m') ? q.match(/\d+/) : null;
+                    if (mNum && messierToNgc[parseInt(mNum[0])]) {
+                        ngcKey = messierToNgc[parseInt(mNum[0])];
+                        resolvedMLabel = 'M' + parseInt(mNum[0]);
                     }
                 }
 
                 if (ngcKey) {
-                    // Exact key lookup
                     const exact = targetsData.find(x => x.n === ngcKey);
                     if (exact) ngcMatches = [exact];
                 } else {
@@ -852,12 +853,16 @@
 
             // ── 3. SIMBAD fallback option ────────────────────────────────────────
             const looksExternal = /^(sh2|b\d|lbn|ldn|ced|rcw|vdb|barnard|col|mel|cr)\s*[-\s]?\d/i.test(q)
-                                  || (q.length > 2 && namedMatches.length === 0 && galleryMatches.length === 0 && ngcMatches.length === 0);
+                                  || (q.length >= 2 && namedMatches.length === 0 && galleryMatches.length === 0 && ngcMatches.length === 0);
 
             const allItems = [
                 ...namedMatches.map(o => ({ label: o.name, sub: o.type, _obj: o })),
                 ...galleryMatches.map(item => ({ label: item.title, sub: 'Gallery', _gallery: item })),
-                ...ngcMatches.map(item => ({ label: ngcDisplayName(item), sub: item.t || 'DSO', _obj: ngcToObj(item) })),
+                ...ngcMatches.map(item => ({
+                    label: resolvedMLabel ? `${resolvedMLabel} — ${ngcDisplayName(item)}` : ngcDisplayName(item),
+                    sub: item.t || 'DSO',
+                    _obj: ngcToObj(item)
+                })),
                 ...(looksExternal ? [{ label: `Look up "${query.trim()}" via SIMBAD`, sub: '', _simbad: query.trim() }] : [])
             ];
 
