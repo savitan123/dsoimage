@@ -670,7 +670,7 @@
             }
 
 
-            // Fix chart size from viewport — prevents any RTL/keyboard/resize from changing it
+            // On mobile: pin wrap to exact viewport width so RTL/keyboard can't expand it
             const wrap = document.getElementById('altChart').closest('.alt-chart-wrap');
             const vw = window.innerWidth;
             const isMobile = vw <= 768;
@@ -678,6 +678,9 @@
                 const w = vw - 40;
                 wrap.style.width = w + 'px';
                 wrap.style.maxWidth = w + 'px';
+            } else {
+                wrap.style.width = '';
+                wrap.style.maxWidth = '';
             }
 
             const ctx2 = document.getElementById('altChart').getContext('2d');
@@ -686,7 +689,7 @@
                 type: 'line',
                 data: { labels, datasets },
                 options: {
-                    responsive: false,
+                    responsive: !isMobile,
                     maintainAspectRatio: false,
                     animation: false,
                     interaction: { mode: 'index', intersect: false },
