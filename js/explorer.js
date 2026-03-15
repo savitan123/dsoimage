@@ -58,15 +58,63 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('fov-sensor-w').value = cam.w;
             document.getElementById('fov-sensor-h').value = cam.h;
             document.getElementById('fov-pixel-size').value = cam.px;
+            updateImageScale();
+            saveFovPrefs();
             drawFovOverlay();
         });
     }
 
-    // Redraw when focal length or sensor fields change manually
+    // Redraw FOV + update image scale + save prefs on any field change
     ['fov-focal', 'fov-sensor-w', 'fov-sensor-h'].forEach(id => {
         const el = document.getElementById(id);
-        if (el) el.addEventListener('input', drawFovOverlay);
+        if (el) el.addEventListener('input', () => { drawFovOverlay(); updateImageScale(); saveFovPrefs(); });
     });
+    // Pixel size only affects image scale (not FOV), but still save it
+    const pixelEl = document.getElementById('fov-pixel-size');
+    if (pixelEl) pixelEl.addEventListener('input', () => { updateImageScale(); saveFovPrefs(); });
+
+    // ── Image scale ──────────────────────────────────────────────────────────
+    function updateImageScale() {
+        const px = parseFloat(document.getElementById('fov-pixel-size').value);
+        const fl = parseFloat(document.getElementById('fov-focal').value);
+        const el = document.getElementById('fov-image-scale');
+        if (!el) return;
+        if (!px || !fl || fl <= 0) { el.textContent = '—'; return; }
+        el.textContent = ((px * 206.265) / fl).toFixed(2) + '\u2033/px';
+    }
+
+    // ── localStorage persistence ─────────────────────────────────────────────
+    const FOV_STORAGE_KEY = 'dsoimage_fov_prefs';
+
+    function saveFovPrefs() {
+        try {
+            localStorage.setItem(FOV_STORAGE_KEY, JSON.stringify({
+                camIdx: document.getElementById('fov-camera').value,
+                w:  document.getElementById('fov-sensor-w').value,
+                h:  document.getElementById('fov-sensor-h').value,
+                px: document.getElementById('fov-pixel-size').value,
+                fl: document.getElementById('fov-focal').value
+            }));
+        } catch(e) {}
+    }
+
+    function restoreFovPrefs() {
+        try {
+            const raw = localStorage.getItem(FOV_STORAGE_KEY);
+            if (!raw) return;
+            const p = JSON.parse(raw);
+            const sel = document.getElementById('fov-camera');
+            if (sel && p.camIdx !== undefined && p.camIdx !== '') sel.value = p.camIdx;
+            if (p.w)  document.getElementById('fov-sensor-w').value   = p.w;
+            if (p.h)  document.getElementById('fov-sensor-h').value   = p.h;
+            if (p.px) document.getElementById('fov-pixel-size').value = p.px;
+            if (p.fl) document.getElementById('fov-focal').value      = p.fl;
+            updateImageScale();
+        } catch(e) {}
+    }
+
+    // Restore saved settings on page load
+    restoreFovPrefs();
 
     // ── Coordinate helpers ───────────────────────────────────────────────────
     // Convert RA string (decimal degrees with "°", or HMS "HH MM SS.ss") to decimal degrees
