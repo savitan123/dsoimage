@@ -10,11 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let fovOverlayLayer = null;
     let fovLabelUpdateFn = null;
     let currentObjectCoords = null; // { ra: decDeg, dec: decDeg }
-    let fovCenterOverride = null;   // { ra, dec } when user drags the rectangle; null = object center
-    let lastFovPixCorners = null;   // pixel-space corners after last redraw, for hit-testing
-    let isDraggingFov = false;
-    let fovDragStartPix = null;
-    let fovDragStartCenter = null;
 
     // ── Camera database ─────────────────────────────────────────────────────
     const CAMERAS = [
@@ -167,30 +162,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const fovW_deg = fovW_arcmin / 60;
         const fovH_deg = fovH_arcmin / 60;
 
-        const center = fovCenterOverride !== null ? fovCenterOverride : currentObjectCoords;
-        const { ra, dec } = center;
-        const dDec = fovH_deg / 2;
-        const dRa = (fovW_deg / 2) / Math.cos(dec * Math.PI / 180);
-
-        // corners: TL, TR, BR, BL
-        const corners = [
-            [ra - dRa, dec + dDec],
-            [ra + dRa, dec + dDec],
-            [ra + dRa, dec - dDec],
-            [ra - dRa, dec - dDec]
-        ];
-
-        // Zoom Aladin to show the full FOV with margin (skip during drag to avoid interrupting pan)
+        // Zoom Aladin to show the full FOV with margin
         const viewFov = Math.max(fovW_deg, fovH_deg) * 1.6;
-        if (!isDraggingFov) aladinInstance.setFov(viewFov);
+        aladinInstance.setFov(viewFov);
 
         // Draw rectangle + labels on HTML Canvas overlay (bypasses Aladin layer API)
-        drawFovCanvas(corners, fovW_arcmin, fovH_arcmin);
+        drawFovCanvas(fovW_arcmin, fovH_arcmin);
 
         // Update result bar
         if (resultDiv) {
             resultDiv.style.display = 'block';
-            resultDiv.innerHTML = `<i class="fa-solid fa-crop-simple" style="color:#FFAB40;"></i>&nbsp; FOV: <strong style="color:#fff;">${arcminToDMS(fovW_arcmin)} &times; ${arcminToDMS(fovH_arcmin)}</strong> &nbsp;<span style="color:#888;">(${fovW_arcmin.toFixed(1)}' &times; ${fovH_arcmin.toFixed(1)}')</span> <span style="color:#666;font-size:11px;">— drag to move &middot; dbl-click to reset</span>`;
+            resultDiv.innerHTML = `<i class="fa-solid fa-crop-simple" style="color:#FFAB40;"></i>&nbsp; FOV: <strong style="color:#fff;">${arcminToDMS(fovW_arcmin)} &times; ${arcminToDMS(fovH_arcmin)}</strong> &nbsp;<span style="color:#888;">(${fovW_arcmin.toFixed(1)}' &times; ${fovH_arcmin.toFixed(1)}')</span>`;
         }
     }
 
@@ -207,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Draw the FOV rectangle + DMS labels on an HTML Canvas placed over the Aladin div.
     // This bypasses Aladin's layer API entirely — always visible, always works.
-    function drawFovCanvas(corners, fovW_arcmin, fovH_arcmin) {
+    function drawFovCanvas(fovW_arcmin, fovH_arcmin) {
         const aladinDiv = document.getElementById('aladin-lite-div');
         if (!aladinDiv || !aladinInstance) return;
         aladinDiv.style.position = 'relative';
@@ -223,6 +205,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const wDMS = arcminToDMS(fovW_arcmin);
         const hDMS = arcminToDMS(fovH_arcmin);
+        const fovW_deg = fovW_arcmin / 60;
+        const fovH_deg = fovH_arcmin / 60;
 
         function redraw() {
             canvas.width  = aladinDiv.offsetWidth  || 600;
@@ -230,15 +214,27 @@ document.addEventListener('DOMContentLoaded', () => {
             const ctx = canvas.getContext('2d');
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+            // Compute corners from current reticle center (follows the cross on pan/zoom)
+            const centerRaDec = aladinInstance.getRaDec();
+            if (!centerRaDec) return;
+            const [ra, dec] = centerRaDec;
+            const dDec = fovH_deg / 2;
+            const dRa  = (fovW_deg / 2) / Math.cos(dec * Math.PI / 180);
+            const skyCorners = [
+                [ra - dRa, dec + dDec],
+                [ra + dRa, dec + dDec],
+                [ra + dRa, dec - dDec],
+                [ra - dRa, dec - dDec]
+            ];
+
             // Convert sky coordinates → canvas pixel positions
-            const px = corners.map(c => {
+            const px = skyCorners.map(c => {
                 try {
                     const p = aladinInstance.world2pix(c[0], c[1]);
                     return (p && !isNaN(p[0]) && !isNaN(p[1])) ? p : null;
                 } catch(e) { return null; }
             });
             if (px.some(p => p === null)) return;
-            lastFovPixCorners = px.map(p => [p[0], p[1]]);
 
             // ── Rectangle ──────────────────────────────────────────────────
             ctx.beginPath();
@@ -284,99 +280,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         redraw();
 
-        // Re-render whenever the user pans or zooms Aladin (skip during drag to avoid listener churn)
-        if (!isDraggingFov) {
-            if (fovLabelUpdateFn) {
-                try { aladinInstance.off('positionChanged', fovLabelUpdateFn); } catch(e) {}
-                try { aladinInstance.off('zoomChanged',     fovLabelUpdateFn); } catch(e) {}
-            }
-            fovLabelUpdateFn = redraw;
-            try { aladinInstance.on('positionChanged', fovLabelUpdateFn); } catch(e) {}
-            try { aladinInstance.on('zoomChanged',     fovLabelUpdateFn); } catch(e) {}
-            setupFovDrag();
+        // Re-render whenever the user pans or zooms Aladin
+        if (fovLabelUpdateFn) {
+            try { aladinInstance.off('positionChanged', fovLabelUpdateFn); } catch(e) {}
+            try { aladinInstance.off('zoomChanged',     fovLabelUpdateFn); } catch(e) {}
         }
-    }
-
-    // ── FOV drag helpers ─────────────────────────────────────────────────────
-    function pointInPolygon(mx, my, poly) {
-        let sign = 0;
-        const n = poly.length;
-        for (let i = 0; i < n; i++) {
-            const ax = poly[i][0], ay = poly[i][1];
-            const bx = poly[(i + 1) % n][0], by = poly[(i + 1) % n][1];
-            const cross = (bx - ax) * (my - ay) - (by - ay) * (mx - ax);
-            const s = cross > 0 ? 1 : -1;
-            if (sign === 0) sign = s;
-            else if (s !== sign) return false;
-        }
-        return true;
-    }
-
-    function setupFovDrag() {
-        const aladinDiv = document.getElementById('aladin-lite-div');
-        if (!aladinDiv || aladinDiv._fovDragSetup) return;
-        aladinDiv._fovDragSetup = true;
-
-        function getEventXY(e) {
-            const rect = aladinDiv.getBoundingClientRect();
-            if (e.touches && e.touches.length > 0) {
-                return [e.touches[0].clientX - rect.left, e.touches[0].clientY - rect.top];
-            }
-            return [e.clientX - rect.left, e.clientY - rect.top];
-        }
-
-        function onStart(e) {
-            if (!lastFovPixCorners) return;
-            const [mx, my] = getEventXY(e);
-            if (!pointInPolygon(mx, my, lastFovPixCorners)) return;
-            e.stopImmediatePropagation();
-            e.preventDefault();
-            isDraggingFov = true;
-            fovDragStartPix = [mx, my];
-            fovDragStartCenter = fovCenterOverride !== null
-                ? { ra: fovCenterOverride.ra, dec: fovCenterOverride.dec }
-                : { ra: currentObjectCoords.ra, dec: currentObjectCoords.dec };
-        }
-
-        function onMove(e) {
-            if (!isDraggingFov) return;
-            e.stopImmediatePropagation();
-            e.preventDefault();
-            const [mx, my] = getEventXY(e);
-            try {
-                const startSky = aladinInstance.pix2world(fovDragStartPix[0], fovDragStartPix[1]);
-                const curSky   = aladinInstance.pix2world(mx, my);
-                if (!startSky || !curSky) return;
-                fovCenterOverride = {
-                    ra:  fovDragStartCenter.ra  - (curSky[0] - startSky[0]),
-                    dec: fovDragStartCenter.dec - (curSky[1] - startSky[1])
-                };
-                drawFovOverlay();
-            } catch(err) {}
-        }
-
-        function onEnd() {
-            isDraggingFov = false;
-            fovDragStartPix = null;
-        }
-
-        function onDblClick(e) {
-            if (!lastFovPixCorners) return;
-            const [mx, my] = getEventXY(e);
-            if (!pointInPolygon(mx, my, lastFovPixCorners)) return;
-            e.stopImmediatePropagation();
-            fovCenterOverride = null;
-            drawFovOverlay();
-        }
-
-        // Capture phase: intercept before Aladin's own handlers
-        aladinDiv.addEventListener('mousedown',  onStart, { capture: true });
-        aladinDiv.addEventListener('touchstart', onStart, { capture: true, passive: false });
-        document.addEventListener('mousemove',   onMove);
-        document.addEventListener('touchmove',   onMove, { passive: false });
-        document.addEventListener('mouseup',     onEnd);
-        document.addEventListener('touchend',    onEnd);
-        aladinDiv.addEventListener('dblclick',   onDblClick, { capture: true });
+        fovLabelUpdateFn = redraw;
+        try { aladinInstance.on('positionChanged', fovLabelUpdateFn); } catch(e) {}
+        try { aladinInstance.on('zoomChanged',     fovLabelUpdateFn); } catch(e) {}
     }
 
     // ── Data fetching ────────────────────────────────────────────────────────
@@ -586,7 +497,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Reset aladin instance for new search
         aladinInstance = null;
         fovLabelUpdateFn = null;
-        fovCenterOverride = null;
 
         // Store object coordinates for FOV overlay
         if (data.ra && data.dec && data.ra !== "N/A" && data.dec !== "N/A") {
