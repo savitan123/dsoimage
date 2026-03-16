@@ -38,6 +38,11 @@
     <!-- Aladin Lite V3 -->
     <link rel="stylesheet" href="https://aladin.cds.unistra.fr/AladinLite/api/v3/latest/aladin.css" />
     <script src="https://aladin.cds.unistra.fr/AladinLite/api/v3/latest/aladin.js" charset="utf-8"></script>
+    <style>
+        @media (max-width: 768px) {
+            #mode-control-group { flex-basis: auto !important; }
+        }
+    </style>
 </head>
 
 <body>
@@ -159,7 +164,7 @@
                             </select>
                         </div>
                         <!-- Time Range Controls -->
-                        <div class="control-group"
+                        <div class="control-group" id="mode-control-group"
                             style="flex-basis: 100%; display: flex; justify-content: center; gap: 15px; align-items: flex-end; flex-wrap: wrap;">
                             <div style="display:flex; flex-direction:column;">
                                 <label data-i18n="plan_mode" style="font-size:12px; color:#888; margin-bottom:5px;">Mode:</label>
