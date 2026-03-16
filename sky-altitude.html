@@ -347,28 +347,6 @@
             </div>
 
             <div class="alt-main-area">
-            <!-- Status Cards -->
-            <div class="alt-status-row">
-                <!-- Sun card -->
-                <div class="alt-card">
-                    <div class="alt-card-header"><i class="fa-solid fa-sun" style="color:#FDD835;"></i><span data-i18n="alt_card_sun">Sun</span></div>
-                    <div class="alt-card-value" id="sun-alt" style="color:#FDD835;">--°</div>
-                    <div class="alt-card-detail" id="sun-detail"><span data-i18n="alt_loading">Calculating…</span></div>
-                </div>
-                <!-- Moon card -->
-                <div class="alt-card">
-                    <div class="alt-card-header"><i class="fa-solid fa-moon" style="color:#ccc;"></i><span data-i18n="alt_card_moon">Moon</span></div>
-                    <div class="alt-card-value" id="moon-alt" style="color:#ccc;">--°</div>
-                    <div class="alt-card-detail" id="moon-detail"><span data-i18n="alt_loading">Calculating…</span></div>
-                </div>
-                <!-- Object card -->
-                <div class="alt-card">
-                    <div class="alt-card-header"><i class="fa-solid fa-star" style="color:#E53935;"></i><span data-i18n="alt_card_object">Selected Object</span></div>
-                    <div class="alt-card-value" id="obj-alt" style="color:#E53935;">--°</div>
-                    <div class="alt-card-detail" id="obj-detail"><span class="alt-no-obj" data-i18n="alt_no_obj">Search for an object above</span></div>
-                </div>
-            </div>
-
             <!-- Chart -->
             <div class="alt-chart-wrap">
                 <canvas id="altChart"></canvas>
@@ -539,44 +517,6 @@
             return 'New Moon';
         }
 
-        // ── Update status cards ──────────────────────────────────────────────────
-        function updateCards() {
-            const now = new Date();
-            const observer = new Astronomy.Observer(lat, lng, 0);
-
-            // Sun
-            const sunAlt = getBodyAlt('Sun', now, observer);
-            document.getElementById('sun-alt').textContent = sunAlt.toFixed(1) + '°';
-            const sunRS = getRiseSet('Sun', false, null, null, observer);
-            const sunStatus = sunAlt > 0 ? 'Above Horizon' : 'Below Horizon';
-            document.getElementById('sun-detail').innerHTML = `<b>${sunStatus}</b> &nbsp;↑${sunRS.rise} ↓${sunRS.set}`;
-
-            // Moon
-            const moonAlt = getBodyAlt('Moon', now, observer);
-            document.getElementById('moon-alt').textContent = moonAlt.toFixed(1) + '°';
-            const moonIll = Astronomy.Illumination('Moon', now);
-            const phase = moonPhaseName(moonIll.phase_angle);
-            const illPct = (moonIll.phase_fraction * 100).toFixed(0);
-            const moonRS = getRiseSet('Moon', false, null, null, observer);
-            document.getElementById('moon-detail').innerHTML = `<b>${phase}</b> ${illPct}% &nbsp;↑${moonRS.rise} ↓${moonRS.set}`;
-
-            // Object
-            if (selectedObj) {
-                let alt;
-                if (selectedObj.isPlanet) {
-                    alt = getBodyAlt(selectedObj.name, now, observer);
-                } else {
-                    alt = getFixedAlt(selectedObj.ra, selectedObj.dec, now, observer);
-                }
-                document.getElementById('obj-alt').textContent = alt.toFixed(1) + '°';
-                const objStatus = alt > 0 ? (sunAlt < -6 ? '✓ Visible now' : 'Up (daylight)') : 'Below horizon';
-                document.getElementById('obj-detail').innerHTML = `<b>${objStatus}</b> &nbsp;<span style="color:#555;">${selectedObj.type}</span>`;
-            } else {
-                document.getElementById('obj-alt').textContent = '--°';
-                document.getElementById('obj-detail').innerHTML = `<span class="alt-no-obj" data-i18n="alt_no_obj">Search for an object above</span>`;
-            }
-        }
-
         // ── Build chart data ─────────────────────────────────────────────────────
         function buildChartData() {
             const pts = getTimePoints();
@@ -726,7 +666,7 @@
                 type: 'line',
                 data: { labels, datasets },
                 options: {
-                    responsive: !isMobile,
+                    responsive: true,
                     maintainAspectRatio: false,
                     animation: false,
                     interaction: { mode: 'index', intersect: false },
@@ -737,7 +677,7 @@
                             external(context) {
                                 const el = document.getElementById('alt-tooltip-box');
                                 const tt = context.tooltip;
-                                if (!tt || tt.opacity === 0) { el.classList.remove('visible'); return; }
+                                if (!tt || tt.opacity === 0) { updateTimelineTooltip(); return; }
                                 const title = (tt.title && tt.title[0]) || '';
                                 const lines = tt.dataPoints.map(dp =>
                                     `<div class="alt-tt-line"><span style="color:${dp.dataset.borderColor};margin-right:6px;">&#9644;</span>${dp.dataset.label}: <b>${dp.parsed.y.toFixed(1)}°</b></div>`
@@ -771,6 +711,35 @@
                 },
                 plugins: [bgPlugin, nowPlugin]
             });
+            updateTimelineTooltip();
+        }
+
+        // ── Altitude at selected time (always-visible tooltip) ────────────────────
+        function updateTimelineTooltip() {
+            const el = document.getElementById('alt-tooltip-box');
+            const timeInput = document.getElementById('alt-sel-time').value;
+            const observer = new Astronomy.Observer(lat, lng, 0);
+            let targetTime;
+            if (timeInput) {
+                const [hh, mm] = timeInput.split(':').map(Number);
+                const sel = getSelectedDate();
+                targetTime = new Date(sel.getFullYear(), sel.getMonth(), sel.getDate(), hh, mm, 0);
+            } else {
+                targetTime = new Date();
+            }
+            const timeLabel = formatHHMM(targetTime) + (timeInput ? '' : ' (Now)');
+            const sunAlt  = getBodyAlt('Sun',  targetTime, observer);
+            const moonAlt = getBodyAlt('Moon', targetTime, observer);
+            let lines = `<div class="alt-tt-line"><span style="color:#FDD835;margin-right:6px;">&#9644;</span>Sun: <b>${sunAlt.toFixed(1)}°</b></div>`;
+            lines    += `<div class="alt-tt-line"><span style="color:#aaaaaa;margin-right:6px;">&#9644;</span>Moon: <b>${moonAlt.toFixed(1)}°</b></div>`;
+            if (selectedObj) {
+                const objAlt = selectedObj.isPlanet
+                    ? getBodyAlt(selectedObj.name, targetTime, observer)
+                    : getFixedAlt(selectedObj.ra, selectedObj.dec, targetTime, observer);
+                lines += `<div class="alt-tt-line"><span style="color:#E53935;margin-right:6px;">&#9644;</span>${selectedObj.name}: <b>${objAlt.toFixed(1)}°</b></div>`;
+            }
+            el.innerHTML = `<div class="alt-tt-title">${timeLabel}</div>${lines}`;
+            el.classList.add('visible');
         }
 
         // ── Object search / suggestions ──────────────────────────────────────────
@@ -968,7 +937,6 @@
             selectedObj = obj;
             searchInput.value = obj.name;
             suggestionsBox.style.display = 'none';
-            updateCards();
             renderChart();
         }
 
@@ -1089,15 +1057,14 @@
             document.getElementById('alt-location-bar').innerHTML =
                 `<i class="fa-solid fa-location-dot"></i> ${city} (${lat.toFixed(2)}°, ${lng.toFixed(2)}°)`;
 
-            updateCards();
             renderChart();
-            // Refresh cards every minute
-            setInterval(updateCards, 60000);
+            // Refresh "Now" tooltip every minute
+            setInterval(updateTimelineTooltip, 60000);
         }
         init();
 
         // Re-render on language change
-        window.addEventListener('languageChanged', () => { updateCards(); renderChart(); });
+        window.addEventListener('languageChanged', () => { renderChart(); });
         // Only re-render on width changes — keyboard show/hide changes height only and
         // would cause chart to re-measure at a wrong size on mobile
         let _lastRenderW = window.innerWidth;
