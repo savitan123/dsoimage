@@ -657,11 +657,13 @@ function initDSOImage() {
   const savedRedMode = localStorage.getItem("redMode") === "true";
   const savedBrightness = localStorage.getItem("redModeBrightness") || "80";
 
+  const isMobileNV = () => window.innerWidth <= 768;
+
   if (savedRedMode) {
     document.body.classList.add("red-mode");
     document.body.style.setProperty('--nv-brightness', savedBrightness / 100);
     if (redModeToggle) redModeToggle.classList.add("active");
-    if (nvContainer) nvContainer.style.display = "block";
+    if (nvContainer) nvContainer.style.display = isMobileNV() ? "none" : "block";
   }
 
   if (nvSlider) {
@@ -673,33 +675,15 @@ function initDSOImage() {
     });
   }
 
-  // On mobile: position the dimmer popup centered under the moon button
-  function positionNvContainerMobile() {
-    if (window.innerWidth > 768 || !redModeToggle || !nvContainer) return;
-    const actionsEl = redModeToggle.closest('.top-nav-actions');
-    if (!actionsEl) return;
-    const btnRect = redModeToggle.getBoundingClientRect();
-    const actRect = actionsEl.getBoundingClientRect();
-    const pw = 160; // must match CSS width
-    const left = Math.max(0, (btnRect.left - actRect.left) + btnRect.width / 2 - pw / 2);
-    nvContainer.style.left = left + 'px';
-    nvContainer.style.right = 'auto';
-    nvContainer.style.top = (actRect.height + 4) + 'px';
-  }
-
   function toggleRedMode() {
     document.body.classList.toggle("red-mode");
     const isActive = document.body.classList.contains("red-mode");
 
     if (redModeToggle) redModeToggle.classList.toggle("active");
 
+    // On mobile: no dimmer popup — brightness is fixed at 80%
     if (nvContainer) {
-      if (isActive) {
-        nvContainer.style.display = 'block';
-        positionNvContainerMobile();
-      } else {
-        nvContainer.style.display = 'none';
-      }
+      nvContainer.style.display = (isActive && !isMobileNV()) ? "block" : "none";
     }
 
     if (isActive) {
