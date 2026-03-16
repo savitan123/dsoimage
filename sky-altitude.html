@@ -180,13 +180,29 @@
         }
         .alt-date-row select:focus { border-color: #E53935; }
         .alt-date-row label { font-size: 12px; color: #555; }
+        .alt-time-group { display: flex; align-items: center; gap: 8px; }
+        #alt-sel-time {
+            background: #111;
+            border: 1px solid #333;
+            color: #ccc;
+            font-size: 13px;
+            padding: 7px 10px;
+            border-radius: 7px;
+            outline: none;
+            cursor: pointer;
+            transition: border-color 0.2s;
+            color-scheme: dark;
+        }
+        #alt-sel-time:focus { border-color: #E53935; }
         @media (max-width: 768px) {
-            .alt-chart-wrap { height: 220px; padding: 8px 8px 2px 8px; overflow: hidden; order: 1; width: calc(100vw - 40px) !important; max-width: calc(100vw - 40px) !important; box-sizing: border-box; }
+            .alt-chart-wrap { height: 440px; padding: 8px 8px 2px 8px; overflow: hidden; order: 1; width: calc(100vw - 40px) !important; max-width: calc(100vw - 40px) !important; box-sizing: border-box; }
             .alt-search-wrap { width: calc(100vw - 40px) !important; max-width: calc(100vw - 40px) !important; box-sizing: border-box; }
             .alt-search-wrap input { font-size: 16px; } /* prevent iOS Safari auto-zoom on focus */
             .alt-tooltip-box { order: 2; width: calc(100vw - 40px); box-sizing: border-box; }
             .alt-status-row { order: 3; width: calc(100vw - 40px); box-sizing: border-box; }
             .alt-date-row { width: calc(100vw - 40px); box-sizing: border-box; }
+            .alt-time-group { flex-basis: 100%; }
+            #alt-sel-time { font-size: 16px; } /* prevent iOS auto-zoom */
         }
         .alt-legend {
             display: flex;
@@ -323,6 +339,11 @@
                 <select id="alt-sel-day"></select>
                 <select id="alt-sel-month"></select>
                 <select id="alt-sel-year"></select>
+                <div class="alt-time-group">
+                    <i class="fa-solid fa-clock"></i>
+                    <label>Time:</label>
+                    <input type="time" id="alt-sel-time" placeholder="Now" />
+                </div>
             </div>
 
             <div class="alt-main-area">
@@ -573,17 +594,27 @@
                 }
             }
 
-            // Find "now" index
-            const nowMs = Date.now();
+            // Find "now" / selected-time index
+            const timeInput = document.getElementById('alt-sel-time').value;
+            let nowMs;
+            if (timeInput) {
+                const [hh, mm] = timeInput.split(':').map(Number);
+                const sel = getSelectedDate();
+                nowMs = new Date(sel.getFullYear(), sel.getMonth(), sel.getDate(), hh, mm, 0).getTime();
+            } else {
+                nowMs = Date.now();
+            }
             const noonMs = pts[0].getTime();
-            const nowIdx = Math.min(Math.round((nowMs - noonMs) / (30 * 60 * 1000)), pts.length - 1);
+            const nowIdx = Math.min(Math.max(Math.round((nowMs - noonMs) / (30 * 60 * 1000)), 0), pts.length - 1);
+            const showTimeLine = isSelectedToday() || !!timeInput;
+            const showNowLabel = isSelectedToday() && !timeInput;
 
-            return { labels, sunData, moonData, objData, nowIdx };
+            return { labels, sunData, moonData, objData, nowIdx, showTimeLine, showNowLabel };
         }
 
         // ── Render chart ─────────────────────────────────────────────────────────
         function renderChart() {
-            const { labels, sunData, moonData, objData, nowIdx } = buildChartData();
+            const { labels, sunData, moonData, objData, nowIdx, showTimeLine, showNowLabel } = buildChartData();
 
             // Background plugin: shade day (sun>0) vs twilight vs night
             const bgPlugin = {
@@ -611,12 +642,11 @@
                 }
             };
 
-            // "Now" vertical line plugin (only when viewing today)
-            const showNow = isSelectedToday();
+            // Vertical time line plugin
             const nowPlugin = {
                 id: 'nowLine',
                 afterDraw(chart) {
-                    if (!showNow) return;
+                    if (!showTimeLine) return;
                     const { ctx, chartArea, scales } = chart;
                     if (!chartArea) return;
                     const x = scales.x.getPixelForValue(nowIdx);
@@ -629,10 +659,12 @@
                     ctx.lineTo(x, chartArea.bottom);
                     ctx.stroke();
                     ctx.setLineDash([]);
-                    ctx.fillStyle = '#E53935';
-                    ctx.font = '11px sans-serif';
-                    ctx.textAlign = 'center';
-                    ctx.fillText('NOW', x, chartArea.top + 12);
+                    if (showNowLabel) {
+                        ctx.fillStyle = '#E53935';
+                        ctx.font = '11px sans-serif';
+                        ctx.textAlign = 'center';
+                        ctx.fillText('NOW', x, chartArea.top + 12);
+                    }
                     ctx.restore();
                 }
             };
@@ -1033,6 +1065,7 @@
             }
 
             [dayEl, monEl, yearEl].forEach(el => el.addEventListener('change', renderChart));
+            document.getElementById('alt-sel-time').addEventListener('change', renderChart);
         }
 
         // ── Init ─────────────────────────────────────────────────────────────────
