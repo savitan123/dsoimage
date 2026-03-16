@@ -61,7 +61,15 @@
         .checklist-item span.task-text {
             word-break: break-word;
         }
+    }
 
+    /* RTL (Hebrew) checkbox spacing — apply on all screen sizes */
+    [dir="rtl"] .checklist-item input[type="checkbox"] {
+        margin-right: 0;
+        margin-left: 15px;
+    }
+
+    @media (max-width: 768px) {
         /* User profile row: wrap on small screens */
         #app-container > div:first-child {
             flex-wrap: wrap;
