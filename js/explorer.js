@@ -72,6 +72,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Pixel size only affects image scale (not FOV), but still save it
     const pixelEl = document.getElementById('fov-pixel-size');
     if (pixelEl) pixelEl.addEventListener('input', () => { updateImageScale(); saveFovPrefs(); });
+    // Rotation redraws the overlay
+    const rotEl = document.getElementById('fov-rotation');
+    if (rotEl) rotEl.addEventListener('input', () => { drawFovOverlay(); saveFovPrefs(); });
 
     // ── Image scale ──────────────────────────────────────────────────────────
     function updateImageScale() {
@@ -93,7 +96,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 w:  document.getElementById('fov-sensor-w').value,
                 h:  document.getElementById('fov-sensor-h').value,
                 px: document.getElementById('fov-pixel-size').value,
-                fl: document.getElementById('fov-focal').value
+                fl: document.getElementById('fov-focal').value,
+                rot: document.getElementById('fov-rotation').value
             }));
         } catch(e) {}
     }
@@ -108,7 +112,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (p.w)  document.getElementById('fov-sensor-w').value   = p.w;
             if (p.h)  document.getElementById('fov-sensor-h').value   = p.h;
             if (p.px) document.getElementById('fov-pixel-size').value = p.px;
-            if (p.fl) document.getElementById('fov-focal').value      = p.fl;
+            if (p.fl)  document.getElementById('fov-focal').value      = p.fl;
+            if (p.rot) document.getElementById('fov-rotation').value  = p.rot;
             updateImageScale();
         } catch(e) {}
     }
@@ -218,14 +223,22 @@ document.addEventListener('DOMContentLoaded', () => {
             const centerRaDec = aladinInstance.getRaDec();
             if (!centerRaDec) return;
             const [ra, dec] = centerRaDec;
-            const dDec = fovH_deg / 2;
-            const dRa  = (fovW_deg / 2) / Math.cos(dec * Math.PI / 180);
-            const skyCorners = [
-                [ra - dRa, dec + dDec],
-                [ra + dRa, dec + dDec],
-                [ra + dRa, dec - dDec],
-                [ra - dRa, dec - dDec]
-            ];
+            const hw = fovW_deg / 2;  // half-width in sky degrees
+            const hh = fovH_deg / 2;  // half-height in sky degrees
+            const cosLat = Math.cos(dec * Math.PI / 180);
+
+            // Apply position-angle rotation (degrees, measured from North through East)
+            const rotDeg = parseFloat(document.getElementById('fov-rotation').value) || 0;
+            const rotRad = rotDeg * Math.PI / 180;
+            const cosR = Math.cos(rotRad), sinR = Math.sin(rotRad);
+
+            // Rotate each corner in local tangent plane (East=x, North=y), then convert to RA/Dec
+            const localCorners = [[-hw, +hh], [+hw, +hh], [+hw, -hh], [-hw, -hh]]; // TL TR BR BL
+            const skyCorners = localCorners.map(([lx, ly]) => {
+                const rx = lx * cosR - ly * sinR;
+                const ry = lx * sinR + ly * cosR;
+                return [ra + rx / cosLat, dec + ry];
+            });
 
             // Convert sky coordinates → canvas pixel positions
             const px = skyCorners.map(c => {
