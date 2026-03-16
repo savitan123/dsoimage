@@ -2397,20 +2397,16 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // --- Master Glossary A-Z (Knowledge Base) ---
-function initGlossary() {
-  const container = document.getElementById("glossary-container");
-  const navContainer = document.getElementById("alpha-nav");
-  const searchInput = document.getElementById("kb-search-input");
-  if (!container || !navContainer) return;
+let _glossaryMasterList = null;
 
+function buildGlossaryMasterList() {
+  if (_glossaryMasterList) return _glossaryMasterList;
   let masterList = [];
 
-  // 1. Ingest hardcoded Knowledge Base concepts
   if (typeof GLOSSARY_ITEMS !== 'undefined') {
     masterList = masterList.concat(GLOSSARY_ITEMS);
   }
 
-  // 2. Ingest 88 Constellations
   if (typeof CONSTELLATIONS !== 'undefined') {
     CONSTELLATIONS.forEach(c => {
       let abbrUpper = c.abbr ? c.abbr.toUpperCase() : "AND";
@@ -2427,139 +2423,12 @@ function initGlossary() {
     });
   }
 
-  // 3. Sort Alphabetically
   masterList.sort((a, b) => a.title.localeCompare(b.title));
+  _glossaryMasterList = masterList;
+  return masterList;
+}
 
-  // 4. Render DOM
-  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-  let currentLetter = '';
-  const activeLetters = new Set();
-
-  masterList.forEach(item => {
-    let firstChar = item.title.charAt(0).toUpperCase();
-    if (!alphabet.includes(firstChar)) firstChar = '#'; // Handle numbers
-
-    activeLetters.add(firstChar);
-
-    // Create new letter group if needed
-    if (firstChar !== currentLetter) {
-      const groupDiv = document.createElement("div");
-      groupDiv.className = "glossary-letter-group";
-      groupDiv.id = "letter-" + firstChar;
-
-      const titleDiv = document.createElement("h3");
-      titleDiv.className = "glossary-letter-title";
-      titleDiv.innerText = firstChar;
-
-      groupDiv.appendChild(titleDiv);
-      container.appendChild(groupDiv);
-      currentLetter = firstChar;
-    }
-
-    // Determine Metadata Tag Class
-    let tagClass = "glossary-tag tag-concept";
-    if (item.category === "Terminology") tagClass = "glossary-tag tag-terminology";
-    else if (item.category === "Equipment") tagClass = "glossary-tag tag-equipment";
-    else if (item.category === "Constellation") tagClass = "glossary-tag tag-constellation";
-
-    // Build the Row
-    const row = document.createElement("div");
-    row.className = "glossary-item";
-    row.innerHTML = `
-      <div class="glossary-header">
-        <div class="glossary-title-wrapper">
-          <h4 class="glossary-title">${item.title}</h4>
-          <span class="${tagClass}">${item.category}</span>
-        </div>
-        <span class="toggle-icon">+</span>
-      </div>
-      <div class="glossary-content">
-        <div class="glossary-content-inner">
-          ${item.content}
-        </div>
-      </div>
-    `;
-
-    // Accordion interaction
-    const header = row.querySelector('.glossary-header');
-    const contentBody = row.querySelector('.glossary-content');
-    header.addEventListener('click', () => {
-      const isOpen = contentBody.style.maxHeight && contentBody.style.maxHeight !== '0px';
-
-      // Close all others
-      document.querySelectorAll('.glossary-content').forEach(c => {
-        c.style.maxHeight = null;
-      });
-      document.querySelectorAll('.glossary-header .toggle-icon').forEach(i => i.innerText = '+');
-
-      if (!isOpen) {
-        contentBody.style.maxHeight = contentBody.scrollHeight + "px";
-        header.querySelector('.toggle-icon').innerText = '-';
-      }
-    });
-
-    document.getElementById("letter-" + currentLetter).appendChild(row);
-  });
-
-  // 5. Build A-Z Nav
-  alphabet.forEach(letter => {
-    const li = document.createElement("li");
-    const a = document.createElement("a");
-    a.href = "#letter-" + letter;
-    a.innerText = letter;
-
-    if (!activeLetters.has(letter)) {
-      a.classList.add("disabled");
-    }
-
-    li.appendChild(a);
-    navContainer.appendChild(li);
-  });
-
-  // Hash nav smooth scrolling offset
-  navContainer.addEventListener('click', (e) => {
-    if (e.target.tagName === 'A' && !e.target.classList.contains('disabled')) {
-      e.preventDefault();
-      const targetId = e.target.getAttribute('href').substring(1);
-      const targetElement = document.getElementById(targetId);
-      if (targetElement) {
-        window.scrollTo({
-          top: targetElement.offsetTop - 120, // offset for sticky nav
-          behavior: 'smooth'
-        });
-      }
-    }
-  });
-
-  // 6. Real-Time Search Filter
-  if (searchInput) {
-    searchInput.addEventListener('input', (e) => {
-      const query = e.target.value.toLowerCase().trim();
-      const letterGroups = document.querySelectorAll('.glossary-letter-group');
-
-      document.querySelectorAll('.glossary-item').forEach(item => {
-        const text = item.innerText.toLowerCase();
-        if (text.includes(query)) {
-          item.style.display = "block";
-        } else {
-          item.style.display = "none";
-        }
-      });
-
-      // Hide empty letter groups
-      letterGroups.forEach(group => {
-        const allItems = group.querySelectorAll('.glossary-item');
-        let hasVisible = false;
-        allItems.forEach(i => {
-          if (i.style.display !== 'none') hasVisible = true;
-        });
-
-        group.style.display = hasVisible ? "block" : "none";
-      });
-    });
-  }
-
-  // 7. Load Heavy Constellation Descriptions Asynchronously
+function loadConstellationDescriptions() {
   fetch('js/constellations_data.json')
     .then(res => res.json())
     .then(data => {
@@ -2573,6 +2442,128 @@ function initGlossary() {
       });
     })
     .catch(err => console.error("Error loading constellation data for glossary:", err));
+}
+
+function renderGlossary() {
+  const container = document.getElementById("glossary-container");
+  const navContainer = document.getElementById("alpha-nav");
+  if (!container || !navContainer) return;
+
+  const isHe = (window.currentLang || 'en') === 'he';
+  const masterList = buildGlossaryMasterList();
+
+  // Clear previous render
+  container.innerHTML = '';
+  navContainer.innerHTML = '';
+
+  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  let currentLetter = '';
+  const activeLetters = new Set();
+
+  masterList.forEach(item => {
+    // A-Z grouping always by English title
+    let firstChar = item.title.charAt(0).toUpperCase();
+    if (!alphabet.includes(firstChar)) firstChar = '#';
+    activeLetters.add(firstChar);
+
+    if (firstChar !== currentLetter) {
+      const groupDiv = document.createElement("div");
+      groupDiv.className = "glossary-letter-group";
+      groupDiv.id = "letter-" + firstChar;
+      const titleDiv = document.createElement("h3");
+      titleDiv.className = "glossary-letter-title";
+      titleDiv.innerText = firstChar;
+      groupDiv.appendChild(titleDiv);
+      container.appendChild(groupDiv);
+      currentLetter = firstChar;
+    }
+
+    // Use Hebrew fields if available, fall back to English
+    const displayTitle    = (isHe && item.title_he)    ? item.title_he    : item.title;
+    const displayContent  = (isHe && item.content_he)  ? item.content_he  : item.content;
+    const displayCategory = (isHe && item.category_he) ? item.category_he : item.category;
+
+    let tagClass = "glossary-tag tag-concept";
+    if (item.category === "Terminology")    tagClass = "glossary-tag tag-terminology";
+    else if (item.category === "Equipment")      tagClass = "glossary-tag tag-equipment";
+    else if (item.category === "Constellation")  tagClass = "glossary-tag tag-constellation";
+
+    const row = document.createElement("div");
+    row.className = "glossary-item";
+    row.innerHTML = `
+      <div class="glossary-header">
+        <div class="glossary-title-wrapper">
+          <h4 class="glossary-title">${displayTitle}</h4>
+          <span class="${tagClass}">${displayCategory}</span>
+        </div>
+        <span class="toggle-icon">+</span>
+      </div>
+      <div class="glossary-content">
+        <div class="glossary-content-inner">
+          ${displayContent}
+        </div>
+      </div>
+    `;
+
+    const header = row.querySelector('.glossary-header');
+    const contentBody = row.querySelector('.glossary-content');
+    header.addEventListener('click', () => {
+      const isOpen = contentBody.style.maxHeight && contentBody.style.maxHeight !== '0px';
+      document.querySelectorAll('.glossary-content').forEach(c => { c.style.maxHeight = null; });
+      document.querySelectorAll('.glossary-header .toggle-icon').forEach(i => { i.innerText = '+'; });
+      if (!isOpen) {
+        contentBody.style.maxHeight = contentBody.scrollHeight + "px";
+        header.querySelector('.toggle-icon').innerText = '-';
+      }
+    });
+
+    document.getElementById("letter-" + currentLetter).appendChild(row);
+  });
+
+  // Build A-Z Nav
+  alphabet.forEach(letter => {
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.href = "#letter-" + letter;
+    a.innerText = letter;
+    if (!activeLetters.has(letter)) a.classList.add("disabled");
+    li.appendChild(a);
+    navContainer.appendChild(li);
+  });
+
+  // Smooth scroll for A-Z nav
+  navContainer.addEventListener('click', (e) => {
+    if (e.target.tagName === 'A' && !e.target.classList.contains('disabled')) {
+      e.preventDefault();
+      const targetEl = document.getElementById(e.target.getAttribute('href').substring(1));
+      if (targetEl) window.scrollTo({ top: targetEl.offsetTop - 120, behavior: 'smooth' });
+    }
+  });
+
+  loadConstellationDescriptions();
+}
+
+function initGlossary() {
+  const searchInput = document.getElementById("kb-search-input");
+
+  renderGlossary();
+
+  // Re-render when language switches
+  window.addEventListener('languageChanged', () => renderGlossary());
+
+  // Real-time search filter
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase().trim();
+      document.querySelectorAll('.glossary-item').forEach(item => {
+        item.style.display = item.innerText.toLowerCase().includes(query) ? "block" : "none";
+      });
+      document.querySelectorAll('.glossary-letter-group').forEach(group => {
+        const hasVisible = Array.from(group.querySelectorAll('.glossary-item')).some(i => i.style.display !== 'none');
+        group.style.display = hasVisible ? "block" : "none";
+      });
+    });
+  }
 }
 
 // Call initGlossary if on knowledge.html
