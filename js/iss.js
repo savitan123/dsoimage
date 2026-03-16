@@ -5,19 +5,19 @@ document.addEventListener('DOMContentLoaded', () => {
         maxZoom: 18
     }).setView([0, 0], 3);
 
-    // 2. CartoDB Dark Matter tiles — dark theme, English-only labels worldwide
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    // 2. CartoDB Voyager tiles — bright colors, English-only labels worldwide
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
         subdomains: 'abcd',
         maxZoom: 19
     }).addTo(map);
 
-    // 3. Day/Night terminator layer
+    // 3. Day/Night terminator layer — dark overlay simulates night side
     const terminator = L.terminator({
-        fillColor: '#001133',
-        fillOpacity: 0.45,
-        color: '#334466',
-        weight: 1
+        fillColor: '#000820',
+        fillOpacity: 0.55,
+        color: '#1a3a6a',
+        weight: 1.5
     }).addTo(map);
 
     // Refresh terminator every 60 seconds
