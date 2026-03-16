@@ -827,6 +827,18 @@ img {
 
   #lang-toggle-btn { min-width: 36px !important; padding: 4px 8px !important; }
 
+  /* Compact night-vision dimmer popup — positioned by JS under moon button */
+  #nv-container {
+    width: 160px !important;
+    padding: 6px 10px !important;
+    right: auto !important;
+  }
+  #nv-container label[for="nv-slider"] {
+    font-size: 10px !important;
+    margin-bottom: 2px !important;
+    letter-spacing: 0 !important;
+  }
+
   .top-nav-actions {
     order: 2;
     position: relative;
