@@ -540,7 +540,9 @@
             if (timeInput) {
                 const [hh, mm] = timeInput.split(':').map(Number);
                 const sel = getSelectedDate();
-                nowMs = new Date(sel.getFullYear(), sel.getMonth(), sel.getDate(), hh, mm, 0).getTime();
+                // Times 00:00–11:59 fall on the next calendar day in the chart
+                const dayOff = hh < 12 ? 1 : 0;
+                nowMs = new Date(sel.getFullYear(), sel.getMonth(), sel.getDate() + dayOff, hh, mm, 0).getTime();
             } else {
                 nowMs = Date.now();
             }
@@ -723,7 +725,8 @@
             if (timeInput) {
                 const [hh, mm] = timeInput.split(':').map(Number);
                 const sel = getSelectedDate();
-                targetTime = new Date(sel.getFullYear(), sel.getMonth(), sel.getDate(), hh, mm, 0);
+                const dayOff = hh < 12 ? 1 : 0;
+                targetTime = new Date(sel.getFullYear(), sel.getMonth(), sel.getDate() + dayOff, hh, mm, 0);
             } else {
                 targetTime = new Date();
             }
