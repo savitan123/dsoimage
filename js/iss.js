@@ -1,18 +1,29 @@
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Initialize Leaflet Map
-    // We center it initially on 0,0 with zoom level 3
     const map = L.map('issMap', {
         minZoom: 2,
         maxZoom: 18
     }).setView([0, 0], 3);
 
-    // 2. Add Colorful OpenStreetMap Tiles
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    // 2. CartoDB Dark Matter tiles — dark theme, English-only labels worldwide
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
         maxZoom: 19
     }).addTo(map);
 
-    // 3. Create Custom ISS Marker Icon (Bright and visible)
+    // 3. Day/Night terminator layer
+    const terminator = L.terminator({
+        fillColor: '#001133',
+        fillOpacity: 0.45,
+        color: '#334466',
+        weight: 1
+    }).addTo(map);
+
+    // Refresh terminator every 60 seconds
+    setInterval(() => terminator.setTime(new Date()), 60000);
+
+    // 4. Create Custom ISS Marker Icon
     const issIcon = L.divIcon({
         className: 'custom-iss-marker',
         html: '<div style="background: rgba(0,0,0,0.5); padding: 8px; border-radius: 50%; border: 2px solid #eedc82; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; box-shadow: 0 0 15px rgba(238,220,130,0.6);"><i class="fa-solid fa-satellite" style="color: #eedc82; font-size: 20px;"></i></div>',
@@ -22,21 +33,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const issMarker = L.marker([0, 0], { icon: issIcon }).addTo(map);
-
-    // Add a popup that shows when clicked
     issMarker.bindPopup("<b>International Space Station</b><br>Translating at ~27,600 km/h");
 
-    // 4. Create an orbit path line (optional cool feature)
-    // We won't draw the whole orbit, but we can draw a breadcrumb trail
+    // 5. Red dashed breadcrumb trail
     const pathCoords = [];
     const orbitLine = L.polyline(pathCoords, {
-        color: '#eedc82',
+        color: '#E53935',
         weight: 3,
-        opacity: 0.5,
+        opacity: 0.7,
         dashArray: '5, 10'
     }).addTo(map);
 
-    // 5. DOM Elements for stats
+    // 6. DOM Elements for stats
     const elLat = document.getElementById('iss-lat');
     const elLon = document.getElementById('iss-lon');
     const elAlt = document.getElementById('iss-alt');
@@ -44,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let isFirstLoad = true;
 
-    // 6. Fetch Function
+    // 7. Fetch Function
     async function fetchISSLocation() {
         try {
             const response = await fetch('https://api.wheretheiss.at/v1/satellites/25544');
@@ -68,25 +76,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Add to breadcrumb path
             pathCoords.push([lat, lon]);
-
-            // Keep path from getting infinitely huge (e.g. keep last 200 points)
-            if (pathCoords.length > 200) {
-                pathCoords.shift();
-            }
+            if (pathCoords.length > 200) pathCoords.shift();
             orbitLine.setLatLngs(pathCoords);
 
-            // On first load, smoothly pan the map to center the ISS
+            // On first load, pan map to ISS position
             if (isFirstLoad) {
                 map.setView([lat, lon], 3);
                 isFirstLoad = false;
             } else {
-                // Determine if we want map to auto-follow. 
-                // Many users find forced pan annoying when they zoom/drag. 
-                // Let's only pan if ISS gets too close to edge of current view.
                 const bounds = map.getBounds();
-                const pad = bounds.pad(-0.2); // 20% inner padding
+                const pad = bounds.pad(-0.2);
                 if (!pad.contains([lat, lon])) {
-                    // map.panTo([lat, lon], { animate: true, duration: 1.0 });
+                    // auto-pan disabled — let user freely drag
                 }
             }
 
@@ -99,9 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 7. Initial Fetch
+    // 8. Initial Fetch + poll every 3 seconds
     fetchISSLocation();
-
-    // 8. Poll every 3 seconds (as requested, within wheretheiss.at rate limits)
     setInterval(fetchISSLocation, 3000);
 });
