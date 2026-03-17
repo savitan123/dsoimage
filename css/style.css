@@ -2176,20 +2176,35 @@ body.red-mode img {
 
 .constellation-detail-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-areas: "chart data";
   gap: 30px;
   margin-top: 20px;
   align-items: start;
+  direction: ltr; /* fixed layout regardless of page language */
+}
+
+.const-map-box {
+  grid-area: chart;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.const-data-box {
+  grid-area: data;
 }
 
 @media (max-width: 900px) {
   .constellation-detail-grid {
     grid-template-columns: 1fr;
+    grid-template-areas: "chart" "data";
   }
 }
 
 .const-map-box img {
   width: 100%;
+  max-width: 560px;
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
