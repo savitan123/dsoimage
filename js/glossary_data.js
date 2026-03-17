@@ -41,7 +41,7 @@ const GLOSSARY_ITEMS = [
     {
         title: "Equatorial (EQ) vs Alt-Azimuth (Alt-Az) Mounts",
         category: "Equipment",
-        title_he: "הר משוואני (EQ) מול הר גובה-אזימוט (Alt-Az)",
+        title_he: "חצובה משוואנית (EQ) מול חצובה גובה-אזימוט (Alt-Az)",
         category_he: "ציוד",
         content: `
 <p><strong>Definition:</strong> Mounts are the bedrock of successful astrophotography, serving as the critical interface between the telescope and the celestial sphere, tasked with precisely counteracting Earth's rotation to achieve pinpoint stars. Alt-Azimuth (Alt-Az) mounts, while intuitive for terrestrial observation and casual visual astronomy, operate on two perpendicular axes: altitude (vertical movement) and azimuth (horizontal rotation). This design inherently introduces a fundamental limitation for deep-sky imaging known as "field rotation." As an Alt-Az mount tracks a celestial object, it must continuously adjust both its altitude and azimuth axes. Because the celestial sphere rotates around the Earth's polar axis, and not the mount's tracking axes, the field of view itself appears to rotate around the target object. This rotation causes stars to trace subtle arcs or trails, even in relatively short exposures, typically limiting usable exposure times to a few seconds before noticeable trailing or smearing occurs, rendering them unsuitable for the long integration times required for faint deep-sky objects.</p>
@@ -91,7 +91,7 @@ const GLOSSARY_ITEMS = [
     {
         title: "Harmonic Drive Mount",
         category: "Hardware & Optics",
-        title_he: "הר דחף הרמוני",
+        title_he: "חצובת דחף הרמוני",
         category_he: "חומרה ואופטיקה",
         content: `
 <p><strong>Definition:</strong> Harmonic drive mounts, often referred to as strain-wave gear mounts, represent a significant advancement in equatorial mount technology for astrophotography. At their core, these mounts utilize a unique gear system comprising three main components: a rigid circular spline, a flexible flexspline, and an elliptical wave generator. The wave generator, driven by a motor, deforms the flexspline, causing its teeth to engage with the circular spline at two diametrically opposite points. As the wave generator rotates, the engagement point shifts, creating a precise, high-ratio reduction in a remarkably compact form factor. This intricate mechanical dance results in exceptionally high torque density and virtually zero backlash, which are critical attributes for precise celestial tracking.</p>
@@ -974,7 +974,7 @@ const GLOSSARY_ITEMS = [
         title: "Periodic Error (PE)",
         category: "Mount Mechanics & Physics",
         title_he: "שגיאה תקופתית (PE)",
-        category_he: "מכניקה ופיזיקה של הר טלסקופ",
+        category_he: "מכניקה ופיזיקה של חצובת טלסקופ",
         content: `
             <p><strong>Definition:</strong> A repetitive tracking error caused by tiny mechanical imperfections in the mount’s worm gear as it completes a full rotation.</p>
             <p><strong>Example:</strong> On your Losmandy G11, you might see the guide star slowly drift up and down every 4 minutes. This is Periodic Error, which can be reduced by PEC (Periodic Error Correction) software.</p>
@@ -984,7 +984,7 @@ const GLOSSARY_ITEMS = [
         title: "Backlash (Mechanical Slop)",
         category: "Mount Mechanics & Physics",
         title_he: "ריפיון מכני (Backlash)",
-        category_he: "מכניקה ופיזיקה של הר טלסקופ",
+        category_he: "מכניקה ופיזיקה של חצובת טלסקופ",
         content: `
             <p><strong>Definition:</strong> The tiny gap between gear teeth. When the mount motor reverses direction, there is a split-second delay before the gears "catch" again.</p>
             <p><strong>Example:</strong> If your AP MACH 2 has near-zero backlash, the autoguider can make instant corrections. High backlash causes "clunky" guiding that can lead to elongated stars.</p>
@@ -994,7 +994,7 @@ const GLOSSARY_ITEMS = [
         title: "Cone Error",
         category: "Mount Mechanics & Physics",
         title_he: "שגיאת קונוס",
-        category_he: "מכניקה ופיזיקה של הר טלסקופ",
+        category_he: "מכניקה ופיזיקה של חצובת טלסקופ",
         content: `
             <p><strong>Definition:</strong> A mechanical misalignment where the telescope's optical axis is not perfectly perpendicular to the mount's Declination axis.</p>
             <p><strong>Example:</strong> If you have Cone Error, your GoTo commands might be accurate on one side of the sky but consistently "off" on the other side after a Meridian Flip.</p>
@@ -1004,7 +1004,7 @@ const GLOSSARY_ITEMS = [
         title: "Polaris Offset",
         category: "Mount Mechanics & Physics",
         title_he: "סטיית קוטב צפון",
-        category_he: "מכניקה ופיזיקה של הר טלסקופ",
+        category_he: "מכניקה ופיזיקה של חצובת טלסקופ",
         content: `
             <p><strong>Definition:</strong> The mathematical difference between the true North Celestial Pole and the actual star Polaris (which is about 0.7° away from the pole).</p>
             <p><strong>Example:</strong> When using a Polar Scope, you don't put Polaris in the center; you put it on a specific spot on a "clock" reticle to account for this offset.</p>
@@ -1174,7 +1174,7 @@ const GLOSSARY_ITEMS = [
         title: "East-Heavy Balancing",
         category: "Mount Tuning, Balance & Torque",
         title_he: "איזון מזרח-כבד",
-        category_he: "כיוון ואיזון הר טלסקופ",
+        category_he: "כיוון ואיזון חצובת טלסקופ",
         content: `
             <p><strong>Definition:</strong> A technique where the counterweights (or the telescope) are slightly shifted so the mount is always pulling "against" gravity.</p>
             <p><strong>Example:</strong> On your Losmandy G11, making the east side slightly heavier ensures the worm gear stays in constant contact with the ring gear, preventing "slop" or oscillation during tracking.</p>
@@ -1184,7 +1184,7 @@ const GLOSSARY_ITEMS = [
         title: "Third-Axis Balance (DEC Axis)",
         category: "Mount Tuning, Balance & Torque",
         title_he: "איזון ציר שלישי (ציר DEC)",
-        category_he: "כיוון ואיזון הר טלסקופ",
+        category_he: "כיוון ואיזון חצובת טלסקופ",
         content: `
             <p><strong>Definition:</strong> Balancing the telescope not just front-to-back, but also side-to-side (often caused by a heavy finderscope or off-center camera).</p>
             <p><strong>Example:</strong> If your FLT132 has a heavy EAF motor on one side, you may need to shift the telescope in its rings to prevent the mount from working harder when pointing at specific parts of the sky.</p>
@@ -1194,7 +1194,7 @@ const GLOSSARY_ITEMS = [
         title: "Cable Drag (Torque)",
         category: "Mount Tuning, Balance & Torque",
         title_he: "גרירת כבלים (מומנט)",
-        category_he: "כיוון ואיזון הר טלסקופ",
+        category_he: "כיוון ואיזון חצובת טלסקופ",
         content: `
             <p><strong>Definition:</strong> The physical resistance or pulling force exerted by cables hanging from the camera or focuser.</p>
             <p><strong>Example:</strong> Even a perfectly balanced mount can have "tracking jumps" if a thick USB cable catches on a knob. Using a Cable Management system ensures the torque remains constant throughout the night.</p>
@@ -1204,7 +1204,7 @@ const GLOSSARY_ITEMS = [
         title: "Stiction (Static Friction)",
         category: "Mount Tuning, Balance & Torque",
         title_he: "חיכוך סטטי (Stiction)",
-        category_he: "כיוון ואיזון הר טלסקופ",
+        category_he: "כיוון ואיזון חצובת טלסקופ",
         content: `
             <p><strong>Definition:</strong> The friction that tends to prevent stationary surfaces from being set in motion.</p>
             <p><strong>Example:</strong> In high-end mounts like the AP MACH 2, "stiction" is minimized so that even the tiniest 0.1-arcsecond correction from the autoguider moves the mount instantly.</p>
@@ -1634,7 +1634,7 @@ const GLOSSARY_ITEMS = [
         title: "Sidereal Rate",
         category: "Advanced Tracking & Mount Physics",
         title_he: "קצב כוכבי (Sidereal Rate)",
-        category_he: "פיזיקת מעקב והר מתקדמים",
+        category_he: "פיזיקת מעקב וחצובה מתקדמת",
         content: `
             <p><strong>Definition:</strong> The speed at which the Earth rotates relative to the "fixed" stars—approximately 15.04 arcseconds per second.</p>
             <p><strong>Example:</strong> This is the "default" speed for your Losmandy G11. If the mount is set to "Lunar Rate" by mistake, your stars in a deep-sky image will look like short trails.</p>
@@ -1644,7 +1644,7 @@ const GLOSSARY_ITEMS = [
         title: "King Rate",
         category: "Advanced Tracking & Mount Physics",
         title_he: "קצב קינג",
-        category_he: "פיזיקת מעקב והר מתקדמים",
+        category_he: "פיזיקת מעקב וחצובה מתקדמת",
         content: `
             <p><strong>Definition:</strong> A tracking rate slightly slower than Sidereal to account for the effects of atmospheric refraction, which makes stars appear to move slower near the horizon.</p>
             <p><strong>Example:</strong> Advanced mounts like the AP MACH 2 can use the King Rate to keep your stars perfectly round even when the target is low in the sky.</p>
@@ -1654,7 +1654,7 @@ const GLOSSARY_ITEMS = [
         title: "Tracking Jitter",
         category: "Advanced Tracking & Mount Physics",
         title_he: "רעידות מעקב",
-        category_he: "פיזיקת מעקב והר מתקדמים",
+        category_he: "פיזיקת מעקב וחצובה מתקדמת",
         content: `
             <p><strong>Definition:</strong> High-frequency, small-scale movements of the mount caused by motor vibrations or wind, which "smear" the stars on a microscopic level.</p>
             <p><strong>Example:</strong> If your tripod is on a wooden deck, your own footsteps can cause Tracking Jitter, ruining the sharpness of a 5-minute sub-frame.</p>
