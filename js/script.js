@@ -2322,11 +2322,17 @@ document.addEventListener('DOMContentLoaded', () => {
           if (cData) {
             // Base data
             const baseObj = CONSTELLATIONS.find(c => c.abbr === abbr);
+            const isHe = (window.currentLang || 'en') === 'he';
+            const displayName = (isHe && baseObj && baseObj.name_he) ? baseObj.name_he : cData.name;
             document.title = `${cData.name} Constellation \u2014 Shimon Avitan`;
-            document.getElementById('constellation-title').textContent = cData.name;
+            document.getElementById('constellation-title').textContent = displayName;
 
             if (baseObj) {
-              document.getElementById('constellation-coord').innerHTML = `Centroid &rarr; R.A: ${(baseObj.ra / 15).toFixed(1)}h | Dec: ${baseObj.dec > 0 ? '+' : ''}${baseObj.dec.toFixed(1)}&deg;`;
+              if (isHe) {
+                document.getElementById('constellation-coord').innerHTML = `מרכז &larr; נ.ע: ${(baseObj.ra / 15).toFixed(1)}h | נטייה: ${baseObj.dec > 0 ? '+' : ''}${baseObj.dec.toFixed(1)}&deg;`;
+              } else {
+                document.getElementById('constellation-coord').innerHTML = `Centroid &rarr; R.A: ${(baseObj.ra / 15).toFixed(1)}h | Dec: ${baseObj.dec > 0 ? '+' : ''}${baseObj.dec.toFixed(1)}&deg;`;
+              }
 
               const altEl = document.getElementById('constellation-alt');
               if (navigator.geolocation && baseObj) {
@@ -2340,18 +2346,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (altAz.altitude >= 30) {
                       color = "#00ff00";
                       dot = "🟢";
-                      state = "Perfect for imaging!";
+                      state = isHe ? "מצוין לצילום!" : "Perfect for imaging!";
                     } else if (altAz.altitude > 0) {
                       color = "#ffaa00";
                       dot = "🟡";
-                      state = "Low on the horizon, wait for it to rise.";
+                      state = isHe ? "נמוך באופק, המתן שיעלה." : "Low on the horizon, wait for it to rise.";
                     } else {
                       color = "#ff0000";
                       dot = "🔴";
-                      state = "Below the horizon, currently completely invisible.";
+                      state = isHe ? "מתחת לאופק, אינו נראה כעת." : "Below the horizon, currently completely invisible.";
                     }
 
-                    altEl.innerHTML = `<span>${dot}</span> <span style="color:${color};">Altitude: ${altAz.altitude}&deg; | Azimuth: ${altAz.azimuth}&deg; (${altAz.compass})</span> - ${state}`;
+                    const altLabel  = isHe ? "גובה" : "Altitude";
+                    const azLabel   = isHe ? "אזימוט" : "Azimuth";
+                    altEl.innerHTML = `<span>${dot}</span> <span style="color:${color};">${altLabel}: ${altAz.altitude}&deg; | ${azLabel}: ${altAz.azimuth}&deg; (${altAz.compass})</span> - ${state}`;
                   },
                   (err) => {
                     // Fail silently so the UI isn't marred by errors if location is rejected
