@@ -924,7 +924,7 @@ const GLOSSARY_ITEMS = [
         title: "Abell Catalog (Abell Cluster)",
         category: "Deep Space Catalogs (Beyond Messier)",
         title_he: "קטלוג אבל (אשכולות אבל)",
-        category_he: "קטלוגים של שמיים עמוקים",
+        category_he: "קטלוגים של חלל עמוק",
         content: `
             <p><strong>Definition:</strong> A catalog of 4,073 rich clusters of galaxies in the Northern and Southern Hemispheres.</p>
             <p><strong>Example:</strong> Your image of the Hercules Galaxy Cluster (Abell 2151) is a perfect example. These are much more distant and challenging than individual Messier galaxies, often requiring very dark skies and long focal lengths.</p>
@@ -934,7 +934,7 @@ const GLOSSARY_ITEMS = [
         title: "Arp Catalog (Atlas of Peculiar Galaxies)",
         category: "Deep Space Catalogs (Beyond Messier)",
         title_he: "קטלוג ארפ (אטלס גלקסיות מיוחדות)",
-        category_he: "קטלוגים של שמיים עמוקים",
+        category_he: "קטלוגים של חלל עמוק",
         content: `
             <p><strong>Definition:</strong> A catalog of 338 "peculiar" galaxies produced by Halton Arp, focusing on interacting, merging, or distorted galaxies.</p>
             <p><strong>Example:</strong> The Whirlpool Galaxy (Arp 85) is included because of its clear interaction with its smaller companion, NGC 5195. Arp objects are favorites for astrophotographers because they tell a story of cosmic collision.</p>
@@ -944,7 +944,7 @@ const GLOSSARY_ITEMS = [
         title: "Sharpless Catalog (Sh2)",
         category: "Deep Space Catalogs (Beyond Messier)",
         title_he: "קטלוג שארפלס (Sh2)",
-        category_he: "קטלוגים של שמיים עמוקים",
+        category_he: "קטלוגים של חלל עמוק",
         content: `
             <p><strong>Definition:</strong> A list of 313 HII regions (emission nebulae) located north of declination -27°.</p>
             <p><strong>Example:</strong> The Tadpole Nebula (Sh2-236) is a Sharpless object. These are often faint and best captured using Narrowband (Hα) filters to separate the gas from the stellar background.</p>
@@ -954,7 +954,7 @@ const GLOSSARY_ITEMS = [
         title: "LDN (Lynds' Catalog of Dark Nebulae)",
         category: "Deep Space Catalogs (Beyond Messier)",
         title_he: "LDN (קטלוג לינדס לערפיליות חשוכות)",
-        category_he: "קטלוגים של שמיים עמוקים",
+        category_he: "קטלוגים של חלל עמוק",
         content: `
             <p><strong>Definition:</strong> A comprehensive list of dark, opaque clouds of dust that block background starlight.</p>
             <p><strong>Example:</strong> LDN 1251 (The Rotten Fish Nebula) is a popular target. Processing these requires careful "Black Point" management to ensure the dark dust doesn't look like pure black empty space, but rather textured "smoke."</p>
@@ -964,7 +964,7 @@ const GLOSSARY_ITEMS = [
         title: "NGC (New General Catalogue)",
         category: "Deep Space Catalogs (Beyond Messier)",
         title_he: "NGC (הקטלוג הכללי החדש)",
-        category_he: "קטלוגים של שמיים עמוקים",
+        category_he: "קטלוגים של חלל עמוק",
         content: `
             <p><strong>Definition:</strong> One of the largest and most comprehensive catalogs, containing 7,840 deep-sky objects including all types of DSOs.</p>
             <p><strong>Example:</strong> While M31 is the Messier name for Andromeda, it is also NGC 224. Most professional planning software uses NGC numbers as the primary database.</p>
@@ -1954,7 +1954,7 @@ const GLOSSARY_ITEMS = [
         title: "Aperture Photometry",
         category: "Deep Sky Photometry & Measurement",
         title_he: "פוטומטריית צמצם",
-        category_he: "פוטומטריה ומדידת שמיים עמוקים",
+        category_he: "פוטומטריה ומדידת חלל עמוק",
         content: `
             <p><strong>Definition:</strong> A method of measuring the light from a star by summing the pixel values within a circular "aperture" and subtracting the average background light.</p>
             <p><strong>Example:</strong> Using software like AAVSO VPhot, you can perform Aperture Photometry on your images of a variable star to create a "Light Curve" showing its changes in brightness over time.</p>
@@ -1964,7 +1964,7 @@ const GLOSSARY_ITEMS = [
         title: "Differential Photometry",
         category: "Deep Sky Photometry & Measurement",
         title_he: "פוטומטריה דיפרנציאלית",
-        category_he: "פוטומטריה ומדידת שמיים עמוקים",
+        category_he: "פוטומטריה ומדידת חלל עמוק",
         content: `
             <p><strong>Definition:</strong> Measuring the brightness of a target star by comparing it to several "reference stars" of known, constant brightness in the same image.</p>
             <p><strong>Example:</strong> This is the most accurate way for amateurs to detect Exoplanet Transits, as it cancels out changes in sky transparency or thin clouds during the night.</p>
@@ -1974,7 +1974,7 @@ const GLOSSARY_ITEMS = [
         title: "Full Width at Tenth Maximum (FWTM)",
         category: "Deep Sky Photometry & Measurement",
         title_he: "רוחב מלא בעשירית המקסימום (FWTM)",
-        category_he: "פוטומטריה ומדידת שמיים עמוקים",
+        category_he: "פוטומטריה ומדידת חלל עמוק",
         content: `
             <p><strong>Definition:</strong> Similar to FWHM, but measured at 10% of the star's peak brightness. It is used to analyze the "wings" or halos of a star's profile.</p>
             <p><strong>Example:</strong> If your FWTM is very high compared to your FWHM, it indicates that your FLT132 may have slight spherical aberration or internal reflections.</p>
