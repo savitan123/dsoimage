@@ -2413,7 +2413,7 @@ function buildGlossaryMasterList() {
   if (typeof CONSTELLATIONS !== 'undefined') {
     CONSTELLATIONS.forEach(c => {
       let abbrUpper = c.abbr ? c.abbr.toUpperCase() : "AND";
-      masterList.push({
+      const item = {
         title: c.name + " Constellation",
         category: "Constellation",
         content: `
@@ -2422,7 +2422,18 @@ function buildGlossaryMasterList() {
           <a href="constellation.html?id=${abbrUpper}" class="kb-link-btn" style="display: inline-block; margin-top: 15px; padding: 10px 20px; background: #1e90ff; color: #fff; text-decoration: none; border-radius: 5px; font-weight: bold;">Explore ${c.name} &rarr;</a>
           <br style="clear:both;">
         `
-      });
+      };
+      if (c.name_he) {
+        item.title_he = c.name_he + " — קבוצת כוכבים";
+        item.category_he = "קבוצת כוכבים";
+        item.content_he = `
+          <img src="images/constellations/${abbrUpper}.png" alt="${c.name_he}">
+          <p class="constellation-desc-ph" data-abbr="${abbrUpper}">טוען נתונים...</p>
+          <a href="constellation.html?id=${abbrUpper}" class="kb-link-btn" style="display: inline-block; margin-top: 15px; padding: 10px 20px; background: #1e90ff; color: #fff; text-decoration: none; border-radius: 5px; font-weight: bold;">&#8592; סייר ב${c.name_he}</a>
+          <br style="clear:both;">
+        `;
+      }
+      masterList.push(item);
     });
   }
 
