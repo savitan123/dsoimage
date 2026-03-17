@@ -2363,9 +2363,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // Map Image
             document.getElementById('constellation-img').src = `images/constellations/${abbr}.png`;
 
-            // Description
-            document.getElementById('constellation-desc').textContent = cData.description;
-
             // Stars Table
             const starsTbody = document.querySelector('#stars-table tbody');
             cData.stars.forEach(star => {
