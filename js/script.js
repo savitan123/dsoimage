@@ -2418,7 +2418,6 @@ function buildGlossaryMasterList() {
         category: "Constellation",
         content: `
           <img src="images/constellations/${abbrUpper}.png" alt="${c.name} Constellation">
-          <p class="constellation-desc-ph" data-abbr="${abbrUpper}">Loading historical data...</p>
           <a href="constellation.html?id=${abbrUpper}" class="kb-link-btn" style="display: inline-block; margin-top: 15px; padding: 10px 20px; background: #1e90ff; color: #fff; text-decoration: none; border-radius: 5px; font-weight: bold;">Explore ${c.name} &rarr;</a>
           <br style="clear:both;">
         `
@@ -2428,7 +2427,6 @@ function buildGlossaryMasterList() {
         item.category_he = "קבוצת כוכבים";
         item.content_he = `
           <img src="images/constellations/${abbrUpper}.png" alt="${c.name_he}">
-          <p class="constellation-desc-ph" data-abbr="${abbrUpper}">טוען נתונים...</p>
           <a href="constellation.html?id=${abbrUpper}" class="kb-link-btn" style="display: inline-block; margin-top: 15px; padding: 10px 20px; background: #1e90ff; color: #fff; text-decoration: none; border-radius: 5px; font-weight: bold;">&#8592; סייר ב${c.name_he}</a>
           <br style="clear:both;">
         `;
@@ -2556,7 +2554,6 @@ function renderGlossary() {
     }
   });
 
-  loadConstellationDescriptions();
 }
 
 function initGlossary() {
