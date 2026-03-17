@@ -2190,6 +2190,7 @@ body.red-mode img {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  padding-top: 52px; /* align chart top with Brightest Stars card */
 }
 
 .const-title-below {
@@ -2218,6 +2219,10 @@ body.red-mode img {
 
 .data-panel {
   margin-bottom: 20px;
+}
+
+.data-panel + .data-panel {
+  margin-top: 30px;
 }
 
 .table-container {
@@ -2422,6 +2427,19 @@ body.red-mode img {
   height: auto;
   float: right;
   margin-left: 20px;
+}
+
+@media (max-width: 768px) {
+  .glossary-content-inner img {
+    float: none;
+    display: block;
+    max-width: 100%;
+    margin: 0 auto 16px auto;
+  }
+
+  .const-map-box {
+    padding-top: 0;
+  }
 }
 
 /* =========================
