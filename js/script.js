@@ -2443,13 +2443,15 @@ function buildGlossaryMasterList() {
 }
 
 function loadConstellationDescriptions() {
+  const isHe = (window.currentLang || 'en') === 'he';
   fetch('js/constellations_data.json')
     .then(res => res.json())
     .then(data => {
       document.querySelectorAll('.constellation-desc-ph').forEach(el => {
         const abbr = el.getAttribute('data-abbr');
-        if (data[abbr] && data[abbr].description) {
-          el.innerHTML = data[abbr].description;
+        if (data[abbr]) {
+          const desc = (isHe && data[abbr].description_he) ? data[abbr].description_he : data[abbr].description;
+          el.innerHTML = desc || "No description available.";
         } else {
           el.innerText = "No description available.";
         }
