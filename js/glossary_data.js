@@ -12,6 +12,7 @@ const GLOSSARY_ITEMS = [
             <p>For <strong>Exposure Time</strong>, the astrophotographer opts for individual sub-exposures of 180 seconds (3 minutes) each. This duration is a carefully chosen compromise: it's long enough to gather substantial photons from the faint hydrogen-alpha emission of IC 434 and the subtle details around the Horsehead, ensuring that the signal from the target significantly exceeds the camera's read noise floor (approximately 1.0e- at unity gain for the ASI2600MC Pro). Simultaneously, 180 seconds is short enough to manage potential guiding errors (typically kept below 0.7 arcseconds RMS with the CEM40) and to avoid saturation of brighter stars in the field, such as Alnitak, or excessive sky glow accumulation under typical Bortle 4-5 conditions. To achieve a high signal-to-noise ratio critical for revealing the Horsehead's contrast, a total integration time of 8-10 hours is planned, accumulating approximately 160-200 individual 180-second sub-frames over several clear nights. This extensive integration is paramount for statistically averaging out random noise components, especially read noise and shot noise, and bringing out the subtle, low-contrast features of the dark nebula by boosting the signal relative to the noise floor.</p>
             <p>The <strong>Gain</strong> setting for the ZWO ASI2600MC Pro is meticulously chosen at 100 (unity gain). At this specific setting, the camera achieves its lowest read noise (approximately 1.0e-) while maintaining an optimal dynamic range (around 14 stops), which is crucial for capturing both the bright stars in the field and the very faint nebulosity without clipping highlights or crushing shadows into the noise floor. A higher gain, while making individual subs appear brighter, would introduce more read noise relative to the signal, potentially making post-processing more challenging for such a contrast-dependent target and reducing the effective dynamic range. Conversely, a lower gain would increase the read noise relative to the signal, requiring even longer sub-exposures to overcome it, which is impractical given guiding limitations and sky glow. The inherent <strong>Focal Ratio</strong> of the RedCat 51 at f/4.9 is a significant advantage for this wide-field, extended target. This relatively "fast" optical system concentrates light efficiently, allowing the 180-second sub-exposures to collect a substantial amount of light per frame. An f/4.9 system gathers light approximately 2.6 times faster than a slower f/8 system ((8/4.9)^2 ≈ 2.66), meaning the astrophotographer can achieve the necessary deep integration in a fraction of the time compared to a slower telescope. This speed is paramount for capturing the Horsehead's delicate structure and the surrounding faint emission within a practical number of imaging nights, especially when contending with limited clear sky opportunities and light pollution, as it allows for more signal accumulation per unit of time.</p>
 `
+        content_he: `<p><strong>הגדרה:</strong> משולש החשיפה בצילום אסטרונומי מתאים את עקרונות הצילום הרגיל לאתגרים הקיצוניים של צילום עצמים שמימיים עמומים. שלושת הצלעות הן זמן חשיפה, רווח (Gain/ISO), ויחס מוקד (Focal Ratio). המטרה היא למקסם את SNR תוך מזעור הרעש מהחיישן ומזיהום האור.</p><p><strong>דוגמה:</strong> בצילום ערפיליות בשמיים עמוקים, תגדיל את זמן החשיפה ותוריד את ה-Gain כדי לאסוף יותר פוטונים עם פחות רעש קריאה, בניגוד לצילום ביום.</p>`
     },
     {
         title: "Calibration Frames (Darks, Flats, Biases)",
@@ -24,6 +25,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Flat frames</strong>, on the other hand, address optical train non-uniformities and dust. These include vignetting (the darkening of image corners due to the physical obstruction of light rays as they pass through the optical system), dust motes or debris on the sensor, filters, or optical elements (which cast shadows), and any subtle illumination gradients across the field of view. Flats are captured by imaging an evenly illuminated, featureless surface (such as a dedicated flat panel calibrator, an illuminated white T-shirt over the telescope aperture, or the twilight sky) at the same focus position and optical train configuration as the light frames. These frames create a pixel-by-pixel map of the illumination variations and dust shadows, which is then used to normalize the light frames through a division operation, effectively "flattening" the field and removing optical artifacts. Finally, <strong>Bias frames</strong> (also known as offset frames) capture the intrinsic electronic read noise and the camera's baseline offset. Read noise is the inherent uncertainty introduced during the analog-to-digital conversion process when the charge from each pixel is read out. The offset is a small, positive signal added to the raw pixel values to ensure that all read noise and true signal remain above zero, preventing clipping of negative values that might arise from noise fluctuations. Bias frames are the shortest possible exposures (often fractions of a second) taken with the lens cap on, at the same gain/ISO and temperature as the light frames. They are crucial for accurately scaling dark frames and flats, as they represent the absolute noise floor of the camera's electronics, ensuring that only the true signal is amplified and processed after systematic noise removal.</p>
             <p><strong>Example:</strong> Consider an expert deep space astrophotographer, meticulously set up under Bortle 2 skies, imaging the faint, intricate tendrils of the Veil Nebula (NGC 6960/6992) in Cygnus. Their sophisticated rig comprises a high-end Astro-Tech AT130EDT triplet refractor, a ZWO ASI6200MM Pro full-frame monochrome CMOS camera, and a set of Chroma 3nm narrowband filters (Ha, OIII, SII). After capturing 30 x 600-second exposures through each filter at a sensor temperature of -15°C and a gain of 100, the critical calibration phase begins. Immediately following the light frames, or from a meticulously maintained dark library, the imager captures 25 x 600-second <strong>dark frames</strong> for each filter's exposure time, ensuring the camera cap is securely in place and the sensor temperature is precisely -15°C with the gain set to 100. These darks are essential for statistically modeling and subtracting the extremely low but still present thermal dark current and any residual amp glow characteristic of the ASI6200MM Pro's large sensor during these long exposures, particularly targeting any hot pixels that might appear. The next morning, before disturbing the optical train, the imager uses a high-quality Asto-Physics Flat Box to capture 30 x 3-second <strong>flat frames</strong> for each filter. These flats are critical for mapping out and correcting the subtle vignetting introduced by the large full-frame sensor and the filter wheel, as well as precisely identifying and normalizing the shadows cast by any microscopic dust motes on the filters or the sensor's protective window. Finally, the imager captures 50 x 0.000032-second (minimum exposure) <strong>bias frames</strong> with the cap on, at -15°C and gain 100. These bias frames establish the fundamental electronic noise floor and offset of the ASI6200MM Pro, providing the essential baseline for accurate scaling of the dark frames and flats during the stacking process in advanced software like PixInsight. The result is a pristine, calibrated stack for each narrowband channel, free from sensor artifacts and optical gradients, allowing the subsequent processing to reveal the Veil Nebula's delicate filaments with unparalleled clarity and dynamic range.</p>
 `
+        content_he: `<p><strong>הגדרה:</strong> פריימי כיול הם תמונות מיוחדות להסרת פגמים קבועים מתמונות המדע. פריים חשוך מסיר רעש תרמי, פריים שטוח מתקן אי-אחידות תאורה ווינייטינג, ופריים הטיה מסיר את ההיסט הבסיסי של החיישן.</p><p><strong>דוגמה:</strong> בלי פריים שטוח, תמונת הגלקסיה שלך תראה פינות כהות. עם פריים שטוח, השדה כולו יהיה אחיד.</p>`
     },
     {
         title: "Backfocus",
@@ -37,6 +39,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Example:</strong> Imagine an expert astrophotographer preparing for a deep integration session on the iconic Horsehead and Flame Nebulae (Barnard 33 and NGC 2024) in Orion, a target demanding exceptional star sharpness across a wide field. They are using a high-end Takahashi FSQ-106EDX refractor, renowned for its wide, flat field, paired with its dedicated Takahashi 0.73x Reducer-Flattener. The manufacturer's specifications for this reducer clearly state a critical backfocus distance of 72.2mm from the rear thread of the reducer to the camera's sensor plane. The imaging system comprises a ZWO ASI2600MM Pro monochrome camera (which has a sensor-to-flange distance of 17.5mm), a ZWO EFW 7x36mm electronic filter wheel (20mm thickness), and a ZWO OAG-L off-axis guider (16.5mm thickness) for precise guiding without mirror flop.</p>
             <p>To calculate the required additional spacing, the astrophotographer first sums the known components: 17.5mm (ASI2600MM Pro) + 20mm (EFW) + 16.5mm (OAG-L) = 54mm. Subtracting this from the target backfocus: 72.2mm - 54mm = 18.2mm. This precise 18.2mm gap needs to be filled with M48 extension tubes between the OAG-L and the reducer. A typical solution might involve a 10mm M48 spacer and an 8mm M48 spacer, totaling 18mm. The remaining 0.2mm is absolutely critical. The astrophotographer would then meticulously select an M48 tuning ring or shim—perhaps a 0.2mm or 0.3mm ring from a precision set—to achieve the exact 18.2mm. After initial assembly, a series of short, unguided test exposures of a dense star field near the celestial equator would be taken. These images would be meticulously analyzed, often using software like PixInsight's AberrationInspector script or dedicated star analysis tools, to quantify star eccentricity and FWHM values across the entire large APS-C sensor of the ASI2600MM Pro. If corner stars show even a slight radial elongation (over-corrected), a 0.1mm shim might be removed; if they point inwards (under-corrected), a 0.1mm shim might be added. This iterative process, sometimes involving multiple adjustments over several nights and requiring immense patience, ensures that the delicate tendrils of the Horsehead Nebula and the fine dust lanes of the Flame Nebula are rendered with absolutely uniform, pinpoint sharpness from the very center to the extreme corners of the image, maximizing the scientific and aesthetic quality of the final deep space portrait.</p>
 `
+        content_he: `<p><strong>הגדרה:</strong> מרחק הבקפוקוס הוא המרחק המדויק בין האלמנט האופטי האחרון של הטלסקופ לבין מישור החיישן של המצלמה. כל טלסקופ דורש מרחק ספציפי זה לפוקוס מדויק ושדה תמונה שטוח.</p><p><strong>דוגמה:</strong> אם ה-Backfocus של הרפרקטור שלך הוא 55 מ"מ, עליך לכוון את כל הרכיבים כך שהמרחק הכולל יהיה בדיוק 55 מ"מ.</p>`
     },
     {
         title: "Equatorial (EQ) vs Alt-Azimuth (Alt-Az) Mounts",
@@ -50,6 +53,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Example:</strong> Consider an ambitious project to capture the faint, intricate tendrils of the California Nebula (NGC 1499) in narrowband, a challenging target requiring extensive integration time. An expert astrophotographer would undoubtedly deploy a robust German Equatorial Mount (GEM) such as an Astro-Physics Mach2GTO or a Losmandy G11G, paired with a high-quality 102mm f/7 Apochromatic Refractor and a cooled monochrome CMOS camera like the ZWO ASI2600MM Pro, equipped with a filter wheel holding 3nm Ha, OIII, and SII filters. The initial and most critical step involves achieving precise polar alignment, often refined to within 1-2 arcminutes of the celestial pole using advanced software routines like NINA's three-point polar alignment or a dedicated mount modeling software.</p>
             <p>Once polar aligned and the mount is slewed to NGC 1499, an autoguider system – perhaps a ZWO ASI174MM Mini paired with a 60mm guide scope – is calibrated and engaged. This system continuously monitors a guide star, sending micro-corrections to the mount's RA and DEC axes, ensuring tracking stability down to fractions of an arcsecond. With this setup, the astrophotographer can confidently capture dozens of 600-second (10-minute) sub-exposures through each narrowband filter over multiple nights. The resulting frames will exhibit perfectly round, untrailed stars, allowing for seamless stacking and intricate detail retrieval during post-processing. If, hypothetically, an Alt-Az mount were employed for this target, even a 15-second exposure would show noticeable star elongation and a distinct rotation of the field, rendering the data unusable for stacking and deep-sky imaging. The inherent field rotation of an Alt-Az mount fundamentally prevents the long, precise exposures required for capturing such faint, detailed deep-sky objects, underscoring the absolute necessity of an accurately polar-aligned equatorial mount for serious astrophotography.</p>
 `
+        content_he: `<p><strong>הגדרה:</strong> חצובה משוונית (EQ) מיושרת עם ציר הסיבוב של כדור הארץ ומאפשרת מעקב בציר אחד. חצובת Alt-Az נעה בציר אנכי ואופקי ופשוטה יותר אך דורשת סיבוב שדה לחשיפות ארוכות.</p><p><strong>דוגמה:</strong> לצילום עצמים בשמיים עמוקים תשתמש בחצובת EQ כמו Losmandy G11, ואילו לצפייה חזותית חצובת Alt-Az מספיקה.</p>`
     },
     {
         title: "Monochrome vs Color (OSC) Cameras",
@@ -62,6 +66,7 @@ const GLOSSARY_ITEMS = [
             <p>This unfiltered design grants monochrome sensors maximum photon capture efficiency, resulting in significantly higher sensitivity and true native resolution, as every pixel directly measures incident light intensity without interpolation. To achieve a full-color image, monochrome cameras necessitate an external, motorized filter wheel holding precisely engineered filters—such as Luminance (clear), Red, Green, Blue (LRGB), and highly selective narrowband filters (Ha, OIII, SII)—which are rotated into position sequentially for each set of exposures. This sequential imaging, while more complex and time-consuming, offers unparalleled control and flexibility. By dedicating extended exposure times to each individual color or narrowband channel, signal acquisition can be meticulously optimized, yielding superior signal-to-noise ratios, finer spatial detail, and greater dynamic range. Monochrome cameras truly excel in narrowband imaging, where ultra-narrow filters (e.g., 3nm) precisely isolate emission lines, enabling stunning, high-contrast images of faint deep-sky objects even from light-polluted environments. The independently calibrated and stacked monochrome frames are then combined in post-processing, producing composite images with exceptional depth, sharpness, color accuracy, and scientific fidelity.</p>
             <p><strong>Example:</strong> <strong>One Shot Color (OSC) Camera Example:</strong> Imagine an astrophotographer aiming to capture the majestic, broadband beauty of the Andromeda Galaxy (M31) from a Bortle 6 suburban backyard, where light pollution is a significant concern. They might choose a high-performance OSC camera like the ZWO ASI2600MC Pro, renowned for its large sensor and low read noise, paired with a fast apochromatic refractor such as a William Optics GT81 IV and a dedicated focal reducer to achieve a wider field of view. To mitigate the effects of urban glow and enhance natural color rendition, an Optolong L-Pro broadband light pollution filter would be employed. The imaging session would involve capturing hundreds of relatively short 120-second sub-exposures directly in color, perhaps over two or three clear nights, accumulating a substantial total integration time of 8-10 hours. The inherent convenience of the OSC camera means the entire color dataset is acquired simultaneously with each frame. Post-processing would involve calibrating the raw frames with appropriate darks, flats, and bias frames, then stacking them in software like PixInsight or DeepSkyStacker. The resulting stacked image, already containing all color information, would then undergo debayering (if not performed automatically by the stacking software), followed by precise stretching, color calibration, and noise reduction to reveal the galaxy's intricate spiral arms, prominent dust lanes, and numerous satellite galaxies with impressive detail and vibrant, natural colors, all achieved with a comparatively streamlined workflow.<br><br><strong>Monochrome Camera Example:</strong> Consider an expert astrophotographer determined to reveal the breathtaking, intricate details of the Pillars of Creation within the Eagle Nebula (M16), a target exceptionally rich in hydrogen, oxygen, and sulfur emissions. For this challenging endeavor, they would deploy a high-resolution monochrome camera such as the ZWO ASI6200MM Pro, known for its large full-frame sensor and high quantum efficiency, coupled with a premium, well-corrected apochromatic refractor like a Takahashi FSQ-106EDX4. A precise electronic filter wheel loaded with ultra-narrowband filters, such as Astrodon 3nm Hydrogen-alpha (Ha), Oxygen III (OIII), and Sulfur II (SII) filters, would be essential. The imaging strategy would be meticulously planned, involving dedicated, long exposures for each specific emission line: perhaps 10 hours of Hydrogen-alpha to capture the glowing hydrogen gas, 8 hours of Oxygen III for the ethereal blue-green oxygen structures, and 6 hours of Sulfur II for the reddish sulfur filaments. Each channel would be acquired sequentially over multiple clear, moonless nights to maximize signal. After independently calibrating and stacking each filter's dataset, the three monochrome images would be combined using the "SHO" Hubble palette (where SII is mapped to Red, Ha to Green, and OIII to Blue) in advanced post-processing software like PixInsight. This meticulous, multi-stage process allows for the precise isolation and rendering of specific emission lines, revealing breathtaking, high-contrast details and scientifically accurate false-color representations of the nebula's complex chemistry and morphology that would be virtually impossible to achieve with an OSC camera, even with extensive integration time.</p>
 `
+        content_he: `<p><strong>הגדרה:</strong> מצלמה מונוכרומטית מודדת רק עוצמת אור ונותנת גמישות בבחירת פילטרים. מצלמת OSC (One-Shot Color) כוללת מטריצת בייר על החיישן ומאפשרת צילום צבע בחשיפה אחת.</p><p><strong>דוגמה:</strong> עם מצלמה מונוכרומטית תצלם בנפרד פילטרי Ha, OIII ו-SII ותשלב אותם; עם OSC תקבל צבע מיד אך עם רגישות נמוכה יותר בפס צר.</p>`
     },
     {
         title: "Apochromatic Refractor (APO)",
@@ -75,6 +80,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Example:</strong> Imagine planning a widefield mosaic of the iconic Rho Ophiuchi cloud complex, a region teeming with colorful reflection nebulae, dark nebulae, and vibrant star fields. For this intricate target, an astrophotographer might deploy a high-quality apochromatic refractor like a Takahashi FSQ-106ED or a Tele Vue NP101is, paired with a cooled, full-frame dedicated astronomy camera such as the ZWO ASI6200MM Pro and a set of LRGB filters. The APO's exceptional chromatic correction is critical here: the Rho Ophiuchi complex features bright, hot blue stars illuminating surrounding dust, alongside cooler, redder stars and dark lanes. Without an APO, these bright stars would inevitably display distracting purple or blue halos due to chromatic aberration, obscuring the delicate structures of the reflection nebulae and compromising overall image sharpness.</p>
             <p>Furthermore, the APO's ability to bring all three primary colors to a single focal point ensures that the subtle color gradients of the reflection nebulae (which scatter blue light more efficiently) are accurately captured without any color shift or smearing. The inherent flat field of many APO designs is also invaluable for a widefield mosaic, guaranteeing that stars remain perfectly round and sharp from the very center to the extreme corners of each panel, preventing the need for extensive cropping or complex post-processing to correct optical distortions. This allows for a seamless stitch of multiple panels, resulting in a breathtaking, high-resolution final image of the entire Rho Ophiuchi region with pristine star rendition and faithful color reproduction, a feat nearly impossible to achieve with lesser optical designs.</p>
 `
+        content_he: `<p><strong>הגדרה:</strong> רפרקטור אפוכרומטי משתמש בזכוכית מיוחדת (כמו ED או FPL-53) להתכנסות שלוש אורכי גל לאותה נקודת מוקד, וכך מבטל את הסטייה הכרומטית הנפוצה ברפרקטורים רגילים.</p><p><strong>דוגמה:</strong> רפרקטור APO כמו FLT132 יראה כוכבים חדים ולבנים, ללא הילה סגולה הנפוצה ברפרקטורים זולים.</p>`
     },
     {
         title: "Backfocal Distance (Backfocus)",
@@ -87,6 +93,7 @@ const GLOSSARY_ITEMS = [
             <p>Achieving the correct backfocus involves carefully stacking various components in the imaging train, such as filter wheels, off-axis guiders (OAGs), camera adapters, and extension rings, each contributing to the overall optical path length. Manufacturers typically specify the required backfocal distance for their correctors, often down to +/- 0.5mm or even +/- 0.2mm for premium optics. Dedicated astro cameras often have a known sensor recess depth, which must be factored into the total calculation, ensuring that the *actual* sensor plane, not just the camera body's front face, is at the precise backfocus distance.</p>
             <p><strong>Example:</strong> Imagine you're preparing to image the Rosette Nebula (NGC 2237) with a high-resolution setup: a Takahashi FSQ-106EDX4 refractor, known for its superb native field flatness, but you're adding a Takahashi 645 Flattener to slightly reduce the focal length and ensure absolute perfection across a large sensor. The manufacturer specifies a backfocal distance of exactly 72mm from the rear-most thread of the 645 Flattener to the sensor plane. Your imaging train consists of an ZWO ASI2600MM Pro dedicated astronomy camera (which has a sensor recess of 6.5mm from its front flange), a ZWO EFW (Electronic Filter Wheel) with a 20mm optical path, and a ZWO OAG-L (Off-Axis Guider) with a 17.5mm optical path. To achieve the 72mm backfocus, you would calculate: 72mm (total required) - 6.5mm (camera sensor recess) - 20mm (filter wheel) - 17.5mm (OAG) = 28mm. This means you need precisely 28mm of additional spacing between the OAG and the flattener. If you mistakenly use a 25mm spacer, your total backfocus would be 69mm (3mm too short). When you process your Rosette Nebula images, you would observe that while the stars in the very center are sharp, those in the outer 20-30% of the field, particularly in the corners, appear as subtle, radially elongated streaks, indicating residual field curvature and astigmatism that the flattener couldn't fully correct due to the incorrect spacing. Conversely, if you used a 30mm spacer, resulting in 74mm backfocus (2mm too long), the stars in the corners might appear slightly bloated or tangentially stretched, again compromising the pristine star shapes expected from such high-end optics.</p>
 `
+        content_he: `<p><strong>הגדרה:</strong> המרחק המדויק מנקודת ההתייחסות של הטלסקופ לפשש החיישן של המצלמה. שגיאה במרחק זה גורמת לכיפוף שדה ולכוכבים מטושטשים בפינות התמונה.</p><p><strong>דוגמה:</strong> רדוסר/פלטנר ייעודי לרפרקטור שלך מיועד לעבוד במרחק בקפוקוס של 55 מ"מ - סטייה של 1 מ"מ תגרום לכוכבים עגולים פחות בפינות.</p>`
     },
     {
         title: "Harmonic Drive Mount",
@@ -100,6 +107,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Example:</strong> Imagine a dedicated astrophotographer embarking on a multi-day expedition to a remote Bortle 1 dark-sky site in the high desert, far from any light pollution. Their goal is to capture a wide-field mosaic of the Rho Ophiuchi cloud complex, a notoriously challenging target due to its faint nebulosity and vast extent. For this endeavor, they've chosen a ZWO AM5 harmonic drive mount, paired with a high-performance, compact refractor like the William Optics RedCat 71, a ZWO ASI2600MC Pro one-shot color camera, and an Optolong L-Pro filter. The total payload, including camera, scope, guide scope, and ASIAIR Plus, weighs approximately 8kg.</p>
             <p>Thanks to the AM5's harmonic drive system, there's no need for a heavy 4-5kg counterweight, which would typically be essential for a traditional equatorial mount handling this payload. This significantly reduces the total gear weight and bulk, making transport in a smaller vehicle or even as checked luggage on a flight much more feasible. Upon arrival at the remote site, setup is remarkably swift: the mount is simply placed on its tripod, the telescope assembly attached, and polar alignment achieved rapidly using the ASIAIR's built-in routine. Without the fuss of balancing counterweights, the astrophotographer can quickly move to plate solving and framing the Rho Ophiuchi region. The AM5's robust tracking, with its minimal periodic error, allows for consistent 300-second sub-exposures at a focal length of 346mm, even without active guiding for shorter exposures, though guiding with a small guide scope and camera (e.g., ZWO ASI120MM Mini) further refines tracking for pinpoint stars across the entire mosaic. The sheer portability and rapid deployment capability of the harmonic drive mount directly translate into more valuable imaging time under pristine dark skies, maximizing the chances of capturing the subtle details and vibrant colors of the Rho Ophiuchi nebula.</p>
 `
+        content_he: `<p><strong>הגדרה:</strong> חצובה המשתמשת במנגנון הנעה הרמוני (Strain Wave Gear) במקום תולעת ומשפד רגילה, המציע דיוק גבוה, ריפיון מכני אפסי כמעט ומשקל קל.</p><p><strong>דוגמה:</strong> חצובות כמו Rainbow Astro RST-135 משתמשות ב-Harmonic Drive ומסוגלות לשאת עומס כבד יחסית למשקלן הנמוך, אידאלי לצילום בשטח.</p>`
     },
     {
         title: "Plate Solving",
@@ -113,6 +121,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Example:</strong> Imagine you're planning to capture a high-resolution mosaic of the Rosette Nebula (NGC 2237) using a Takahashi FSQ-106EDX4 refractor and a ZWO ASI2600MM Pro camera mounted on a Paramount MX+ equatorial mount. You've performed your initial polar alignment, but slight residual errors or cone error in the mount's mechanics mean your Go-To accuracy isn't perfect. To begin the mosaic, you command the mount to slew to the center of the first panel. After the slew, your imaging control software (e.g., NINA or SGP) automatically initiates a plate solve. It takes a 5-second exposure, downloads it, and sends it to an integrated solver like ASTAP or PlateSolve2. Within moments, the solver identifies hundreds of stars in the field, cross-references them with its internal catalog, and determines that your telescope is actually pointing 15 arcminutes southwest of your intended target, with the camera rotated by 2.3 degrees from your desired orientation.</p>
             <p>The software then calculates the necessary corrections and sends precise adjustment commands to the Paramount MX+ mount. The mount makes a minute, sub-arcsecond correction. Another 5-second exposure is taken, and a second plate solve confirms the target is now perfectly centered within 5 pixels of the desired coordinates. This iterative process, often called "solve and sync," ensures that each panel of your Rosette Nebula mosaic is precisely framed and positioned, guaranteeing seamless stitching later in post-processing. Without plate solving, achieving such precise framing and mosaic alignment would be an incredibly time-consuming and frustrating manual endeavor, if not impossible.</p>
 `
+        content_he: `<p><strong>הגדרה:</strong> תהליך אוטומטי שבו התוכנה מתאימה את הכוכבים בתמונה לקטלוג כוכבים ידוע, ומוצאת בדיוק לאן הטלסקופ מכוון בשמיים (קואורדינטות RA ו-DEC).</p><p><strong>דוגמה:</strong> לאחר Plate Solve ב-N.I.N.A., הטלסקופ יכוון את עצמו לצמד הגלקסיות M81/M82 בדיוק של שניות קשת, גם אם ה-GoTo לא היה מדויק.</p>`
     },
     {
         title: "Off-Axis Guider (OAG)",
@@ -126,6 +135,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Example:</strong> Imagine a dedicated deep-space astrophotographer embarking on a challenging project to capture the intricate dust lanes and faint wisps of the distant Triangulum Galaxy (M33), a sprawling spiral requiring significant focal length and exposure time. The setup includes a high-resolution Takahashi FSQ-106EDX IV refractor operating at its native 530mm focal length (f/5), paired with a cooled, full-frame monochrome camera like the ZWO ASI6200MM Pro. To achieve the absolute pinpoint stars necessary for such a large sensor and long cumulative exposure, an Off-Axis Guider (e.g., a ZWO OAG-L) is meticulously integrated into the imaging train, positioned between the FSQ-106's field flattener and the main camera's filter wheel.</p>
             <p>A highly sensitive ZWO ASI174MM Mini guide camera is then attached to the OAG-L's helical focuser. During the initial setup, after achieving critical focus on the main camera, the guide camera is precisely focused by adjusting its position within the OAG until stars appear sharp and round on the guiding software (e.g., PHD2). The OAG's prism is carefully rotated and adjusted to sweep the outer edges of the main camera's expansive field of view until a sufficiently bright and isolated guide star (typically magnitude 9-13) is acquired. Once a suitable guide star is locked, PHD2 is calibrated, and the guiding process commences. The OAG ensures that any minute shifts in the FSQ-106's optical elements, tube flexure from changing sky positions, or residual tracking errors from the high-precision equatorial mount are precisely detected and corrected in real-time. Because the guide camera is literally looking through the same optical path as the main imager, any movement affecting the primary image is simultaneously seen and corrected by the guide camera. This setup allows the astrophotographer to capture numerous long, 10-minute sub-exposures of M33, resulting in an final image boasting perfectly round, pinpoint stars across the entire full-frame sensor, revealing the galaxy's delicate spiral arms and HII regions with unparalleled clarity—a level of precision that would be severely compromised by the inevitable differential flexure introduced by a separate guide scope.</p>
 `
+        content_he: `<p><strong>הגדרה:</strong> מכשיר המנתב חלק קטן מאור הטלסקופ הראשי לחיישן מצלמת הכוון דרך פריזמה קטנה, המאפשר כוון אוטומטי דרך אותה אופטיקה ממש בלי טלסקופ כוון נפרד.</p><p><strong>דוגמה:</strong> עם OAG נמנעת כיפוף מוט שנוצר כשטלסקופ הכוון וטלסקופ הצילום נעים בנפרד, וכך הכוון מדויק יותר בחשיפות ארוכות.</p>`
     },
     {
         title: "Quantum Efficiency (QE)",
@@ -139,6 +149,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Example:</strong> Consider an ambitious project to capture the faint, wispy tendrils of the Integrated Flux Nebula (IFN) – a collection of dust and gas clouds illuminated by the Milky Way's diffuse starlight, notoriously difficult to image due to its extreme faintness and high galactic latitude. To tackle this, an astrophotographer might deploy a ZWO ASI2600MM Pro monochrome cooled CMOS camera, renowned for its back-illuminated Sony IMX571 sensor boasting a peak Quantum Efficiency of approximately 91% around 530nm, and excellent response across the visible and H-alpha spectrum.</p>
             <p>When imaging the IFN, every photon counts. With the ASI2600MM Pro's high QE, the camera can convert a significantly larger percentage of the incoming, precious photons from the IFN into measurable signal electrons compared to an older, front-illuminated DSLR with a QE of perhaps 40-50%. This means that for a 300-second sub-exposure, the ASI2600MM Pro collects nearly twice the signal, effectively reducing the necessary total integration time by half to achieve the same signal level, or allowing for a much deeper, higher SNR image within the same total integration. This superior photon capture capability is crucial for differentiating the IFN's subtle glow from the pervasive skyglow and read noise, enabling the astrophotographer to reveal intricate structures that would remain invisible with a less efficient sensor, ultimately yielding a stunning, high-fidelity portrait of this elusive deep-sky object.</p>
 `
+        content_he: `<p><strong>הגדרה:</strong> אחוז הפוטונים הפוגעים בחיישן המצלמה שמומרים בפועל לאלקטרונים הניתנים למדידה. QE גבוה יותר פירושו חיישן יעיל יותר בלכידת אור.</p><p><strong>דוגמה:</strong> חיישן עם QE של 91% (כמו IMX455 ב-ASI2600) יאסוף כמעט פי שניים יותר אות ביחס לחיישן עם QE של 50% בזמן חשיפה זהה.</p>`
     },
     {
         title: "Signal-to-Noise Ratio (SNR)",
@@ -152,6 +163,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Example:</strong> Capturing the exceptionally faint, wispy tendrils of the Integrated Flux Nebula (IFN) surrounding the M81/M82 galaxy pair presents an extreme challenge due to its extraordinarily low surface brightness, often just a few percent above the natural sky background. To achieve a sufficiently high SNR for this elusive target, an expert astrophotographer might deploy a premium setup: a fast, wide-field apochromatic refractor such as a Takahashi FSQ-106EDX IV (f/5) for its superb optics and photon-gathering capability, paired with a cooled, full-frame monochrome camera like the ZWO ASI6200MM Pro, operating at a stabilized -15°C to virtually eliminate dark current noise. This entire assembly would be mounted on a highly precise equatorial mount, such as a Software Bisque Paramount MX+, ensuring pinpoint stars over extremely long cumulative exposures from a Bortle 2 dark sky site, where skyglow is minimal.</p>
             <p>For the IFN, the primary focus would be on acquiring vast amounts of Luminance (L) data to maximize signal collection from the faint dust. Instead of a few very long exposures, a strategy of many moderate-length sub-exposures (e.g., 300-second or 5-minute subs) is often preferred. This approach mitigates the impact of guiding errors, satellite trails, cosmic ray strikes, and transient atmospheric conditions, allowing for robust outlier rejection during stacking. If a single 5-minute sub-exposure of the IFN yields an initial SNR of approximately 2 (meaning the faint nebulosity is barely distinguishable from the noise floor), a dedicated imager might aim for an astonishing 40-50 hours of total integration time for the Luminance channel alone. This translates to stacking between 480 and 600 individual 5-minute sub-exposures. By stacking, for instance, 500 frames, the SNR of the final image would dramatically improve by a factor of √500 ≈ 22.36. This exponential increase elevates the SNR from 2 to approximately 44.72, allowing the incredibly subtle, diffuse structures of the IFN, which are otherwise completely lost in the noise of a single frame, to emerge with remarkable clarity and detail. Post-processing in advanced software like PixInsight would then involve meticulous calibration with master darks, flats, and bias frames, followed by sophisticated stacking algorithms (e.g., using Weighted Batch Pre-processing with local normalization) and advanced noise reduction techniques (such as Multiscale Linear Transform or TGVDenoise) to further refine the high-SNR data and bring out the ethereal beauty of this challenging deep-sky object.</p>
 `
+        content_he: `<p><strong>הגדרה:</strong> יחס האות לרעש (SNR) מודד את עוצמת האות הרצוי (אור מהעצם) ביחס לרמת הרעש הכללית. SNR גבוה יותר פירושו תמונה נקייה ועשירה יותר בפרטים.</p><p><strong>דוגמה:</strong> הגדלת זמן אינטגרציה פי 4 מכפילה את SNR פי 2. לכן ערימה של 4 שעות תיראה פי שניים נקייה מערימה של שעה אחת.</p>`
     },
     {
         title: "Dithering",
@@ -165,6 +177,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Example:</strong> Consider an astrophotographer imaging the faint wisps of the California Nebula (NGC 1499) using a ZWO ASI2600MM Pro monochrome camera paired with a high-quality apochromatic refractor like the Takahashi FSQ-106EDX, mounted on a precise 10Micron GM1000 HPS equatorial mount. The goal is to capture 120-second exposures through a 3nm H-alpha narrowband filter. Despite careful calibration with darks, flats, and bias frames, the ASI2600MM Pro, like many modern CMOS sensors, exhibits a few persistent hot pixels and minor amplifier glow in the corners, alongside a couple of stubborn dust motes on the sensor's protective glass.</p>
             <p>To mitigate these issues, the astrophotographer configures their imaging software (e.g., N.I.N.A. or Sequence Generator Pro) to integrate with PHD2 Guiding, setting a dither amount of 5 pixels in a random direction after every 5 sub-exposures. Over a multi-hour imaging session, the telescope subtly shifts its pointing direction numerous times. When the 100+ H-alpha sub-exposures are later processed in PixInsight, using the Weighted Batch Preprocessing script followed by ImageIntegration, the power of dithering becomes evident. Robust rejection algorithms such as Winsorized Sigma Clipping or Linear Fit are employed. These algorithms analyze the pixel values across all stacked frames. Because the hot pixels, amplifier glow, and dust motes have moved to different locations in each dithered sub-exposure relative to the stationary stars and nebula, the rejection algorithms can effectively identify these transient noise sources and exclude their values from the final integrated pixel. The result is a master light frame with a remarkably clean, smooth background, free from distracting hot pixels, dust donuts, and walking noise, allowing the delicate H-alpha structures of the California Nebula to emerge with pristine clarity and enhanced detail.</p>
 `
+        content_he: `<p><strong>הגדרה:</strong> ניתור הוא הזזה קטנה ומכוונת של כוון הטלסקופ בין חשיפה לחשיפה. כאשר מערמים את הפריימים, הרעש הקבוע (hot pixels, FPN) מבוטל כי אינו נמצא באותו מיקום בכל פריים.</p><p><strong>דוגמה:</strong> הפעלת Dithering ב-N.I.N.A. בין כל חשיפה תסיר רצועות רעש מלח ופלפל שנשארות לאחר ערימה ללא ניתור.</p>`
     },
     {
         title: "Linear vs. Non-Linear",
@@ -182,6 +195,7 @@ const GLOSSARY_ITEMS = [
 
             <p>Only after these critical linear operations are complete do you proceed to stretch the data into its non-linear state. Using tools like 'HistogramTransformation' or 'ArcsinhStretch' in PixInsight, you carefully bring out the faint tendrils of the Horsehead, the intricate dust lanes, and the subtle glow of the surrounding hydrogen alpha. Once stretched, the data is now non-linear, and you can then perform aesthetic enhancements such as 'LocalHistogramEqualization' to boost local contrast in the nebula, 'CurvesTransformation' to adjust color balance and saturation, and final, subtle sharpening for display. Attempting to perform deconvolution *after* stretching would result in severe ringing artifacts around bright stars, exaggerated noise, and an unnatural, over-processed appearance, demonstrating the absolute necessity of maintaining linearity for specific, fundamental processing steps.</p>
 `
+        content_he: `<p><strong>הגדרה:</strong> תמונה לינארית היא נתון גולמי שבו ערכי הפיקסל פרופורציוניים ישירות לכמות הפוטונים שנאספו. לאחר מתיחה (Stretch) התמונה הופכת ללא-לינארית.</p><p><strong>דוגמה:</strong> ב-PixInsight תבצע כיול, ערימה וחיסור שיפוע (DBE) במצב לינארי לפני שתמתח את התמונה לצפייה.</p>`
     },
     {
         title: "Bayer Matrix (Debayering)",
@@ -196,6 +210,7 @@ const GLOSSARY_ITEMS = [
             <p>Before any meaningful stacking or color calibration can commence, these raw frames must undergo the essential "debayering" process. In PixInsight, for instance, you would navigate to the 'Process' menu and select 'ColorCalibration' -> 'Debayer'. Here, you'd specify the correct Bayer pattern for your ASI533MC Pro (which is typically RGGB) and choose an appropriate demosaicing algorithm, such as VNG (Variable Number of Gradients) or SuperPixel, known for their ability to balance detail preservation with artifact suppression. The software then intelligently interpolates the missing color information for every single pixel. For a pixel that directly measured red light, its green and blue values are estimated by analyzing the intensity values of its neighboring green and blue pixels. This sophisticated estimation process is performed across the entire image for all three color channels.</p>
             <p>Once the debayering process is complete, your individual sub-exposures are transformed from that initial grayscale mosaic into full-color images. You can now clearly discern the deep reds of the hydrogen-alpha emission from the nebula's glowing gas, the subtle blues from scattered starlight, and the intricate details within the dark dust lanes. These debayered frames are then ready for precise alignment, stacking to improve signal-to-noise ratio, and subsequent advanced post-processing steps like photometric color calibration, noise reduction, and stretching, ultimately allowing you to reveal the Lagoon Nebula in all its spectacular, true-color glory, a testament to the power of the Bayer matrix and the debayering algorithms that unlock its potential.</p>
 `
+        content_he: `<p><strong>הגדרה:</strong> מטריצת בייר היא רשת פילטרים צבעוניים (RGGB) הממוקמת על חיישן מצלמת OSC, כאשר כל פיקסל קולט רק צבע אחד. תהליך Debayering משחזר את המידע הצבעוני המלא לכל פיקסל.</p><p><strong>דוגמה:</strong> קובץ RAW ממצלמת ASI2600MC מכיל נתוני בייר גולמיים; לאחר Debayering בתוכנת ערימה כמו APP, כל פיקסל מקבל ערכי R, G ו-B מלאים.</p>`
     },
     {
         title: "Hydrogen-Alpha (Hα)",
@@ -209,6 +224,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Example:</strong> Imagine setting up your imaging rig – a high-quality apochromatic refractor like the Takahashi FSQ-106ED or a larger scope like the Esprit 100ED, paired with a cooled monochrome CMOS camera such as the ZWO ASI2600MM Pro, all mounted on a precise equatorial mount like the Sky-Watcher EQ6-R Pro – under a Bortle 7 sky, just outside a major city. Your target is the iconic North America Nebula (NGC 7000) in Cygnus, a vast cloud of ionized hydrogen. Without an Hα filter, the faint nebulosity would be completely overwhelmed by the orange glow of streetlights and the general skyglow, rendering any broadband attempts futile.</p>
             <p>To capture its intricate red structures, you would equip your camera with a premium 3nm Astrodon Hα narrowband filter. You then proceed to capture numerous sub-exposures, perhaps 20-30 frames, each lasting 600 seconds (10 minutes) at a gain setting optimized for your camera (e.g., unity gain). The narrow 3nm bandpass ensures that only the specific 656.3nm light from the nebula penetrates to the sensor, effectively rendering the light pollution almost invisible. After stacking and processing these Hα frames, you would reveal the stunning, flowing filaments and dark dust lanes that define the "coastline" and "Mexico" regions of the nebula with exceptional clarity and contrast, even though your eyes could barely discern the Milky Way visually from your light-polluted location. This Hα data would then be the foundation, potentially combined with OIII and SII data captured through similar narrowband filters, to construct a breathtaking full-color narrowband image of this celestial masterpiece.</p>
 `
+        content_he: `<p><strong>הגדרה:</strong> קו פליטה של מימן ניטרלי באורך גל 656.3 ננומטר (אדום עמוק). זהו קו הפליטה החזק ביותר בערפיליות פליטה, ופילטר Hα מבודד אותו מכל שאר האור.</p><p><strong>דוגמה:</strong> צילום ערפילית הרוזטה עם פילטר Hα של 3nm חושף את מבנה הגז בבהירות גם בירח מלא, כי הפילטר חוסם כמעט את כל זיהום האור.</p>`
     },
     {
         title: "Oxygen-III (OIII)",
@@ -219,6 +235,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A filter for doubly-ionized oxygen (500.7nm), typically appearing teal or blue-green.</p>
             <p><strong>Example:</strong> In a Planetary Nebula like the Dumbbell (M27), the OIII filter captures the "outer shell" that is often invisible in standard RGB shots.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> קו פליטה של חמצן מיוּנן פעמיים באורך גל 500.7 ננומטר (ירוק-כחול). הוא נפוץ בערפיליות פלנטריות ובאזורים חמים מאוד של ערפיליות פליטה.</p><p><strong>דוגמה:</strong> ערפילית הרשת בקבוצת הברבור (Veil Nebula) זוהרת בעוצמה בפילטר OIII, ומגלה סיבי שוקוויב עדינים שלא נראים ב-Hα.</p>`
     },
     {
         title: "Hubble Palette (SHO)",
@@ -229,6 +246,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A false-color mapping where Sulfur-II is Red, Hydrogen-Alpha is Green, and Oxygen-III is Blue.</p>
             <p><strong>Example:</strong> This is how the famous "Pillars of Creation" were processed. It allows us to see exactly where different gases are located in a nebula like The Rosette.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> שיטת מיפוי צבע שבה SII ממופה לאדום, Hα לירוק ו-OIII לכחול. התוצאה היא תמונות בצבעים שקריים אך עשירות במידע מדעי, כמו תמונות המפורסמות של טלסקופ האבל.</p><p><strong>דוגמה:</strong> עמודי הבריאה המפורסמים של האבל צולמו בפלטת SHO - הצבע הירוק-צהוב הוא למעשה אות Hα חזק.</p>`
     },
     {
         title: "The Bortle Scale",
@@ -239,6 +257,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A 1-9 scale of sky darkness.</p>
             <p><strong>Example:</strong> On your site, you might note: "Captured at a Bortle 3 site." This tells the viewer the sky was dark enough to see the Milky Way clearly with the naked eye.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> סולם מ-1 עד 9 המדרג את חשכת השמיים. Bortle 1 מייצג שמיים כהים לחלוטין ו-Bortle 9 מייצג מרכז עיר עם שמיים בהירים.</p><p><strong>דוגמה:</strong> בשמיים של Bortle 4 תוכל לצלם ערפיליות עמומות עם פחות שעות ערימה מאשר ב-Bortle 7, כי הרקע הכהה יותר נותן SNR טוב יותר.</p>`
     },
     {
         title: "Astronomical Seeing",
@@ -249,6 +268,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A measurement of atmospheric turbulence.</p>
             <p><strong>Example:</strong> On a night of "Poor Seeing," your stars will look like fuzzy blobs regardless of how perfect your focus is, because the air is "boiling."</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> ראייה אסטרונומית מתארת את יציבות האטמוספרה - כמה מהר ובאיזה עוצמה זרמי אוויר מטשטשים את תמונת הכוכבים. ראייה טובה = כוכבים קטנים וחדים.</p><p><strong>דוגמה:</strong> בלילה עם ראייה של 2 ארקסק הכוכבים יהיו חדים, ואילו ב-5 ארקסק אפילו הטלסקופ הטוב ביותר לא יניב תוצאות חדות.</p>`
     },
     {
         title: "Bias Frame",
@@ -259,6 +279,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A zero-length exposure (fastest shutter speed) taken with the lens cap on. It records the inherent electronic "read noise" of the camera sensor.</p>
             <p><strong>Example:</strong> By subtracting a Master Bias from your light frames, you remove the base-level electronic hum that would otherwise create a "fog" over your faint nebula details.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> פריים הטיה הוא חשיפה קצרה ביותר (זמן חשיפה אפסי) עם מכסה העדשה סגור. הוא מודד את ההיסט הבסיסי שהחיישן מוסיף לכל פיקסל ללא קשר לאור או חום.</p><p><strong>דוגמה:</strong> גריעת Master Bias מפריימי המדע וכלי הכיול האחרים מבטיחה שהמתמטיקה של הכיול מדויקת ולא מוסיפה ערכים שקריים.</p>`
     },
     {
         title: "Dark Frame",
@@ -269,6 +290,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> An exposure of the exact same length, temperature, and gain as your light frame, but with the optics covered. It captures thermal noise and "hot pixels."</p>
             <p><strong>Example:</strong> If your 300-second shot of the Tadpole Nebula has 50 bright red dots (hot pixels), subtracting a Master Dark identifies those specific pixels and removes them.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> פריים חשוך הוא חשיפה באותו משך זמן, טמפרטורה ורווח כמו פריימי המדע, אך עם מכסה סגור. הוא קולט רעש תרמי, hot pixels ו-Amp Glow שניתן לגרוע מהתמונה.</p><p><strong>דוגמה:</strong> ערימה של 20 פריים חשוכים ל-Master Dark תסיר בצורה אמינה את כל הפיקסלים החמים הקבועים בתמונת הגלקסיה שלך.</p>`
     },
     {
         title: "Flat Frame",
@@ -279,6 +301,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> An image of a perfectly even, neutral light source taken through the entire optical train. It maps out vignetting (dark corners) and dust motes on the sensor.</p>
             <p><strong>Example:</strong> If there is a "dust donut" on your telescope's glass, a Flat Frame creates a map of that shadow. During processing, the software "divides" the light frame by the flat, making the dust disappear.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> פריים שטוח הוא תמונה של מקור אור אחיד שמגלה את אי-האחידות של שדה הראייה: וינייטינג, אבק על החיישן וחוסר אחידות בפילטרים.</p><p><strong>דוגמה:</strong> לאחר גריעת Master Flat מתמונת ערפילית, הפינות הכהות נעלמות ושדה התמונה כולו נראה אחיד ושטוח.</p>`
     },
     {
         title: "Dark-Flat Frame",
@@ -289,6 +312,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A dark frame specifically for the flat frames. It is an exposure of the same length as the flat, but with no light, used to calibrate the flats themselves.</p>
             <p><strong>Example:</strong> Used primarily with CMOS cameras (like the ASI2600) that don't scale bias frames well; this ensures your flats are perfectly clean before they touch your light data.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> פריים Dark-Flat הוא פריים חשוך הצולם בזמן החשיפה הזהה לפריים השטוח. הוא מסיר את הרעש התרמי הייחודי של פריימי הפלאט.</p><p><strong>דוגמה:</strong> אם פריימי הפלאט שלך נמשכים 0.5 שניות, צלם Dark-Flat של 0.5 שניות עם מכסה סגור וגרע אותם מהפלאטים.</p>`
     },
     {
         title: "Master Frame",
@@ -299,6 +323,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The resulting file created by stacking dozens of individual calibration frames (e.g., 50 Darks become one "Master Dark").</p>
             <p><strong>Example:</strong> A single dark frame is noisy; a Master Dark is a smooth, high-SNR mathematical average of the sensor's thermal behavior.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> Master Frame הוא תמונת כיול ממוצעת הנוצרת מערימת פריימי כיול רבים. היא מפחיתה את הרעש בפריים הכיול עצמו.</p><p><strong>דוגמה:</strong> Master Dark הנוצר מ-30 פריים חשוכים יהיה נקי הרבה יותר מפריים חשוך בודד, ויסיר hot pixels בצורה אמינה.</p>`
     },
     {
         title: "Sub-frame Weighting",
@@ -309,6 +334,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> An algorithm that analyzes every individual image and gives a "score" based on star roundness, SNR, and sky overhead (transparency).</p>
             <p><strong>Example:</strong> If a thin cloud passed by during your 10th shot of M31, the software gives it a lower "weight" so it doesn't degrade the final stack as much as the clear shots.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> שקלול פריימים הוא תהליך שבו כל פריים מדע מקבל ציון איכות על בסיס FWHM, SNR וסטיית תקן. פריימים איכותיים יותר מקבלים משקל גבוה יותר בערימה.</p><p><strong>דוגמה:</strong> בלילה עם ראייה משתנה, פריים עם כוכבים חדים של 2 ארקסק יקבל משקל גבוה פי 3 מפריים עם כוכבים מטושטשים של 5 ארקסק.</p>`
     },
     {
         title: "Pixel Rejection (Sigma Clipping)",
@@ -319,6 +345,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A statistical method that looks at a stack of images and throws away pixels that don't match the others (outliers).</p>
             <p><strong>Example:</strong> If a satellite or a plane flies through one frame of your Hercules Cluster, Sigma Clipping sees that the "streak" is only in one frame and deletes it during the stacking process.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> שיטה סטטיסטית שמזהה ומסירה ערכי פיקסל חריגים (כוכבי לוויין, קוסמיק ריי, hot pixels) מהערימה על ידי השוואה לסטיית תקן של הממוצע.</p><p><strong>דוגמה:</strong> Sigma Clipping של 3σ יסיר את עקבות הלוויין מהערימה הסופית מבלי לפגוע באות הגלקסיה האמיתי.</p>`
     },
     {
         title: "Registration (Alignment)",
@@ -329,6 +356,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The process of mathematically rotating and shifting every image in a set so that the stars overlap perfectly.</p>
             <p><strong>Example:</strong> Even if your mount tracked perfectly, the stars might shift by 1 pixel due to atmospheric refraction. Registration ensures the Leo Triplet stays razor-sharp across 100 frames.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> יישור תמונות הוא תהליך מציאת ותיקון ההזזות הקטנות (טרנסלציה, סיבוב) בין פריימים שנצלמו בלילות שונים, כך שכוכבים מסוימים נמצאים באותם פיקסלים בכל הפריימים.</p><p><strong>דוגמה:</strong> בכלי ערימה כמו APP, יישור בסיס כוכבים מאפשר לחבר נתוני לילות שונים ולהשיג ערימה עמוקה ללא כוכבים כפולים.</p>`
     },
     {
         title: "Drizzle (Bayer Drizzle)",
@@ -339,6 +367,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A technique originally developed for the Hubble Space Telescope to recover resolution from under-sampled data by using dithered images to "fill in" the gaps between pixels.</p>
             <p><strong>Example:</strong> If you shoot a wide-field nebula with large pixels, your stars might look blocky. Using 2x Drizzle during stacking can make the stars rounder and recover finer details in the gas clouds.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> אלגוריתם Drizzle ממפה כל פיקסל קטן יותר על רשת פלט גדולה יותר, וכך מגדיל ברזולוציה את הנתונים בזמן הערימה תוך שמירה על מידע שנאסף על ידי כל חיישן.</p><p><strong>דוגמה:</strong> שימוש ב-Bayer Drizzle על נתוני OSC מכפיל את הרזולוציה האפקטיבית לפני פירוק הבייר ומפחית את אובדן הרזולוציה האופייני.</p>`
     },
     {
         title: "Deconvolution",
@@ -349,6 +378,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A mathematical algorithm that attempts to reverse the blurring effects caused by the atmosphere and telescope optics.</p>
             <p><strong>Example:</strong> By applying deconvolution to the core of the M13 Globular Cluster, you can "tighten" the stars, revealing individual points of light that were previously smeared together.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> דה-קונבולוציה היא תהליך מתמטי שמנסה לבטל את הטשטוש שנגרם על ידי הטלסקופ, האטמוספרה ואופטיקה לא מושלמת, ולחלץ את פרטי הנושא האמיתיים.</p><p><strong>דוגמה:</strong> שימוש ב-BlurXTerminator על תמונת גלקסיית המערבולת יחדד את זרועות הספירלה ויחשוף פרטי אבק שלא נראו בתמונה המקורית.</p>`
     },
     {
         title: "Star Reduction (Morphological Transformation)",
@@ -359,6 +389,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> Using masks and filters to shrink the size of stars in a final image without affecting the brightness of the nebula or galaxy.</p>
             <p><strong>Example:</strong> In a crowded area like the Sadr Region, the stars can overwhelm the nebula. Reducing them makes the faint hydrogen clouds "pop" and become the focus of the image.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> טרנספורמציה מורפולוגית היא עיבוד שמכווץ את גודל הכוכבים בתמונה מבלי להשפיע על פרטי הנבולה, כך שהנבולה מנצחת ויזואלית על הכוכבים.</p><p><strong>דוגמה:</strong> לאחר Star Reduction ב-PixInsight, הכוכבים בתמונת ערפילית הטאדפול יהיו קטנים ועדינים, ותשומת הלב תעבור לאות הגז.</p>`
     },
     {
         title: "SCNR (Subtractive Chromatic Noise Reduction)",
@@ -369,6 +400,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A specialized tool used to remove unnatural green tints from an image, as there are almost no "green" objects in deep space.</p>
             <p><strong>Example:</strong> OSC cameras often produce a green cast due to the Bayer matrix having two green pixels for every one red/blue. SCNR "kills" the green, leaving a natural-looking background.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> SCNR הוא כלי שמסיר ערוץ צבע ספציפי (בדרך כלל ירוק) מהאזורים שבהם הוא שולט, ומסיר את הגוון הירקרק האופייני בתמונות OSC.</p><p><strong>דוגמה:</strong> הפעלת SCNR Green ב-PixInsight על תמונת ערפילית מסירה את הצבע הירוק הקנביוס ומשאירה אדום וכחול טבעיים.</p>`
     },
     {
         title: "Local Histogram Equalization (LHE)",
@@ -379,6 +411,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A tool that increases contrast in specific "local" areas of an image rather than stretching the whole thing.</p>
             <p><strong>Example:</strong> Used to bring out the "ripples" and "waves" inside the Orion Nebula without blowing out the bright stars or darkening the edges too much.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> LHE היא טכניקת עיבוד שמשווה את ההיסטוגרמה באזורים מקומיים קטנים בתמונה, ומגביר ניגוד ופרטים באזורים ספציפיים מבלי להשפיע על כל התמונה.</p><p><strong>דוגמה:</strong> שימוש ב-LHE על ליבת גלקסיה יחשוף פרטים עדינים ומבנים פנימיים מבלי לשרוף (Clip) את הכוכבים הבהירים בסביבה.</p>`
     },
     {
         title: "PixelMath",
@@ -389,6 +422,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A powerful tool that allows you to use mathematical equations to combine, subtract, or modify images.</p>
             <p><strong>Example:</strong> You can use a formula like (Ha * 0.8) + (Red * 0.2) to blend narrowband data into a natural-looking RGB star field.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> PixelMath הוא כלי ב-PixInsight המאפשר ביצוע פעולות מתמטיות ישירות על ערכי הפיקסלים בתמונה באמצעות נוסחאות וביטויים תכנותיים.</p><p><strong>דוגמה:</strong> בשיטת HOO (Hα לאדום, OIII לכחול וירוק), תשתמש בנוסחת PixelMath כדי לשלב שלושה ערוצי פס-צר לתמונה RGB.</p>`
     },
     {
         title: "Dynamic Background Extraction (DBE)",
@@ -399,6 +433,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> Manually placing "sample points" on the background of an image to model and subtract complex light pollution or moon gradients.</p>
             <p><strong>Example:</strong> If your M81 image has a glow in the top-left from a neighbor's porch light, DBE maps that specific glow and subtracts it with surgical precision.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> DBE הוא כלי ב-PixInsight שממדל ומסיר שיפועי רקע לא-אחידים (gradient) מתמונה, הנגרמים מזיהום אור, Airglow או כיול לא מושלם.</p><p><strong>דוגמה:</strong> לאחר ערימת נתוני ערפילית עם שיפוע אורכי מאדות ירח, DBE יסיר את אי-האחידות וישאיר רקע שחור אחיד.</p>`
     },
     {
         title: "Right Ascension (RA)",
@@ -409,6 +444,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The celestial equivalent of longitude, measured in hours, minutes, and seconds eastward along the celestial equator.</p>
             <p><strong>Example:</strong> The Andromeda Galaxy (M31) is located at an RA of approximately 00h 42m. As the Earth rotates, this "coordinate" stays fixed relative to the stars, allowing your mount to find it any night it is above the horizon.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> נסיקה ישרה (RA) היא הקואורדינטה האסטרונומית המקבילה לאורך גיאוגרפי, ומודדת את המיקום של עצם שמימי מזרחה מנקודת הורנל. מודדים אותה בשעות, דקות ושניות.</p><p><strong>דוגמה:</strong> גלקסיית אנדרומדה (M31) נמצאת ב-RA 00h 42m - כשהטלסקופ מכוון לשם, ציר ה-RA של החצובה מסתובב לאט כדי לעקוב.</p>`
     },
     {
         title: "Declination (DEC)",
@@ -419,6 +455,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The celestial equivalent of latitude, measured in degrees north (+) or south (-) of the celestial equator.</p>
             <p><strong>Example:</strong> The North America Nebula has a DEC of +44°. Because this is a high positive number, it remains high in the sky for observers in the Northern Hemisphere (like Israel) for much of the year.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> נטייה (DEC) היא הקואורדינטה האסטרונומית המקבילה לרוחב גיאוגרפי, ומודדת זווית צפון-דרום מהמשוון השמימי. מקסימום +90 מעלות (קוטב צפון שמימי) ו-90- מעלות (קוטב דרום שמימי).</p><p><strong>דוגמה:</strong> ערפילית אוריון (M42) נמצאת ב-DEC של -5.4 מעלות - מתחת מעט למשוון השמימי, ולכן נראית מכל רחבי העולם.</p>`
     },
     {
         title: "Meridian",
@@ -429,6 +466,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> An imaginary line running from North to South, passing directly through the zenith (the highest point in the sky).</p>
             <p><strong>Example:</strong> When a target like the Tadpole Nebula "crosses the meridian," it is at its highest point in the sky, meaning you are shooting through the least amount of atmosphere for the sharpest possible data.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> המרידיאן הוא הקשת השמימית הדמיונית העוברת מנקודת הצפון דרך הזניט ועד נקודת הדרום. עצמים שמימיים מגיעים לשיאם כשהם עוברים את המרידיאן.</p><p><strong>דוגמה:</strong> הטלסקופ צריך לבצע Meridian Flip כשהעצם עובר מצד מזרח למערב של המרידיאן, אחרת צינור הטלסקופ יפגע בחצובה.</p>`
     },
     {
         title: "Meridian Flip",
@@ -439,6 +477,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The process where a German Equatorial Mount (GEM) must rotate 180 degrees to the other side of the pier as an object crosses the meridian to prevent the telescope from hitting the tripod legs.</p>
             <p><strong>Example:</strong> During a long session on M81, your software (like N.I.N.A. or ASIAIR) will automatically pause, flip the mount, re-center the target using plate solving, and resume guiding.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> היפוך מרידיאן הוא תהליך שבו החצובה המשוונית מסיבה את הטלסקופ 180 מעלות לכיוון ההפוך כדי להמשיך לעקוב אחר עצם שעבר את המרידיאן ולמנוע פגיעה פיזית בציוד.</p><p><strong>דוגמה:</strong> ב-N.I.N.A. תוכל לתכנת את ה-Meridian Flip להתרחש אוטומטית 5 דקות לאחר המעבר, תוך שהתוכנה מבצעת Plate Solve חדש ליישור מחדש.</p>`
     },
     {
         title: "Celestial Equator",
@@ -449,6 +488,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The great circle on the imaginary celestial sphere, in the same plane as the Earth's equator.</p>
             <p><strong>Example:</strong> Objects located near the Celestial Equator (like the Orion Nebula) are visible from almost everywhere on Earth, both in the Northern and Southern hemispheres.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> המשוון השמימי הוא ההשלכה של קו המשוון של כדור הארץ על כיפת השמיים. הוא מחלק את השמיים לחצי כדור צפוני ודרומי.</p><p><strong>דוגמה:</strong> עצמים הנמצאים קרוב למשוון השמימי (DEC כ-0 מעלות) גלויים ממרבית מקומות על פני הארץ, ובישראל הם עולים לגובה בינוני.</p>`
     },
     {
         title: "Emission Nebula",
@@ -459,6 +499,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A cloud of ionized gas (mostly hydrogen) that emits light of various colors. The energy comes from high-energy photons emitted from a nearby hot star.</p>
             <p><strong>Example:</strong> The Rosette Nebula is a classic emission nebula. The young stars in the center ionize the surrounding hydrogen gas, causing it to glow brilliant red.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> ערפילית פליטה היא ענן גז (בעיקר מימן) המואר על ידי קרינה אולטרה-סגולה מכוכבים חמים בסביבה. הקרינה מייננת את הגז שפולט אור עצמי בצבעים אופייניים.</p><p><strong>דוגמה:</strong> ערפילית אוריון (M42) היא ערפילית פליטה ענקית. הגוון האדום שלה נובע מקו Hα של מימן מיוּנן בטמפרטורות גבוהות מאוד.</p>`
     },
     {
         title: "Reflection Nebula",
@@ -469,6 +510,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A cloud of interstellar dust that reflects the light of a nearby star or stars. These typically appear blue because blue light is scattered more efficiently.</p>
             <p><strong>Example:</strong> The blue "haze" around the stars in the Pleiades (M45) is a reflection nebula. The dust isn't hot enough to glow on its own; it is simply reflecting the starlight.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> ערפילית השתקפות היא ענן אבק וגז שאינו חם מספיק לפלוט אור עצמי, אלא מחזיר (מפזר) את אור הכוכבים שבסביבתו. לרוב מופיעה בגוון כחלחל.</p><p><strong>דוגמה:</strong> ערפילית הפלאיאדות (M45) מוקפת בערפילית השתקפות כחולה. האבק מפזר את אור הכוכבים הכחולים-לבנים ויוצר את הערפל המפורסם.</p>`
     },
     {
         title: "Dark Nebula",
@@ -479,6 +521,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A cloud of interstellar dust that is so dense it blocks the light from objects behind it, such as stars or brighter emission nebulae.</p>
             <p><strong>Example:</strong> The Horsehead Nebula is actually a dark nebula (Barnard 33) shaped like a chess piece, visible only because it sits in front of the bright red emission nebula IC 434.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> ערפילית חשוכה היא ענן אבק צפוף החוסם את אור הכוכבים והערפיליות שמאחוריו. היא נראית כחור כהה על רקע שדה כוכבים צפוף.</p><p><strong>דוגמה:</strong> ראש הסוס (Horsehead Nebula) הוא ערפילית חשוכה הבולטת כסיבת סוס על רקע ערפילית פליטה אדומה. צילומה נעשה בדרך כלל עם פילטר Hα.</p>`
     },
     {
         title: "Planetary Nebula",
@@ -489,6 +532,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> An expanding, glowing shell of ionized gas ejected from red giant stars late in their lives. They have nothing to do with actual planets.</p>
             <p><strong>Example:</strong> The Ring Nebula (M57) is a perfect example. It represents what our own Sun might look like in 5 billion years after it sheds its outer layers.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> ערפילית פלנטרית היא מעטפת גז מתפשטת הנפלטת על ידי כוכב בסיום חייו. הגז הקורן מוסק על ידי ליבת הכוכב הלבנה (White Dwarf) שנותרה.</p><p><strong>דוגמה:</strong> ערפילית הטבעת (M57) היא ערפילית פלנטרית קלאסית. בחשיפות ארוכות עם OIII תגלה את מבנה הבועה השלמה סביב הכוכב הלבן.</p>`
     },
     {
         title: "Supernova Remnant (SNR)",
@@ -499,6 +543,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The structure resulting from the explosion of a star in a supernova. It consists of ejected material expanding at high speeds.</p>
             <p><strong>Example:</strong> The Veil Nebula in Cygnus is a massive SNR. The delicate "filaments" we photograph are the shockwaves of a star that exploded thousands of years ago, hitting the surrounding gas.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> שארית סופרנובה היא השאר שנותר לאחר פיצוץ כוכב מסיבי. גלי הלחץ העצומים מייננים את הגז הסובב ויוצרים מבנים עדינים ומורכבים הגלויים בעיקר ב-Hα ו-OIII.</p><p><strong>דוגמה:</strong> ערפילית הרשת (Veil Nebula) בקבוצת הברבור היא שארית סופרנובה ענקית. הסיבים העדינים שמצלמים הם גלי הלחץ של כוכב שהתפוצץ לפני אלפי שנים.</p>`
     },
     {
         title: "Airmass",
@@ -509,6 +554,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A measure of the amount of atmosphere light must pass through to reach the telescope. Airmass is 1.0 at the zenith and increases as you look toward the horizon.</p>
             <p><strong>Example:</strong> Shooting a galaxy at 3.0 Airmass (low on the horizon) results in blurry, yellowed images because you are looking through three times more air than if it were directly overhead.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> מסת אוויר מודדת את כמות האטמוספרה שהאור חייב לחדור כדי להגיע לטלסקופ. ערך 1.0 בזניט ועולה ככל שמסתכלים לאופק.</p><p><strong>דוגמה:</strong> צילום גלקסיה במסת אוויר 3.0 (נמוך על האופק) נותן תמונות מטושטשות וצהובות, כי האור עובר פי שלוש יותר אוויר.</p>`
     },
     {
         title: "Atmospheric Dispersion",
@@ -519,6 +565,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The "prism" effect of Earth's atmosphere that spreads starlight into a tiny spectrum (red on top, blue on bottom), especially when objects are low in the sky.</p>
             <p><strong>Example:</strong> When photographing Jupiter near the horizon, you might see a red fringe on one side and a blue fringe on the other. This is caused by dispersion, not your telescope.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> פיזור אטמוספרי הוא אפקט הפריזמה של האטמוספרה המפצל את אור הכוכבים לספקטרום קטן (אדום למעלה, כחול למטה), בעיקר כשהעצמים נמוכים בשמיים.</p><p><strong>דוגמה:</strong> בצילום צדק ליד האופק תראה שוליים אדומים בצד אחד וכחולים בצד השני - זהו פיזור אטמוספרי, לא פגם בטלסקופ.</p>`
     },
     {
         title: "Extinction",
@@ -529,6 +576,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The loss of light from a celestial body as it passes through the atmosphere, caused by absorption or scattering by air molecules and dust.</p>
             <p><strong>Example:</strong> A star looks much dimmer at the horizon than at the zenith due to extinction. This is why we wait for targets to rise high before starting our "Luminance" exposures.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> כיבוי אור (Extinction) הוא אובדן האור מגוף שמימי בעת מעברו דרך האטמוספרה, הנגרם מספיגה ופיזור על ידי מולקולות אוויר ואבק.</p><p><strong>דוגמה:</strong> כוכב נראה עמום הרבה יותר קרוב לאופק מאשר בזניט. לכן ממתינים שהמטרה תעלה גבוה לפני תחילת חשיפות ה-Luminance.</p>`
     },
     {
         title: "Integration Time (Total)",
@@ -539,6 +587,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The sum of all individual exposures (subs) combined into a single final image.</p>
             <p><strong>Example:</strong> If you capture 60 frames at 300 seconds each, your Total Integration Time is 5 hours. More time directly translates to a higher Signal-to-Noise Ratio (SNR).</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> זמן אינטגרציה כולל הוא סכום כל החשיפות הבודדות (subs) המשולבות לתמונה סופית. זמן ארוך יותר מוביל ישירות ל-SNR גבוה יותר.</p><p><strong>דוגמה:</strong> אם צלמת 60 פריימים של 300 שניות כל אחד, זמן האינטגרציה הכולל הוא 5 שעות. הכפלת הזמן משפרת את ה-SNR פי 1.4.</p>`
     },
     {
         title: "Opposition",
@@ -549,6 +598,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The moment when a planet (like Mars or Jupiter) is on the opposite side of the Earth from the Sun. From our perspective, the planet is fully illuminated and at its closest point to Earth.</p>
             <p><strong>Example:</strong> During Mars Opposition, the planet appears much larger in your telescope, allowing you to capture fine surface details like the polar ice caps that are invisible at other times.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> אופוזיציה היא הרגע שבו כוכב לכת כמו מאדים או צדק נמצא בצדו הנגדי של כדור הארץ ביחס לשמש. הכוכב מואר במלואו ונמצא בנקודת הקירבה הגדולה ביותר לכדור הארץ.</p><p><strong>דוגמה:</strong> במהלך אופוזיציה של מאדים הכוכב נראה גדול הרבה יותר בטלסקופ ומאפשר לצלם פרטי פני שטח עדינים.</p>`
     },
     {
         title: "Conjunction",
@@ -559,6 +609,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> An event where two celestial objects (like two planets, or a planet and a star) appear very close to each other in the sky from our vantage point.</p>
             <p><strong>Example:</strong> The "Great Conjunction" of Jupiter and Saturn in 2020 allowed astrophotographers to capture both planets in a single high-magnification field of view.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> צימוד (Conjunction) הוא אירוע שבו שני עצמים שמימיים נראים קרובים מאוד זה לזה בשמיים מנקודת מבטנו מכדור הארץ.</p><p><strong>דוגמה:</strong> הצימוד הגדול של צדק ושבתאי בשנת 2020 אפשר לצלם את שני הכוכבים בשדה ראייה אחד בהגדלה גבוהה.</p>`
     },
     {
         title: "Transit",
@@ -569,6 +620,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> When a smaller celestial body passes in front of a larger one.</p>
             <p><strong>Example:</strong> Capturing the ISS (International Space Station) Transit across the face of the Sun or Moon requires sub-millisecond shutter speeds and precise timing.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> מעבר (Transit) הוא אירוע שבו גוף שמימי קטן עובר מול גוף גדול יותר - למשל כוכב לכת מול פני השמש, או ירח מלאכותי מול גוף שמימי.</p><p><strong>דוגמה:</strong> צילום מעבר תחנת החלל הבינלאומית (ISS) על פני השמש דורש מהירויות תריס של פחות ממילישנייה ותזמון מדויק.</p>`
     },
     {
         title: "Ecliptic Plane",
@@ -579,6 +631,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The imaginary plane defined by the Earth's orbit around the Sun. Most planets in our solar system stay within a few degrees of this line.</p>
             <p><strong>Example:</strong> If you are hunting for Saturn, you look along the Ecliptic; you will never find a major planet near the North Star (Polaris).</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> מישור האקליפטיקה הוא המישור הדמיוני המוגדר על ידי מסלול כדור הארץ סביב השמש. רוב כוכבי הלכת נמצאים בתוך כמה מעלות ממישור זה.</p><p><strong>דוגמה:</strong> אם מחפשים את שבתאי, מסתכלים לאורך האקליפטיקה - לעולם לא תמצא כוכב לכת גדול ליד כוכב הצפון (פולאריס).</p>`
     },
     {
         title: "Chromatic Aberration (Color Fringing)",
@@ -589,6 +642,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> An optical defect where a lens fails to focus all colors to the same convergence point, resulting in purple or blue "halos" around bright stars.</p>
             <p><strong>Example:</strong> A budget "Achromat" refractor will show heavy purple fringing on Vega, whereas your FLT132 APO uses triplet glass to eliminate this effect.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> סטייה כרומטית היא פגם אופטי שבו עדשה אינה מתכנסת את כל הצבעים לאותה נקודת מוקד, מה שגורם להילות סגולות או כחולות סביב כוכבים בהירים.</p><p><strong>דוגמה:</strong> רפרקטור Achromat תקציבי יראה שוליים סגולים בולטים על כוכב ורגה, ואילו APO תלת-גלי מבטל אפקט זה.</p>`
     },
     {
         title: "Coma",
@@ -599,6 +653,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> An aberration common in Newtonian reflectors where stars at the edge of the field look like tiny comets pointing toward the center.</p>
             <p><strong>Example:</strong> Without a Coma Corrector, the stars in the corners of your M31 image will look "smeared," even if the center is perfectly sharp.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> קומה (Coma) היא סטייה אופטית הנפוצה בניוטוניאנים, שבה כוכבים בשוליים של שדה הראייה נראים כמו שביטים קטנים המצביעים לכיוון המרכז.</p><p><strong>דוגמה:</strong> ללא מתקן קומה (Coma Corrector), הכוכבים בפינות תמונת M31 ייראו מרוחים, גם אם המרכז חד לחלוטין.</p>`
     },
     {
         title: "Field Curvature",
@@ -609,6 +664,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A natural property of lenses where the "plane of focus" is actually a curve. If the center is in focus, the edges are blurry.</p>
             <p><strong>Example:</strong> To get a "flat field" for a large sensor like the ASI2600, you must use a Field Flattener to push the focus back into a flat plane.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> עיקום שדה הוא תכונה טבעית של עדשות שבה מישור הפוקוס הוא למעשה עקומה. אם המרכז חד, הקצוות מטושטשים, ולהפך.</p><p><strong>דוגמה:</strong> לקבלת שדה שטוח עם חיישן גדול כמו ASI2600, יש להשתמש ב-Field Flattener שמייישר את מישור הפוקוס.</p>`
     },
     {
         title: "Spherical Aberration",
@@ -619,6 +675,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> An effect where light rays hitting the edge of a curved mirror or lens focus at a different point than rays hitting the center, causing a soft, "glowy" image.</p>
             <p><strong>Example:</strong> If a telescope mirror is not polished to a perfect parabola, stars will never look like pinpoints; they will always have a slight "haze" around them.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> סטייה כדורית היא מצב שבו קרני אור הפוגעות בשוליים של מראה או עדשה מתכנסות בנקודה שונה מקרני המרכז, ויוצרות תמונה רכה וזוהרת.</p><p><strong>דוגמה:</strong> אם מראת הטלסקופ לא מלוטשת לפרבולה מושלמת, הכוכבים לעולם לא יהיו נקודות חדות אלא יהיה להם ערפל קל.</p>`
     },
     {
         title: "Astigmatism",
@@ -629,6 +686,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> An optical defect where the telescope focuses light into a line rather than a point, often caused by pinched optics or tilted elements.</p>
             <p><strong>Example:</strong> If you rack the focuser in and out, and the star turns from a horizontal oval to a vertical oval, your optical train has Astigmatism.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> אסטיגמטיזם הוא פגם אופטי שבו הטלסקופ מתכנס את האור לקו ולא לנקודה, לרוב בגלל אופטיקה לחוצה (Pinched Optics) או רכיבים מוטים.</p><p><strong>דוגמה:</strong> אם בהזזת הפוקוסר הכוכב עובר מאליפסה אופקית לאליפסה אנכית, יש אסטיגמטיזם באופטיקה.</p>`
     },
     {
         title: "ASCOM (Astronomy Common Object Model)",
@@ -639,6 +697,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The "universal language" for Windows that allows different astronomy software (like N.I.N.A.) to talk to different hardware (like your Losmandy G11).</p>
             <p><strong>Example:</strong> By installing the ASCOM Driver for your mount, you can control it from any software on your PC without needing proprietary apps for every device.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> ASCOM הוא פרוטוקול תקשורת סטנדרטי ל-Windows המאפשר לתוכנות אסטרונומיה שונות (כמו N.I.N.A.) לתקשר עם חומרה שונה (כמו חצובת Losmandy G11).</p><p><strong>דוגמה:</strong> בהתקנת דרייבר ASCOM לחצובה שלך, כל תוכנה תואמת תוכל לשלוט בה מהמחשב ללא צורך באפליקציות קנייניות נפרדות.</p>`
     },
     {
         title: "INDI (Instrument Neutral Distributed Interface)",
@@ -649,6 +708,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The Linux equivalent of ASCOM, commonly used on Raspberry Pi-based controllers like the StellarMate or Astroberry.</p>
             <p><strong>Example:</strong> If you run your rig using a mini-PC at the telescope, INDI is likely the "traffic cop" managing the camera and mount commands.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> INDI הוא המקביל ל-ASCOM עבור מערכת לינוקס, נפוץ בבקרים מבוססי Raspberry Pi כמו StellarMate או Astroberry.</p><p><strong>דוגמה:</strong> אם מפעילים את הציוד עם מחשב מיני בטלסקופ, INDI הוא כנראה שוטר התנועה שמנהל פקודות המצלמה והחצובה.</p>`
     },
     {
         title: "Sequencing",
@@ -659,6 +719,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The process of creating a list of commands for the rig to follow automatically (e.g., "Take 20 frames of Red, then 20 of Green, then park the mount").</p>
             <p><strong>Example:</strong> In N.I.N.A., you can build a "Sequence" that waits for the target to rise, focuses every 1 hour, and sends you a text message when the session is finished.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> תכנות רצף צילום הוא יצירת רשימת פקודות לביצוע אוטומטי (למשל: צלם 20 פריימי Red, אחר כך 20 פריימי Green, ואחר כך החנה את החצובה).</p><p><strong>דוגמה:</strong> ב-N.I.N.A. תוכל לבנות Sequence שממתין לעלייה של המטרה, מפקס כל שעה ושולח לך הודעה בסיום הסשן.</p>`
     },
     {
         title: "Guiding Rate",
@@ -669,6 +730,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The speed at which the mount moves when receiving a correction from the autoguider, usually expressed as a fraction of "Sidereal" speed (e.g., 0.5x).</p>
             <p><strong>Example:</strong> If your guiding is "oscillating" (moving back and forth too fast), you might need to lower your Guiding Rate in the mount settings.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> קצב הנחיה הוא המהירות שבה החצובה נעה כשמקבלת תיקון מהמנחה האוטומטי, לרוב מבוטאת כשבר מקצב כוכבי (Sidereal) כגון 0.5x.</p><p><strong>דוגמה:</strong> אם ההנחיה מתנדנדת הלוך ושוב בצורה מהירה מדי, ייתכן שיש צורך להוריד את ה-Guiding Rate בהגדרות החצובה.</p>`
     },
     {
         title: "HFR (Half Flux Radius)",
@@ -679,6 +741,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A mathematical measurement used by auto-focus software to determine star sharpness. It is more robust than FWHM for focusing.</p>
             <p><strong>Example:</strong> Your autofocus routine will take several shots, calculate the HFR for each, and move the motor until it finds the "V-curve" where the HFR is at its lowest (sharpest).</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> HFR הוא מדד מתמטי המשמש תוכנת אוטו-פוקוס לקביעת חדות הכוכבים. הוא חזק יותר מ-FWHM לצורכי פיקוס.</p><p><strong>דוגמה:</strong> רוטינת האוטופוקוס תצלם מספר תמונות, תחשב HFR לכל אחת ותזיז את המנוע עד למציאת נקודת ה-V-curve שבה ה-HFR נמוך ביותר.</p>`
     },
     {
         title: "Bandpass (Full Width at Half Maximum - FWHM)",
@@ -689,6 +752,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The width of the "window" of light wavelengths that a filter allows to pass through. In narrowband, this is measured in nanometers (nm).</p>
             <p><strong>Example:</strong> A 3nm Hα filter has a much tighter "bandpass" than a 7nm filter. This means it blocks more light pollution and moonlight, resulting in much higher contrast for the Tadpole Nebula.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> Bandpass הוא רוחב החלון של אורכי הגל שהפילטר מאפשר לעבור. בפס צר נמדד בננומטרים (nm). FWHM מגדיר כמה רחב החלון הזה.</p><p><strong>דוגמה:</strong> פילטר Hα של 3nm חוסם הרבה יותר זיהום אור ואור ירח מאשר פילטר 7nm, ונותן ניגוד גבוה בהרבה לערפילית הטאדפול.</p>`
     },
     {
         title: "Filter Haloing",
@@ -699,6 +763,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A reflection artifact that appears as a circular "ghost" around bright stars, caused by light bouncing between the camera sensor and the filter glass.</p>
             <p><strong>Example:</strong> When shooting the star Alnitak in the Horsehead Nebula, lower-quality OIII filters often show a large blue "halo" that must be removed manually in PixInsight.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> הילת פילטר היא ארטיפקט השתקפות הנראה כרוח מעגלית סביב כוכבים בהירים, הנגרמת מהחזרת אור בין חיישן המצלמה לזכוכית הפילטר.</p><p><strong>דוגמה:</strong> בצילום הכוכב Alnitak באזור ערפילית ראש הסוס, פילטרי OIII זולים מציגים לרוב הילה כחולה גדולה שיש להסיר ידנית ב-PixInsight.</p>`
     },
     {
         title: "Signal Leakage (IR-Cut)",
@@ -709,6 +774,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> When a filter or sensor fails to block Infrared (IR) light, which can cause stars to appear "bloated" or out of focus because IR light focuses at a different point than visible light.</p>
             <p><strong>Example:</strong> Using an L-Pro or UV/IR Cut filter ensures that only the visible spectrum reaches the sensor, keeping your star sizes small and tight.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> דליפת אות IR מתרחשת כשפילטר או חיישן לא חוסם אור תת-אדום (IR), מה שגורם לכוכבים להיראות מנופחים כי אור IR מתכנס בנקודה אחרת מאור נראה.</p><p><strong>דוגמה:</strong> שימוש בפילטר L-Pro או UV/IR Cut מבטיח שרק הספקטרום הנראה מגיע לחיישן ושומר על כוכבים קטנים וחדים.</p>`
     },
     {
         title: "Transmission Percentage",
@@ -719,6 +785,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The percentage of "wanted" light that successfully passes through the filter.</p>
             <p><strong>Example:</strong> High-end filters (like Antlia or Chroma) often have 95-98% transmission, meaning almost no signal is lost as it travels through the glass.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> אחוז מעבר פילטר הוא אחוז האור הרצוי שעובר בהצלחה דרך הפילטר, כשהשאר נספג או מוחזר.</p><p><strong>דוגמה:</strong> פילטרים איכותיים (כמו Antlia או Chroma) מגיעים לאחוזי מעבר של 95-98%, כלומר כמעט ללא אובדן אות דרך הזכוכית.</p>`
     },
     {
         title: "Cable Snag / Cord Wrap",
@@ -729,6 +796,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A physical hazard where cables become tangled or caught on the mount/tripod as the telescope tracks or slews.</p>
             <p><strong>Example:</strong> If your USB cable is too short, a Meridian Flip could cause the cable to pull on the camera, potentially ruining the port or stalling the mount motors.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> פיתול כבלים הוא סכנה פיזית שבה הכבלים מסתבכים או נתפסים בחצובה בעת מעקב או הזזה של הטלסקופ.</p><p><strong>דוגמה:</strong> אם כבל ה-USB קצר מדי, Meridian Flip עלול לגרום לכבל למשוך את המצלמה ולפגוע בחיבור או לעצור את מנועי החצובה.</p>`
     },
     {
         title: "12V Power Distribution (Powerbox)",
@@ -739,6 +807,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A central hub (like a Pegasus Astro Pocket Powerbox) that takes one main power input and distributes it to the camera, mount, dew heaters, and mini-PC.</p>
             <p><strong>Example:</strong> Instead of having 5 separate power bricks hanging off your AP MACH 2, a powerbox allows you to run a single "umbilical" cord to the rig, reducing cable drag.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> Powerbox הוא רכזת חשמל מרכזית (כמו Pegasus Astro Pocket Powerbox) המקבלת כניסת חשמל אחת ומחלקת אותה למצלמה, לחצובה, למחממי טל ולמחשב מיני.</p><p><strong>דוגמה:</strong> במקום חמישה שנאי חשמל נפרדים, ה-Powerbox מאפשר להפעיל כבל טבור בודד לציוד, מה שמפחית גרירת כבלים.</p>`
     },
     {
         title: "Dew Point",
@@ -749,6 +818,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The temperature at which moisture in the air condenses into liquid water on surfaces (like your telescope lens).</p>
             <p><strong>Example:</strong> If your FLT132 lens temperature drops below the Dew Point, your images will become "foggy." Using a Dew Heater keeps the glass just 1-2 degrees above the ambient air to prevent this.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> נקודת הטל היא הטמפרטורה שבה הלחות באוויר מתעבת למים נוזליים על פני שטח (כמו עדשת הטלסקופ). כשהעדשה מתקררת מתחת לנקודה זו, מצטבר טל.</p><p><strong>דוגמה:</strong> אם טמפרטורת עדשת הרפרקטור יורדת מתחת לנקודת הטל, התמונות יהיו ערפיליות. מחמם טל שומר על הזכוכית 1-2 מעלות מעל הטמפרטורה הסביבתית.</p>`
     },
     {
         title: "Histogram Stretching (Arsinh/Log)",
@@ -759,6 +829,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The mathematical function used to redistribute pixel values. "Arsinh" stretching is popular because it preserves the natural color of stars while brightening faint nebulosity.</p>
             <p><strong>Example:</strong> A standard "Linear Stretch" might turn your stars white, but an ArsinhStretch in PixInsight keeps the blue or orange hues visible while making the Orion Nebula bright.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> מתיחת היסטוגרמה היא הפונקציה המתמטית לחלוקה מחדש של ערכי פיקסל. מתיחת Arsinh פופולרית כי שומרת על הצבע הטבעי של הכוכבים תוך הארת ערפיליות עמומות.</p><p><strong>דוגמה:</strong> מתיחה לינארית רגילה תהפוך את הכוכבים ללבנים, ואילו ArsinhStretch שומרת על גוני כחול וכתום בזמן שמאירה את ערפילית אוריון.</p>`
     },
     {
         title: "Convolution vs. Deconvolution (Math)",
@@ -769,6 +840,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> Convolution is a mathematical "blurring" (averaging neighboring pixels). Deconvolution is the "inverse" operation that attempts to find the original "point source" of light.</p>
             <p><strong>Example:</strong> When you use a Gaussian Blur, you are performing a Convolution. When you use BlurXTerminator, you are performing a highly complex Deconvolution to sharpen the image.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> קונבולוציה היא פעולה מתמטית של טשטוש (ממוצע פיקסלים שכנים). דה-קונבולוציה היא פעולת ההפוך שמנסה למצוא את מקור האור המקורי.</p><p><strong>דוגמה:</strong> כשמשתמשים ב-Gaussian Blur, מבצעים קונבולוציה. כשמשתמשים ב-BlurXTerminator, מבצעים דה-קונבולוציה מורכבת לחידוד התמונה.</p>`
     },
     {
         title: "Noise Floor",
@@ -779,6 +851,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The level of background noise (read noise, thermal noise) below which real signals cannot be distinguished.</p>
             <p><strong>Example:</strong> If a galaxy's outer arms are "below the noise floor," no amount of stretching will show them—you simply need more Integration Time to lift the signal above the noise.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> רצפת רעש היא רמת הרעש הרקע (רעש קריאה, רעש תרמי) שמתחתיה אי אפשר להבחין באותות אמיתיים מהאות.</p><p><strong>דוגמה:</strong> אם זרועות חיצוניות של גלקסיה מתחת לרצפת הרעש, אין כמות מתיחה שתראה אותן - פשוט נדרש יותר זמן אינטגרציה להרמת האות.</p>`
     },
     {
         title: "Bit Depth (14-bit vs 16-bit)",
@@ -789,6 +862,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The number of possible gray levels a sensor can record. 16-bit allows for 65,536 levels of brightness.</p>
             <p><strong>Example:</strong> An ASI2600 (16-bit) provides much smoother gradients in a nebula like the Running Man compared to an older 12-bit DSLR, which might show "banding" in the dark areas.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> עומק סיביות הוא מספר רמות האפור האפשריות שחיישן יכול לרשום. 16-bit מאפשר 65,536 רמות בהירות שונות, לעומת 4,096 ב-12-bit.</p><p><strong>דוגמה:</strong> ASI2600 (16-bit) מספק גרדיאנטים חלקים הרבה יותר בערפילית מאשר DSLR ישן של 12-bit, שעלול להראות פסים באזורים הכהים.</p>`
     },
     {
         title: "Spiral Galaxy (Grand Design)",
@@ -799,6 +873,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A galaxy consisting of a flat, rotating disk with a central bulge and prominent, well-defined spiral arms.</p>
             <p><strong>Example:</strong> The Whirlpool Galaxy (M51) is the ultimate "Grand Design" spiral. When you photograph it, you are seeing density waves compressing gas and triggering new star formation in the arms.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> גלקסיה ספיראלית (Grand Design) היא גלקסיה הכוללת דיסק סיבובי עם בליטה מרכזית וזרועות ספיראל ברורות, שבהן מתרחשת יצירת כוכבים אינטנסיבית.</p><p><strong>דוגמה:</strong> גלקסיית המערבולת (M51) היא הדוגמה האולטימטיבית. בצילומה רואים גלי צפיפות הדוחסים גז ומעוררים יצירת כוכבים בזרועות.</p>`
     },
     {
         title: "Lenticular Galaxy",
@@ -809,6 +884,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> An intermediate galaxy type between an elliptical and a spiral. It has a disk but lacks large-scale spiral arms and has very little ongoing star formation.</p>
             <p><strong>Example:</strong> M102 (The Spindle Galaxy) is a lenticular galaxy often mistaken for a spiral seen edge-on. It looks like a smooth "lens" of light with a prominent dust lane.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> גלקסיה עדשתית היא סוג ביניים בין אליפטית לספיראלית - יש לה דיסק אך ללא זרועות ספיראל גדולות, ועם מעט מאוד יצירת כוכבים פעילה.</p><p><strong>דוגמה:</strong> M102 (גלקסיית ה-Spindle) היא גלקסיה עדשתית הנראית כ"עדשה" חלקה של אור עם פס אבק בולט.</p>`
     },
     {
         title: "Flocculent Spiral",
@@ -819,6 +895,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A spiral galaxy that appears "fluffy" or "patchy" rather than having continuous, sweeping arms.</p>
             <p><strong>Example:</strong> The Sunflower Galaxy (M63) is flocculent. In your high-resolution shots, the arms look like many short, disconnected segments of dust and stars.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> ספירלה פתיתית היא גלקסיה ספיראלית הנראית "פתיתית" ולא בעלת זרועות רחבות מוגדרות.</p><p><strong>דוגמה:</strong> גלקסיית החמנית (M63) היא פתיתית - הזרועות נראות כמקטעים קצרים ומנותקים של אבק וכוכבים.</p>`
     },
     {
         title: "Tidal Tail",
@@ -829,6 +906,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A thin, elongated region of stars and interstellar gas that extends into space from a galaxy, caused by gravitational interactions with another galaxy.</p>
             <p><strong>Example:</strong> In the Tadpole Nebula/Galaxy, the "tail" is a 280,000-light-year-long stream of stars pulled out by a smaller intruder galaxy. Capturing this requires massive integration time to pull it above the noise floor.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> זנב גאותי הוא אזור מוארך דק של כוכבים וגז המתפשט לחלל מגלקסיה כתוצאה מאינטראקציה גרביטציונית עם גלקסיה אחרת.</p><p><strong>דוגמה:</strong> בגלקסיית הטאדפול, הזנב הוא זרם כוכבים של 280,000 שנות אור שנמשך על ידי גלקסיה פולשת וצריך זמן אינטגרציה עצום לצילומו.</p>`
     },
     {
         title: "Active Galactic Nucleus (AGN)",
@@ -839,6 +917,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> An extremely bright region at the center of a galaxy, powered by a supermassive black hole accreting matter.</p>
             <p><strong>Example:</strong> M77 contains an AGN. In short exposures, the core looks like a bright star, but long exposures reveal the spiral structure surrounding this high-energy engine.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> גרעין גלקטי פעיל (AGN) הוא אזור בהיר מאוד במרכז גלקסיה, המוזן על ידי חור שחור סופר-מסיבי שבולע חומר בקצב גבוה.</p><p><strong>דוגמה:</strong> M77 מכילה AGN - בחשיפות קצרות הגרעין נראה כמו כוכב, ואילו חשיפות ארוכות חושפות את מבנה הספירלה סביבו.</p>`
     },
     {
         title: "B-V Color Index",
@@ -849,6 +928,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A numerical value that describes a star's color. A lower number means the star is blue (hot), and a higher number means the star is red (cool).</p>
             <p><strong>Example:</strong> When you use "Photometric Color Calibration" in PixInsight, the software looks up the B-V index for stars in your Leo Triplet frame to ensure the white balance is scientifically accurate.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> מדד צבע B-V הוא ערך מספרי המתאר את צבע הכוכב. ערך נמוך פירושו כוכב כחול (חם) וערך גבוה פירושו כוכב אדום (קר).</p><p><strong>דוגמה:</strong> ב-Photometric Color Calibration של PixInsight, התוכנה מחפשת את מדד B-V של כוכבים בתמונה לוידוא איזון לבן מדעי.</p>`
     },
     {
         title: "Main Sequence",
@@ -859,6 +939,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The major category of stars (including our Sun) that are fusing hydrogen into helium in their cores.</p>
             <p><strong>Example:</strong> Most of the "background" stars in your images are Main Sequence stars. Their color is a direct indicator of their surface temperature.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> הסדרה הראשית (Main Sequence) היא קטגוריית הכוכבים (כולל שמשנו) שמבצעים היתוך מימן להליום בליבתם ונמצאים באזור יציב בתרשים HR.</p><p><strong>דוגמה:</strong> רוב כוכבי הרקע בתמונות שלך הם כוכבי סדרה ראשית - צבעם מד ישיר לטמפרטורת פני השטח שלהם.</p>`
     },
     {
         title: "Blue Straggler",
@@ -869,6 +950,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A main-sequence star in a cluster that is more luminous and bluer than stars at the main-sequence turn-off point for the cluster.</p>
             <p><strong>Example:</strong> In a Globular Cluster like M13, "Blue Stragglers" stand out because they look "younger" than the rest of the ancient, redder stars in the cluster.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> מאחר כחול (Blue Straggler) הוא כוכב סדרה ראשית באשכול שנראה צעיר וכחול יותר מהכוכבים האחרים, כנראה בשל מיזוג עם כוכב שכן.</p><p><strong>דוגמה:</strong> בצביר כדורי כמו M13, מאחרים כחולים בולטים כי הם נראים צעירים יותר מהכוכבים העתיקים האדמדמים שסביבם.</p>`
     },
     {
         title: "Ionization Front",
@@ -879,6 +961,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The boundary between a region of ionized gas (HII) and neutral gas.</p>
             <p><strong>Example:</strong> The sharp "cliffs" in the Pillars of Creation or the Cygnus Wall are ionization fronts where high-energy radiation from young stars is eroding a cloud of cold gas.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> חזית יינון היא הגבול בין אזור גז מיוּנן (HII) ובין גז ניטרלי, שבו קרינת UV של כוכבים חמים שוחקת את הגז הניטרלי.</p><p><strong>דוגמה:</strong> הצוקים החדים של עמודי הבריאה וקיר קבוצת הברבור הם חזיתות יינון שבהן קרינת כוכבים צעירים שוחקת ענן גז קר.</p>`
     },
     {
         title: "Roof/Dome Automation",
@@ -889,6 +972,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> Hardware and software that allows a roll-off roof or dome to open and close based on weather conditions or telescope safety.</p>
             <p><strong>Example:</strong> If you move your rig to a remote dark site, a Cloud Sensor can trigger the roof to close automatically if it detects rain or high humidity while you are asleep.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> אוטומציה של גג/כיפה היא חומרה ותוכנה המאפשרת לגג מתגלגל או לכיפת מצפה לפתוח ולסגור על בסיס מזג אוויר או מצב הטלסקופ.</p><p><strong>דוגמה:</strong> אם מקימים ציוד באתר כוכבים מרוחק, חיישן עננים יכול לגרום לסגירת הגג אוטומטית בגשם בזמן שינה.</p>`
     },
     {
         title: "Safety Monitor",
@@ -899,6 +983,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A software bridge that checks "OK to Run" conditions (Sun below horizon, no rain, mount not slewing into a pier).</p>
             <p><strong>Example:</strong> In N.I.N.A., the Safety Monitor prevents your camera from starting an exposure if the sky is too bright, protecting your sensor from saturation.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> מוניטור בטיחות הוא גשר תוכנה הבודק תנאי "מותר לפעול" (שמש מתחת לאופק, אין גשם, החצובה לא מסתובבת לעמוד) ומונע פגיעה בציוד.</p><p><strong>דוגמה:</strong> ב-N.I.N.A., מוניטור הבטיחות מונע התחלת חשיפה אם השמיים בהירים מדי ומגן על החיישן מרוויה.</p>`
     },
     {
         title: "Latent Heat (Dew Control)",
@@ -909,6 +994,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The heat released or absorbed by a substance during a change in its physical state (like water vapor turning to dew).</p>
             <p><strong>Example:</strong> Modern Smart Dew Heaters use a thermistor to measure the glass temperature and only apply just enough current to stay above the dew point, saving battery power.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> חום סמוי הוא החום המשתחרר או הנספג בשינוי מצב פיזיקלי (כמו אדי מים שמתעבים לטל). בבקרת טל מנהלים חום זה למניעת עיבוי על העדשה.</p><p><strong>דוגמה:</strong> מחממי טל חכמים משתמשים בתרמיסטור למדידת טמפרטורת הזכוכית ומחילים בדיוק מספיק זרם לשמירה מעל נקודת הטל.</p>`
     },
     {
         title: "Dynamic Flat Frames",
@@ -919,6 +1005,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> Using a motorized flat panel or "Sky Flats" during twilight to capture calibration data without being physically present.</p>
             <p><strong>Example:</strong> A remote rig can be programmed to point at the zenith during dusk and take a series of Sky Flats as the light fades to the perfect level.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> פריימי שטוח דינמיים הם שימוש בלוח שטוח ממונע או Sky Flats בדמדומים ללכידת נתוני כיול מרחוק ללא נוכחות פיזית.</p><p><strong>דוגמה:</strong> ציוד מרוחק יכול להיות מתוכנת להצביע לזניט בבין-ערביים ולצלם Sky Flats כשהאור דועך לרמה המתאימה.</p>`
     },
     {
         title: "Abell Catalog (Abell Cluster)",
@@ -929,6 +1016,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A catalog of 4,073 rich clusters of galaxies in the Northern and Southern Hemispheres.</p>
             <p><strong>Example:</strong> Your image of the Hercules Galaxy Cluster (Abell 2151) is a perfect example. These are much more distant and challenging than individual Messier galaxies, often requiring very dark skies and long focal lengths.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> קטלוג אבל הוא קטלוג של 4,073 אשכולות גלקסיות עשירים בחצי הכדור הצפוני והדרומי.</p><p><strong>דוגמה:</strong> תמונת אשכול גלקסיות הרקולס (Abell 2151) מדגימה זאת - עצמים אלה רחוקים ומאתגרים הרבה יותר מגלקסיות מסיה בודדות ומצריכים שמיים כהים ומוקד ארוך.</p>`
     },
     {
         title: "Arp Catalog (Atlas of Peculiar Galaxies)",
@@ -939,6 +1027,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A catalog of 338 "peculiar" galaxies produced by Halton Arp, focusing on interacting, merging, or distorted galaxies.</p>
             <p><strong>Example:</strong> The Whirlpool Galaxy (Arp 85) is included because of its clear interaction with its smaller companion, NGC 5195. Arp objects are favorites for astrophotographers because they tell a story of cosmic collision.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> קטלוג ארפ הוא קטלוג של 338 גלקסיות מיוחדות שנוצר על ידי הלטון ארפ, המתמקד בגלקסיות מתקשרות, מתמזגות או מעוותות.</p><p><strong>דוגמה:</strong> גלקסיית המערבולת (Arp 85) נכללת בשל אינטראקציה ברורה עם הלוויין שלה NGC 5195 - עצמי ארפ מועדפים כי מספרים סיפור של התנגשות קוסמית.</p>`
     },
     {
         title: "Sharpless Catalog (Sh2)",
@@ -949,6 +1038,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A list of 313 HII regions (emission nebulae) located north of declination -27°.</p>
             <p><strong>Example:</strong> The Tadpole Nebula (Sh2-236) is a Sharpless object. These are often faint and best captured using Narrowband (Hα) filters to separate the gas from the stellar background.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> קטלוג שארפלס (Sh2) הוא רשימה של 313 אזורי HII (ערפיליות פליטה) הממוקמים צפונית לנטייה של -27 מעלות.</p><p><strong>דוגמה:</strong> ערפילית הטאדפול (Sh2-236) היא עצם שארפלס - עצמים אלה עמומים לרוב ונלכדים בצורה הטובה ביותר עם פילטרי Hα לפס צר.</p>`
     },
     {
         title: "LDN (Lynds' Catalog of Dark Nebulae)",
@@ -959,6 +1049,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A comprehensive list of dark, opaque clouds of dust that block background starlight.</p>
             <p><strong>Example:</strong> LDN 1251 (The Rotten Fish Nebula) is a popular target. Processing these requires careful "Black Point" management to ensure the dark dust doesn't look like pure black empty space, but rather textured "smoke."</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> LDN הוא רשימה מקיפה של עננים אטומים כהים של אבק החוסמים את אור כוכבי הרקע.</p><p><strong>דוגמה:</strong> LDN 1251 (ערפילית הדג המסריח) היא מטרה פופולרית - עיבוד שלה דורש ניהול נקודת שחור זהיר כדי שהאבק הכהה ייראה כ"עשן" מרקמי ולא כחלל ריק שחור.</p>`
     },
     {
         title: "NGC (New General Catalogue)",
@@ -969,6 +1060,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> One of the largest and most comprehensive catalogs, containing 7,840 deep-sky objects including all types of DSOs.</p>
             <p><strong>Example:</strong> While M31 is the Messier name for Andromeda, it is also NGC 224. Most professional planning software uses NGC numbers as the primary database.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> NGC הוא אחד הקטלוגים הגדולים והמקיפים ביותר, המכיל 7,840 עצמי חלל עמוק מכל הסוגים.</p><p><strong>דוגמה:</strong> M31 הוא שם מסיה לאנדרומדה, אבל היא גם NGC 224. רוב תוכנות התכנון המקצועיות משתמשות במספרי NGC כמסד הנתונים הראשי.</p>`
     },
     {
         title: "Periodic Error (PE)",
@@ -979,6 +1071,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A repetitive tracking error caused by tiny mechanical imperfections in the mount’s worm gear as it completes a full rotation.</p>
             <p><strong>Example:</strong> On your Losmandy G11, you might see the guide star slowly drift up and down every 4 minutes. This is Periodic Error, which can be reduced by PEC (Periodic Error Correction) software.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> שגיאה תקופתית (PE) היא שגיאת מעקב חוזרת הנגרמת על ידי פגמים מכניים זעירים בגלגל התולעת של החצובה בסיבובה המלא.</p><p><strong>דוגמה:</strong> ב-Losmandy G11 תראה את כוכב המנחה נסחף לאט למעלה ולמטה כל 4 דקות - זו שגיאה תקופתית, שניתן להפחיתה בתוכנת PEC.</p>`
     },
     {
         title: "Backlash (Mechanical Slop)",
@@ -989,6 +1082,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The tiny gap between gear teeth. When the mount motor reverses direction, there is a split-second delay before the gears "catch" again.</p>
             <p><strong>Example:</strong> If your AP MACH 2 has near-zero backlash, the autoguider can make instant corrections. High backlash causes "clunky" guiding that can lead to elongated stars.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> ריפיון מכני (Backlash) הוא הפער הזעיר בין שיני הגלגלים. כשמנוע החצובה מחליף כיוון, יש עיכוב קצר לפני שהגלגלים נאחזים שוב.</p><p><strong>דוגמה:</strong> אם ל-AP MACH 2 ריפיון אפסי כמעט, המנחה האוטומטי מבצע תיקונים מיידיים. ריפיון גבוה גורם להנחיה גסה ולכוכבים מוארכים.</p>`
     },
     {
         title: "Cone Error",
@@ -999,6 +1093,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A mechanical misalignment where the telescope's optical axis is not perfectly perpendicular to the mount's Declination axis.</p>
             <p><strong>Example:</strong> If you have Cone Error, your GoTo commands might be accurate on one side of the sky but consistently "off" on the other side after a Meridian Flip.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> שגיאת קונוס היא אי-יישור מכני שבו הציר האופטי של הטלסקופ אינו ניצב לחלוטין לציר ה-DEC של החצובה.</p><p><strong>דוגמה:</strong> אם יש שגיאת קונוס, פקודות GoTo עשויות להיות מדויקות בצד אחד של השמיים אך פספוסיות בצד השני לאחר היפוך מרידיאן.</p>`
     },
     {
         title: "Polaris Offset",
@@ -1009,6 +1104,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The mathematical difference between the true North Celestial Pole and the actual star Polaris (which is about 0.7° away from the pole).</p>
             <p><strong>Example:</strong> When using a Polar Scope, you don't put Polaris in the center; you put it on a specific spot on a "clock" reticle to account for this offset.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> סטיית קוטב צפון היא ההבדל המתמטי בין הקוטב השמימי הצפוני האמיתי לבין הכוכב פולאריס הממוקם כ-0.7 מעלות ממנו.</p><p><strong>דוגמה:</strong> בשימוש בטלסקופ קוטבי (Polar Scope), לא שמים את פולאריס במרכז אלא על נקודה ספציפית ברטיקולה לפיצוי על הסטייה.</p>`
     },
     {
         title: "Microlens Diffraction (Star Micro-Reflections)",
@@ -1019,6 +1115,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A "cross" or "grid" pattern that appears around very bright stars, caused by light reflecting off the tiny microlenses on the camera sensor.</p>
             <p><strong>Example:</strong> Bright stars in a ZWO ASI1600 image sometimes show a "lattice" pattern. This is a hardware limitation of the sensor's physical structure, not a lens problem.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> עקיפת מיקרו-עדשה היא דפוס צלב או רשת הנראה סביב כוכבים בהירים מאוד, הנגרם מהחזרת אור ממיקרו-עדשות על חיישן המצלמה.</p><p><strong>דוגמה:</strong> כוכבים בהירים בתמונות ZWO ASI1600 מראים לעתים סריג - זוהי מגבלת חומרה של המבנה הפיזי של החיישן ולא בעיה בעדשה.</p>`
     },
     {
         title: "Amp Glow",
@@ -1029,6 +1126,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A brightening in the corner or edge of an image caused by heat or infrared light emitted by the sensor's internal circuitry during long exposures.</p>
             <p><strong>Example:</strong> Older CMOS sensors often show a purple "starburst" in the corner. This is Amp Glow, and it can be almost perfectly removed by using Master Dark frames of the same duration.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> זוהר מגבר (Amp Glow) הוא הבהרה בפינה או בשוליים של תמונה הנגרמת מחום או קרינת IR הנפלטת ממעגלי החיישן הפנימיים בחשיפות ארוכות.</p><p><strong>דוגמה:</strong> חיישני CMOS ישנים מראים לעתים כוכב סגול בפינה. זהו Amp Glow שניתן להסירו כמעט לחלוטין על ידי פריימי Master Dark באותה משך זמן.</p>`
     },
     {
         title: "Blooming (CCD)",
@@ -1039,6 +1137,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> When a pixel "overflows" its full-well capacity and the excess electrons spill over into adjacent pixels in the same column.</p>
             <p><strong>Example:</strong> On older CCD cameras, a bright star would have a vertical white "streak" running through it. Modern CMOS sensors have "Anti-Blooming" gates to prevent this.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> בלומינג הוא תופעה שבה פיקסל עולה על גדותיו בקיבולת שלו ואלקטרונים עודפים גולשים לפיקסלים סמוכים באותה עמודה.</p><p><strong>דוגמה:</strong> במצלמות CCD ישנות, כוכב בהיר הציג פס לבן אנכי. חיישני CMOS מודרניים מצוידים בשערי Anti-Blooming המונעים זאת.</p>`
     },
     {
         title: "Fixed Pattern Noise (FPN)",
@@ -1049,6 +1148,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> Noise that stays in the same physical location on the sensor, appearing as "hot" or "cold" pixels.</p>
             <p><strong>Example:</strong> If you don't Dither, FPN creates "walking noise" (streaks) because the static noise pattern is dragged across the final stack as the sky moves slightly.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> רעש תבנית קבועה (FPN) הוא רעש שנשאר באותו מיקום פיזי על החיישן ומופיע כפיקסלים חמים או קרים קבועים.</p><p><strong>דוגמה:</strong> ללא ניתור (Dithering), FPN יוצר פסי רעש מהלכים כי תבנית הרעש הסטטית נגררת על פני הערימה הסופית.</p>`
     },
     {
         title: "Star Removal (StarNet / StarXTerminator)",
@@ -1059,6 +1159,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> An AI-driven process that identifies and removes stars from an image, leaving only the nebula or background galaxies.</p>
             <p><strong>Example:</strong> By using StarNet++, you can process the Tadpole Nebula separately from the stars. This allows you to stretch the faint gas aggressively without "bloating" the star sizes.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> הסרת כוכבים היא תהליך מונחה AI המזהה ומסיר כוכבים מהתמונה, ומשאיר רק את הנבולה או גלקסיות הרקע לעיבוד נפרד.</p><p><strong>דוגמה:</strong> בשימוש ב-StarNet++, ניתן לעבד את ערפילית הטאדפול בנפרד מהכוכבים ולאפשר מתיחה אגרסיבית של הגז מבלי לנפח את הכוכבים.</p>`
     },
     {
         title: "AI Deconvolution (BlurXTerminator)",
@@ -1069,6 +1170,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A neural network trained on millions of blurred and sharp astronomical images to "undo" optical and atmospheric blurring.</p>
             <p><strong>Example:</strong> Unlike traditional deconvolution, BlurXTerminator can correct for slight tracking errors or coma while simultaneously sharpening the core of the Whirlpool Galaxy.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> דה-קונבולוציה AI היא רשת נוירונים שאומנה על מיליוני תמונות אסטרונומיות כדי לבטל טשטוש אופטי ואטמוספרי.</p><p><strong>דוגמה:</strong> בניגוד לדה-קונבולוציה מסורתית, BlurXTerminator יכול לתקן שגיאות מעקב קלות וקומה תוך כדי חידוד ליבת גלקסיית המערבולת.</p>`
     },
     {
         title: "AI Noise Reduction (NoiseXTerminator / DeepSNR)",
@@ -1079,6 +1181,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> Machine-learning tools that distinguish between random electronic noise and actual astronomical signal (like faint nebular filaments).</p>
             <p><strong>Example:</strong> Applying NoiseXTerminator to a "noisy" 1-hour stack of the Hercules Galaxy Cluster can make it look as smooth as a 5-hour stack while preserving the sharp edges of the galaxies.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> הפחתת רעש AI היא כלי למידת מכונה המבחין בין רעש אלקטרוני אקראי לבין אות אסטרונומי אמיתי.</p><p><strong>דוגמה:</strong> החלת NoiseXTerminator על ערימה רועשת של שעה אחת של אשכול גלקסיות הרקולס יכולה לגרום לה להיראות חלקה כמו ערימה של 5 שעות.</p>`
     },
     {
         title: "H-Alpha Solar Telescope (Etalon)",
@@ -1089,6 +1192,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A specialized telescope containing a "Fabry-Pérot Etalon" that filters out all light except for a extremely narrow band (typically <0.7 Ångströms) of Hydrogen-Alpha light from the Sun's chromosphere.</p>
             <p><strong>Example:</strong> Using a Lunt or Coronado solar scope allows you to see "prominences" (loops of fire) jumping off the Sun's edge that are invisible to standard white-light filters.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> טלסקופ שמשי Hα מכיל Fabry-Perot Etalon המסנן את כל האור מלבד פס צר ביותר של אור Hα מהכרומוספרה של השמש.</p><p><strong>דוגמה:</strong> שימוש בטלסקופ שמשי Lunt או Coronado מאפשר לראות פרומיננסים (לולאות אש) שאינם גלויים לפילטרי אור-לבן רגילים.</p>`
     },
     {
         title: "Solar Prominence",
@@ -1099,6 +1203,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A large, bright, gaseous feature extending outward from the Sun's surface, often in a loop shape, held in place by magnetic fields.</p>
             <p><strong>Example:</strong> When you photograph the Sun's "limb," you might capture a Prominence that is ten times the size of the Earth, looking like a glowing red curtain of plasma.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> פרומיננס שמשי הוא מבנה גז גדול ובהיר המשתרע מפני השמש בצורת לולאה, הנשמר במקומו על ידי שדות מגנטיים.</p><p><strong>דוגמה:</strong> בצילום שפת השמש תלכוד לעתים פרומיננס שגודלו פי עשרה מכדור הארץ ונראה כמו וילון מבהיק של פלזמה אדומה.</p>`
     },
     {
         title: "Solar Filament",
@@ -1109,6 +1214,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The same feature as a prominence, but viewed against the bright disk of the Sun. They appear as dark, snake-like lines.</p>
             <p><strong>Example:</strong> On your solar images, a Filament looks dark because the plasma is slightly cooler than the solar surface below it.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> חוט שמשי (Filament) הוא אותו מבנה כמו פרומיננס, אך נצפה מול הדיסק הבהיר של השמש ונראה כקווים כהים דמויי נחש.</p><p><strong>דוגמה:</strong> בתמונות השמש שלך, חוט שמשי נראה כהה כי הפלזמה שלו קרירה מעט מפני השמש שמתחתיו.</p>`
     },
     {
         title: "Granulation",
@@ -1119,6 +1225,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The "honeycomb" texture on the Sun's photosphere caused by convection cells of hot plasma rising and falling.</p>
             <p><strong>Example:</strong> Capturing Granulation requires extremely high-speed imaging (Lucky Imaging) to "freeze" the atmospheric turbulence and see the individual cells.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> גרנולציה שמשית היא המרקם הכוורתי על הפוטוספרה של השמש הנגרם על ידי תאי הסעה של פלזמה חמה העולה ויורדת.</p><p><strong>דוגמה:</strong> לצלם גרנולציה דורש Lucky Imaging בקצב גבוה מאוד כדי להקפיא את הטורבולנציה האטמוספרית ולראות את התאים הבודדים.</p>`
     },
     {
         title: "Light Year (ly)",
@@ -1129,6 +1236,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The distance light travels in one vacuum year—approximately 9.46 trillion kilometers.</p>
             <p><strong>Example:</strong> The Pleiades Cluster is about 444 light-years away. This means the light you captured on your sensor tonight actually left those stars during the Renaissance.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> שנת אור (ly) היא המרחק שאור עובר בוואקום בשנה אחת - כ-9.46 טריליון קילומטר.</p><p><strong>דוגמה:</strong> צביר הפלאיאדות נמצא בערך ב-444 שנות אור, כלומר האור שצלמת הלילה עזב את הכוכבים בתקופת הרנסאנס.</p>`
     },
     {
         title: "Parsec (pc)",
@@ -1139,6 +1247,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A unit of distance equal to 3.26 light-years, defined by the "parallax" of a star as seen from Earth's orbit.</p>
             <p><strong>Example:</strong> Professional astronomers often use Megaparsecs (Mpc) to describe the distance to the Hercules Galaxy Cluster, which is roughly 150 Mpc away.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> פרסק (pc) הוא יחיד מרחק השווה ל-3.26 שנות אור, המוגדר על ידי הפרלקסה של כוכב כפי שנצפית ממסלול כדור הארץ.</p><p><strong>דוגמה:</strong> אסטרונומים מקצועיים משתמשים ב-Megaparsecs (Mpc) לתיאור מרחק לאשכול גלקסיות הרקולס, שנמצא כ-150 Mpc.</p>`
     },
     {
         title: "Redshift (z)",
@@ -1149,6 +1258,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The displacement of spectral lines toward longer (redder) wavelengths in radiation from distant galaxies, caused by the expansion of the universe.</p>
             <p><strong>Example:</strong> When you photograph incredibly distant Quasars, their light has been "redshifted." The further away the object, the higher the z value, indicating it is moving away from us faster.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> הזזה לאדום (z) היא תזוזת קווי הספקטרום לאורכי גל ארוכים יותר (אדומים) בקרינה מגלקסיות רחוקות, הנגרמת על ידי התפשטות היקום.</p><p><strong>דוגמה:</strong> בצילום קוורים רחוקים, אורם הוזזה לאדום. ככל שהעצם רחוק יותר, כך ערך z גבוה יותר המצביע שהוא מתרחק ממנו מהר יותר.</p>`
     },
     {
         title: "Apparent Magnitude (m)",
@@ -1159,6 +1269,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The brightness of a celestial object as seen from Earth. The scale is logarithmic; a smaller (or negative) number is brighter.</p>
             <p><strong>Example:</strong> The Andromeda Galaxy has an apparent magnitude of 3.4, making it visible to the naked eye. A faint galaxy in the Leo Triplet might be magnitude 13, requiring a telescope to see.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> בהירות נראית (m) היא בהירות עצם שמימי כפי שנראה מכדור הארץ. הסקלה לוגריתמית - מספר קטן יותר פירושו בהיר יותר.</p><p><strong>דוגמה:</strong> לגלקסיית אנדרומדה בהירות נראית של 3.4 (גלויה לעין). גלקסיה עמומה בטריו האריה עשויה להיות בעוצמה 13 ומצריכה טלסקופ.</p>`
     },
     {
         title: "Absolute Magnitude (M)",
@@ -1169,6 +1280,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The "true" brightness of an object if it were placed at a standard distance of 10 parsecs.</p>
             <p><strong>Example:</strong> Our Sun has a very bright apparent magnitude (-26.7) because it's close, but its Absolute Magnitude is a modest +4.8. Many stars you photograph are actually thousands of times brighter than the Sun but appear dimmer due to distance.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> בהירות מוחלטת (M) היא הבהירות האמיתית של עצם אם היה ממוקם במרחק תקני של 10 פרסקים.</p><p><strong>דוגמה:</strong> לשמשנו בהירות נראית עצומה (-26.7) בגלל קרבתה, אך בהירותה המוחלטת צנועה (+4.8). כוכבים רבים בתמונות שלך בהירים אלפי מונים מהשמש אך רחוקים יותר.</p>`
     },
     {
         title: "East-Heavy Balancing",
@@ -1179,6 +1291,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A technique where the counterweights (or the telescope) are slightly shifted so the mount is always pulling "against" gravity.</p>
             <p><strong>Example:</strong> On your Losmandy G11, making the east side slightly heavier ensures the worm gear stays in constant contact with the ring gear, preventing "slop" or oscillation during tracking.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> איזון מזרח-כבד הוא טכניקה שבה המשקולות מוזזות מעט כך שהחצובה תמיד מושכת כנגד הכבידה ושומרת על גלגל התולעת במגע קבוע.</p><p><strong>דוגמה:</strong> ב-Losmandy G11, להכביד מעט את הצד המזרחי מבטיח מגע קבוע של גלגל התולעת עם גלגל הטבעת ומונע ריפיון ותנדודים במעקב.</p>`
     },
     {
         title: "Third-Axis Balance (DEC Axis)",
@@ -1189,6 +1302,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> Balancing the telescope not just front-to-back, but also side-to-side (often caused by a heavy finderscope or off-center camera).</p>
             <p><strong>Example:</strong> If your FLT132 has a heavy EAF motor on one side, you may need to shift the telescope in its rings to prevent the mount from working harder when pointing at specific parts of the sky.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> איזון ציר שלישי הוא איזון הטלסקופ לא רק קדימה-אחורה, אלא גם מצד לצד, לרוב בגלל מצאית כבדה או מצלמה לא מרוכזת.</p><p><strong>דוגמה:</strong> אם ל-FLT132 שלך מנוע EAF כבד בצד אחד, ייתכן שתצטרך להזיז את הטלסקופ בטבעותיו כדי למנוע עבודה יתרה של החצובה.</p>`
     },
     {
         title: "Cable Drag (Torque)",
@@ -1199,6 +1313,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The physical resistance or pulling force exerted by cables hanging from the camera or focuser.</p>
             <p><strong>Example:</strong> Even a perfectly balanced mount can have "tracking jumps" if a thick USB cable catches on a knob. Using a Cable Management system ensures the torque remains constant throughout the night.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> גרירת כבלים (מומנט) היא ההתנגדות הפיזית שמפעילים כבלים תלויים מהמצלמה או הפוקוסר על תנועת החצובה.</p><p><strong>דוגמה:</strong> גם חצובה מאוזנת לחלוטין עלולה לחוות קפיצות מעקב אם כבל USB עבה נתפס בבורג. מערכת ניהול כבלים מבטיחה מומנט קבוע לאורך הלילה.</p>`
     },
     {
         title: "Stiction (Static Friction)",
@@ -1209,6 +1324,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The friction that tends to prevent stationary surfaces from being set in motion.</p>
             <p><strong>Example:</strong> In high-end mounts like the AP MACH 2, "stiction" is minimized so that even the tiniest 0.1-arcsecond correction from the autoguider moves the mount instantly.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> חיכוך סטטי (Stiction) הוא החיכוך הנוטה למנוע מעצמים נייחים להתחיל לנוע. בחצובות, Stiction גבוה מעכב תיקוני הנחיה קטנים.</p><p><strong>דוגמה:</strong> בחצובות איכותיות כמו AP MACH 2, stiction ממוזער כך שאפילו תיקון של 0.1 ארקסק מהמנחה האוטומטי מזיז את החצובה מיידית.</p>`
     },
     {
         title: "Atmospheric Refraction",
@@ -1219,6 +1335,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The bending of light as it passes through the Earth's atmosphere, which makes objects appear slightly higher in the sky than they actually are.</p>
             <p><strong>Example:</strong> When you photograph the Leo Triplet near the horizon, refraction "squashes" the image slightly. High-end mounts use "Refraction Correction" in their tracking models to account for this.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> שבירת אור אטמוספרית היא כיפוף האור בעת מעברו דרך האטמוספרה, מה שגורם לעצמים להיראות גבוהים מעט יותר ממצבם האמיתי.</p><p><strong>דוגמה:</strong> בצילום טריו האריה ליד האופק, השבירה מועכת את התמונה מעט. חצובות מתקדמות משתמשות ב-Refraction Correction במודל המעקב שלהן.</p>`
     },
     {
         title: "Scintillation",
@@ -1229,6 +1346,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The rapid variation in the apparent brightness or position of a star (twinkling) caused by atmospheric turbulence.</p>
             <p><strong>Example:</strong> High Scintillation is a sign of "Poor Seeing." For deep-sky imaging, this results in larger, fuzzier stars regardless of how perfect your focus is.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> ריצוד כוכבים (Scintillation) הוא השינוי המהיר בבהירות לכאורה של כוכב (הבהוב) הנגרם על ידי טורבולנציה אטמוספרית.</p><p><strong>דוגמה:</strong> ריצוד גבוה הוא סימן לראייה גרועה. לצילום חלל עמוק, הדבר גורם לכוכבים גדולים ומטושטשים ללא קשר לדיוק הפוקוס.</p>`
     },
     {
         title: "Sky Transparency",
@@ -1239,6 +1357,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A measure of how much light is absorbed or scattered by water vapor, dust, and smoke in the air.</p>
             <p><strong>Example:</strong> A night can have "Perfect Seeing" (steady air) but "Poor Transparency" (haze), meaning your Hercules Galaxy Cluster will look dim and lack contrast.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> שקיפות השמיים היא מדד לכמה אור נספג או מפוזר על ידי אדי מים, אבק ועשן באוויר. שקיפות גבוהה = שמיים צלולים.</p><p><strong>דוגמה:</strong> לילה יכול להיות בעל ראייה מושלמת (אוויר יציב) אך שקיפות גרועה (ערפל), כלומר אשכול גלקסיות הרקולס יראה עמום וחסר ניגוד.</p>`
     },
     {
         title: "Rayleigh Scattering",
@@ -1249,6 +1368,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The scattering of light by particles much smaller than the wavelength of the light (like air molecules), which is why the sky is blue and sunsets are red.</p>
             <p><strong>Example:</strong> This scattering is why light pollution from cities (blue/white LEDs) is so damaging to astrophotography—it "fills" the sky with scattered light that hides faint nebulae.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> פיזור ריילי הוא פיזור אור על ידי חלקיקים קטנים מאורך גל האור (כמו מולקולות אוויר), שבגללו השמיים כחולים ושקיעות אדומות.</p><p><strong>דוגמה:</strong> פיזור זה הוא הסיבה שזיהום אור מערים (LED כחול/לבן) כל כך פוגע בצילום אסטרונומי - הוא ממלא את השמיים באור מפוזר שמסתיר ערפיליות עמומות.</p>`
     },
     {
         title: "Full Well Capacity",
@@ -1259,6 +1379,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The maximum number of electrons a single pixel can hold before it "saturates" and can no longer record more light.</p>
             <p><strong>Example:</strong> Your ASI2600 has a large full well (50,000e-). This allows you to take long exposures of the Orion Nebula without the bright core turning into a flat white blob too quickly.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> קיבולת מלאה של פוטאה היא המספר המקסימלי של אלקטרונים שפיקסל יחיד יכול להחזיק לפני שהוא רווי ואינו יכול לרשום יותר אור.</p><p><strong>דוגמה:</strong> ל-ASI2600 יש קיבולת מלאה גדולה (50,000 אלקטרון), המאפשרת חשיפות ארוכות של ערפילית אוריון מבלי שהליבה הבהירה תהפוך לכתם לבן שטוח מהר.</p>`
     },
     {
         title: "Unity Gain",
@@ -1269,6 +1390,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The gain setting on a CMOS camera where one electron collected by the pixel equals exactly one "ADU" (digital unit) in the raw file.</p>
             <p><strong>Example:</strong> For many ZWO cameras, Unity Gain (often Gain 100) is the "sweet spot" because it provides a good balance between low read noise and high dynamic range.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> רווח יחידה (Unity Gain) הוא הגדרת ה-Gain שבה אלקטרון אחד שנאסף שווה בדיוק ליחידה דיגיטלית אחת (ADU) בקובץ הגולמי.</p><p><strong>דוגמה:</strong> עבור מצלמות ZWO רבות, Unity Gain (לרוב Gain 100) הוא נקודת האיזון בין רעש קריאה נמוך וטווח דינמי גבוה.</p>`
     },
     {
         title: "Read Noise",
@@ -1279,6 +1401,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The electronic noise introduced when the camera sensor's analog signal is converted into a digital number.</p>
             <p><strong>Example:</strong> Modern CMOS sensors have extremely low Read Noise (under 1.5e-). This allows you to take many short exposures and stack them with almost the same quality as one very long exposure.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> רעש קריאה הוא הרעש האלקטרוני המתווסף כאשר האות האנלוגי של חיישן המצלמה מומר למספר דיגיטלי בכל חשיפה.</p><p><strong>דוגמה:</strong> חיישני CMOS מודרניים מגיעים לרעש קריאה נמוך מאוד (מתחת ל-1.5 אלקטרון), המאפשר לערום חשיפות קצרות רבות עם איכות כמעט זהה לחשיפה ארוכה.</p>`
     },
     {
         title: "Dynamic Range (Stops)",
@@ -1289,6 +1412,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The ratio between the maximum measurable light (Full Well) and the minimum measurable light (Read Noise), usually measured in "Stops."</p>
             <p><strong>Example:</strong> A camera with 14 stops of Dynamic Range can capture the faint outer dust of M31 and the bright stars in the same frame without losing detail in either.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> טווח דינמי הוא היחס בין האור המרבי הניתן למדידה (קיבולת מלאה) לבין האור המינימלי (רעש קריאה), לרוב נמדד בעצירות (Stops).</p><p><strong>דוגמה:</strong> מצלמה בעלת 14 עצירות יכולה ללכוד את האבק החיצוני העמום של M31 ואת הכוכבים הבהירים באותה תמונה מבלי לאבד פרטים.</p>`
     },
     {
         title: "Conversion Factor (e-/ADU)",
@@ -1299,6 +1423,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The mathematical value that tells you how many electrons are represented by one digital unit in your image.</p>
             <p><strong>Example:</strong> Knowing the Conversion Factor allows you to use tools like the "Statistics" module in PixInsight to calculate exactly how many photons you’ve collected from a specific galaxy arm.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> מקדם המרה (e-/ADU) הוא הערך המתמטי המציין כמה אלקטרונים מיוצגים על ידי יחידה דיגיטלית אחת בתמונה שלך.</p><p><strong>דוגמה:</strong> ידיעת מקדם ההמרה מאפשרת שימוש בכלי Statistics ב-PixInsight לחישוב מדויק של כמות הפוטונים שנאספו מזרוע ספציפית של גלקסיה.</p>`
     },
     {
         title: "Herbig-Haro Object (HH)",
@@ -1309,6 +1434,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> Small, bright patches of nebulosity associated with newly born stars. They are formed when narrow jets of partially ionized gas ejected by those stars collide with nearby clouds of gas and dust.</p>
             <p><strong>Example:</strong> In your images of the Orion Nebula (M42), look for tiny, bow-shaped wisps. These are HH Objects representing the "birth cries" of new stars.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> עצם הרביג-הארו (HH) הוא כתם ערפילי קטן הקשור לכוכבים שנולדו לאחרונה, שנוצר כאשר סילוני גז מהכוכב מתנגשים בענני גז ואבק שכנים.</p><p><strong>דוגמה:</strong> בתמונות ערפילית אוריון (M42) חפש אלומות קטנות בצורת קשת - אלה עצמי HH המייצגים את בכי הלידה של כוכבים חדשים.</p>`
     },
     {
         title: "Wolf-Rayet Nebula (WR)",
@@ -1319,6 +1445,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A nebula created by a massive, aging star that is rapidly losing mass through a very powerful stellar wind.</p>
             <p><strong>Example:</strong> Thor's Helmet (NGC 2359) is a classic Wolf-Rayet nebula. The "bubble" shape is carved out by the intense radiation from a massive WR star in its center.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> ערפילית וולף-ריה (WR) היא ערפילית שנוצרת על ידי כוכב מסיבי מזדקן המאבד מסה במהירות דרך רוח כוכבית עצומה.</p><p><strong>דוגמה:</strong> קסדת תור (NGC 2359) היא ערפילית WR קלאסית - צורת הבועה שלה נחצבת על ידי קרינה עצומה מכוכב WR מסיבי שבמרכזה.</p>`
     },
     {
         title: "Strömgren Sphere",
@@ -1329,6 +1456,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The sphere of ionized hydrogen (H II) around a young, hot star. It marks the boundary where the star's ultraviolet radiation is no longer strong enough to keep the hydrogen ionized.</p>
             <p><strong>Example:</strong> Most circular emission nebulae, like the Rosette Nebula, are essentially massive Strömgren Spheres centered on a cluster of hot O and B type stars.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> כדור שטרמגרן הוא כדור המימן המיוּנן (HII) סביב כוכב צעיר וחם, המסמן את הגבול שבו קרינת ה-UV אינה חזקה מספיק לשמור על המימן מיוּנן.</p><p><strong>דוגמה:</strong> רוב ערפיליות הפליטה המעגליות כמו ערפילית הרוזטה הן בעצם כדורי שטרמגרן ענקיים הממורכזים סביב אשכול כוכבי O ו-B.</p>`
     },
     {
         title: "Proplyd (Protoplanetary Disk)",
@@ -1339,6 +1467,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> An externally illuminated photo-evaporating disk of dense gas and dust surrounding a young star.</p>
             <p><strong>Example:</strong> Using high-resolution optics on the Orion Nebula, you can sometimes resolve "tadpole-shaped" dark spots. These are Proplyds, where new solar systems are currently forming.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> פרופליד הוא דיסק צפוף של גז ואבק סביב כוכב צעיר, שמאבד את חומרו בהדרגה עקב קרינה של כוכבים חמים שכנים.</p><p><strong>דוגמה:</strong> באופטיקה ברזולוציה גבוהה על ערפילית אוריון, ניתן לפעמים לפתור כתמים כהים בצורת ראשן - פרופלידים שבהם מתהוות מערכות שמש חדשות.</p>`
     },
     {
         title: "Riccardi-Honders (RH)",
@@ -1349,6 +1478,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A catadioptric telescope design that uses a fast primary mirror and a full-aperture corrector lens to provide an extremely fast focal ratio (often f/3) and a very wide, flat field.</p>
             <p><strong>Example:</strong> An Officina Stellare Veloce RH200 allows you to capture deep-sky objects like the Tadpole Nebula in a fraction of the time required by a standard f/7 refractor.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> ריקרדי-הונדרס (RH) הוא עיצוב טלסקופ קטדיופטרי המשתמש במראה ראשית מהירה ובעדשת מתקן לשדה שטוח, ומספק יחס מוקד מהיר מאוד ושדה ראייה רחב.</p><p><strong>דוגמה:</strong> Officina Stellare Veloce RH200 מאפשר לצלם עצמי חלל עמוק בשבריר מהזמן הדרוש לרפרקטור f/7 רגיל.</p>`
     },
     {
         title: "Corrected Dall-Kirkham (CDK)",
@@ -1359,6 +1489,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A telescope design featuring an ellipsoidal primary mirror, a spherical secondary mirror, and a lens group near the focal plane to correct for coma, astigmatism, and field curvature.</p>
             <p><strong>Example:</strong> The PlaneWave CDK series is the gold standard for remote observatories because it provides a massive, pin-sharp imaging circle for large sensors like the ASI6200.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> CDK הוא עיצוב טלסקופ עם מראה ראשית אליפסואידלית, מראה משנית כדורית ומערכת עדשות לתיקון קומה, אסטיגמטיזם ועיקום שדה.</p><p><strong>דוגמה:</strong> סדרת PlaneWave CDK היא התקן הזהב למצפות מרוחקים כי היא מספקת מעגל הדמיה ענק וחד לחיישנים גדולים כמו ASI6200.</p>`
     },
     {
         title: "Rowe-Ackermann Schmidt Astrograph (RASA)",
@@ -1369,6 +1500,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A specialized optical system that places the camera at the front of the telescope (prime focus) to achieve incredibly fast focal ratios (f/2 or faster).</p>
             <p><strong>Example:</strong> Using a Celestron RASA 11, you can capture the faint outer "petals" of the Iris Nebula in just 1–2 hours of total integration.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> RASA הוא מערכת אופטית ייחודית שמציבה את המצלמה בחזית הטלסקופ (מוקד ראשי) להשגת יחסי מוקד מהירים מאוד (f/2 ומהר יותר).</p><p><strong>דוגמה:</strong> בשימוש ב-Celestron RASA 11 תוכל ללכוד את עלי הכותרת החיצוניים של ערפילית האירוס תוך 1-2 שעות בלבד.</p>`
     },
     {
         title: "Petzval Refractor",
@@ -1379,6 +1511,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A four-element refractor design (two groups of two) that inherently produces a flat imaging field without the need for an external flattener.</p>
             <p><strong>Example:</strong> The RedCat 51 or your FLT132 (when paired with its dedicated reducer/flattener) mimics a Petzval behavior, ensuring stars are round from corner to corner.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> רפרקטור פטצבל הוא עיצוב בן ארבעה אלמנטים המייצר באופן טבעי שדה הדמיה שטוח ללא צורך ב-Field Flattener חיצוני.</p><p><strong>דוגמה:</strong> RedCat 51 מחקה התנהגות פטצבל ומבטיח כוכבים עגולים מפינה לפינה ללא אביזרי תיקון נוספים.</p>`
     },
     {
         title: "FITS Header (Flexible Image Transport System)",
@@ -1389,6 +1522,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A block of text at the beginning of a FITS file that contains metadata such as exposure time, camera temperature, RA/DEC coordinates, and telescope used.</p>
             <p><strong>Example:</strong> When you upload an image to Astrometry.net, the site reads your FITS Header to immediately know exactly where in the sky you were looking.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> כותרת FITS היא בלוק טקסט בתחילת קובץ FITS המכיל מטאדאטה כגון זמן חשיפה, טמפרטורת מצלמה, קואורדינטות RA/DEC וטלסקופ בשימוש.</p><p><strong>דוגמה:</strong> כשמעלים תמונה ל-Astrometry.net, האתר קורא את כותרת ה-FITS כדי לדעת מיד לאן הטלסקופ כוון בשמיים.</p>`
     },
     {
         title: "World Coordinate System (WCS)",
@@ -1399,6 +1533,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A standard used in FITS files to describe the relationship between pixel coordinates ($x, y$) and sky coordinates ($RA, Dec$).</p>
             <p><strong>Example:</strong> After you "Plate Solve" an image of the Leo Triplet, the software embeds WCS data, allowing you to hover your mouse over any star to see its exact name and magnitude.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> מערכת קואורדינטות עולמית (WCS) היא תקן המשמש בקבצי FITS לתיאור הקשר בין קואורדינטות פיקסל (x,y) לבין קואורדינטות שמים (RA, DEC).</p><p><strong>דוגמה:</strong> לאחר Plate Solve לתמונת טריו האריה, התוכנה מטמיעה נתוני WCS, המאפשרים לרחף עם העכבר מעל כל כוכב ולראות את שמו ועוצמתו המדויקים.</p>`
     },
     {
         title: "XISF (Extensible Image Serialization Format)",
@@ -1409,6 +1544,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The native file format for PixInsight, designed to store high-precision image data along with a complete history of the processing steps applied.</p>
             <p><strong>Example:</strong> Saving your work as .xisf instead of .fits ensures that all your "process icons" and metadata stay attached to the file for future editing.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> XISF הוא פורמט הקובץ הטבעי של PixInsight, שתוכנן לאחסן נתוני תמונה בדיוק גבוה יחד עם היסטוריה מלאה של שלבי העיבוד שבוצעו.</p><p><strong>דוגמה:</strong> שמירה בפורמט .xisf במקום .fits מבטיחה שכל אייקוני ה-Process והמטאדאטה נשמרים בקובץ לעריכה עתידית.</p>`
     },
     {
         title: "Bayer Phase (RGGB, GRBG, etc.)",
@@ -1419,6 +1555,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The specific order of the color filters in a camera's Bayer matrix.</p>
             <p><strong>Example:</strong> If you set the wrong Bayer Phase in your software, your image of the Rosette Nebula will turn out bright green or blue instead of red. For your ASI2600, the phase is typically RGGB.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> שלב בייר הוא הסדר הספציפי של פילטרי הצבע במטריצת הבייר של המצלמה, כגון RGGB, GRBG ואחרים.</p><p><strong>דוגמה:</strong> אם מגדירים את שלב הבייר הלא נכון, תמונת ערפילית הרוזטה תצא ירוקה בהירה במקום אדומה. עבור ASI2600, שלב הבייר הוא בדרך כלל RGGB.</p>`
     },
     {
         title: "Spectroscopic Binary",
@@ -1429,6 +1566,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A binary star system where the two stars are too close together to be seen separately through a telescope, but are known to be double because of the shifting spectral lines in their light.</p>
             <p><strong>Example:</strong> Mizar in the Big Dipper was the first spectroscopic binary discovered. In your wide-field shots, it looks like one star, but it is actually a complex system of multiple suns orbiting each other.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> כוכב כפול ספקטרוסקופי הוא מערכת כוכב כפול שבה שני הכוכבים קרובים מדי להפרדה בטלסקופ, אך ידועים כזוג בשל תזוזת קווי הספקטרום שלהם.</p><p><strong>דוגמה:</strong> מיזר בדוב הגדול היה הכוכב הכפול הספקטרוסקופי הראשון שהתגלה. בצילומי שדה רחב הוא נראה ככוכב אחד, אך הוא בעצם מערכת מורכבת של כמה שמשות.</p>`
     },
     {
         title: "Eclipsing Binary",
@@ -1439,6 +1577,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A binary system where the orbit is tilted so that one star passes directly in front of the other from our perspective, causing a periodic dip in the total brightness.</p>
             <p><strong>Example:</strong> Algol (The Demon Star) is the most famous eclipsing binary. Every 2.8 days, its brightness drops significantly for a few hours. You can capture this "light curve" by taking a series of images over several hours.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> כוכב כפול מסתיר הוא מערכת כוכב כפול שבה המסלול מוטה כך שכוכב אחד עובר מול השני מנקודת מבטנו, וגורם לירידה תקופתית בבהירות הכוללת.</p><p><strong>דוגמה:</strong> אלגול (כוכב השד) הוא הכוכב הכפול המסתיר הידוע ביותר. כל 2.8 ימים בהירותו יורדת משמעותית למספר שעות - ניתן לצלם את עקומת האור הזו לאורך הלילה.</p>`
     },
     {
         title: "Common Proper Motion (CPM) Pair",
@@ -1449,6 +1588,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> Two stars that are not necessarily orbiting each other but are moving through space in the same direction at the same speed, suggesting they were born in the same nebula.</p>
             <p><strong>Example:</strong> Many stars in the Pleiades (M45) are CPM pairs. While they aren't "locked" in a binary dance, they travel together like a flock of birds across the galaxy.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> זוג תנועה עצמית משותפת (CPM) הוא שני כוכבים שאינם בהכרח מקיפים זה את זה, אך נעים בחלל באותו כיוון ובאותה מהירות, מה שמצביע על מוצא משותף.</p><p><strong>דוגמה:</strong> כוכבים רבים בפלאיאדות (M45) הם זוגות CPM. אמנם אינם נעולים בריקוד כפול, אך נעים יחד כמו להקת ציפורים בגלקסיה.</p>`
     },
     {
         title: "Exoplanet Transit",
@@ -1459,6 +1599,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> When a planet orbiting a distant star passes between that star and Earth, slightly dimming the star's light.</p>
             <p><strong>Example:</strong> With a high-end setup like your FLT132 and ASI2600, you can actually perform "Exoplanet Hunting." By measuring the brightness of a star over 4 hours, you can detect a 1% drop in light caused by a planet the size of Jupiter.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> מעבר כוכב לכת חוץ-שמשי הוא האירוע שבו כוכב לכת המקיף כוכב רחוק עובר בינו לבין כדור הארץ, ומחשיך מעט את אור הכוכב.</p><p><strong>דוגמה:</strong> עם ציוד כמו FLT132 ו-ASI2600, ניתן לבצע ציד כוכבי לכת חוץ-שמשיים. מדידת בהירות כוכב על פני 4 שעות תגלה ירידה של 1% בגלל כוכב לכת בגודל צדק.</p>`
     },
     {
         title: "Primary Transit vs. Secondary Eclipse",
@@ -1469,6 +1610,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> Primary Transit is the planet passing in front of the star. Secondary Eclipse is when the planet passes behind the star.</p>
             <p><strong>Example:</strong> Detecting the Secondary Eclipse is much harder and usually requires space telescopes (like JWST), but it allows scientists to measure the heat coming off the planet itself.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> מעבר ראשי הוא מעבר כוכב הלכת מול הכוכב. ליקוי משני הוא מעבר כוכב הלכת מאחורי הכוכב.</p><p><strong>דוגמה:</strong> גילוי הליקוי המשני קשה הרבה יותר ולרוב מצריך טלסקופי חלל (כמו JWST), אך מאפשר למדוד את החום הנפלט מכוכב הלכת עצמו.</p>`
     },
     {
         title: "Barycenter",
@@ -1479,6 +1621,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The center of mass of two or more bodies that orbit each other and is the point about which the bodies orbit.</p>
             <p><strong>Example:</strong> In our solar system, the Barycenter is often just outside the surface of the Sun due to Jupiter's massive gravity. This "wobble" is how the Radial Velocity method finds planets around other stars.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> מרכז מסה (Barycenter) הוא נקודת המסה המרכזית של שני גופים או יותר המקיפים זה את זה, ושאותה נקודה היא מוקד המסלולים.</p><p><strong>דוגמה:</strong> במערכת השמש שלנו, מרכז המסה נמצא לעתים מחוץ לפני השמש בשל הכבידה העצומה של צדק. הדר זה הוא הבסיס לשיטת מהירות רדיאלית לגילוי כוכבי לכת.</p>`
     },
     {
         title: "Multi-Star Guiding",
@@ -1489,6 +1632,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> An advanced algorithm (used in PHD2) that tracks the average movement of up to 12 stars simultaneously rather than just one.</p>
             <p><strong>Example:</strong> If you are imaging in a region with "Poor Seeing," a single guide star might "jump" due to atmospheric turbulence. Multi-Star Guiding averages out these jumps, leading to a much smoother 0.5" total RMS error.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> הנחיה רב-כוכבית היא אלגוריתם מתקדם (בשימוש ב-PHD2) המעקב אחר ממוצע תנועת עד 12 כוכבים בו-זמנית במקום כוכב אחד בלבד.</p><p><strong>דוגמה:</strong> בצילום באזור עם ראייה גרועה, כוכב מנחה בודד עלול לקפץ בשל טורבולנציה. הנחיה רב-כוכבית ממוצעת קפיצות אלה ומובילה לשגיאת RMS כוללת של 0.5 ארקסק חלקה יותר.</p>`
     },
     {
         title: "SNIS (Signal-to-Noise Integrated Statistics)",
@@ -1499,6 +1643,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A metric used to judge the quality of a guide star by comparing its brightness to the background noise of the guide camera.</p>
             <p><strong>Example:</strong> If your SNIS is too low, your guiding will be "chasing the noise," causing your Losmandy G11 to jerk back and forth. Choosing a brighter guide star or increasing the exposure time of the guide camera fixes this.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> SNIS הוא מדד לאיכות כוכב המנחה הנגזר מהשוואת בהירותו לרמת הרעש של מצלמת ההנחיה.</p><p><strong>דוגמה:</strong> אם ה-SNIS נמוך מדי, ההנחיה רודפת אחרי הרעש וגורמת לחצובת Losmandy G11 לזנק קדימה ואחורה. בחירת כוכב מנחה בהיר יותר או הגדלת זמן חשיפה של מצלמת ההנחיה פותרת זאת.</p>`
     },
     {
         title: "Aggressiveness (Guiding)",
@@ -1509,6 +1654,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A setting that determines what percentage of a detected error the mount should try to correct in a single move.</p>
             <p><strong>Example:</strong> If Aggressiveness is set to 100%, the mount may "over-correct" and oscillate. Most astrophotographers set this to 60-70% to let the mount "settle" into the correction.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> אגרסיביות הנחיה היא הגדרה הקובעת איזה אחוז מהשגיאה המזוהה על החצובה לתקן בתנועה בודדת.</p><p><strong>דוגמה:</strong> אם האגרסיביות מוגדרת ל-100%, החצובה עשויה לתקן-יתר ולתנדד. רוב הצלמים מגדירים 60-70% כדי לאפשר לחצובה להתייצב לאחר התיקון.</p>`
     },
     {
         title: "MinMo (Minimum Motion)",
@@ -1519,6 +1665,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The minimum distance a star must move (in pixels or arcseconds) before the autoguider sends a correction command to the mount.</p>
             <p><strong>Example:</strong> Setting a MinMo of 0.2" ensures that your AP MACH 2 doesn't waste energy correcting for tiny atmospheric "shimmers" that aren't actually tracking errors.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> MinMo (תנועה מינימלית) הוא המרחק המינימלי שכוכב חייב לנוע (בפיקסלים או ארקסקים) לפני שהמנחה האוטומטי שולח פקודת תיקון לחצובה.</p><p><strong>דוגמה:</strong> הגדרת MinMo של 0.2 ארקסק מונעת מ-AP MACH 2 לבזבז אנרגיה על תיקון רעידות אטמוספריות זעירות שאינן שגיאות מעקב אמיתיות.</p>`
     },
     {
         title: "Vignetting (Optical & Physical)",
@@ -1529,6 +1676,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The darkening of the corners of an image caused by the telescope's light cone being partially blocked by the camera's nosepiece, filters, or the telescope tube itself.</p>
             <p><strong>Example:</strong> Even with a large 2" filter, an APS-C sensor like the ASI2600 will show some Vignetting. This is why Flat Frames are mandatory to "level" the field.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> וינייטינג הוא החשכת פינות התמונה הנגרמת על ידי חסימה חלקית של קרן האור על ידי נוסה המצלמה, פילטרים או צינור הטלסקופ.</p><p><strong>דוגמה:</strong> גם עם פילטר גדול של 2 אינץ', חיישן APS-C כמו ASI2600 יראה קצת וינייטינג. לכן פריימי שטוח חובה ל"ישור" השדה.</p>`
     },
     {
         title: "Shadowing (OAG Prism)",
@@ -1539,6 +1687,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> When the prism of an Off-Axis Guider is pushed too far into the light path, casting a dark, rectangular shadow on one side of the main imaging sensor.</p>
             <p><strong>Example:</strong> If you see a hard dark edge on the side of your Tadpole Nebula subs, your OAG prism needs to be retracted slightly until it is just outside the field of the main sensor.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> הצללה (OAG) היא מצב שבו הפריזמה של מדריך Off-Axis נדחפת עמוק מדי לתוך נתיב האור ויוצרת צל כהה מלבני על חיישן ההדמיה הראשי.</p><p><strong>דוגמה:</strong> אם רואים קצה כהה חד בצד תמונות ערפילית הטאדפול, יש לסגת את הפריזמה של ה-OAG עד שהיא ממש מחוץ לשדה החיישן הראשי.</p>`
     },
     {
         title: "Cepheid Variable",
@@ -1549,6 +1698,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A type of star that pulsates radially, varying in both diameter and temperature. There is a direct relationship between its luminosity and pulsation period.</p>
             <p><strong>Example:</strong> Delta Cephei is the prototype. Because their brightness is predictable, Edwin Hubble used these "Standard Candles" to prove that the Andromeda Galaxy was a separate galaxy far outside our own.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> כוכב צפאידי הוא סוג כוכב הפועם ברדיאלי, משתנה בקוטרו ובטמפרטורתו. קיימת קשר ישיר בין זוהרו לתקופת פעימתו.</p><p><strong>דוגמה:</strong> דלתא קפאי הוא האב-טיפוס. בגלל שבהירותם ניתנת לחיזוי, אדווין האבל השתמש בהם כ"נרות תקן" להוכחה שגלקסיית אנדרומדה נמצאת מחוץ לשביל החלב.</p>`
     },
     {
         title: "Cataclysmic Variable (CV)",
@@ -1559,6 +1709,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A binary star system consisting of a white dwarf and a mass-transferring secondary star. The "flickering" or outbursts are caused by the accretion disk.</p>
             <p><strong>Example:</strong> SS Cygni is a favorite for amateur observers. It can suddenly brighten by several magnitudes in a single night, making it look like a "new" star has appeared in your field of view.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> כוכב משתנה קטקליזמי (CV) הוא מערכת כוכב כפול הכוללת ננס לבן וכוכב משני שמעביר אליו מסה. התבהקויות נגרמות על ידי דיסקת הצבירה.</p><p><strong>דוגמה:</strong> SS Cygni הוא מועדף על קהל חובבים. הוא יכול להתבהק בכמה עוצמות בלילה בודד, ונראה כמו כוכב חדש שהופיע בשדה הראייה.</p>`
     },
     {
         title: "RR Lyrae Star",
@@ -1569,6 +1720,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> Periodic variable stars commonly found in Globular Clusters (like M13). They are older, metal-poor stars used to measure distances within our galaxy.</p>
             <p><strong>Example:</strong> When you photograph a globular cluster, many of the stars that appear "blinking" in a time-lapse over several nights are RR Lyrae variables.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> כוכב RR Lyrae הוא כוכב משתנה תקופתי הנמצא בדרך כלל בצבירים כדוריים. הם כוכבים עתיקים ועניי מתכות המשמשים למדידת מרחקים בגלקסיה.</p><p><strong>דוגמה:</strong> בצילום צביר כדורי, חלק מהכוכבים הנראים מהבהבים בצילום-זמן על פני כמה לילות הם כוכבי RR Lyrae משתנים.</p>`
     },
     {
         title: "Interstellar Reddening",
@@ -1579,6 +1731,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A phenomenon where interstellar dust absorbs and scatters shorter blue wavelengths of light more than longer red wavelengths, making distant objects appear redder than they are.</p>
             <p><strong>Example:</strong> A distant galaxy in the Hercules Cluster might look orange not because it's old, but because its light has passed through clouds of dust in our own Milky Way that "stole" its blue light.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> אדמומית בין-כוכבית היא תופעה שבה אבק בין-כוכבי סופג ומפזר אורכי גל כחולים קצרים יותר מאדומים, ומגרם לעצמים רחוקים להיראות אדמדמים יותר מהאמת.</p><p><strong>דוגמה:</strong> גלקסיה רחוקה באשכול ההרקולס עשויה להיראות כתומה לא בשל גיל, אלא בגלל שאורה עבר ענני אבק בשביל החלב שלנו ש"גנבו" את אורה הכחול.</p>`
     },
     {
         title: "Extinction Coefficient",
@@ -1589,6 +1742,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A mathematical value ($k$) that describes how much light is lost per "unit" of atmosphere or interstellar medium.</p>
             <p><strong>Example:</strong> When planning a session for the Leo Triplet, you check the Extinction Coefficient. If the air is dusty or humid, the value is high, and you'll need 20% more exposure time to get the same results.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> מקדם כיבוי אור הוא ערך מתמטי (k) המתאר כמה אור אובד ל"יחידה" של אטמוספרה או מדיום בין-כוכבי.</p><p><strong>דוגמה:</strong> בתכנון סשן לצילום טריו האריה, בדיקת מקדם הכיבוי חשובה - אם האוויר אבקי או לח, הערך גבוה ונדרש 20% יותר זמן חשיפה לאותה תוצאה.</p>`
     },
     {
         title: "Reflection Nebulosity (IFN - Integrated Flux Nebula)",
@@ -1599,6 +1753,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> Extremely faint clouds of dust located far above the plane of our galaxy, illuminated by the combined light of all the stars in the Milky Way.</p>
             <p><strong>Example:</strong> Capturing the IFN around M81/M82 is a "bucket list" item for astrophotographers. It requires a Bortle 1 sky and 20+ hours of integration to see the "dusty curtains" in the deep background.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> IFN (ערפילית שטף משולב) הם ענני אבק עמומים מאוד הממוקמים מעל מישור גלקסיית שביל החלב, המואזרים על ידי האור המשולב של כל הכוכבים בגלקסיה.</p><p><strong>דוגמה:</strong> לכידת IFN סביב M81/M82 היא יעד "רשימת הדלי" לצלמים. היא דורשת שמיים Bortle 1 ומעל 20 שעות אינטגרציה לראיית ה"וילונות האבקניים" ברקע העמוק.</p>`
     },
     {
         title: "Ringing (Gibbs Phenomenon)",
@@ -1609,6 +1764,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A dark or bright "halo" or "ripple" that appears around stars or sharp edges after aggressive sharpening or deconvolution.</p>
             <p><strong>Example:</strong> If you push the Sharpening too hard on the Tadpole Nebula, you might see a dark ring around every star. This is Ringing, and it’s usually fixed by using a "Star Mask" to protect the stars during the process.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> תנודות גיבס (Ringing) הם הילה כהה או בהיר או גלים סביב כוכבים או קצוות חדים לאחר חידוד אגרסיבי או דה-קונבולוציה.</p><p><strong>דוגמה:</strong> אם דוחפים את החידוד חזק מדי על ערפילית הטאדפול, תראה טבעת כהה סביב כל כוכב. זהו Ringing שנפתר בדרך כלל על ידי מסיכת כוכב להגנה עליהם בתהליך.</p>`
     },
     {
         title: "Posterization (Banding)",
@@ -1619,6 +1775,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The appearance of "steps" or "stripes" in smooth gradients (like a dark sky background), caused by a lack of bit-depth or over-processing.</p>
             <p><strong>Example:</strong> If you convert your 16-bit ASI2600 data to an 8-bit JPEG too early, the smooth black background of space will look like "layers" of gray. This is Posterization.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> פוסטריזציה (פסים) היא הופעת מדרגות או פסים בגרדיאנטים חלקים (כמו רקע שמיים כהים), הנגרמת מחוסר עומק סיביות או עיבוד יתר.</p><p><strong>דוגמה:</strong> המרת נתוני 16-bit של ASI2600 ל-JPEG של 8-bit מוקדם מדי תגרום לרקע החלל החלק להיראות כ"שכבות" של אפור. זוהי פוסטריזציה.</p>`
     },
     {
         title: "Clipping (Black/White Point)",
@@ -1629,6 +1786,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> When processing moves pixel values beyond the range of 0 (pure black) or 255/65535 (pure white), causing a permanent loss of detail.</p>
             <p><strong>Example:</strong> If you move your "Black Point" slider too far to the right to hide noise, you are Clipping the faint outer arms of your galaxies, turning them into empty black space.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> גזירה (Clipping) היא מצב שבו עיבוד מוציא ערכי פיקסל מחוץ לתחום 0 (שחור טהור) או 65535 (לבן טהור), וגורם לאובדן בלתי הפיך של פרטים.</p><p><strong>דוגמה:</strong> אם מזיזים את מחוון נקודת השחור ימינה מדי להסתרת רעש, גוזרים את הזרועות החיצוניות העמומות של הגלקסיות ומהפכים אותן לחלל ריק שחור.</p>`
     },
     {
         title: "Sidereal Rate",
@@ -1639,6 +1797,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The speed at which the Earth rotates relative to the "fixed" stars—approximately 15.04 arcseconds per second.</p>
             <p><strong>Example:</strong> This is the "default" speed for your Losmandy G11. If the mount is set to "Lunar Rate" by mistake, your stars in a deep-sky image will look like short trails.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> קצב כוכבי (Sidereal Rate) הוא מהירות הסיבוב של כדור הארץ ביחס לכוכבים ה"קבועים" - כ-15.04 ארקסקים לשנייה.</p><p><strong>דוגמה:</strong> זהו מהירות ה"ברירת מחדל" של Losmandy G11. אם החצובה הוגדרת בטעות למהירות ירח, הכוכבים בתמונות חלל עמוק ייראו כמסלולים קצרים.</p>`
     },
     {
         title: "King Rate",
@@ -1649,6 +1808,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A tracking rate slightly slower than Sidereal to account for the effects of atmospheric refraction, which makes stars appear to move slower near the horizon.</p>
             <p><strong>Example:</strong> Advanced mounts like the AP MACH 2 can use the King Rate to keep your stars perfectly round even when the target is low in the sky.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> קצב קינג הוא מהירות מעקב מעט איטית יותר מהקצב הכוכבי, כדי לפצות על שבירת אור אטמוספרית שגורמת לכוכבים להיראות כנעים לאט יותר ליד האופק.</p><p><strong>דוגמה:</strong> חצובות מתקדמות כמו AP MACH 2 יכולות להשתמש בקצב קינג לשמירה על כוכבים עגולים לחלוטין גם כשהמטרה נמוכה בשמיים.</p>`
     },
     {
         title: "Tracking Jitter",
@@ -1659,6 +1819,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> High-frequency, small-scale movements of the mount caused by motor vibrations or wind, which "smear" the stars on a microscopic level.</p>
             <p><strong>Example:</strong> If your tripod is on a wooden deck, your own footsteps can cause Tracking Jitter, ruining the sharpness of a 5-minute sub-frame.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> רעידות מעקב הן תנועות קטנות ובתדר גבוה של החצובה הנגרמות על ידי רעידות מנוע או רוח, ש"מטשטשות" את הכוכבים ברמה מיקרוסקופית.</p><p><strong>דוגמה:</strong> אם החצובה עומדת על סיפון עץ, צעדיך שלך יכולים לגרום לרעידות מעקב ולהרוס את חדות תת-פריים של 5 דקות.</p>`
     },
     {
         title: "Starburst Galaxy",
@@ -1669,6 +1830,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A galaxy undergoing an exceptionally high rate of star formation compared to its average long-term rate. This is often triggered by a close encounter or collision with another galaxy.</p>
             <p><strong>Example:</strong> M82 (The Cigar Galaxy) is the most famous starburst galaxy. In your images, the bright red "plumes" or jets blasting out of the center are massive clouds of hydrogen gas being pushed out by the intense radiation of thousands of newborn stars.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> גלקסיית פריצת כוכבים היא גלקסיה החווה קצב יצירת כוכבים גבוה ביותר יחסית לממוצע ארוך הטווח שלה, לרוב בשל התקרבות או התנגשות עם גלקסיה אחרת.</p><p><strong>דוגמה:</strong> M82 (גלקסיית הסיגר) היא הגלקסיה המתפרצת המפורסמת ביותר. בתמונות שלך, ה"פלומות" האדומות הנפלטות מהמרכז הן ענני מימן עצומים הנדחפים החוצה על ידי קרינת כוכבים חדשים.</p>`
     },
     {
         title: "Galactic Cannibalism",
@@ -1679,6 +1841,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The process by which a large galaxy, through tidal gravitational interactions, merges with a companion galaxy, resulting in a single, larger, often elliptical galaxy.</p>
             <p><strong>Example:</strong> The Andromeda Galaxy (M31) is currently "eating" several smaller satellite galaxies. In deep exposures, you can see faint stellar streams that are the "digested" remains of these smaller neighbors.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> קניבליזם גלקטי הוא התהליך שבו גלקסיה גדולה, דרך אינטראקציות גרביטציוניות, מתמזגת עם גלקסיה לוויינית ויוצרת גלקסיה אחת גדולה יותר, לרוב אליפטית.</p><p><strong>דוגמה:</strong> גלקסיית אנדרומדה (M31) כרגע "אוכלת" מספר גלקסיות לוויינות קטנות. בחשיפות עמוקות ניתן לראות זרמי כוכבים עמומים שהם שרידים "מעוכלים" של שכנות קטנות.</p>`
     },
     {
         title: "Seyfert Galaxy",
@@ -1689,6 +1852,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A type of galaxy with an extremely bright, point-like nucleus that emits strong spectral lines from highly ionized gas. They are a subclass of Active Galactic Nuclei (AGN).</p>
             <p><strong>Example:</strong> M77 is a classic Seyfert. Even in a short exposure, the core looks like a brilliant, overexposed star, while the spiral arms require much longer integration to reveal.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> גלקסיית סייפרט היא סוג גלקסיה עם גרעין בהיר מאוד, נקודתי, הפולט קווי ספקטרום חזקים מגז מיוּנן מאוד. היא תת-קבוצה של גרעינים גלקטיים פעילים (AGN).</p><p><strong>דוגמה:</strong> M77 היא גלקסיית סייפרט קלאסית. גם בחשיפה קצרה הגרעין נראה כמו כוכב מבריק מנופח, ואילו הזרועות הספיראליות דורשות זמן אינטגרציה ארוך הרבה יותר לחשיפה.</p>`
     },
     {
         title: "Spectroscopy",
@@ -1699,6 +1863,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The study of the interaction between matter and electromagnetic radiation. In astronomy, it involves splitting starlight into a spectrum to determine a star's temperature, composition, and speed.</p>
             <p><strong>Example:</strong> By placing a "Star Analyser" grating in front of your ASI2600, you can turn a star into a rainbow streak. The dark lines in that rainbow tell you if the star is made of Hydrogen, Helium, or even heavier metals.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> ספקטרוסקופיה היא חקר האינטראקציה בין חומר וקרינה אלקטרומגנטית. באסטרונומיה מדובר בפיצול אור הכוכבים לספקטרום לקביעת טמפרטורה, הרכב ומהירות הכוכב.</p><p><strong>דוגמה:</strong> על ידי הנחת גרייטינג Star Analyser מול ASI2600, הכוכב הופך לפס קשת. הקווים הכהים בפס מגלים אם הכוכב עשוי ממימן, הליום או מתכות כבדות.</p>`
     },
     {
         title: "Absorption Lines (Fraunhofer Lines)",
@@ -1709,6 +1874,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> Dark lines in a spectrum produced when cooler gas in a star's outer atmosphere absorbs specific wavelengths of light from the hotter interior.</p>
             <p><strong>Example:</strong> When you photograph the Sun's spectrum, the thousands of dark lines you see are the chemical "fingerprints" of elements like Iron and Sodium in the Sun's atmosphere.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> קווי ספיגה (קווי פראונהופר) הם קווים כהים בספקטרום הנוצרים כאשר גז קריר בשכבות חיצוניות של כוכב סופג אורכי גל ספציפיים מהפנים החם.</p><p><strong>דוגמה:</strong> בצילום ספקטרום השמש, אלפי הקווים הכהים הם ה"טביעות האצבע" הכימיות של יסודות כמו ברזל ונתרן באטמוספרה השמשית.</p>`
     },
     {
         title: "Emission Lines",
@@ -1719,6 +1885,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> Bright lines in a spectrum produced by a hot, thin gas. This is the foundation of Narrowband Imaging.</p>
             <p><strong>Example:</strong> Your H-alpha filter only allows the specific Emission Line of Hydrogen (656.3nm) to pass through, which is why it's so effective at isolating nebulae from the continuous light of stars.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> קווי פליטה הם קווים בהירים בספקטרום הנוצרים על ידי גז חם ודליל. זהו הבסיס לצילום פס צר (Narrowband).</p><p><strong>דוגמה:</strong> פילטר ה-Hα מאפשר רק את קו הפליטה הספציפי של מימן (656.3nm) לעבור, שזו הסיבה לאפקטיביות שלו בבידוד ערפיליות מהאור הרציף של הכוכבים.</p>`
     },
     {
         title: "Delta-T (Cooling Delta)",
@@ -1729,6 +1896,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The difference between the ambient air temperature and the temperature of the cooled camera sensor.</p>
             <p><strong>Example:</strong> If the air is 25°C and your ASI2600 is set to -10°C, your Delta-T is 35°C. Most cooled cameras have a maximum Delta-T of about 35-40°C.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> דלתא-T (הפרש קירור) הוא ההבדל בין טמפרטורת האוויר הסביבתי לבין טמפרטורת חיישן המצלמה המקוררת.</p><p><strong>דוגמה:</strong> אם האוויר הוא 25 מעלות ו-ASI2600 מוגדרת ל-10- מעלות, ה-Delta-T הוא 35 מעלות. רוב המצלמות המקוררות מגיעות ל-Delta-T מרבי של כ-35-40 מעלות.</p>`
     },
     {
         title: "Thermal Noise (Dark Current)",
@@ -1739,6 +1907,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> False signal generated by the heat of the sensor. Electrons are knocked loose by heat rather than by photons from space.</p>
             <p><strong>Example:</strong> By cooling your sensor to -10°C, you reduce the Dark Current by over 100x compared to a DSLR at room temperature, resulting in a much cleaner image of the Hercules Galaxy Cluster.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> רעש תרמי (זרם חשוך) הוא אות כוזב שנוצר על ידי חום החיישן. אלקטרונים משוחררים על ידי חום ולא על ידי פוטונים מהחלל.</p><p><strong>דוגמה:</strong> קירור החיישן ל-10- מעלות מפחית את הזרם החשוך ביותר מ-100 פעמים לעומת DSLR בטמפרטורת חדר, ונותן תמונה הרבה יותר נקייה של אשכול גלקסיות הרקולס.</p>`
     },
     {
         title: "Sensor Frosting (Icing)",
@@ -1749,6 +1918,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The formation of ice crystals directly on the sensor or the protective window when the sensor is cooled below the dew point of the air trapped inside the camera body.</p>
             <p><strong>Example:</strong> If you see a "fuzzy" or "cloudy" patch in the center of your image that disappears when you warm the camera up, you have Sensor Frosting. This is usually fixed by replacing the Desiccant Tablets inside the camera.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> קיפאון חיישן הוא היווצרות גבישי קרח ישירות על החיישן או על חלון המגן כאשר החיישן מקורר מתחת לנקודת הטל של האוויר הכלוא בגוף המצלמה.</p><p><strong>דוגמה:</strong> אם רואים כתם "ערפילי" או "מטושטש" במרכז התמונה שנעלם כשמחממים את המצלמה, זהו קיפאון חיישן - נפתר בדרך כלל על ידי החלפת לוחיות הדסיקנט בגוף המצלמה.</p>`
     },
     {
         title: "TEC (Thermo-Electric Cooling)",
@@ -1759,6 +1929,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A solid-state heat pump (Peltier device) that transfers heat from one side of the device to the other using electricity.</p>
             <p><strong>Example:</strong> The "fan" on the back of your camera is pulling heat away from the TEC so that the side touching the sensor can stay at a sub-zero temperature.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> קירור תרמו-אלקטרי (TEC) הוא משאבת חום במצב מוצק (התקן פלטייה) המעבירה חום מצד אחד לצד האחר באמצעות חשמל.</p><p><strong>דוגמה:</strong> המאוורר בגב המצלמה שלך מושך חום מה-TEC כדי שהצד הנוגע בחיישן יוכל להישאר בטמפרטורה תת-אפסית.</p>`
     },
     {
         title: "Critical Focus Zone (CFZ)",
@@ -1769,6 +1940,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The range of focuser movement (usually measured in microns) within which the stars are at their smallest and sharpest.</p>
             <p><strong>Example:</strong> For a fast f/3 telescope, the CFZ might be only 20 microns wide. This is why a high-precision electronic focuser (EAF) is necessary—human hands cannot move with that level of accuracy.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> אזור פוקוס קריטי (CFZ) הוא טווח תנועת הפוקוסר (לרוב נמדד במיקרונים) שבתוכו הכוכבים הם הקטנים והחדים ביותר.</p><p><strong>דוגמה:</strong> לטלסקופ מהיר של f/3, ה-CFZ עשוי להיות רק 20 מיקרון. לכן נדרש פוקוסר אלקטרוני מדויק (EAF) - ידי אדם אינן יכולות לנוע ברמת דיוק כזו.</p>`
     },
     {
         title: "Thermal Expansion (Focus Drift)",
@@ -1779,6 +1951,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The physical change in the length of a telescope tube as the temperature drops during the night, which shifts the point of focus.</p>
             <p><strong>Example:</strong> Your FLT132 (aluminum tube) will shrink slightly as it cools. If you don't use "Temperature Compensation" in your software, your stars will slowly go out of focus over 2-3 hours.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> התרחבות תרמית (נסיגת פוקוס) היא השינוי הפיזי באורך צינור הטלסקופ עם ירידת הטמפרטורה בלילה, מה שמזיז את נקודת הפוקוס.</p><p><strong>דוגמה:</strong> FLT132 (צינור אלומיניום) יתכווץ מעט בהתקררותו. בלי "פיצוי טמפרטורה" בתוכנה, הכוכבים יאבדו פוקוס לאט לאט על פני 2-3 שעות.</p>`
     },
     {
         title: "Mass Segregation",
@@ -1789,6 +1962,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A process in stellar clusters where more massive stars tend to move toward the center, while lower-mass stars move toward the periphery.</p>
             <p><strong>Example:</strong> In your images of the Hercules Globular Cluster (M13), you’ll notice the core is extremely dense with bright, massive stars, while the "outer halo" consists of smaller, dimmer stars.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> הפרדת מסה היא תהליך באשכולות כוכבים שבו כוכבים מסיביים יותר נוטים לנוע לכיוון המרכז, ואילו כוכבים קלי משקל נעים לפריפריה.</p><p><strong>דוגמה:</strong> בתמונות צביר ההרקולס הכדורי (M13), ניתן להבחין שהמרכז צפוף מאוד בכוכבים בהירים ומסיביים, ואילו ה"הילה" החיצונית מורכבת מכוכבים קטנים ועמומים.</p>`
     },
     {
         title: "Turn-off Point",
@@ -1799,6 +1973,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The point on a Hertzsprung–Russell diagram where stars of a certain mass begin to leave the main sequence and become red giants.</p>
             <p><strong>Example:</strong> By measuring the "color" of the stars just beginning to turn red in M13, astronomers can calculate that the cluster is approximately 11.6 billion years old.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> נקודת פרישה היא הנקודה בתרשים HR שבה כוכבים בעלי מסה מסוימת מתחילים לעזוב את הסדרה הראשית ולהפוך לגיגיות אדומות.</p><p><strong>דוגמה:</strong> על ידי מדידת צבע הכוכבים שמתחילים להאדים ב-M13, אסטרונומים חישבו שהצביר בן כ-11.6 מיליארד שנה.</p>`
     },
     {
         title: "Core Collapse",
@@ -1809,6 +1984,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A stage in the evolution of a globular cluster where the central density becomes so high that stars begin to interact gravitationally, often leading to the formation of binary stars or "Blue Stragglers."</p>
             <p><strong>Example:</strong> M15 or M30 are "core-collapsed" clusters. In your high-resolution shots, their centers look like a singular, solid point of light rather than individual stars.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> קריסת ליבה היא שלב באבולוציה של צביר כדורי שבו הצפיפות המרכזית הופכת כה גבוהה שכוכבים מתחילים לקיים אינטראקציה גרביטציונית ולעתים יוצרים כוכבים כפולים או מאחרים כחולים.</p><p><strong>דוגמה:</strong> M15 ו-M30 הם צבירים קרוסי ליבה. בצילומים ברזולוציה גבוהה, מרכזיהם נראים כנקודת אור אחת מוצקה ולא ככוכבים בודדים.</p>`
     },
     {
         title: "Open Cluster (Galactic Cluster)",
@@ -1819,6 +1995,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A loosely bound group of up to a few thousand stars that were formed from the same giant molecular cloud and are roughly the same age.</p>
             <p><strong>Example:</strong> The Pleiades (M45) is an open cluster. Unlike globular clusters, these stars will eventually drift apart over millions of years as they orbit the galactic center.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> אשכול פתוח (גלקטי) הוא קבוצה קשורה רופפת של עד כמה אלפי כוכבים שנוצרו מאותו ענן מולקולרי ענק ובעלי גיל דומה.</p><p><strong>דוגמה:</strong> הפלאיאדות (M45) הן אשכול פתוח. שלא כמו צבירים כדוליים, כוכבים אלה יתפזרו בסופו של דבר לאחר מיליוני שנים בהקיפם את מרכז הגלקסיה.</p>`
     },
     {
         title: "Albedo",
@@ -1829,6 +2006,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The measure of the reflectivity of a celestial body's surface. A value of 0 is perfectly black; 1.0 is perfectly reflective.</p>
             <p><strong>Example:</strong> Enceladus (moon of Saturn) has an albedo of nearly 0.9 (ice), while our Moon has an albedo of only 0.12 (dark rock). This is why the Moon looks "gray" even though it is hit by full sunlight.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> אלבדו הוא מדד הרפלקטיביות של פני שטח של גוף שמימי. ערך 0 הוא שחור לחלוטין; 1.0 הוא מחזיר לחלוטין.</p><p><strong>דוגמה:</strong> לאנקלדוס (ירח שבתאי) אלבדו של כמעט 0.9 (קרח), ואילו לירח שלנו אלבדו של 0.12 בלבד (סלע כהה). לכן הירח נראה אפור למרות שהוא מואר לחלוטין על ידי השמש.</p>`
     },
     {
         title: "The Terminator",
@@ -1839,6 +2017,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The dividing line between the illuminated (day) and dark (night) sides of a planetary body or moon.</p>
             <p><strong>Example:</strong> The best time to photograph the Moon's craters is along the Terminator, where long shadows provide maximum contrast and a 3D appearance.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> הטרמינטור הוא קו הגבול בין הצד המואר (יום) לצד האפל (לילה) של גוף שמימי או ירח.</p><p><strong>דוגמה:</strong> הזמן הטוב ביותר לצלם מכתשי הירח הוא לאורך הטרמינטור, שבו צלליות ארוכות מספקות ניגוד מרבי ומראה תלת-ממדי.</p>`
     },
     {
         title: "Limb Darkening",
@@ -1849,6 +2028,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> An optical effect where the center of a star or planet appears brighter than the edge (limb).</p>
             <p><strong>Example:</strong> In your solar or Jupiter images, the edges appear "darker" because you are looking through a thicker layer of the atmosphere at an angle, whereas in the center, you are looking straight down into the hotter/brighter layers.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> החשכת שפה היא אפקט אופטי שבו מרכז כוכב או כוכב לכת נראה בהיר יותר מהקצה (השפה).</p><p><strong>דוגמה:</strong> בתמונות השמש או צדק שלך, הקצוות נראים כהים יותר כי מסתכלים דרך שכבת אטמוספרה עבה יותר בזווית, בעוד שבמרכז מסתכלים ישר אל השכבות החמות יותר.</p>`
     },
     {
         title: "Phase Angle",
@@ -1859,6 +2039,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The angle between the Sun and the observer as seen from the target (Sun-Target-Observer).</p>
             <p><strong>Example:</strong> When you photograph Venus, the Phase Angle determines if you see a "Crescent Venus" or a "Full Venus."</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> זווית פאזה היא הזווית בין השמש והמתבונן כפי שנראית מהמטרה (שמש-מטרה-מתבונן). היא קובעת את שלב ההארה של הגוף.</p><p><strong>דוגמה:</strong> בצילום נוגה, זווית הפאזה קובעת אם רואים נוגה הדומה לסהר או נוגה מלא.</p>`
     },
     {
         title: "Poisson Noise (Shot Noise)",
@@ -1869,6 +2050,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> Noise that arises from the discrete nature of light (photons). Since photons arrive at random intervals, there is a statistical uncertainty in the count.</p>
             <p><strong>Example:</strong> Shot Noise is the primary noise source in bright parts of an image (like the core of a nebula). The only way to "beat" it is to collect more photons (longer integration).</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> רעש פואסון (רעש ירי) הוא רעש הנובע מהאופי הבדידי של האור (פוטונים). מכיוון שפוטונים מגיעים בפרקי זמן אקראיים, קיימת אי-ודאות סטטיסטית בספירה.</p><p><strong>דוגמה:</strong> רעש ירי הוא מקור הרעש העיקרי בחלקים הבהירים של תמונה (כמו ליבת ערפילית). הדרך היחידה להתמודד אתו היא לאסוף יותר פוטונים (זמן אינטגרציה ארוך יותר).</p>`
     },
     {
         title: "Gaussian Noise (Electronic Noise)",
@@ -1879,6 +2061,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> Noise that follows a normal distribution (bell curve), typically caused by the camera's electronics and read-out process.</p>
             <p><strong>Example:</strong> Gaussian Noise is most visible in the dark background of your Hercules Galaxy Cluster shots. Stacking multiple frames averages this noise toward zero.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> רעש גאוסי (אלקטרוני) הוא רעש העוקב אחר התפלגות נורמלית (עקומת פעמון), הנגרם בדרך כלל על ידי אלקטרוניקת המצלמה ותהליך הקריאה.</p><p><strong>דוגמה:</strong> רעש גאוסי בולט ביותר ברקע הכהה של תמונות אשכול גלקסיות הרקולס. ערימת פריימים מרובים ממוצעת רעש זה לכיוון אפס.</p>`
     },
     {
         title: "Standard Deviation ($\\sigma$)",
@@ -1889,6 +2072,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A measure of the amount of variation or dispersion of a set of pixel values.</p>
             <p><strong>Example:</strong> In PixInsight's "Statistics" process, a high Standard Deviation in a dark area usually indicates that your image is very noisy.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> סטיית תקן (sigma) היא מדד לכמות השונות או הפיזור של סדרת ערכי פיקסל ביחס לממוצע שלה.</p><p><strong>דוגמה:</strong> בתהליך Statistics של PixInsight, סטיית תקן גבוהה באזור כהה מצביעה בדרך כלל על תמונה רועשת מאוד.</p>`
     },
     {
         title: "Bias Offset",
@@ -1899,6 +2083,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A constant value added to every pixel by the camera manufacturer to ensure that noise doesn't result in "negative" numbers, which would break the math of processing software.</p>
             <p><strong>Example:</strong> If your ASI2600 has a Bias Offset of 100, a completely black pixel will still show a value of 100 in the raw data.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> היסט הטיה (Bias Offset) הוא ערך קבוע שהיצרן מוסיף לכל פיקסל כדי להבטיח שרעש לא יגרום ל"מספרים שליליים" שישברו את מתמטיקת תוכנת העיבוד.</p><p><strong>דוגמה:</strong> אם ל-ASI2600 יש Bias Offset של 100, פיקסל שחור לחלוטין עדיין יראה ערך של 100 בנתון הגולמי.</p>`
     },
     {
         title: "Strehl Ratio",
@@ -1909,6 +2094,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A measure of the optical quality of a telescope. It compares the peak intensity of a star's image to the theoretical maximum of a perfect lens. 1.0 is a perfect lens.</p>
             <p><strong>Example:</strong> A high-end refractor like the FLT132 usually has a Strehl Ratio of 0.95 or higher, meaning it produces incredibly sharp, pinpoint stars.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> יחס שטרל הוא מדד לאיכות האופטית של טלסקופ. הוא משווה את עוצמת השיא של תמונת כוכב לתיאורטי המקסימלי של עדשה מושלמת (1.0 = מושלם).</p><p><strong>דוגמה:</strong> רפרקטור איכותי כמו FLT132 מגיע בדרך כלל ליחס שטרל של 0.95 ומעלה, ומייצר כוכבים חדים ונקודתיים ביותר.</p>`
     },
     {
         title: "Airy Disk",
@@ -1919,6 +2105,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The central bright spot of a star's image as seen through a telescope, surrounded by faint concentric rings caused by the diffraction of light.</p>
             <p><strong>Example:</strong> Because of the Airy Disk, stars can never be "infinitely small" points; they will always have a minimum size determined by the telescope's aperture ($D$).</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> דיסקת אירי היא הכתם המרכזי הבהיר בתמונת הכוכב בטלסקופ, המוקפת בטבעות עקיפה עמומות. היא מוגדרת על ידי עקיפת אור (Diffraction) ומהווה את הגבול הפיזי לחדות הטלסקופ.</p><p><strong>דוגמה:</strong> בשל דיסקת אירי, הכוכבים לעולם אינם נקודות "אינסוף" קטנות; תמיד יהיה להם גודל מינימלי הנקבע על ידי פתח העדשה (D).</p>`
     },
     {
         title: "Roche Lobe",
@@ -1929,6 +2116,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The teardrop-shaped region around a star in a binary system within which orbiting material is gravitationally bound to that star.</p>
             <p><strong>Example:</strong> In a close binary system, if one star expands into a Red Giant, it may fill its Roche Lobe, causing its outer gas to spill over onto its companion star.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> אונת רוש היא האזור בצורת טיפה סביב כוכב במערכת כוכב כפול שבתוכו חומר מוקף גרביטציונית לאותו כוכב.</p><p><strong>דוגמה:</strong> במערכת כוכב כפול קרובה, אם כוכב מתרחב להיות גיגית אדומה ומגיע לגודל אונת רוש, הגז החיצוני שלו עשוי לגלוש אל הכוכב הלוויין.</p>`
     },
     {
         title: "Accretion Disk",
@@ -1939,6 +2127,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A structure (often a disk) formed by diffused material in orbital motion around a massive central body, typically a star or black hole.</p>
             <p><strong>Example:</strong> In a Cataclysmic Variable star system, gas from the companion star forms an Accretion Disk around the white dwarf, which can glow brightly in your images.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> דיסקת צבירה היא מבנה (לרוב דיסקה) הנוצר מחומר מסתובב בתנועה מסלולית סביב גוף מסיבי מרכזי, כגון כוכב או חור שחור.</p><p><strong>דוגמה:</strong> במערכת כוכב משתנה קטקליזמי, גז מהכוכב הלוויין יוצר דיסקת צבירה סביב הננס הלבן, שיכולה לזהור בבהירות בתמונות שלך.</p>`
     },
     {
         title: "Common Envelope Phase",
@@ -1949,6 +2138,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A short-lived phase in the evolution of a binary star where both stars become engulfed by a single, large cloud of gas.</p>
             <p><strong>Example:</strong> This violent process can lead to the formation of a Planetary Nebula with a highly asymmetrical shape, like the "wings" seen in the Butterfly Nebula.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> שלב מעטפה משותפת הוא שלב קצר באבולוציה של כוכב כפול שבו שני הכוכבים בולועים על ידי ענן גז בודד גדול.</p><p><strong>דוגמה:</strong> תהליך אלים זה יכול להוביל ליצירת ערפילית פלנטרית עם צורה א-סימטרית מאוד, כמו ה"כנפיים" הנראות בערפילית הפרפר.</p>`
     },
     {
         title: "Aperture Photometry",
@@ -1959,6 +2149,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A method of measuring the light from a star by summing the pixel values within a circular "aperture" and subtracting the average background light.</p>
             <p><strong>Example:</strong> Using software like AAVSO VPhot, you can perform Aperture Photometry on your images of a variable star to create a "Light Curve" showing its changes in brightness over time.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> פוטומטריית צמצם היא שיטה למדידת האור מכוכב על ידי סיכום ערכי הפיקסל בתוך "צמצם" מעגלי וחיסור אור הרקע הממוצע.</p><p><strong>דוגמה:</strong> בשימוש בתוכנה כמו AAVSO VPhot, ניתן לבצע פוטומטריית צמצם על תמונות של כוכב משתנה ולייצר עקומת אור המראה שינויי בהירות לאורך זמן.</p>`
     },
     {
         title: "Differential Photometry",
@@ -1969,6 +2160,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> Measuring the brightness of a target star by comparing it to several "reference stars" of known, constant brightness in the same image.</p>
             <p><strong>Example:</strong> This is the most accurate way for amateurs to detect Exoplanet Transits, as it cancels out changes in sky transparency or thin clouds during the night.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> פוטומטריה דיפרנציאלית היא מדידת בהירות כוכב מטרה על ידי השוואתו לכמה כוכבי "ייחוס" בעלי בהירות קבועה ידועה באותה תמונה.</p><p><strong>דוגמה:</strong> זוהי הדרך המדויקת ביותר לחובבים לזהות מעברי כוכבי לכת חוץ-שמשיים, כי היא מבטלת שינויים בשקיפות השמיים או בעננים דקים במהלך הלילה.</p>`
     },
     {
         title: "Full Width at Tenth Maximum (FWTM)",
@@ -1979,6 +2171,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> Similar to FWHM, but measured at 10% of the star's peak brightness. It is used to analyze the "wings" or halos of a star's profile.</p>
             <p><strong>Example:</strong> If your FWTM is very high compared to your FWHM, it indicates that your FLT132 may have slight spherical aberration or internal reflections.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> FWTM דומה ל-FWHM, אך נמדד ב-10% מבהירות השיא של הכוכב. הוא משמש לניתוח "הכנפיים" או ההילות של פרופיל הכוכב.</p><p><strong>דוגמה:</strong> אם ה-FWTM שלך גבוה מאוד ביחס ל-FWHM, זה מצביע ש-FLT132 שלך עלול לסבול מסטייה כדורית קלה או מהחזרות פנימיות.</p>`
     },
     {
         title: "Conditional Logic (iif statements)",
@@ -1989,6 +2182,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A programming function in PixelMath that performs an action only if a specific condition is met (e.g., "If the pixel is brighter than X, do Y").</p>
             <p><strong>Example:</strong> You can use an iif statement to replace only the blown-out core of the Orion Nebula with data from a shorter exposure: iif($T > 0.8, short_exp, $T).</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> לוגיקה מותנית (פקודות iif) היא פונקציה תכנותית ב-PixelMath של PixInsight המבצעת פעולה רק אם תנאי ספציפי מתקיים (כגון "אם הפיקסל בהיר מ-X, בצע Y").</p><p><strong>דוגמה:</strong> ניתן להשתמש בפקודת iif להחלפת ליבת ערפילית אוריון השרופה בנתוני חשיפה קצרה: iif($T > 0.8, short_exp, $T).</p>`
     },
     {
         title: "Masked Integration",
@@ -1999,6 +2193,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> Combining images using a weight map that tells the software which parts of which frames are the highest quality.</p>
             <p><strong>Example:</strong> If a satellite trail passed through one corner of a frame, Masked Integration can use the "good" data from other frames to fill in that specific area seamlessly.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> אינטגרציה עם מסכה היא שילוב תמונות באמצעות מפת משקולות המורה לתוכנה אילו חלקים של אילו פריימים הם הטובים ביותר.</p><p><strong>דוגמה:</strong> אם עקב לוויין עבר בפינה אחת של פריים, אינטגרציה עם מסכה יכולה להשתמש בנתונים הטובים מפריימים אחרים למילוי האזור הספציפי הזה בצורה חלקה.</p>`
     },
     {
         title: "Rescale Function",
@@ -2009,6 +2204,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A mathematical operation that takes an image's brightness values and "stretches" or "squeezes" them to fit exactly between 0 and 1.</p>
             <p><strong>Example:</strong> After performing complex math on your Tadpole Nebula data, you use Rescale to ensure the file is valid and no data is "clipped" before saving.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> פונקציית שינוי קנה מידה (Rescale) היא פעולה מתמטית שלוקחת ערכי בהירות של תמונה ו"מותחת" או "מכווצת" אותם כך שיתאימו בדיוק בין 0 ל-1.</p><p><strong>דוגמה:</strong> לאחר ביצוע מתמטיקה מורכבת על נתוני ערפילית הטאדפול, משתמשים ב-Rescale כדי להבטיח שהקובץ תקין ואין נתונים "גזורים" לפני שמירה.</p>`
     },
     {
         title: "Heliocentric Julian Date (HJD)",
@@ -2019,6 +2215,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A time standard that corrects the time an observation was made to the center of the Sun, accounting for the Earth's position in its orbit.</p>
             <p><strong>Example:</strong> If you submit observations of a variable star to a scientific database, you must convert your local time to HJD so other astronomers can compare their data with yours.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> תאריך יוליאני הליוצנטרי (HJD) הוא תקן זמן שמתקן את זמן התצפית למרכז השמש, ומפצה על מיקום כדור הארץ במסלולו.</p><p><strong>דוגמה:</strong> אם מגישים תצפיות על כוכב משתנה למסד נתונים מדעי, יש להמיר את השעה המקומית ל-HJD כדי שאסטרונומים אחרים יוכלו להשוות את הנתונים שלהם עם שלך.</p>`
     },
     {
         title: "Great Attractor",
@@ -2029,6 +2226,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A gravitational anomaly in intergalactic space and the apparent central gravitational point of the Laniakea Supercluster.</p>
             <p><strong>Example:</strong> While we photograph the Hercules Galaxy Cluster, it (and our own Milky Way) is actually being pulled toward the Great Attractor at millions of miles per hour.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> המושך הגדול הוא אנומליה גרביטציונית במרחב הבין-גלקטי והנקודה הגרביטציונית המרכזית לכאורה של על-אשכול לאניאקאה.</p><p><strong>דוגמה:</strong> בעוד שאנו מצלמים את אשכול גלקסיות הרקולס, הוא (ושביל החלב שלנו) נמשכים בפועל לעבר המושך הגדול במהירות של מיליוני קילומטרים לשעה.</p>`
     },
     {
         title: "Lyman-alpha Forest",
@@ -2039,6 +2237,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A series of absorption lines in the spectra of distant galaxies and quasars caused by clouds of neutral hydrogen gas in the early universe.</p>
             <p><strong>Example:</strong> This is "Deep Time" photography. When you capture a Quasar billions of light-years away, its light contains the history of all the gas it passed through on its way to your sensor.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> יער ליימן-אלפא הוא סדרה של קווי ספיגה בספקטרום של גלקסיות וקוורים רחוקים, הנגרמת על ידי ענני מימן ניטרלי ביקום הקדום.</p><p><strong>דוגמה:</strong> זהו צילום "זמן עמוק". בצילום קוור רחוק מיליארדי שנות אור, האור שלו מכיל בתוכו את ההיסטוריה של כל הגז שחצה בדרכו לחיישן שלך.</p>`
     },
     {
         title: "Salt and Pepper Noise",
@@ -2049,6 +2248,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A form of noise typically seen in images where pixels are randomly either fully white or fully black, often caused by sharp transmission errors or hot pixels.</p>
             <p><strong>Example:</strong> Effective Dark Frame calibration and Dithering are the two primary tools used to kill Salt and Pepper Noise in your stacks.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> רעש מלח ופלפל הוא סוג רעש שבו פיקסלים הם באקראי לבנים מלאים או שחורים מלאים, לרוב הנגרם על ידי hot pixels חדים או שגיאות העברה.</p><p><strong>דוגמה:</strong> כיול פריים חשוך אפקטיבי וניתור (Dithering) הם שני הכלים העיקריים לביטול רעש מלח ופלפל בערימות שלך.</p>`
     },
     {
         title: "Interpolation Error",
@@ -2059,6 +2259,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> An artifact caused when rotating or scaling an image, where the software has to "guess" the value of a pixel that doesn't align perfectly with the original grid.</p>
             <p><strong>Example:</strong> Using high-quality algorithms like Lanczos or Bicubic during the registration of your Leo Triplet images helps prevent this "smearing" effect.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> שגיאת אינטרפולציה היא ארטיפקט הנגרם בעת סיבוב או שינוי קנה מידה של תמונה, כאשר התוכנה חייבת "לנחש" את ערך הפיקסל שאינו נמצא בדיוק על הרשת המקורית.</p><p><strong>דוגמה:</strong> שימוש באלגוריתמים איכותיים כמו Lanczos או Bicubic בעת רישום תמונות טריו האריה מסייע למנוע אפקט ה"טשטוש" הזה.</p>`
     },
     {
         title: "Optical Axis",
@@ -2069,6 +2270,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The imaginary line that passes through the exact center of every lens and mirror in your telescope.</p>
             <p><strong>Example:</strong> If your AP MACH 2 mount and your FLT132 telescope aren't perfectly aligned with this Optical Axis, you will experience "Cone Error."</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> הציר האופטי הוא הקו הדמיוני העובר דרך המרכז המדויק של כל עדשה ומראה בטלסקופ. כל רכיב בנתיב האור חייב להיות מיושר לציר זה.</p><p><strong>דוגמה:</strong> אם חצובת AP MACH 2 וטלסקופ FLT132 אינם מיושרים לחלוטין לציר האופטי, תחווה שגיאת קונוס.</p>`
     },
     {
         title: "Nyquist Sampling Theorem",
@@ -2079,6 +2281,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> A rule stating that to resolve a certain detail, you must sample it at least twice as frequently as the detail's size.</p>
             <p><strong>Example:</strong> This is the math behind choosing your camera. If your "Seeing" is 2", you should aim for an Image Scale of roughly 1.0" per pixel to satisfy the Nyquist requirement.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> משפט דגימת ניקוויסט קובע שכדי לפתור פרט מסוים, יש לדגום אותו בתדירות גבוהה פי שניים לפחות מגודל הפרט.</p><p><strong>דוגמה:</strong> זהו הבסיס המתמטי לבחירת מצלמה: אם הראייה (Seeing) היא 2 ארקסק, יש לשאוף לסקלת תמונה של כ-1.0 ארקסק לפיקסל כדי לקיים את דרישת ניקוויסט.</p>`
     },
     {
         title: "Wavelength ($\\lambda$)",
@@ -2089,6 +2292,7 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The distance between successive crests of a light wave.</p>
             <p><strong>Example:</strong> Different colors have different Wavelengths. H-alpha is 656.3nm (long/red), while OIII is 500.7nm (shorter/blue-green).</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> אורך גל הוא המרחק בין שתי פסגות עוקבות של גל אור. צבעים שונים מקבילים לאורכי גל שונים.</p><p><strong>דוגמה:</strong> לצבעים שונים אורכי גל שונים - H-alpha הוא 656.3nm (ארוך/אדום), ואילו OIII הוא 500.7nm (קצר יותר/ירוק-כחול).</p>`
     },
     {
         title: "Photosphere",
@@ -2099,5 +2303,6 @@ const GLOSSARY_ITEMS = [
             <p><strong>Definition:</strong> The luminous "surface" of the Sun that we see in white-light filters.</p>
             <p><strong>Example:</strong> When using a Baader Solar Film on your telescope, you are photographing the Photosphere, including sunspots and granulation.</p>
         `
+        content_he: `<p><strong>הגדרה:</strong> הפוטוספרה היא ה"פני השטח" הזוהר של השמש שאנו רואים בפילטרי אור-לבן. זוהי השכבה שממנה מוקרן רוב האור הנראה של השמש.</p><p><strong>דוגמה:</strong> בשימוש בסרט סולארי Baader על הטלסקופ שלך, אתה מצלם את הפוטוספרה, כולל כתמי שמש וגרנולציה.</p>`
     }
 ];
