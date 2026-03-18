@@ -2477,13 +2477,22 @@ function renderGlossary() {
   container.innerHTML = '';
   navContainer.innerHTML = '';
 
-  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  const alphabet = isHe
+    ? ['א','ב','ג','ד','ה','ו','ז','ח','ט','י','כ','ל','מ','נ','ס','ע','פ','צ','ק','ר','ש','ת']
+    : 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+
+  // In Hebrew mode sort by Hebrew title; English mode already sorted
+  const items = isHe
+    ? [...masterList].sort((a, b) => (a.title_he || a.title).localeCompare(b.title_he || b.title, 'he'))
+    : masterList;
+
   let currentLetter = '';
   const activeLetters = new Set();
 
-  masterList.forEach(item => {
-    // A-Z grouping always by English title
-    let firstChar = item.title.charAt(0).toUpperCase();
+  items.forEach(item => {
+    const sortTitle = isHe ? (item.title_he || item.title) : item.title;
+    let firstChar = sortTitle.charAt(0);
+    if (!isHe) firstChar = firstChar.toUpperCase();
     if (!alphabet.includes(firstChar)) firstChar = '#';
     activeLetters.add(firstChar);
 
