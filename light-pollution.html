@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://dsoimage.com/light-pollution.html" rel="canonical"/>
+<title>Light Pollution Map — DSOImage</title>
+<meta name="description" content="Interactive light pollution map using VIIRS satellite data. Click any location to get Bortle class and Sky Quality Meter (SQM) values for astrophotography planning."/>
+<meta name="keywords" content="Light Pollution Map, Bortle Scale, SQM Sky Quality Meter, VIIRS Night Lights, Dark Sky Sites, Astrophotography Planning, Shimon Avitan, DSOImage"/>
+<meta property="og:title" content="Light Pollution Map — DSOImage"/>
+<meta property="og:description" content="Find the darkest skies near you. VIIRS-based global light pollution map with Bortle class and SQM readings on click."/>
+<meta property="og:image" content="https://dsoimage.com/images/preview/HorseHead_Flame_Nebula.jpg"/>
+<meta property="og:url" content="https://dsoimage.com/light-pollution.html"/>
+<meta property="og:type" content="website"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Light Pollution Map — DSOImage"/>
+<meta name="twitter:description" content="Find the darkest skies near you. VIIRS-based global light pollution map with Bortle class and SQM readings on click."/>
+<meta name="twitter:image" content="https://dsoimage.com/images/preview/HorseHead_Flame_Nebula.jpg"/>
+<link rel="alternate" hreflang="en" href="https://dsoimage.com/light-pollution.html"/>
+<link rel="alternate" hreflang="he" href="https://dsoimage.com/light-pollution.html"/>
+<link rel="alternate" hreflang="x-default" href="https://dsoimage.com/light-pollution.html"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="css/style.css?v=124" rel="stylesheet"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<style>
+#lp-map {
+    width: 100%;
+    height: 68vh;
+    min-height: 360px;
+    border-radius: 12px;
+    border: 1px solid #333;
+    margin-top: 16px;
+    background: #0a0a0a;
+}
+#lp-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+    margin: 14px 0 0 0;
+    padding: 12px 16px;
+    background: #111;
+    border: 1px solid #2a2a2a;
+    border-radius: 10px;
+}
+#lp-controls label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #aaa;
+    font-size: 13px;
+    white-space: nowrap;
+}
+#lp-opacity {
+    width: 90px;
+    accent-color: #FFAB40;
+    cursor: pointer;
+}
+.lp-btn {
+    background: transparent;
+    border: 1px solid #444;
+    color: #ccc;
+    padding: 5px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: border-color 0.2s, color 0.2s;
+}
+.lp-btn:hover { border-color: #FFAB40; color: #FFAB40; }
+.lp-btn.active { border-color: #FFAB40; color: #FFAB40; background: rgba(255,171,64,0.08); }
+#lp-hint {
+    font-size: 12px;
+    color: #555;
+    margin-left: auto;
+    white-space: nowrap;
+}
+/* Bortle legend */
+#bortle-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 14px;
+    padding: 12px 16px;
+    background: #111;
+    border: 1px solid #2a2a2a;
+    border-radius: 10px;
+}
+.bl-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: #aaa;
+    cursor: default;
+    padding: 3px 7px;
+    border-radius: 5px;
+    border: 1px solid #1e1e1e;
+    transition: border-color 0.15s;
+}
+.bl-item:hover { border-color: #444; color: #eee; }
+.bl-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    border: 1px solid rgba(255,255,255,0.15);
+}
+/* Popup styling */
+.lp-popup .leaflet-popup-content-wrapper {
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 10px;
+    color: #eee;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+    min-width: 220px;
+}
+.lp-popup .leaflet-popup-tip { background: #111; }
+.lp-popup .leaflet-popup-content { margin: 14px 16px; }
+.lp-result-title {
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.lp-result-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #aaa;
+    padding: 3px 0;
+    border-bottom: 1px solid #1e1e1e;
+}
+.lp-result-row:last-child { border-bottom: none; }
+.lp-result-val { color: #eee; font-weight: bold; }
+.lp-bortle-badge {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 22px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000;
+    flex-shrink: 0;
+}
+.lp-result-desc {
+    font-size: 11px;
+    color: #888;
+    margin-top: 8px;
+    line-height: 1.5;
+}
+@media (max-width: 600px) {
+    #lp-map { height: 55vh; min-height: 280px; }
+    #lp-hint { display: none; }
+    #lp-controls { gap: 10px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <header class="topbar">
+        <div class="topbar-logo"><a href="index.html">Imaging <span class="red">D</span>eep <span class="green">S</span>ky <span class="blue">O</span>bject</a></div>
+    </header>
+    <div class="overlay" hidden="" id="overlay"></div>
+    <nav aria-label="Site menu" class="top-nav" id="top-nav">
+        <div class="top-nav-container">
+            <div class="top-nav-logo"><a href="index.html">Imaging <span class="red">D</span>eep <span class="green">S</span>ky <span class="blue">O</span>bject</a></div>
+            <ul class="top-nav-links" id="top-nav-links">
+                <li><a data-i18n="menu_home" href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li class="dropdown">
+                    <a class="dropbtn" href="javascript:void(0)" data-i18n="menu_galleries"><i class="fa-solid fa-images"></i> My Galleries ▾</a>
+                    <div class="dropdown-content">
+                        <a data-i18n="menu_galaxies" href="galaxies.html"><i class="fa-solid fa-hurricane"></i> Galaxies</a>
+                        <a data-i18n="menu_nebulae" href="nebulae.html"><i class="fa-solid fa-smog"></i> Nebulae</a>
+                        <a data-i18n="menu_clusters" href="clusters.html"><i class="fa-solid fa-certificate"></i> Star Clusters</a>
+                        <a data-i18n="menu_onsite" href="on-site-photos.html"><i class="fa-solid fa-camera"></i> On-site photos</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a class="dropbtn" href="javascript:void(0)" data-i18n="menu_resources"><i class="fa-solid fa-book"></i> Resources ▾</a>
+                    <div class="dropdown-content">
+                        <a data-i18n="menu_catalog" href="catalog-explorer.html"><i class="fa-solid fa-magnifying-glass-chart"></i> Catalog Explorer</a>
+                        <a data-i18n="menu_knowledge" href="knowledge.html"><i class="fa-solid fa-book-open"></i> Knowledge Base</a>
+                        <a data-i18n="menu_processing" href="processing.html"><i class="fa-solid fa-laptop-code"></i> Processing</a>
+                        <a data-i18n="menu_equipment" href="equipment.html"><i class="fa-solid fa-camera-retro"></i> Equipment</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a class="dropbtn" href="javascript:void(0)" data-i18n="menu_tools"><i class="fa-solid fa-toolbox"></i> Tools ▾</a>
+                    <div class="dropdown-content">
+                        <a data-i18n="menu_planner" href="planner.html"><i class="fa-solid fa-calendar-days"></i> Planned Session</a>
+                        <a data-i18n="menu_altitude" href="sky-altitude.html"><i class="fa-solid fa-chart-line"></i> Altitude Chart</a>
+                        <a data-i18n="menu_checklist" href="checklist.html"><i class="fa-solid fa-check-double"></i> Pre-Flight Checklist</a>
+                        <a data-i18n="menu_tonights" href="tonights_best.html"><i class="fa-solid fa-star"></i> Tonight's Best</a>
+                        <a data-i18n="menu_converter" href="coordinate-converter.html"><i class="fa-solid fa-globe"></i> Coordinate Converter</a>
+                        <a data-i18n="menu_skymap" href="live-sky-map.html"><i class="fa-solid fa-map-location-dot"></i> Live Sky Map (Interactive)</a>
+                        <a data-i18n="menu_apod" href="apod.html"><i class="fa-solid fa-satellite"></i> NASA APOD</a>
+                        <a data-i18n="menu_iss" href="iss.html"><i class="fa-solid fa-rocket"></i> Where is the ISS?</a>
+                        <a data-i18n="menu_lp" href="light-pollution.html" class="active"><i class="fa-solid fa-city"></i> Light Pollution Map</a>
+                        <a data-i18n="menu_weather" href="weather.html"><i class="fa-solid fa-cloud-sun"></i> Weather</a>
+                    </div>
+                </li>
+                <li><a data-i18n="menu_about" href="about.html"><i class="fa-solid fa-user-astronaut"></i> About</a></li>
+                <li><a data-i18n="menu_contact" href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+            </ul>
+            <div class="top-nav-actions">
+                <button class="mode-toggle-btn" id="red-mode-toggle" title="Night Vision"><i class="fa-solid fa-moon"></i></button>
+                <button id="lang-toggle-btn" title="Switch Language" style="background:transparent;border:1px solid #888;color:#ccc;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:13px;font-weight:bold;margin-right:8px;transition:0.2s;">עב</button>
+                <div class="nv-controls" id="nv-container" style="display:none;position:absolute;top:60px;right:20px;background:#111;padding:10px;border:1px solid #333;z-index:2000;border-radius:8px;">
+                    <label data-i18n="nv_dimmer" for="nv-slider" style="font-size:13px;color:#aaa;display:block;margin-bottom:5px;">Dimmer</label>
+                    <input id="nv-slider" max="100" min="20" type="range" value="80"/>
+                </div>
+                <button aria-label="Toggle navigation" id="mobile-nav-toggle" title="Menu">☰</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <h1 style="color:#FFF3E0; font-size:32px;"><i class="fa-solid fa-city"></i> <span data-i18n="lp_title">Light Pollution Map</span></h1>
+        <p class="subtitle" data-i18n="lp_subtitle">Click anywhere on the map to get the Bortle class and Sky Quality Meter (SQM) value for that location. Data: VIIRS / World Atlas 2015.</p>
+
+        <!-- Controls bar -->
+        <div id="lp-controls">
+            <label>
+                <i class="fa-solid fa-layer-group" style="color:#FFAB40;"></i>
+                <span data-i18n="lp_opacity">Overlay</span>
+                <input type="range" id="lp-opacity" min="0" max="100" value="70" title="Overlay opacity"/>
+            </label>
+            <button class="lp-btn active" id="btn-layer-lp" onclick="switchLayer('lp')">
+                <i class="fa-solid fa-smog"></i> <span data-i18n="lp_layer_falchi">Falchi 2016</span>
+            </button>
+            <button class="lp-btn" id="btn-layer-viirs" onclick="switchLayer('viirs')">
+                <i class="fa-solid fa-satellite"></i> <span data-i18n="lp_layer_viirs">VIIRS NASA</span>
+            </button>
+            <button class="lp-btn" id="btn-locate" onclick="locateMe()">
+                <i class="fa-solid fa-location-crosshairs"></i> <span data-i18n="lp_my_location">My Location</span>
+            </button>
+            <span id="lp-hint" data-i18n="lp_hint">Click the map to measure light pollution</span>
+        </div>
+
+        <!-- Map -->
+        <div id="lp-map"></div>
+
+        <!-- Bortle scale legend -->
+        <div id="bortle-legend">
+            <span style="font-size:11px;color:#666;text-transform:uppercase;letter-spacing:0.5px;margin-right:8px;align-self:center;" data-i18n="lp_bortle_scale">Bortle Scale:</span>
+        </div>
+
+        <p style="font-size:11px;color:#444;margin-top:10px;" data-i18n="lp_attribution">
+            Light pollution data: <a href="https://www.lightpollutionmap.info" target="_blank" style="color:#555;">LightPollutionMap.info</a> / Falchi et al. (2016) — World Atlas of Artificial Night Sky Brightness. VIIRS layer: NASA GIBS / NOAA.
+        </p>
+    </main>
+</div>
+
+<div class="lightbox" hidden="" id="lightbox">
+    <span class="close-lightbox">×</span>
+    <img alt="Enlarged view" class="lightbox-content" id="lightbox-img"/>
+    <div id="lightbox-caption"></div>
+    <div id="lightbox-controls"></div>
+</div>
+
+<script src="js/script.js?v=115"></script>
+<script src="js/i18n.js?v=119"></script>
+<script>
+(function () {
+    'use strict';
+
+    // ── Bortle data ──────────────────────────────────────────────────────────
+    const BORTLE = [
+        { b:1, color:'#0a0a14', label:'1 — Excellent Dark Sky',   label_he:'1 — שמיים חשוכים מעולים', sqmMin:21.99, sqmMax:23.0,  desc:'Zodiacal light visible, M33 naked-eye, limiting mag ~7.6–8.0', desc_he:'אור הזודיאק גלוי, M33 נראה בעין עירומה, עצמה גבולית ~7.6–8.0' },
+        { b:2, color:'#0d1a4a', label:'2 — Truly Dark Site',      label_he:'2 — אתר חשוך באמת',       sqmMin:21.89, sqmMax:21.99, desc:'Airglow faintly visible, many Messier objects cast shadows, LM ~7.1–7.5', desc_he:'אור שמיים חלש גלוי, עצמה גבולית ~7.1–7.5' },
+        { b:3, color:'#0d3a7a', label:'3 — Rural Sky',            label_he:'3 — שמיים כפריים',         sqmMin:21.69, sqmMax:21.89, desc:'Light pollution on horizon only, M15/M4/M5 well resolved, LM ~6.6–7.0', desc_he:'זיהום אור באופק בלבד, עצמה גבולית ~6.6–7.0' },
+        { b:4, color:'#1b5e20', label:'4 — Rural/Suburban',       label_he:'4 — כפרי/פרברי',           sqmMin:20.49, sqmMax:21.69, desc:'Milky Way shows structure, some glow above horizon, LM ~6.1–6.5', desc_he:'שביל החלב מפורט, עצמה גבולית ~6.1–6.5' },
+        { b:5, color:'#558b2f', label:'5 — Suburban Sky',         label_he:'5 — שמיים פרבריים',        sqmMin:19.50, sqmMax:20.49, desc:'Milky Way washed out overhead, clouds faintly illuminated, LM ~5.6–6.0', desc_he:'שביל החלב דהוי מעל, עצמה גבולית ~5.6–6.0' },
+        { b:6, color:'#f9a825', label:'6 — Bright Suburban',      label_he:'6 — פרברי בהיר',           sqmMin:18.94, sqmMax:19.50, desc:'Milky Way barely visible, light dome over horizon cities, LM ~5.1–5.5', desc_he:'שביל החלב כמעט בלתי נראה, עצמה גבולית ~5.1–5.5' },
+        { b:7, color:'#e65100', label:'7 — Suburban/Urban',       label_he:'7 — פרברי/עירוני',         sqmMin:18.38, sqmMax:18.94, desc:'Milky Way invisible, M11 barely visible, sky is grey, LM ~4.6–5.0', desc_he:'שביל החלב בלתי נראה, שמיים אפורים, עצמה גבולית ~4.6–5.0' },
+        { b:8, color:'#b71c1c', label:'8 — City Sky',             label_he:'8 — שמיים עירוניים',       sqmMin:17.50, sqmMax:18.38, desc:'Only bright clusters visible, sky orange/white, LM ~4.1–4.5', desc_he:'רק צבירים בהירים גלויים, שמיים כתומים, עצמה גבולית ~4.1–4.5' },
+        { b:9, color:'#eceff1', label:'9 — Inner City Sky',       label_he:'9 — מרכז עירוני',          sqmMin:0,     sqmMax:17.50, desc:'Entire sky orange/white glow, only Pleiades and brightest stars, LM < 4.0', desc_he:'שמיים כתומים לחלוטין, רק הכוכבים הבהירים ביותר, עצמה גבולית < 4.0' },
+    ];
+
+    function sqmToBortle(sqm) {
+        for (const b of BORTLE) {
+            if (sqm >= b.sqmMin) return b;
+        }
+        return BORTLE[8];
+    }
+
+    function t(key, fallback) {
+        return (window.i18nStrings && window.i18nStrings[key]) || fallback;
+    }
+    function isHe() { return (window.currentLang || 'en') === 'he'; }
+
+    // ── Build Bortle legend ──────────────────────────────────────────────────
+    function buildLegend() {
+        const leg = document.getElementById('bortle-legend');
+        leg.innerHTML = `<span style="font-size:11px;color:#666;text-transform:uppercase;letter-spacing:0.5px;margin-right:8px;align-self:center;">${t('lp_bortle_scale','Bortle Scale:')}</span>`;
+        BORTLE.forEach(b => {
+            const item = document.createElement('div');
+            item.className = 'bl-item';
+            item.title = isHe() ? b.desc_he : b.desc;
+            item.innerHTML = `<div class="bl-dot" style="background:${b.color};"></div><span>${b.b}</span>`;
+            leg.appendChild(item);
+        });
+    }
+
+    // ── Map init ─────────────────────────────────────────────────────────────
+    const map = L.map('lp-map', {
+        center: [31.05, 34.85],
+        zoom: 6,
+        zoomControl: true,
+        attributionControl: true,
+        maxZoom: 13,
+        minZoom: 2,
+        preferCanvas: true,   // better mobile perf
+    });
+
+    // Base layer: CartoDB Dark Matter (astronomy-friendly dark theme)
+    const baseDark = L.tileLayer(
+        'https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png',
+        { attribution: '© <a href="https://www.openstreetmap.org/copyright">OSM</a> © <a href="https://carto.com/">CARTO</a>', subdomains:'abcd', maxZoom:19 }
+    );
+    // Labels-only layer on top (always shown)
+    const labels = L.tileLayer(
+        'https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png',
+        { subdomains:'abcd', maxZoom:19, pane:'shadowPane' }
+    );
+
+    baseDark.addTo(map);
+
+    // ── Overlay layers ───────────────────────────────────────────────────────
+    // 1. Falchi 2016 World Atlas (lightpollutionmap.info) — color-coded Bortle
+    const lpOverlay = L.tileLayer(
+        'https://www.lightpollutionmap.info/tiles/world_2015/{z}/{x}/{y}.png',
+        { opacity: 0.70, maxZoom: 13, maxNativeZoom: 11, attribution: '© <a href="https://www.lightpollutionmap.info/">LightPollutionMap.info</a> / Falchi 2016', crossOrigin: '' }
+    );
+
+    // 2. NASA GIBS — VIIRS SNPP Earth at Night composite
+    const viirsOverlay = L.tileLayer(
+        'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_DayNightBand_ENCC/default/2023-01-01/GoogleMapsCompatible/{z}/{y}/{x}.jpg',
+        { opacity: 0.80, maxZoom: 8, attribution: '© <a href="https://earthdata.nasa.gov/">NASA GIBS</a> / NOAA VIIRS', tileSize: 256 }
+    );
+
+    labels.addTo(map);
+    lpOverlay.addTo(map);
+    let activeOverlay = lpOverlay;
+    let activeLayerKey = 'lp';
+
+    // ── Layer switcher ───────────────────────────────────────────────────────
+    window.switchLayer = function(key) {
+        if (key === activeLayerKey) return;
+        map.removeLayer(activeOverlay);
+        if (key === 'viirs') {
+            activeOverlay = viirsOverlay;
+        } else {
+            activeOverlay = lpOverlay;
+        }
+        activeOverlay.addTo(map);
+        activeOverlay.setOpacity(document.getElementById('lp-opacity').value / 100);
+        activeLayerKey = key;
+        document.getElementById('btn-layer-lp').classList.toggle('active', key === 'lp');
+        document.getElementById('btn-layer-viirs').classList.toggle('active', key === 'viirs');
+    };
+
+    // ── Opacity slider ───────────────────────────────────────────────────────
+    document.getElementById('lp-opacity').addEventListener('input', function() {
+        activeOverlay.setOpacity(this.value / 100);
+    });
+
+    // ── Locate me ────────────────────────────────────────────────────────────
+    window.locateMe = function() {
+        const btn = document.getElementById('btn-locate');
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i>';
+        map.locate({ setView: true, maxZoom: 9, timeout: 8000 });
+        map.once('locationfound', (e) => {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i> <span>' + t('lp_my_location','My Location') + '</span>';
+            queryLP(e.latlng);
+        });
+        map.once('locationerror', () => {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i> <span>' + t('lp_my_location','My Location') + '</span>';
+        });
+    };
+
+    // ── Geolocate on load via ipapi (same pattern as rest of site) ──────────
+    (async () => {
+        try {
+            const ctrl = new AbortController();
+            const tid = setTimeout(() => ctrl.abort(), 3000);
+            const r = await fetch('https://ipapi.co/json/', { signal: ctrl.signal });
+            clearTimeout(tid);
+            if (r.ok) {
+                const g = await r.json();
+                if (g.latitude && g.longitude) {
+                    map.setView([g.latitude, g.longitude], 8);
+                }
+            }
+        } catch(e) {}
+    })();
+
+    // ── Click handler — query SQM/Bortle ────────────────────────────────────
+    let popup = null;
+
+    async function queryLP(latlng) {
+        const lat = latlng.lat.toFixed(6);
+        const lng = latlng.lng.toFixed(6);
+
+        // Show loading popup immediately
+        if (popup) map.closePopup(popup);
+        popup = L.popup({ className: 'lp-popup', maxWidth: 280, autoPanPaddingTopLeft: [10,10], autoPanPaddingBottomRight: [10,60] })
+            .setLatLng(latlng)
+            .setContent(`<div class="lp-result-title"><i class="fa-solid fa-circle-notch fa-spin" style="color:#FFAB40;"></i> ${t('lp_loading','Querying...')}</div>`)
+            .openOn(map);
+
+        try {
+            // Query lightpollutionmap.info World Atlas 2015 endpoint
+            const url = `https://www.lightpollutionmap.info/query.php?ql=wa2015&qt=point&lon=${lng}&lat=${lat}`;
+            const res = await fetch(url, { signal: AbortSignal.timeout(6000) });
+
+            if (!res.ok) throw new Error('API error');
+            const json = await res.json();
+            const sqm = parseFloat(json['1']?.sqm);
+
+            if (isNaN(sqm)) throw new Error('No data');
+
+            const bEntry  = sqmToBortle(sqm);
+            const bortle  = bEntry.b;
+            const bLabel  = isHe() ? bEntry.label_he : bEntry.label;
+            const bDesc   = isHe() ? bEntry.desc_he  : bEntry.desc;
+            // Brightness in artificial sky luminance (mcd/m²)
+            const brtRaw  = json['1']?.brightness;
+            const brtStr  = brtRaw != null ? parseFloat(brtRaw).toFixed(3) + ' mcd/m²' : '—';
+            // Text color (dark bg for light badges)
+            const textCol = (bortle >= 9) ? '#111' : '#fff';
+
+            popup.setContent(`
+                <div class="lp-result-title">
+                    <div class="lp-bortle-badge" style="background:${bEntry.color};color:${textCol};">${bortle}</div>
+                    <span>${bLabel}</span>
+                </div>
+                <div class="lp-result-row">
+                    <span>SQM</span>
+                    <span class="lp-result-val">${sqm.toFixed(2)} mag/arcsec²</span>
+                </div>
+                <div class="lp-result-row">
+                    <span>${t('lp_artificial_brightness','Artif. Brightness')}</span>
+                    <span class="lp-result-val">${brtStr}</span>
+                </div>
+                <div class="lp-result-row">
+                    <span>${t('lp_coords','Coords')}</span>
+                    <span class="lp-result-val">${parseFloat(lat).toFixed(3)}°, ${parseFloat(lng).toFixed(3)}°</span>
+                </div>
+                <div class="lp-result-desc">${bDesc}</div>
+            `);
+
+        } catch(err) {
+            // Fallback: estimate from pixel brightness using canvas
+            const estimated = await estimateFromTile(latlng);
+            if (estimated) {
+                popup.setContent(renderEstimated(estimated, latlng));
+            } else {
+                popup.setContent(`
+                    <div class="lp-result-title" style="color:#e57373;">
+                        <i class="fa-solid fa-triangle-exclamation"></i> ${t('lp_error','Data unavailable')}
+                    </div>
+                    <div class="lp-result-desc">${t('lp_error_desc','Could not retrieve light pollution data. Try visiting lightpollutionmap.info directly.')}</div>
+                    <div class="lp-result-row">
+                        <span>${t('lp_coords','Coords')}</span>
+                        <span class="lp-result-val">${parseFloat(lat).toFixed(3)}°, ${parseFloat(lng).toFixed(3)}°</span>
+                    </div>
+                `);
+            }
+        }
+    }
+
+    // ── Pixel-based fallback (canvas cross-origin read) ──────────────────────
+    async function estimateFromTile(latlng) {
+        if (activeLayerKey !== 'lp') return null;
+        try {
+            const z = Math.min(map.getZoom(), 11);
+            const point = map.project(latlng, z);
+            const tileSize = 256;
+            const tx = Math.floor(point.x / tileSize);
+            const ty = Math.floor(point.y / tileSize);
+            const px = Math.floor(point.x % tileSize);
+            const py = Math.floor(point.y % tileSize);
+            const url = `https://www.lightpollutionmap.info/tiles/world_2015/${z}/${tx}/${ty}.png`;
+
+            return await new Promise((resolve) => {
+                const img = new Image();
+                img.crossOrigin = 'anonymous';
+                img.onload = () => {
+                    try {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = tileSize; canvas.height = tileSize;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0);
+                        const [r, g, b, a] = ctx.getImageData(px, py, 1, 1).data;
+                        if (a < 10) { resolve({ bortle: null, color: null, sqm: null, pixel: [r,g,b] }); return; }
+                        // Estimate Bortle from pixel hue/brightness
+                        const bEntry = colorToBortle(r, g, b);
+                        resolve({ bEntry, pixel: [r,g,b] });
+                    } catch(e) { resolve(null); }
+                };
+                img.onerror = () => resolve(null);
+                img.src = url;
+                setTimeout(() => resolve(null), 5000);
+            });
+        } catch(e) { return null; }
+    }
+
+    // Map pixel RGB → approximate Bortle from the Falchi 2016 color palette
+    function colorToBortle(r, g, b) {
+        const luminance = 0.299*r + 0.587*g + 0.114*b;
+        // Very dark → pristine sky; very bright → heavily polluted
+        if (luminance < 10)  return BORTLE[0]; // Bortle 1
+        if (luminance < 25)  return BORTLE[1]; // Bortle 2
+        if (b > r*1.5 && b > g*1.2) return BORTLE[2]; // Blue → Bortle 3
+        if (g > r*0.8 && g > b*1.2) return BORTLE[3]; // Green → Bortle 4
+        if (g > 150 && r > 150 && b < 80) return BORTLE[4]; // Yellow-green
+        if (r > 200 && g > 130 && b < 50)  return BORTLE[5]; // Amber
+        if (r > 180 && g < 120 && b < 50)  return BORTLE[6]; // Orange-red
+        if (r > 150 && g < 80  && b < 80)  return BORTLE[7]; // Red
+        if (luminance > 180) return BORTLE[8]; // Near white → Bortle 9
+        return BORTLE[3]; // fallback
+    }
+
+    function renderEstimated(est, latlng) {
+        if (!est || !est.bEntry) return `<div class="lp-result-desc">${t('lp_error','Data unavailable')}</div>`;
+        const b = est.bEntry;
+        const textCol = (b.b >= 9) ? '#111' : '#fff';
+        const bLabel  = isHe() ? b.label_he : b.label;
+        const bDesc   = isHe() ? b.desc_he  : b.desc;
+        return `
+            <div class="lp-result-title">
+                <div class="lp-bortle-badge" style="background:${b.color};color:${textCol};">${b.b}</div>
+                <span>${bLabel} <span style="font-size:10px;color:#666;">(${t('lp_estimated','estimated')})</span></span>
+            </div>
+            <div class="lp-result-row">
+                <span>SQM</span>
+                <span class="lp-result-val">~${b.sqmMin.toFixed(1)} mag/arcsec²</span>
+            </div>
+            <div class="lp-result-row">
+                <span>${t('lp_coords','Coords')}</span>
+                <span class="lp-result-val">${latlng.lat.toFixed(3)}°, ${latlng.lng.toFixed(3)}°</span>
+            </div>
+            <div class="lp-result-desc">${bDesc}</div>
+        `;
+    }
+
+    map.on('click', (e) => queryLP(e.latlng));
+
+    // ── Init ─────────────────────────────────────────────────────────────────
+    buildLegend();
+    window.addEventListener('languageChanged', () => buildLegend());
+
+})();
+</script>
+</body>
+</html>
