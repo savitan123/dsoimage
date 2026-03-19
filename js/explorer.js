@@ -443,6 +443,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderResults(data, galleryMatch) {
         loadingIndicator.style.display = 'none';
+        window._explorerCurrentTarget = data.id;
 
         let galleryHtml = '';
         if (galleryMatch) {
