@@ -214,27 +214,25 @@ document.addEventListener('DOMContentLoaded', async () => {
         return `<i class="fa-solid fa-arrow-up" style="font-size: 9px;"></i> <span style="font-family: monospace;">${times.rise}</span> <span style="margin: 0 6px; color: #444;">|</span> <i class="fa-solid fa-arrow-down" style="font-size: 9px;"></i> <span style="font-family: monospace;">${times.set}</span>`;
     }
 
-    // Process & Render Constellations
+    // Process & Render Constellations (only those above the horizon right now)
     const cContainer = document.getElementById('constellation-container');
     if (cContainer) {
         let visibleConstels = constellations.map(c => {
-            const vis = checkNightVisibility(c.ra, c.dec);
-            return { ...c, isVisible: vis.isVisible, maxAlt: vis.maxAlt };
-        }).filter(c => c.isVisible).sort((a, b) => b.maxAlt - a.maxAlt);
+            const topo = Astronomy.Horizon(date, observer, c.ra, c.dec, 'normal');
+            return { ...c, currentAlt: topo.altitude };
+        }).filter(c => c.currentAlt > 0).sort((a, b) => b.currentAlt - a.currentAlt);
 
         if (visibleConstels.length === 0) {
-            cContainer.innerHTML = `<div style="padding: 20px; color: #888;">No constellations meet the criteria tonight.</div>`;
+            cContainer.innerHTML = `<div style="padding: 20px; color: #888;">No constellations are above the horizon right now.</div>`;
         } else {
             cContainer.innerHTML = '';
             visibleConstels.forEach(c => {
                 const times = getRiseSet(c.ra, c.dec, lat, lng, date);
-                const topo = Astronomy.Horizon(date, observer, c.ra, c.dec, 'normal');
-                let nowStr = topo.altitude > 0 ? `Alt: ${topo.altitude.toFixed(0)}°` : "Below Horizon";
                 cContainer.innerHTML += `
                 <div style="display: flex; flex-direction: column; border-bottom: 1px solid #222; padding: 12px 0; gap: 8px;">
                    <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;">
                        <div style="display: flex; align-items: flex-start; gap: 8px;">
-                           <i class="fa-solid fa-star" style="color: #FFAB40; width: 16px; text-align: center; margin-top: 3px;"></i>
+                           <i class="fa-solid fa-star" style="color: #81D4FA; width: 16px; text-align: center; margin-top: 3px;"></i>
                            <span style="color: #fff; font-weight: bold; font-size: 15px; line-height: 1.3; word-break: break-word;">${c.name}</span>
                        </div>
                    </div>
@@ -243,7 +241,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                            ${formatTimes(times)}
                        </div>
                        <div style="color: #888; text-align: right; font-size: 11.5px;">
-                           Max: ${c.maxAlt.toFixed(0)}° <span style="margin: 0 4px; color: #444;">|</span> ${nowStr}
+                           Now: ${c.currentAlt.toFixed(0)}°
                        </div>
                    </div>
                 </div>`;
