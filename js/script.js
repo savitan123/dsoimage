@@ -1307,6 +1307,30 @@ async function initSuggester() {
   }
 }
 
+// Altitude chart modal
+window.openAltitudeModal = function(targetName, dateStr) {
+  let modal = document.getElementById('alt-chart-modal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'alt-chart-modal';
+    modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.82);z-index:9999;display:flex;align-items:center;justify-content:center;';
+    modal.innerHTML = `
+      <div style="background:#0e0e0e;border:1px solid #333;border-radius:10px;width:90vw;max-width:960px;height:82vh;display:flex;flex-direction:column;position:relative;box-shadow:0 8px 40px rgba(0,0,0,0.7);">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid #2a2a2a;flex-shrink:0;">
+          <span id="alt-modal-title" style="color:#eee;font-weight:bold;font-size:14px;"></span>
+          <button onclick="document.getElementById('alt-chart-modal').style.display='none'" style="background:transparent;border:none;color:#aaa;font-size:22px;cursor:pointer;line-height:1;padding:0 4px;" title="Close">×</button>
+        </div>
+        <iframe id="alt-modal-iframe" style="flex:1;border:none;border-radius:0 0 10px 10px;" src=""></iframe>
+      </div>`;
+    modal.addEventListener('click', e => { if (e.target === modal) modal.style.display = 'none'; });
+    document.body.appendChild(modal);
+  }
+  document.getElementById('alt-modal-title').textContent = 'Altitude Chart — ' + targetName;
+  document.getElementById('alt-modal-iframe').src =
+    'sky-altitude.html?target=' + encodeURIComponent(targetName) + '&date=' + dateStr + '&embed=1';
+  modal.style.display = 'flex';
+};
+
 // Global Sort Handler
 window.handleHeaderSort = function (sortKey) {
   // Ensure DB is loaded (should be if we are clicking headers)
@@ -1598,6 +1622,14 @@ function runSuggesterLogic(isBestMode, sortOverride = null) {
   // Limit Results
   const topResults = candidates.slice(0, 100);
 
+  // Date string for altitude modal (plan start date or today)
+  let _modalDate = '';
+  if (isPlanMode) _modalDate = document.getElementById('plan-date-start')?.value || '';
+  if (!_modalDate) {
+    const _t = new Date();
+    _modalDate = `${_t.getFullYear()}-${String(_t.getMonth()+1).padStart(2,'0')}-${String(_t.getDate()).padStart(2,'0')}`;
+  }
+
   // Render
   if (topResults.length === 0) {
     if (resultsDiv) resultsDiv.innerHTML = `<div style="padding:20px; text-align:center;">No targets found matching criteria.</div>`;
@@ -1606,15 +1638,14 @@ function runSuggesterLogic(isBestMode, sortOverride = null) {
     let html = `<table style="width:100%; border-collapse:collapse; font-size:11px; table-layout: auto;">
                 <tr style="border-bottom:1px solid #444; color:#888; font-size:10px;">
                     <th style="padding:4px 2px; text-align:left; cursor:pointer;" onclick="handleHeaderSort('name_asc')" title="Sort by Name">Name ↕</th>
+                    <th style="padding:4px 2px; text-align:center; white-space:nowrap;">Check Altitude</th>
                     <th style="padding:4px 2px; text-align:center; white-space:nowrap; cursor:pointer;" onclick="handleHeaderSort('type_asc')" title="Sort by Type">Type ↕</th>
                     <th style="padding:4px 2px; text-align:center; white-space:nowrap; cursor:pointer;" onclick="handleHeaderSort('mag_asc')" title="Sort by Brightness">Mag ↕</th>
                     <th style="padding:4px 2px; text-align:center; white-space:nowrap; cursor:pointer;" onclick="handleHeaderSort('size_desc')" title="Sort by Size">Size ↕</th>
-                    <th style="padding:4px 2px; text-align:right; white-space:nowrap; cursor:pointer;" onclick="handleHeaderSort('alt_desc')" title="Sort by Altitude">${isPlanMode ? 'Max Alt' : 'Alt'} ↕</th>
                 </tr>`;
 
     topResults.forEach(item => {
       const o = item.obj;
-      const altColor = item.alt > 60 ? "#4caf50" : (item.alt > 40 ? "#ffeb3b" : "#aaa");
       // Size string (newly added to DB or fallback)
       let sizeStr = o.sz || "-";
       if (sizeStr === 'x' || sizeStr.trim() === '') sizeStr = "-";
@@ -1625,16 +1656,14 @@ function runSuggesterLogic(isBestMode, sortOverride = null) {
         displayName += `<br><span style="color:#aaa; font-size:0.85em;">${o.cn}</span>`;
       }
       const searchName = o.n;
-
-      const altValStr = item.alt.toFixed(0);
-      const altDisplay = isPlanMode ? `${altValStr}°<br><span style="font-size:9px; color:#888; font-weight:normal;">${item.timeNote}</span>` : `${item.alt.toFixed(1)}°`;
+      const safeTarget = searchName.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
 
       html += `<tr style="border-bottom:1px solid #333;">
                     <td style="padding:6px 2px;"><a href="https://wikisky.org/?object=${searchName}" target="_blank" style="color:#1e90ff; text-decoration:none;">${displayName}</a></td>
+                    <td style="padding:6px 2px; text-align:center;"><button onclick="openAltitudeModal('${safeTarget}','${_modalDate}')" style="background:transparent;border:1px solid #335;color:#7ab;cursor:pointer;font-size:11px;padding:2px 7px;border-radius:4px;white-space:nowrap;" title="Check altitude over night">📈 Chart</button></td>
                     <td style="padding:6px 2px; color:#ccc; text-align:center; white-space:nowrap;">${o.t}</td>
                     <td style="padding:6px 2px; color:#ccc; text-align:center; white-space:nowrap;">${o.m === 99 ? '-' : o.m}</td>
                     <td style="padding:6px 2px; color:#aaa; font-family:monospace; font-size:11px; text-align:center; white-space:nowrap;">${sizeStr}</td>
-                    <td style="padding:6px 2px; color:${altColor}; font-weight:bold; text-align:right; white-space:nowrap; line-height:1.2;">${altDisplay}</td>
                  </tr>`;
     });
     html += `</table>`;

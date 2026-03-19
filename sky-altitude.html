@@ -1042,9 +1042,49 @@
         // ── Init ─────────────────────────────────────────────────────────────────
         async function init() {
             initDatePicker();
-            // Load OpenNGC catalog and gallery in background
-            fetch('data/targets.json').then(r => r.json()).then(d => { targetsData = d; }).catch(() => {});
-            fetch('data/gallery.json').then(r => r.json()).then(d => { galleryData = d; }).catch(() => {});
+
+            // ── URL params: ?target=NAME&date=YYYY-MM-DD&embed=1 ─────────────────
+            const params = new URLSearchParams(window.location.search);
+            const paramTarget = params.get('target');
+            const paramDate   = params.get('date');
+            const isEmbed     = params.get('embed') === '1';
+
+            if (isEmbed) {
+                document.querySelector('header.topbar')?.style.setProperty('display','none','important');
+                document.querySelector('nav.top-nav')?.style.setProperty('display','none','important');
+                document.querySelector('footer.site-footer')?.style.setProperty('display','none','important');
+                const main = document.querySelector('main.main-content');
+                if (main) main.style.paddingTop = '10px';
+                document.querySelector('.alt-page-title')?.style.setProperty('font-size','16px');
+            }
+
+            if (paramDate) {
+                // Parse as local date (YYYY-MM-DD)
+                const parts = paramDate.split('-');
+                if (parts.length === 3) {
+                    const [y, m, d] = parts.map(Number);
+                    const dayEl  = document.getElementById('alt-sel-day');
+                    const monEl  = document.getElementById('alt-sel-month');
+                    const yearEl = document.getElementById('alt-sel-year');
+                    if (dayEl)  dayEl.value  = d;
+                    if (monEl)  monEl.value  = m - 1;
+                    if (yearEl) yearEl.value = y;
+                }
+            }
+
+            if (paramTarget) {
+                // Load data first, then resolve
+                const [td, gd] = await Promise.allSettled([
+                    fetch('data/targets.json').then(r => r.json()),
+                    fetch('data/gallery.json').then(r => r.json())
+                ]);
+                if (td.status === 'fulfilled') targetsData = td.value;
+                if (gd.status === 'fulfilled') galleryData = gd.value;
+            } else {
+                fetch('data/targets.json').then(r => r.json()).then(d => { targetsData = d; }).catch(() => {});
+                fetch('data/gallery.json').then(r => r.json()).then(d => { galleryData = d; }).catch(() => {});
+            }
+
             // Get location
             try {
                 const controller = new AbortController();
@@ -1061,6 +1101,7 @@
                 `<i class="fa-solid fa-location-dot"></i> ${city} (${lat.toFixed(2)}°, ${lng.toFixed(2)}°)`;
 
             renderChart();
+            if (paramTarget) resolveQuery(paramTarget);
             // Refresh "Now" tooltip every minute
             setInterval(updateTimelineTooltip, 60000);
         }
