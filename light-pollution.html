@@ -342,12 +342,12 @@
           attribution:'© <a href="https://www.lightpollutionmap.info/">LightPollutionMap.info</a> / Falchi 2016' }
     );
 
-    // NASA GIBS VIIRS — Earth at Night (CORS enabled, pixel-readable via canvas)
+    // NASA GIBS VIIRS Black Marble — annual composite (CORS enabled, pixel-readable via canvas)
     const viirsOverlay = L.tileLayer(
-        'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_DayNightBand_ENCC/default/2023-01-01/GoogleMapsCompatible/{z}/{y}/{x}.jpg',
+        'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_Black_Marble/default/2016-01-01/GoogleMapsCompatible_Level8/{z}/{y}/{x}.png',
         { opacity:1.0, maxNativeZoom:8, maxZoom:10,
           className:'lp-overlay-tiles',
-          attribution:'© <a href="https://earthdata.nasa.gov/">NASA GIBS</a> / NOAA VIIRS',
+          attribution:'© <a href="https://earthdata.nasa.gov/">NASA GIBS</a> / NOAA VIIRS Black Marble',
           crossOrigin:'anonymous' }
     );
 
@@ -446,7 +446,7 @@
         // ── Primary: read pixel from VIIRS GIBS tile (always CORS-enabled) ───
         const z = Math.min(Math.max(map.getZoom(), 3), 6);
         const { tileX, tileY, px, py } = latLngToTilePx(lat, lng, z);
-        const viirsUrl = `https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_DayNightBand_ENCC/default/2023-01-01/GoogleMapsCompatible/${z}/${tileY}/${tileX}.jpg`;
+        const viirsUrl = `https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_Black_Marble/default/2016-01-01/GoogleMapsCompatible_Level8/${z}/${tileY}/${tileX}.png`;
         const pixel = await readTilePixel(viirsUrl, px, py);
 
         if (pixel) {
