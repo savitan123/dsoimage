@@ -323,8 +323,8 @@ img {
   [dir="ltr"] .top-nav-links   { order: 2; }
   [dir="ltr"] .top-nav-actions { order: 1; }
 
-  /* Fix button order inside actions: always lang → moon (same in LTR and RTL) */
-  [dir="ltr"] #lang-toggle-btn { order: 1; }
+  /* Fix button order inside actions: always lang flags → moon (same in LTR and RTL) */
+  [dir="ltr"] #lang-flags      { order: 1; }
   [dir="ltr"] #red-mode-toggle { order: 2; }
 }
 
@@ -825,7 +825,6 @@ img {
     letter-spacing: 0.3px;
   }
 
-  #lang-toggle-btn { min-width: 36px !important; padding: 4px 8px !important; }
 
   .top-nav-actions {
     order: 2;
@@ -2585,7 +2584,7 @@ body.no-scroll {
   /* direction:rtl on actions reverses button order (moon ends up rightmost and cut off).
      Use explicit flex order to pin: moon(left)→lang(mid)→hamburger(right) */
   [dir="rtl"] #red-mode-toggle   { order: 3; } /* RTL end = physical left  */
-  [dir="rtl"] #lang-toggle-btn   { order: 2; }
+  [dir="rtl"] #lang-flags        { order: 2; }
   [dir="rtl"] #mobile-nav-toggle { order: 1; } /* RTL start = physical right */
 
   [dir="rtl"] .top-nav-links {
@@ -2610,26 +2609,8 @@ body.no-scroll {
   }
 }
 
-/* Language toggle hover */
-#lang-toggle-btn:hover {
-  background: rgba(255, 255, 255, 0.1) !important;
-  color: #fff !important;
-  border-color: #fff !important;
-}
-
-/* =========================
-   Language Toggle Button - Stable Position
-   Prevent RTL from shifting the button
-   ========================= */
-#lang-toggle-btn {
-  /* Override any inline margin-right with logical property */
-  margin-inline-end: 8px;
-  margin-inline-start: 0;
-  margin-right: 0 !important;
-  white-space: nowrap;
-  min-width: 62px;
-  text-align: center;
-}
+/* Flag buttons hover — brighten on hover */
+#lang-en-btn:hover, #lang-he-btn:hover { opacity: 0.8 !important; }
 
 /* =========================
    RTL (Hebrew) Layout Overrides
