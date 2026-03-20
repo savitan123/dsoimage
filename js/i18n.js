@@ -65,7 +65,7 @@
         // Update toggle button label
         const toggleBtn = document.getElementById('lang-toggle-btn');
         if (toggleBtn) {
-            toggleBtn.textContent = lang === 'he' ? 'EN' : 'עב';
+            toggleBtn.textContent = lang === 'he' ? '🇺🇸' : '🇮🇱';
         }
 
         // Save preference
