@@ -158,6 +158,8 @@
     #lp-hint { display: none; }
     #lp-controls { gap: 10px; }
 }
+/* Make VIIRS/Falchi overlays: dark sky → transparent, city lights → glow */
+.lp-overlay-tiles { mix-blend-mode: screen; }
 </style>
 </head>
 <body>
@@ -230,10 +232,10 @@
                 <span data-i18n="lp_opacity">Overlay</span>
                 <input type="range" id="lp-opacity" min="0" max="100" value="70" title="Overlay opacity"/>
             </label>
-            <button class="lp-btn active" id="btn-layer-lp" onclick="switchLayer('lp')">
+            <button class="lp-btn" id="btn-layer-lp" onclick="switchLayer('lp')">
                 <i class="fa-solid fa-smog"></i> <span data-i18n="lp_layer_falchi">Falchi 2016</span>
             </button>
-            <button class="lp-btn" id="btn-layer-viirs" onclick="switchLayer('viirs')">
+            <button class="lp-btn active" id="btn-layer-viirs" onclick="switchLayer('viirs')">
                 <i class="fa-solid fa-satellite"></i> <span data-i18n="lp_layer_viirs">VIIRS NASA</span>
             </button>
             <button class="lp-btn" id="btn-locate" onclick="locateMe()">
@@ -332,28 +334,27 @@
     ).addTo(map);
 
     // ── Overlay layers ───────────────────────────────────────────────────────
-    // Falchi 2016: lightpollutionmap.info color-coded Bortle tiles
+    // Falchi 2016: lightpollutionmap.info color-coded Bortle tiles (display only, no canvas)
     const falchiOverlay = L.tileLayer(
         'https://www.lightpollutionmap.info/tiles/wa_2015_all_web/{z}/{x}/{y}.png',
-        { opacity:0.70, maxNativeZoom:11, maxZoom:13,
-          attribution:'© <a href="https://www.lightpollutionmap.info/">LightPollutionMap.info</a> / Falchi 2016',
-          crossOrigin:'anonymous' }
+        { opacity:0.85, maxNativeZoom:11, maxZoom:13,
+          className:'lp-overlay-tiles',
+          attribution:'© <a href="https://www.lightpollutionmap.info/">LightPollutionMap.info</a> / Falchi 2016' }
     );
 
-    // NASA GIBS VIIRS — Earth at Night (CORS enabled, pixel-readable)
+    // NASA GIBS VIIRS — Earth at Night (CORS enabled, pixel-readable via canvas)
     const viirsOverlay = L.tileLayer(
         'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_DayNightBand_ENCC/default/2023-01-01/GoogleMapsCompatible/{z}/{y}/{x}.jpg',
-        { opacity:0.85, maxNativeZoom:8, maxZoom:10,
+        { opacity:1.0, maxNativeZoom:8, maxZoom:10,
+          className:'lp-overlay-tiles',
           attribution:'© <a href="https://earthdata.nasa.gov/">NASA GIBS</a> / NOAA VIIRS',
           crossOrigin:'anonymous' }
     );
 
-    // Start with VIIRS (guaranteed to load); Falchi is secondary
+    // Default: VIIRS overlay
     viirsOverlay.addTo(map);
     let activeOverlay = viirsOverlay;
     let activeLayerKey = 'viirs';
-    document.getElementById('btn-layer-viirs').classList.add('active');
-    document.getElementById('btn-layer-lp').classList.remove('active');
 
     // ── Layer switcher ───────────────────────────────────────────────────────
     window.switchLayer = function(key) {
@@ -425,7 +426,7 @@
             };
             img.onerror = () => resolve(null);
             img.src = url;
-            setTimeout(() => resolve(null), 7000);
+            setTimeout(() => resolve(null), 10000);
         });
     }
 
@@ -443,7 +444,7 @@
         const lat = latlng.lat, lng = latlng.lng;
 
         // ── Primary: read pixel from VIIRS GIBS tile (always CORS-enabled) ───
-        const z = Math.min(Math.max(map.getZoom(), 3), 8);
+        const z = Math.min(Math.max(map.getZoom(), 3), 6);
         const { tileX, tileY, px, py } = latLngToTilePx(lat, lng, z);
         const viirsUrl = `https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_DayNightBand_ENCC/default/2023-01-01/GoogleMapsCompatible/${z}/${tileY}/${tileX}.jpg`;
         const pixel = await readTilePixel(viirsUrl, px, py);
