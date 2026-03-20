@@ -22,6 +22,12 @@
             return;
         }
 
+        // Apply title tooltips (data-i18n-title)
+        document.querySelectorAll('[data-i18n-title]').forEach(el => {
+            const key = el.getAttribute('data-i18n-title');
+            if (strings[key]) el.title = strings[key];
+        });
+
         // Apply to all elements with data-i18n
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');

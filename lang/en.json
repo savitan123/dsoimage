@@ -258,6 +258,8 @@
     "opt_planetary": "Planetary Nebs",
     "find_targets": "Find Targets 🚀",
     "tonights_best": "🌟 Tonight's Best",
+    "tooltip_find_targets": "Custom Search: uses your selected filters, minimum altitude, and sort order. Good for planning a specific session.",
+    "tooltip_tonights_best": "Showcase Mode: finds the best deep sky objects for tonight (21:00–05:00). Ranks by peak altitude during dark hours. Only bright objects (mag < 11) above 40°.",
     "cal_prev": "❮ Prev",
     "cal_next": "Next ❯",
     "cal_sun": "Sun",

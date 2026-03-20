@@ -1362,7 +1362,7 @@ function runSuggesterLogic(isBestMode, sortOverride = null) {
   // OVERRIDE for "Tonight's Best"
   if (isBestMode) {
     minAlt = 40; // Only high objects
-    if (!sortOverride) sortType = 'alt_desc'; // Highest first (default for best mode)
+    if (!sortOverride) sortType = 'max_alt_desc'; // Peak altitude during dark window
     filterType = 'all'; // We will do custom filtering inside loop
   }
 
@@ -1573,13 +1573,56 @@ function runSuggesterLogic(isBestMode, sortOverride = null) {
 
       if (crossesMeridian) {
         finalAlt = maxAltPossible;
-        // Calculate approximate transit time for display?
-        // Transit happens roughly when LST=RA. 
-        // Time offset from Start = (RA - LST_Start) * 0.997...
-        // Good enough for "Max Alt":
         timeNote = "Transit";
       } else {
-        // Did not cross meridian, so max is either start or end
+        finalAlt = Math.max(startAlt, endAlt);
+        timeNote = (startAlt > endAlt) ? "Start" : "End";
+      }
+    } else if (isBestMode) {
+      // Tonight's Best: compute peak altitude during tonight's dark window (21:00–05:00)
+      const tNow = new Date();
+      let bestWinStart, bestWinEnd;
+      if (tNow.getHours() < 12) {
+        // After midnight — session may be in progress; use last night's 21:00 → today 05:00
+        bestWinStart = new Date(tNow.getFullYear(), tNow.getMonth(), tNow.getDate() - 1, 21, 0, 0);
+        bestWinEnd   = new Date(tNow.getFullYear(), tNow.getMonth(), tNow.getDate(),     5, 0, 0);
+      } else {
+        // Daytime/evening — tonight's window
+        bestWinStart = new Date(tNow.getFullYear(), tNow.getMonth(), tNow.getDate(),     21, 0, 0);
+        bestWinEnd   = new Date(tNow.getFullYear(), tNow.getMonth(), tNow.getDate() + 1,  5, 0, 0);
+      }
+
+      const getAltAtTime = (dateObj) => {
+        const g = getGMST(dateObj);
+        const l = g + (lon / 15.0);
+        let h = l - raH;
+        while (h < -12) h += 24; while (h >= 12) h -= 24;
+        const hRad = h * 15.0 * (Math.PI / 180.0);
+        const sA = (sinDec * sinLat) + (cosDec * cosLat * Math.cos(hRad));
+        return (Math.asin(sA) * (180 / Math.PI));
+      };
+
+      const startAlt = getAltAtTime(bestWinStart);
+      const endAlt   = getAltAtTime(bestWinEnd);
+      const maxAltPossible = 90 - Math.abs(lat - decD);
+
+      const gmstBestStart = getGMST(bestWinStart);
+      const lstBestStart  = (gmstBestStart + (lon / 15.0) + 24) % 24;
+      const gmstBestEnd   = getGMST(bestWinEnd);
+      const lstBestEnd    = (gmstBestEnd + (lon / 15.0) + 24) % 24;
+
+      let crossesMeridian = false;
+      const r = (raH + 24) % 24;
+      if (lstBestStart < lstBestEnd) {
+        if (r >= lstBestStart && r <= lstBestEnd) crossesMeridian = true;
+      } else {
+        if (r >= lstBestStart || r <= lstBestEnd) crossesMeridian = true;
+      }
+
+      if (crossesMeridian) {
+        finalAlt = maxAltPossible;
+        timeNote = "Transit";
+      } else {
         finalAlt = Math.max(startAlt, endAlt);
         timeNote = (startAlt > endAlt) ? "Start" : "End";
       }
