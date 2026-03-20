@@ -223,7 +223,7 @@
 
     <main class="main-content">
         <h1 style="color:#FFF3E0; font-size:32px;"><i class="fa-solid fa-city"></i> <span data-i18n="lp_title">Light Pollution Map</span></h1>
-        <p class="subtitle" data-i18n="lp_subtitle">Click anywhere on the map to get the Bortle class and Sky Quality Meter (SQM) value for that location. Data: VIIRS / World Atlas 2015.</p>
+        <p class="subtitle" data-i18n="lp_subtitle">Click anywhere on the map to get the Bortle class and Sky Quality Meter (SQM) value for that location. Data: VIIRS 2023.</p>
 
         <!-- Controls bar -->
         <div id="lp-controls">
@@ -232,12 +232,6 @@
                 <span data-i18n="lp_opacity">Overlay</span>
                 <input type="range" id="lp-opacity" min="0" max="100" value="70" title="Overlay opacity"/>
             </label>
-            <button class="lp-btn" id="btn-layer-lp" onclick="switchLayer('lp')">
-                <i class="fa-solid fa-smog"></i> <span data-i18n="lp_layer_falchi">Falchi 2016</span>
-            </button>
-            <button class="lp-btn active" id="btn-layer-viirs" onclick="switchLayer('viirs')">
-                <i class="fa-solid fa-satellite"></i> <span data-i18n="lp_layer_viirs">VIIRS NASA</span>
-            </button>
             <button class="lp-btn" id="btn-locate" onclick="locateMe()">
                 <i class="fa-solid fa-location-crosshairs"></i> <span data-i18n="lp_my_location">My Location</span>
             </button>
@@ -252,8 +246,8 @@
             <span style="font-size:11px;color:#666;text-transform:uppercase;letter-spacing:0.5px;margin-right:8px;align-self:center;" data-i18n="lp_bortle_scale">Bortle Scale:</span>
         </div>
 
-        <p style="font-size:11px;color:#444;margin-top:10px;" data-i18n="lp_attribution">
-            Light pollution data: <a href="https://www.lightpollutionmap.info" target="_blank" style="color:#555;">LightPollutionMap.info</a> / Falchi et al. (2016) — World Atlas of Artificial Night Sky Brightness. VIIRS layer: NASA GIBS / NOAA.
+        <p style="font-size:11px;color:#444;margin-top:10px;">
+            Click data: <a href="https://www.lightpollutionmap.info" target="_blank" style="color:#555;">LightPollutionMap.info</a> VIIRS 2023 annual composite. Overlay: NASA GIBS / NOAA VIIRS Black Marble.
         </p>
     </main>
 </div>
@@ -333,44 +327,17 @@
         { subdomains:'abcd', maxZoom:19, pane:'shadowPane' }
     ).addTo(map);
 
-    // ── Overlay layers ───────────────────────────────────────────────────────
-    // Falchi 2016: lightpollutionmap.info color-coded Bortle tiles (display only, no canvas)
-    const falchiOverlay = L.tileLayer(
-        'https://www.lightpollutionmap.info/tiles/wa_2015_all_web/{z}/{x}/{y}.png',
-        { opacity:0.85, maxNativeZoom:11, maxZoom:14,
-          className:'lp-overlay-tiles',
-          attribution:'© <a href="https://www.lightpollutionmap.info/">LightPollutionMap.info</a> / Falchi 2016' }
-    );
-
-    // NASA GIBS VIIRS Black Marble — annual composite (CORS enabled, pixel-readable via canvas)
+    // ── VIIRS Black Marble overlay ───────────────────────────────────────────
     const viirsOverlay = L.tileLayer(
         'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_Black_Marble/default/2016-01-01/GoogleMapsCompatible_Level8/{z}/{y}/{x}.png',
-        { opacity:1.0, maxNativeZoom:8, maxZoom:14,
+        { opacity:0.70, maxNativeZoom:8, maxZoom:14,
           className:'lp-overlay-tiles',
-          attribution:'© <a href="https://earthdata.nasa.gov/">NASA GIBS</a> / NOAA VIIRS Black Marble',
-          crossOrigin:'anonymous' }
-    );
-
-    // Default: VIIRS overlay
-    viirsOverlay.addTo(map);
-    let activeOverlay = viirsOverlay;
-    let activeLayerKey = 'viirs';
-
-    // ── Layer switcher ───────────────────────────────────────────────────────
-    window.switchLayer = function(key) {
-        if (key === activeLayerKey) return;
-        map.removeLayer(activeOverlay);
-        activeOverlay = (key === 'lp') ? falchiOverlay : viirsOverlay;
-        activeOverlay.setOpacity(document.getElementById('lp-opacity').value / 100);
-        activeOverlay.addTo(map);
-        activeLayerKey = key;
-        document.getElementById('btn-layer-lp').classList.toggle('active', key === 'lp');
-        document.getElementById('btn-layer-viirs').classList.toggle('active', key === 'viirs');
-    };
+          attribution:'© <a href="https://earthdata.nasa.gov/">NASA GIBS</a> / NOAA VIIRS Black Marble' }
+    ).addTo(map);
 
     // ── Opacity slider ───────────────────────────────────────────────────────
     document.getElementById('lp-opacity').addEventListener('input', function() {
-        activeOverlay.setOpacity(this.value / 100);
+        viirsOverlay.setOpacity(this.value / 100);
     });
 
     // ── My Location ─────────────────────────────────────────────────────────
