@@ -269,97 +269,99 @@
 (function () {
     'use strict';
 
-    // ── Bortle data ──────────────────────────────────────────────────────────
+    // ── Bortle table ─────────────────────────────────────────────────────────
     const BORTLE = [
-        { b:1, color:'#0a0a14', label:'1 — Excellent Dark Sky',   label_he:'1 — שמיים חשוכים מעולים', sqmMin:21.99, sqmMax:23.0,  desc:'Zodiacal light visible, M33 naked-eye, limiting mag ~7.6–8.0', desc_he:'אור הזודיאק גלוי, M33 נראה בעין עירומה, עצמה גבולית ~7.6–8.0' },
-        { b:2, color:'#0d1a4a', label:'2 — Truly Dark Site',      label_he:'2 — אתר חשוך באמת',       sqmMin:21.89, sqmMax:21.99, desc:'Airglow faintly visible, many Messier objects cast shadows, LM ~7.1–7.5', desc_he:'אור שמיים חלש גלוי, עצמה גבולית ~7.1–7.5' },
-        { b:3, color:'#0d3a7a', label:'3 — Rural Sky',            label_he:'3 — שמיים כפריים',         sqmMin:21.69, sqmMax:21.89, desc:'Light pollution on horizon only, M15/M4/M5 well resolved, LM ~6.6–7.0', desc_he:'זיהום אור באופק בלבד, עצמה גבולית ~6.6–7.0' },
-        { b:4, color:'#1b5e20', label:'4 — Rural/Suburban',       label_he:'4 — כפרי/פרברי',           sqmMin:20.49, sqmMax:21.69, desc:'Milky Way shows structure, some glow above horizon, LM ~6.1–6.5', desc_he:'שביל החלב מפורט, עצמה גבולית ~6.1–6.5' },
-        { b:5, color:'#558b2f', label:'5 — Suburban Sky',         label_he:'5 — שמיים פרבריים',        sqmMin:19.50, sqmMax:20.49, desc:'Milky Way washed out overhead, clouds faintly illuminated, LM ~5.6–6.0', desc_he:'שביל החלב דהוי מעל, עצמה גבולית ~5.6–6.0' },
-        { b:6, color:'#f9a825', label:'6 — Bright Suburban',      label_he:'6 — פרברי בהיר',           sqmMin:18.94, sqmMax:19.50, desc:'Milky Way barely visible, light dome over horizon cities, LM ~5.1–5.5', desc_he:'שביל החלב כמעט בלתי נראה, עצמה גבולית ~5.1–5.5' },
-        { b:7, color:'#e65100', label:'7 — Suburban/Urban',       label_he:'7 — פרברי/עירוני',         sqmMin:18.38, sqmMax:18.94, desc:'Milky Way invisible, M11 barely visible, sky is grey, LM ~4.6–5.0', desc_he:'שביל החלב בלתי נראה, שמיים אפורים, עצמה גבולית ~4.6–5.0' },
-        { b:8, color:'#b71c1c', label:'8 — City Sky',             label_he:'8 — שמיים עירוניים',       sqmMin:17.50, sqmMax:18.38, desc:'Only bright clusters visible, sky orange/white, LM ~4.1–4.5', desc_he:'רק צבירים בהירים גלויים, שמיים כתומים, עצמה גבולית ~4.1–4.5' },
-        { b:9, color:'#eceff1', label:'9 — Inner City Sky',       label_he:'9 — מרכז עירוני',          sqmMin:0,     sqmMax:17.50, desc:'Entire sky orange/white glow, only Pleiades and brightest stars, LM < 4.0', desc_he:'שמיים כתומים לחלוטין, רק הכוכבים הבהירים ביותר, עצמה גבולית < 4.0' },
+        { b:1, color:'#0a0a14', sqmMin:21.99, label:'1 — Excellent Dark Sky',   label_he:'1 — שמיים חשוכים מעולים', desc:'Zodiacal light visible, M33 naked-eye, limiting mag ~7.6–8.0',         desc_he:'אור הזודיאק גלוי, M33 נראה בעין עירומה, עצמה גבולית ~7.6–8.0' },
+        { b:2, color:'#0d1a4a', sqmMin:21.89, label:'2 — Truly Dark Site',      label_he:'2 — אתר חשוך באמת',       desc:'Airglow faintly visible, many Messier objects cast shadows, LM ~7.1–7.5', desc_he:'אור שמיים חלש גלוי, עצמה גבולית ~7.1–7.5' },
+        { b:3, color:'#0d3a7a', sqmMin:21.69, label:'3 — Rural Sky',            label_he:'3 — שמיים כפריים',         desc:'Light pollution on horizon only, LM ~6.6–7.0',                         desc_he:'זיהום אור באופק בלבד, עצמה גבולית ~6.6–7.0' },
+        { b:4, color:'#1b5e20', sqmMin:20.49, label:'4 — Rural/Suburban',       label_he:'4 — כפרי/פרברי',           desc:'Milky Way shows structure, some glow above horizon, LM ~6.1–6.5',     desc_he:'שביל החלב מפורט, עצמה גבולית ~6.1–6.5' },
+        { b:5, color:'#558b2f', sqmMin:19.50, label:'5 — Suburban Sky',         label_he:'5 — שמיים פרבריים',        desc:'Milky Way washed out overhead, clouds faintly illuminated, LM ~5.6–6.0', desc_he:'שביל החלב דהוי מעל, עצמה גבולית ~5.6–6.0' },
+        { b:6, color:'#f9a825', sqmMin:18.94, label:'6 — Bright Suburban',      label_he:'6 — פרברי בהיר',           desc:'Milky Way barely visible, light dome over cities, LM ~5.1–5.5',        desc_he:'שביל החלב כמעט בלתי נראה, עצמה גבולית ~5.1–5.5' },
+        { b:7, color:'#e65100', sqmMin:18.38, label:'7 — Suburban/Urban',       label_he:'7 — פרברי/עירוני',         desc:'Milky Way invisible, sky is grey, LM ~4.6–5.0',                        desc_he:'שביל החלב בלתי נראה, שמיים אפורים, עצמה גבולית ~4.6–5.0' },
+        { b:8, color:'#b71c1c', sqmMin:17.50, label:'8 — City Sky',             label_he:'8 — שמיים עירוניים',       desc:'Only bright clusters visible, sky orange/white, LM ~4.1–4.5',          desc_he:'רק צבירים בהירים גלויים, שמיים כתומים, עצמה גבולית ~4.1–4.5' },
+        { b:9, color:'#eceff1', sqmMin:0,     label:'9 — Inner City Sky',       label_he:'9 — מרכז עירוני',          desc:'Entire sky orange/white, only Pleiades and brightest stars, LM < 4.0',  desc_he:'שמיים כתומים לחלוטין, רק הכוכבים הבהירים ביותר, עצמה גבולית < 4.0' },
     ];
 
     function sqmToBortle(sqm) {
-        for (const b of BORTLE) {
-            if (sqm >= b.sqmMin) return b;
-        }
+        for (const b of BORTLE) { if (sqm >= b.sqmMin) return b; }
+        return BORTLE[8];
+    }
+    // Map VIIRS GIBS pixel luminance → Bortle (warm color ramp: black=dark sky, orange-white=city)
+    function pixelToBortle(r, g, b) {
+        const lum = 0.299*r + 0.587*g + 0.114*b;
+        if (lum < 4)   return BORTLE[0];
+        if (lum < 10)  return BORTLE[1];
+        if (lum < 22)  return BORTLE[2];
+        if (lum < 48)  return BORTLE[3];
+        if (lum < 85)  return BORTLE[4];
+        if (lum < 128) return BORTLE[5];
+        if (lum < 170) return BORTLE[6];
+        if (lum < 210) return BORTLE[7];
         return BORTLE[8];
     }
 
-    function t(key, fallback) {
-        return (window.i18nStrings && window.i18nStrings[key]) || fallback;
-    }
+    function t(key, fb) { return (window.i18nStrings && window.i18nStrings[key]) || fb; }
     function isHe() { return (window.currentLang || 'en') === 'he'; }
 
-    // ── Build Bortle legend ──────────────────────────────────────────────────
+    // ── Bortle legend ────────────────────────────────────────────────────────
     function buildLegend() {
         const leg = document.getElementById('bortle-legend');
         leg.innerHTML = `<span style="font-size:11px;color:#666;text-transform:uppercase;letter-spacing:0.5px;margin-right:8px;align-self:center;">${t('lp_bortle_scale','Bortle Scale:')}</span>`;
         BORTLE.forEach(b => {
-            const item = document.createElement('div');
-            item.className = 'bl-item';
-            item.title = isHe() ? b.desc_he : b.desc;
-            item.innerHTML = `<div class="bl-dot" style="background:${b.color};"></div><span>${b.b}</span>`;
-            leg.appendChild(item);
+            const el = document.createElement('div');
+            el.className = 'bl-item';
+            el.title = isHe() ? b.desc_he : b.desc;
+            el.innerHTML = `<div class="bl-dot" style="background:${b.color};"></div><span>${b.b}</span>`;
+            leg.appendChild(el);
         });
     }
 
-    // ── Map init ─────────────────────────────────────────────────────────────
+    // ── Map ──────────────────────────────────────────────────────────────────
     const map = L.map('lp-map', {
-        center: [31.05, 34.85],
-        zoom: 6,
-        zoomControl: true,
-        attributionControl: true,
-        maxZoom: 13,
-        minZoom: 2,
-        preferCanvas: true,   // better mobile perf
+        center: [31.05, 34.85], zoom: 6,
+        maxZoom: 10, minZoom: 2, preferCanvas: true,
     });
 
-    // Base layer: CartoDB Dark Matter (astronomy-friendly dark theme)
-    const baseDark = L.tileLayer(
-        'https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png',
-        { attribution: '© <a href="https://www.openstreetmap.org/copyright">OSM</a> © <a href="https://carto.com/">CARTO</a>', subdomains:'abcd', maxZoom:19 }
-    );
-    // Labels-only layer on top (always shown)
-    const labels = L.tileLayer(
-        'https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png',
-        { subdomains:'abcd', maxZoom:19, pane:'shadowPane' }
-    );
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png',
+        { attribution:'© <a href="https://www.openstreetmap.org/copyright">OSM</a> © <a href="https://carto.com/">CARTO</a>', subdomains:'abcd', maxZoom:19 }
+    ).addTo(map);
 
-    baseDark.addTo(map);
+    // Labels always on top
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png',
+        { subdomains:'abcd', maxZoom:19, pane:'shadowPane' }
+    ).addTo(map);
 
     // ── Overlay layers ───────────────────────────────────────────────────────
-    // 1. Falchi 2016 World Atlas (lightpollutionmap.info) — color-coded Bortle
-    const lpOverlay = L.tileLayer(
-        'https://www.lightpollutionmap.info/tiles/world_2015/{z}/{x}/{y}.png',
-        { opacity: 0.70, maxZoom: 13, maxNativeZoom: 11, attribution: '© <a href="https://www.lightpollutionmap.info/">LightPollutionMap.info</a> / Falchi 2016', crossOrigin: '' }
+    // Falchi 2016: lightpollutionmap.info color-coded Bortle tiles
+    const falchiOverlay = L.tileLayer(
+        'https://www.lightpollutionmap.info/tiles/wa_2015_all_web/{z}/{x}/{y}.png',
+        { opacity:0.70, maxNativeZoom:11, maxZoom:13,
+          attribution:'© <a href="https://www.lightpollutionmap.info/">LightPollutionMap.info</a> / Falchi 2016',
+          crossOrigin:'anonymous' }
     );
 
-    // 2. NASA GIBS — VIIRS SNPP Earth at Night composite
+    // NASA GIBS VIIRS — Earth at Night (CORS enabled, pixel-readable)
     const viirsOverlay = L.tileLayer(
         'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_DayNightBand_ENCC/default/2023-01-01/GoogleMapsCompatible/{z}/{y}/{x}.jpg',
-        { opacity: 0.80, maxZoom: 8, attribution: '© <a href="https://earthdata.nasa.gov/">NASA GIBS</a> / NOAA VIIRS', tileSize: 256 }
+        { opacity:0.85, maxNativeZoom:8, maxZoom:10,
+          attribution:'© <a href="https://earthdata.nasa.gov/">NASA GIBS</a> / NOAA VIIRS',
+          crossOrigin:'anonymous' }
     );
 
-    labels.addTo(map);
-    lpOverlay.addTo(map);
-    let activeOverlay = lpOverlay;
-    let activeLayerKey = 'lp';
+    // Start with VIIRS (guaranteed to load); Falchi is secondary
+    viirsOverlay.addTo(map);
+    let activeOverlay = viirsOverlay;
+    let activeLayerKey = 'viirs';
+    document.getElementById('btn-layer-viirs').classList.add('active');
+    document.getElementById('btn-layer-lp').classList.remove('active');
 
     // ── Layer switcher ───────────────────────────────────────────────────────
     window.switchLayer = function(key) {
         if (key === activeLayerKey) return;
         map.removeLayer(activeOverlay);
-        if (key === 'viirs') {
-            activeOverlay = viirsOverlay;
-        } else {
-            activeOverlay = lpOverlay;
-        }
-        activeOverlay.addTo(map);
+        activeOverlay = (key === 'lp') ? falchiOverlay : viirsOverlay;
         activeOverlay.setOpacity(document.getElementById('lp-opacity').value / 100);
+        activeOverlay.addTo(map);
         activeLayerKey = key;
         document.getElementById('btn-layer-lp').classList.toggle('active', key === 'lp');
         document.getElementById('btn-layer-viirs').classList.toggle('active', key === 'viirs');
@@ -370,194 +372,114 @@
         activeOverlay.setOpacity(this.value / 100);
     });
 
-    // ── Locate me ────────────────────────────────────────────────────────────
+    // ── My Location ─────────────────────────────────────────────────────────
     window.locateMe = function() {
         const btn = document.getElementById('btn-locate');
         btn.disabled = true;
         btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i>';
-        map.locate({ setView: true, maxZoom: 9, timeout: 8000 });
-        map.once('locationfound', (e) => {
+        map.locate({ setView:true, maxZoom:9, timeout:8000 });
+        map.once('locationfound', e => {
             btn.disabled = false;
-            btn.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i> <span>' + t('lp_my_location','My Location') + '</span>';
+            btn.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i> ' + t('lp_my_location','My Location');
             queryLP(e.latlng);
         });
         map.once('locationerror', () => {
             btn.disabled = false;
-            btn.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i> <span>' + t('lp_my_location','My Location') + '</span>';
+            btn.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i> ' + t('lp_my_location','My Location');
         });
     };
 
-    // ── Geolocate on load via ipapi (same pattern as rest of site) ──────────
+    // ── IP geolocation on load ────────────────────────────────────────────────
     (async () => {
         try {
             const ctrl = new AbortController();
             const tid = setTimeout(() => ctrl.abort(), 3000);
             const r = await fetch('https://ipapi.co/json/', { signal: ctrl.signal });
             clearTimeout(tid);
-            if (r.ok) {
-                const g = await r.json();
-                if (g.latitude && g.longitude) {
-                    map.setView([g.latitude, g.longitude], 8);
-                }
-            }
+            if (r.ok) { const g = await r.json(); if (g.latitude) map.setView([g.latitude, g.longitude], 8); }
         } catch(e) {}
     })();
 
-    // ── Click handler — query SQM/Bortle ────────────────────────────────────
+    // ── Tile pixel reading — lat/lng → tile x/y/px/py ────────────────────────
+    function latLngToTilePx(lat, lng, z) {
+        const n    = Math.pow(2, z);
+        const tx   = (lng + 180) / 360 * n;
+        const latR = lat * Math.PI / 180;
+        const ty   = (1 - Math.log(Math.tan(latR) + 1 / Math.cos(latR)) / Math.PI) / 2 * n;
+        return { tileX: Math.floor(tx), tileY: Math.floor(ty),
+                 px: Math.floor((tx % 1) * 256), py: Math.floor((ty % 1) * 256) };
+    }
+
+    // Read one pixel from a CORS-enabled tile via canvas
+    function readTilePixel(url, px, py) {
+        return new Promise(resolve => {
+            const img = new Image();
+            img.crossOrigin = 'anonymous';
+            img.onload = () => {
+                try {
+                    const c = document.createElement('canvas');
+                    c.width = 256; c.height = 256;
+                    c.getContext('2d').drawImage(img, 0, 0);
+                    resolve(c.getContext('2d').getImageData(px, py, 1, 1).data);
+                } catch(e) { resolve(null); }
+            };
+            img.onerror = () => resolve(null);
+            img.src = url;
+            setTimeout(() => resolve(null), 7000);
+        });
+    }
+
+    // ── Click handler ─────────────────────────────────────────────────────────
     let popup = null;
 
     async function queryLP(latlng) {
-        const lat = latlng.lat.toFixed(6);
-        const lng = latlng.lng.toFixed(6);
-
-        // Show loading popup immediately
-        if (popup) map.closePopup(popup);
-        popup = L.popup({ className: 'lp-popup', maxWidth: 280, autoPanPaddingTopLeft: [10,10], autoPanPaddingBottomRight: [10,60] })
+        if (popup) { map.closePopup(popup); popup = null; }
+        popup = L.popup({ className:'lp-popup', maxWidth:290,
+            autoPanPaddingTopLeft:[10,10], autoPanPaddingBottomRight:[10,60] })
             .setLatLng(latlng)
             .setContent(`<div class="lp-result-title"><i class="fa-solid fa-circle-notch fa-spin" style="color:#FFAB40;"></i> ${t('lp_loading','Querying...')}</div>`)
             .openOn(map);
 
-        try {
-            // Query lightpollutionmap.info World Atlas 2015 endpoint
-            const url = `https://www.lightpollutionmap.info/query.php?ql=wa2015&qt=point&lon=${lng}&lat=${lat}`;
-            const res = await fetch(url, { signal: AbortSignal.timeout(6000) });
+        const lat = latlng.lat, lng = latlng.lng;
 
-            if (!res.ok) throw new Error('API error');
-            const json = await res.json();
-            const sqm = parseFloat(json['1']?.sqm);
+        // ── Primary: read pixel from VIIRS GIBS tile (always CORS-enabled) ───
+        const z = Math.min(Math.max(map.getZoom(), 3), 8);
+        const { tileX, tileY, px, py } = latLngToTilePx(lat, lng, z);
+        const viirsUrl = `https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_DayNightBand_ENCC/default/2023-01-01/GoogleMapsCompatible/${z}/${tileY}/${tileX}.jpg`;
+        const pixel = await readTilePixel(viirsUrl, px, py);
 
-            if (isNaN(sqm)) throw new Error('No data');
-
-            const bEntry  = sqmToBortle(sqm);
-            const bortle  = bEntry.b;
+        if (pixel) {
+            const bEntry = pixelToBortle(pixel[0], pixel[1], pixel[2]);
+            const sqmEst = ((bEntry.sqmMin + (BORTLE[BORTLE.indexOf(bEntry)-1]?.sqmMin ?? bEntry.sqmMin + 0.5)) / 2).toFixed(1);
+            const textCol = bEntry.b >= 9 ? '#111' : '#fff';
             const bLabel  = isHe() ? bEntry.label_he : bEntry.label;
             const bDesc   = isHe() ? bEntry.desc_he  : bEntry.desc;
-            // Brightness in artificial sky luminance (mcd/m²)
-            const brtRaw  = json['1']?.brightness;
-            const brtStr  = brtRaw != null ? parseFloat(brtRaw).toFixed(3) + ' mcd/m²' : '—';
-            // Text color (dark bg for light badges)
-            const textCol = (bortle >= 9) ? '#111' : '#fff';
-
             popup.setContent(`
                 <div class="lp-result-title">
-                    <div class="lp-bortle-badge" style="background:${bEntry.color};color:${textCol};">${bortle}</div>
+                    <div class="lp-bortle-badge" style="background:${bEntry.color};color:${textCol};">${bEntry.b}</div>
                     <span>${bLabel}</span>
                 </div>
-                <div class="lp-result-row">
-                    <span>SQM</span>
-                    <span class="lp-result-val">${sqm.toFixed(2)} mag/arcsec²</span>
-                </div>
-                <div class="lp-result-row">
-                    <span>${t('lp_artificial_brightness','Artif. Brightness')}</span>
-                    <span class="lp-result-val">${brtStr}</span>
-                </div>
-                <div class="lp-result-row">
-                    <span>${t('lp_coords','Coords')}</span>
-                    <span class="lp-result-val">${parseFloat(lat).toFixed(3)}°, ${parseFloat(lng).toFixed(3)}°</span>
-                </div>
+                <div class="lp-result-row"><span>SQM</span><span class="lp-result-val">~${sqmEst} mag/arcsec²</span></div>
+                <div class="lp-result-row"><span>${t('lp_coords','Coords')}</span><span class="lp-result-val">${lat.toFixed(3)}°, ${lng.toFixed(3)}°</span></div>
                 <div class="lp-result-desc">${bDesc}</div>
+                <div style="font-size:10px;color:#444;margin-top:6px;">${t('lp_estimated','Source: VIIRS NASA GIBS pixel')}</div>
             `);
-
-        } catch(err) {
-            // Fallback: estimate from pixel brightness using canvas
-            const estimated = await estimateFromTile(latlng);
-            if (estimated) {
-                popup.setContent(renderEstimated(estimated, latlng));
-            } else {
-                popup.setContent(`
-                    <div class="lp-result-title" style="color:#e57373;">
-                        <i class="fa-solid fa-triangle-exclamation"></i> ${t('lp_error','Data unavailable')}
-                    </div>
-                    <div class="lp-result-desc">${t('lp_error_desc','Could not retrieve light pollution data. Try visiting lightpollutionmap.info directly.')}</div>
-                    <div class="lp-result-row">
-                        <span>${t('lp_coords','Coords')}</span>
-                        <span class="lp-result-val">${parseFloat(lat).toFixed(3)}°, ${parseFloat(lng).toFixed(3)}°</span>
-                    </div>
-                `);
-            }
+        } else {
+            popup.setContent(`
+                <div class="lp-result-title" style="color:#e57373;">
+                    <i class="fa-solid fa-triangle-exclamation"></i> ${t('lp_error','Data unavailable')}
+                </div>
+                <div class="lp-result-desc">${t('lp_error_desc','Could not read satellite data. Try zooming in and clicking again.')}</div>
+                <div class="lp-result-row"><span>${t('lp_coords','Coords')}</span><span class="lp-result-val">${lat.toFixed(3)}°, ${lng.toFixed(3)}°</span></div>
+            `);
         }
     }
 
-    // ── Pixel-based fallback (canvas cross-origin read) ──────────────────────
-    async function estimateFromTile(latlng) {
-        if (activeLayerKey !== 'lp') return null;
-        try {
-            const z = Math.min(map.getZoom(), 11);
-            const point = map.project(latlng, z);
-            const tileSize = 256;
-            const tx = Math.floor(point.x / tileSize);
-            const ty = Math.floor(point.y / tileSize);
-            const px = Math.floor(point.x % tileSize);
-            const py = Math.floor(point.y % tileSize);
-            const url = `https://www.lightpollutionmap.info/tiles/world_2015/${z}/${tx}/${ty}.png`;
-
-            return await new Promise((resolve) => {
-                const img = new Image();
-                img.crossOrigin = 'anonymous';
-                img.onload = () => {
-                    try {
-                        const canvas = document.createElement('canvas');
-                        canvas.width = tileSize; canvas.height = tileSize;
-                        const ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, 0, 0);
-                        const [r, g, b, a] = ctx.getImageData(px, py, 1, 1).data;
-                        if (a < 10) { resolve({ bortle: null, color: null, sqm: null, pixel: [r,g,b] }); return; }
-                        // Estimate Bortle from pixel hue/brightness
-                        const bEntry = colorToBortle(r, g, b);
-                        resolve({ bEntry, pixel: [r,g,b] });
-                    } catch(e) { resolve(null); }
-                };
-                img.onerror = () => resolve(null);
-                img.src = url;
-                setTimeout(() => resolve(null), 5000);
-            });
-        } catch(e) { return null; }
-    }
-
-    // Map pixel RGB → approximate Bortle from the Falchi 2016 color palette
-    function colorToBortle(r, g, b) {
-        const luminance = 0.299*r + 0.587*g + 0.114*b;
-        // Very dark → pristine sky; very bright → heavily polluted
-        if (luminance < 10)  return BORTLE[0]; // Bortle 1
-        if (luminance < 25)  return BORTLE[1]; // Bortle 2
-        if (b > r*1.5 && b > g*1.2) return BORTLE[2]; // Blue → Bortle 3
-        if (g > r*0.8 && g > b*1.2) return BORTLE[3]; // Green → Bortle 4
-        if (g > 150 && r > 150 && b < 80) return BORTLE[4]; // Yellow-green
-        if (r > 200 && g > 130 && b < 50)  return BORTLE[5]; // Amber
-        if (r > 180 && g < 120 && b < 50)  return BORTLE[6]; // Orange-red
-        if (r > 150 && g < 80  && b < 80)  return BORTLE[7]; // Red
-        if (luminance > 180) return BORTLE[8]; // Near white → Bortle 9
-        return BORTLE[3]; // fallback
-    }
-
-    function renderEstimated(est, latlng) {
-        if (!est || !est.bEntry) return `<div class="lp-result-desc">${t('lp_error','Data unavailable')}</div>`;
-        const b = est.bEntry;
-        const textCol = (b.b >= 9) ? '#111' : '#fff';
-        const bLabel  = isHe() ? b.label_he : b.label;
-        const bDesc   = isHe() ? b.desc_he  : b.desc;
-        return `
-            <div class="lp-result-title">
-                <div class="lp-bortle-badge" style="background:${b.color};color:${textCol};">${b.b}</div>
-                <span>${bLabel} <span style="font-size:10px;color:#666;">(${t('lp_estimated','estimated')})</span></span>
-            </div>
-            <div class="lp-result-row">
-                <span>SQM</span>
-                <span class="lp-result-val">~${b.sqmMin.toFixed(1)} mag/arcsec²</span>
-            </div>
-            <div class="lp-result-row">
-                <span>${t('lp_coords','Coords')}</span>
-                <span class="lp-result-val">${latlng.lat.toFixed(3)}°, ${latlng.lng.toFixed(3)}°</span>
-            </div>
-            <div class="lp-result-desc">${bDesc}</div>
-        `;
-    }
-
-    map.on('click', (e) => queryLP(e.latlng));
+    map.on('click', e => queryLP(e.latlng));
 
     // ── Init ─────────────────────────────────────────────────────────────────
     buildLegend();
-    window.addEventListener('languageChanged', () => buildLegend());
+    window.addEventListener('languageChanged', buildLegend);
 
 })();
 </script>
