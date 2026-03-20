@@ -371,6 +371,23 @@
     // ── Click handler ─────────────────────────────────────────────────────────
     let popup = null;
 
+    // Fetch with automatic retry (up to maxAttempts total tries, delay ms between)
+    async function fetchWithRetry(url, maxAttempts = 3, delay = 700) {
+        let lastErr;
+        for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+            try {
+                const resp = await fetch(url);
+                const data = await resp.json();
+                if (data.error) throw new Error(data.error);
+                return data;
+            } catch (err) {
+                lastErr = err;
+                if (attempt < maxAttempts) await new Promise(r => setTimeout(r, delay));
+            }
+        }
+        throw lastErr;
+    }
+
     async function queryLP(latlng) {
         if (popup) { map.closePopup(popup); popup = null; }
         popup = L.popup({ className:'lp-popup', maxWidth:290,
@@ -380,15 +397,10 @@
             .openOn(map);
 
         const lat = latlng.lat, lng = latlng.lng;
+        const url = `https://lp-proxy.avitanshimon.workers.dev/?lat=${lat.toFixed(6)}&lng=${lng.toFixed(6)}`;
 
-        // ── Query via Cloudflare Worker proxy → lightpollutionmap.info VIIRS 2023 ──
         try {
-            const resp = await fetch(
-                `https://lp-proxy.avitanshimon.workers.dev/?lat=${lat.toFixed(6)}&lng=${lng.toFixed(6)}`
-            );
-            const data = await resp.json();
-
-            if (data.error) throw new Error(data.error);
+            const data = await fetchWithRetry(url, 3, 700);
 
             const bEntry  = BORTLE[data.bortle - 1];
             const textCol = data.bortle >= 9 ? '#111' : '#fff';
@@ -408,13 +420,22 @@
                 <div style="font-size:10px;color:#444;margin-top:6px;">Falchi scatter model · VIIRS 2024 · lightpollutionmap.info</div>
             `);
         } catch(e) {
+            const retryId = 'lp-retry-' + Date.now();
             popup.setContent(`
                 <div class="lp-result-title" style="color:#e57373;">
                     <i class="fa-solid fa-triangle-exclamation"></i> ${t('lp_error','Data unavailable')}
                 </div>
-                <div class="lp-result-desc">${t('lp_error_desc','Could not retrieve satellite data.')}</div>
-                <div class="lp-result-row"><span>${t('lp_coords','Coords')}</span><span class="lp-result-val">${lat.toFixed(3)}°, ${lng.toFixed(3)}°</span></div>
+                <div class="lp-result-desc" style="margin-bottom:10px;">${t('lp_error_desc','The satellite data service is temporarily unreachable.')}</div>
+                <button id="${retryId}" style="background:#1a1a1a;border:1px solid #555;color:#FFAB40;padding:5px 12px;border-radius:6px;cursor:pointer;font-size:12px;width:100%;">
+                    <i class="fa-solid fa-rotate-right"></i> ${t('lp_retry','Try Again')}
+                </button>
+                <div class="lp-result-row" style="margin-top:8px;"><span>${t('lp_coords','Coords')}</span><span class="lp-result-val">${lat.toFixed(3)}°, ${lng.toFixed(3)}°</span></div>
             `);
+            // Attach retry button after popup DOM is rendered
+            setTimeout(() => {
+                const btn = document.getElementById(retryId);
+                if (btn) btn.addEventListener('click', () => queryLP(latlng));
+            }, 50);
         }
     }
 
