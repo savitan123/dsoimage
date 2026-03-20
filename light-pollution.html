@@ -321,7 +321,7 @@
     // ── Map ──────────────────────────────────────────────────────────────────
     const map = L.map('lp-map', {
         center: [31.05, 34.85], zoom: 6,
-        maxZoom: 10, minZoom: 2, preferCanvas: true,
+        maxZoom: 14, minZoom: 2, preferCanvas: true,
     });
 
     L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png',
@@ -337,7 +337,7 @@
     // Falchi 2016: lightpollutionmap.info color-coded Bortle tiles (display only, no canvas)
     const falchiOverlay = L.tileLayer(
         'https://www.lightpollutionmap.info/tiles/wa_2015_all_web/{z}/{x}/{y}.png',
-        { opacity:0.85, maxNativeZoom:11, maxZoom:13,
+        { opacity:0.85, maxNativeZoom:11, maxZoom:14,
           className:'lp-overlay-tiles',
           attribution:'© <a href="https://www.lightpollutionmap.info/">LightPollutionMap.info</a> / Falchi 2016' }
     );
@@ -345,7 +345,7 @@
     // NASA GIBS VIIRS Black Marble — annual composite (CORS enabled, pixel-readable via canvas)
     const viirsOverlay = L.tileLayer(
         'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_Black_Marble/default/2016-01-01/GoogleMapsCompatible_Level8/{z}/{y}/{x}.png',
-        { opacity:1.0, maxNativeZoom:8, maxZoom:10,
+        { opacity:1.0, maxNativeZoom:8, maxZoom:14,
           className:'lp-overlay-tiles',
           attribution:'© <a href="https://earthdata.nasa.gov/">NASA GIBS</a> / NOAA VIIRS Black Marble',
           crossOrigin:'anonymous' }
