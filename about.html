@@ -138,43 +138,372 @@
                         </div>
                 </nav>
                 <div id="image-stats" style="display:none;"></div>
-                <!-- MAIN -->
-                <main class="main-content">
-                        <h1 data-i18n="about_title">About</h1>
-                        <figure class="page-hero">
-                                <img alt="Astrophotography Field Setup under Dark Skies in Golan Heights" loading="lazy"
-                                        src="images/preview/setups_golan_img1.jpg" />
-                                <figcaption data-i18n="about_caption">Under dark skies — field imaging</figcaption>
-                        </figure>
-                        <div class="page-text">
-                                <p data-i18n="about_p1">
-                                        Welcome to dsoimage.com. I’m Shimon Avitan, and this site is a curated gallery
-                                        of my deep-sky
-                                        astrophotography:
-                                        galaxies, nebulae, and star clusters captured from Israel under dark skies
-                                        whenever conditions allow.
-                                </p>
-                                <p data-i18n="about_p2">
-                                        My goal is to present each target clearly and honestly—showing structure, color,
-                                        and fine
-                                        detail—while
-                                        keeping
-                                        the viewing experience fast and clean (preview images open into full-resolution
-                                        frames with notes and links).
-                                </p>
-                                <p data-i18n="about_p3">
-                                        If you’d like to follow new work, you can find links in the sidebar. If you’re
-                                        interested in the
-                                        hardware
-                                        and
-                                        workflow behind the images, visit the Equipment page.
-                                </p>
+                <style>
+        .about-hero {
+            position: relative;
+            width: 100%;
+            height: 380px;
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            border: 1px solid #222;
+        }
+        .about-hero img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            object-position: center 30%;
+            filter: brightness(0.65);
+        }
+        .about-hero-text {
+            position: absolute;
+            bottom: 30px; left: 32px;
+        }
+        .about-hero-text h1 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #fff;
+            margin: 0 0 6px;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.7);
+        }
+        .about-hero-text p {
+            font-size: 14px;
+            color: #bbb;
+            margin: 0;
+        }
+        .about-section-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #E53935;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .about-section-label::after {
+            content: ‘’;
+            flex: 1;
+            height: 1px;
+            background: #222;
+        }
+        .about-intro {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #ccc;
+            max-width: 800px;
+            margin-bottom: 48px;
+        }
+        .about-intro strong { color: #fff; }
+
+        /* Gallery strip */
+        .about-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+        .about-gallery-card {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #222;
+            background: #0e0e0e;
+            text-decoration: none;
+            display: block;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .about-gallery-card:hover { border-color: #E53935; transform: translateY(-3px); }
+        .about-gallery-card img {
+            width: 100%; height: 160px;
+            object-fit: cover;
+            display: block;
+            filter: brightness(0.85);
+            transition: filter 0.2s;
+        }
+        .about-gallery-card:hover img { filter: brightness(1); }
+        .about-gallery-card-label {
+            padding: 12px 14px;
+        }
+        .about-gallery-card-label strong {
+            display: block;
+            font-size: 14px;
+            color: #eee;
+            margin-bottom: 3px;
+        }
+        .about-gallery-card-label span {
+            font-size: 12px;
+            color: #666;
+        }
+        .about-gallery-card-icon {
+            position: absolute;
+            top: 10px; right: 10px;
+            background: rgba(0,0,0,0.55);
+            border-radius: 50%;
+            width: 28px; height: 28px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px;
+            color: #E53935;
+        }
+
+        /* Two-column layout for equipment + locations */
+        .about-two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 48px;
+        }
+        @media (max-width: 640px) { .about-two-col { grid-template-columns: 1fr; } }
+        .about-card {
+            background: #0e0e0e;
+            border: 1px solid #1e1e1e;
+            border-radius: 12px;
+            padding: 22px 24px;
+        }
+        .about-card h3 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #eee;
+            margin: 0 0 14px;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+        .about-card h3 i { color: #FFAB40; font-size: 14px; }
+        .about-card ul {
+            list-style: none;
+            padding: 0; margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+        .about-card ul li {
+            font-size: 13px;
+            color: #aaa;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .about-card ul li i { color: #444; font-size: 11px; margin-top: 3px; flex-shrink: 0; }
+        .about-card-link {
+            display: inline-block;
+            margin-top: 16px;
+            font-size: 12px;
+            color: #E53935;
+            text-decoration: none;
+        }
+        .about-card-link:hover { color: #ff7043; }
+        .about-location-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+        .about-location-badge {
+            font-size: 11px;
+            font-weight: bold;
+            padding: 3px 9px;
+            border-radius: 4px;
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+        .b3 { background: #0d3a7a; color: #8ab4f8; }
+        .b4 { background: #1b5e20; color: #81c784; }
+
+        /* Tools grid */
+        .about-tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 12px;
+            margin-bottom: 48px;
+        }
+        .about-tool-card {
+            background: #0e0e0e;
+            border: 1px solid #1e1e1e;
+            border-radius: 10px;
+            padding: 16px 18px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: border-color 0.15s, background 0.15s;
+        }
+        .about-tool-card:hover { border-color: #333; background: #141414; }
+        .about-tool-card i { color: #FFAB40; font-size: 18px; width: 22px; text-align: center; flex-shrink: 0; }
+        .about-tool-card div strong { display: block; font-size: 13px; color: #ddd; }
+        .about-tool-card div span { font-size: 11px; color: #555; }
+        </style>
+
+        <!-- MAIN -->
+        <main class="main-content">
+
+            <!-- Hero -->
+            <div class="about-hero">
+                <img src="images/preview/setups_golan_img1.jpg" alt="Shimon Avitan imaging under dark skies in the Golan Heights" />
+                <div class="about-hero-text">
+                    <h1 data-i18n="about_title">About Shimon Avitan</h1>
+                    <p>Deep Sky Astrophotographer · Israel</p>
+                </div>
+            </div>
+
+            <!-- Intro -->
+            <div class="about-section-label"><i class="fa-solid fa-user-astronaut"></i> Who I Am</div>
+            <div class="about-intro" data-i18n="about_p1">
+                I’m <strong>Shimon Avitan</strong>, an amateur astronomer and deep-sky astrophotographer based in Israel.
+                This site is a curated archive of my imaging work — galaxies, nebulae, and star clusters captured under
+                the dark skies of the Negev Desert and the Golan Heights. My goal is to present each target with honest
+                detail: real structure, true color, and no over-processed artifice. Every preview links to a full-resolution
+                frame with exposure notes and catalog data.
+            </div>
+
+            <!-- Galleries -->
+            <div class="about-section-label"><i class="fa-solid fa-images"></i> My Galleries</div>
+            <div class="about-gallery-grid">
+                <a class="about-gallery-card" href="galaxies.html">
+                    <div class="about-gallery-card-icon"><i class="fa-solid fa-hurricane"></i></div>
+                    <img src="images/preview/M81_M82_Galaxies.jpg" alt="M81 and M82 Galaxies" />
+                    <div class="about-gallery-card-label">
+                        <strong>Galaxies</strong>
+                        <span>M81, M82, M51, Andromeda, Leo Triplet &amp; more</span>
+                    </div>
+                </a>
+                <a class="about-gallery-card" href="nebulae.html">
+                    <div class="about-gallery-card-icon"><i class="fa-solid fa-smog"></i></div>
+                    <img src="images/preview/HorseHead_Flame_Nebula.jpg" alt="Horsehead and Flame Nebula" />
+                    <div class="about-gallery-card-label">
+                        <strong>Nebulae</strong>
+                        <span>Horsehead, Orion, Eagle, Rosette, North America &amp; more</span>
+                    </div>
+                </a>
+                <a class="about-gallery-card" href="clusters.html">
+                    <div class="about-gallery-card-icon"><i class="fa-solid fa-certificate"></i></div>
+                    <img src="images/preview/M13.jpg" alt="M13 Globular Cluster" />
+                    <div class="about-gallery-card-label">
+                        <strong>Star Clusters</strong>
+                        <span>M13, M35, NGC 869/884, open &amp; globular clusters</span>
+                    </div>
+                </a>
+                <a class="about-gallery-card" href="on-site-photos.html">
+                    <div class="about-gallery-card-icon"><i class="fa-solid fa-camera"></i></div>
+                    <img src="images/preview/setups_deserts_img1.jpg" alt="Field setup in the Negev Desert" />
+                    <div class="about-gallery-card-label">
+                        <strong>On-Site Photos</strong>
+                        <span>Field setups, desert nights, and behind-the-scenes</span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Equipment + Locations -->
+            <div class="about-section-label"><i class="fa-solid fa-camera-retro"></i> Gear &amp; Locations</div>
+            <div class="about-two-col">
+                <div class="about-card">
+                    <h3><i class="fa-solid fa-camera-retro"></i> Equipment</h3>
+                    <ul>
+                        <li><i class="fa-solid fa-circle-dot"></i><span><strong style="color:#ddd;">Telescopes:</strong> WO FLT 132 · WO RedCat 51 · Celestron EdgeHD 9.25"</span></li>
+                        <li><i class="fa-solid fa-circle-dot"></i><span><strong style="color:#ddd;">Cameras:</strong> ZWO ASI 2600MM · Atik 16200 Mono</span></li>
+                        <li><i class="fa-solid fa-circle-dot"></i><span><strong style="color:#ddd;">Mounts:</strong> Astro-Physics Mach2 · Losmandy G11 · Paramount MX+</span></li>
+                        <li><i class="fa-solid fa-circle-dot"></i><span><strong style="color:#ddd;">Filters:</strong> Chroma LRGB + Hα / OIII / SII (3nm)</span></li>
+                        <li><i class="fa-solid fa-circle-dot"></i><span><strong style="color:#ddd;">Processing:</strong> PixInsight · Photoshop</span></li>
+                    </ul>
+                    <a class="about-card-link" href="equipment.html"><i class="fa-solid fa-arrow-right"></i> Full equipment page</a>
+                </div>
+                <div class="about-card">
+                    <h3><i class="fa-solid fa-map-location-dot"></i> Imaging Sites</h3>
+                    <div class="about-location-item">
+                        <span class="about-location-badge b3">Bortle 3</span>
+                        <div>
+                            <div style="font-size:13px;color:#ddd;font-weight:600;">Negev Desert</div>
+                            <div style="font-size:12px;color:#777;margin-top:3px;">Remote desert conditions with excellent transparency. Primary site for narrowband and faint targets.</div>
                         </div>
-                        <footer class="site-footer">
-                                <p data-i18n="footer_text">� 2026 Shimon Avitan | dsoimage.com</p>
-                <p style="margin-top: 8px; font-size: 12px;"><a href="sitemap.html" style="color:#555; text-decoration:none;" onmouseover="this.style.color='#E53935'" onmouseout="this.style.color='#555'"><i class="fa-solid fa-sitemap"></i> Site Map</a></p>
+                    </div>
+                    <div class="about-location-item">
+                        <span class="about-location-badge b4">Bortle 4</span>
+                        <div>
+                            <div style="font-size:13px;color:#ddd;font-weight:600;">Golan Heights</div>
+                            <div style="font-size:12px;color:#777;margin-top:3px;">Accessible dark site used for dual-rig setups combining the FLT 132 and RedCat 51 simultaneously.</div>
+                        </div>
+                    </div>
+                    <a class="about-card-link" href="light-pollution.html"><i class="fa-solid fa-city"></i> Check light pollution near you</a>
+                </div>
+            </div>
+
+            <!-- Tools -->
+            <div class="about-section-label"><i class="fa-solid fa-toolbox"></i> Astronomy Tools</div>
+            <p style="font-size:13px;color:#666;margin-bottom:20px;margin-top:-4px;">Built-in tools for planning and observing — no account needed.</p>
+            <div class="about-tools-grid">
+                <a class="about-tool-card" href="tonights_best.html">
+                    <i class="fa-solid fa-star"></i>
+                    <div><strong>Tonight’s Best</strong><span>Top DSOs visible tonight</span></div>
+                </a>
+                <a class="about-tool-card" href="planner.html">
+                    <i class="fa-solid fa-calendar-days"></i>
+                    <div><strong>Session Planner</strong><span>Plan by date &amp; time window</span></div>
+                </a>
+                <a class="about-tool-card" href="sky-altitude.html">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <div><strong>Altitude Chart</strong><span>Object altitude over night</span></div>
+                </a>
+                <a class="about-tool-card" href="live-sky-map.html">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    <div><strong>Live Sky Map</strong><span>Interactive real-time sky</span></div>
+                </a>
+                <a class="about-tool-card" href="light-pollution.html">
+                    <i class="fa-solid fa-city"></i>
+                    <div><strong>Light Pollution</strong><span>Bortle &amp; SQM by location</span></div>
+                </a>
+                <a class="about-tool-card" href="weather.html">
+                    <i class="fa-solid fa-cloud-sun"></i>
+                    <div><strong>Weather</strong><span>Cloud cover &amp; seeing forecast</span></div>
+                </a>
+                <a class="about-tool-card" href="apod.html">
+                    <i class="fa-solid fa-satellite"></i>
+                    <div><strong>NASA APOD</strong><span>Astronomy picture of the day</span></div>
+                </a>
+                <a class="about-tool-card" href="iss.html">
+                    <i class="fa-solid fa-rocket"></i>
+                    <div><strong>ISS Tracker</strong><span>Live ISS position map</span></div>
+                </a>
+                <a class="about-tool-card" href="coordinate-converter.html">
+                    <i class="fa-solid fa-globe"></i>
+                    <div><strong>Coord Converter</strong><span>RA/Dec ↔ Alt/Az &amp; more</span></div>
+                </a>
+                <a class="about-tool-card" href="checklist.html">
+                    <i class="fa-solid fa-check-double"></i>
+                    <div><strong>Pre-Flight Checklist</strong><span>Session prep checklist</span></div>
+                </a>
+            </div>
+
+            <!-- Resources -->
+            <div class="about-section-label"><i class="fa-solid fa-book"></i> Resources</div>
+            <div class="about-gallery-grid" style="grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));">
+                <a class="about-tool-card" href="knowledge.html" style="border-radius:10px;padding:18px 20px;flex-direction:column;align-items:flex-start;gap:10px;">
+                    <i class="fa-solid fa-book-open" style="color:#81D4FA;font-size:22px;"></i>
+                    <div>
+                        <strong style="display:block;font-size:14px;color:#eee;margin-bottom:4px;">Knowledge Base</strong>
+                        <span style="font-size:12px;color:#666;line-height:1.5;">Deep sky object types, telescope basics, imaging theory, and the science behind the images.</span>
+                    </div>
+                </a>
+                <a class="about-tool-card" href="processing.html" style="border-radius:10px;padding:18px 20px;flex-direction:column;align-items:flex-start;gap:10px;">
+                    <i class="fa-solid fa-laptop-code" style="color:#CE93D8;font-size:22px;"></i>
+                    <div>
+                        <strong style="display:block;font-size:14px;color:#eee;margin-bottom:4px;">Processing Guide</strong>
+                        <span style="font-size:12px;color:#666;line-height:1.5;">My workflow in PixInsight and Photoshop — from calibration frames to final stretch.</span>
+                    </div>
+                </a>
+                <a class="about-tool-card" href="catalog-explorer.html" style="border-radius:10px;padding:18px 20px;flex-direction:column;align-items:flex-start;gap:10px;">
+                    <i class="fa-solid fa-magnifying-glass-chart" style="color:#FFAB40;font-size:22px;"></i>
+                    <div>
+                        <strong style="display:block;font-size:14px;color:#eee;margin-bottom:4px;">Catalog Explorer</strong>
+                        <span style="font-size:12px;color:#666;line-height:1.5;">Browse and filter the Messier and NGC catalog — coordinates, type, magnitude, and size.</span>
+                    </div>
+                </a>
+            </div>
+
+            <footer class="site-footer" style="margin-top:24px;">
+                <p data-i18n="footer_text">© 2026 Shimon Avitan | dsoimage.com</p>
+                <p style="margin-top: 8px; font-size: 12px;"><a href="sitemap.html" style="color:#555; text-decoration:none;" onmouseover="this.style.color=’#E53935’" onmouseout="this.style.color=’#555’"><i class="fa-solid fa-sitemap"></i> Site Map</a></p>
             </footer>
-                </main>
+        </main>
         </div>
         <!-- Search Overlay -->
         <div class="search-overlay" id="search-overlay">
