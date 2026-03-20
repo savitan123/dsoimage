@@ -62,11 +62,11 @@
             htmlEl.setAttribute('lang', 'en');
         }
 
-        // Update toggle button label
-        const toggleBtn = document.getElementById('lang-toggle-btn');
-        if (toggleBtn) {
-            toggleBtn.textContent = lang === 'he' ? '🇺🇸' : '🇮🇱';
-        }
+        // Update flag buttons: active flag = full opacity, inactive = dimmed
+        const enBtn = document.getElementById('lang-en-btn');
+        const heBtn = document.getElementById('lang-he-btn');
+        if (enBtn) enBtn.style.opacity = lang === 'en' ? '1' : '0.35';
+        if (heBtn) heBtn.style.opacity = lang === 'he' ? '1' : '0.35';
 
         // Save preference
         localStorage.setItem(STORAGE_KEY, lang);
@@ -76,15 +76,12 @@
         window.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang: lang } }));
     }
 
-    // Setup toggle button click
+    // Setup flag button clicks
     document.addEventListener('DOMContentLoaded', () => {
-        const toggleBtn = document.getElementById('lang-toggle-btn');
-        if (toggleBtn) {
-            toggleBtn.addEventListener('click', () => {
-                const newLang = currentLang === 'en' ? 'he' : 'en';
-                loadLanguage(newLang);
-            });
-        }
+        const enBtn = document.getElementById('lang-en-btn');
+        const heBtn = document.getElementById('lang-he-btn');
+        if (enBtn) enBtn.addEventListener('click', () => loadLanguage('en'));
+        if (heBtn) heBtn.addEventListener('click', () => loadLanguage('he'));
 
         // Apply saved language on load
         loadLanguage(currentLang);
