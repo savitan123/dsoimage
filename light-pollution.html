@@ -398,7 +398,9 @@
             .setContent(`<div class="lp-result-title"><i class="fa-solid fa-circle-notch fa-spin" style="color:#FFAB40;"></i> ${t('lp_loading','Querying...')}</div>`)
             .openOn(map);
 
-        const lat = latlng.lat, lng = latlng.lng;
+        const lat = latlng.lat;
+        // Normalize to [-180, 180] — Leaflet reports lng > 180 or < -180 on wrapped world copies
+        const lng = ((latlng.lng % 360) + 540) % 360 - 180;
         const url = `https://lp-proxy.avitanshimon.workers.dev/?lat=${lat.toFixed(6)}&lng=${lng.toFixed(6)}`;
 
         try {
