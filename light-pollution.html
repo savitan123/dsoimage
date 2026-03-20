@@ -400,11 +400,12 @@
                     <div class="lp-bortle-badge" style="background:${bEntry.color};color:${textCol};">${data.bortle}</div>
                     <span>${bLabel}</span>
                 </div>
-                <div class="lp-result-row"><span>SQM</span><span class="lp-result-val">~${data.sqm.toFixed(1)} mag/arcsec²</span></div>
-                <div class="lp-result-row"><span>VIIRS radiance</span><span class="lp-result-val">${data.viirs.toFixed(3)} nW/cm²/sr</span></div>
+                <div class="lp-result-row"><span>SQM (annual avg)</span><span class="lp-result-val">${data.sqm.toFixed(2)} mag/arcsec²</span></div>
+                <div class="lp-result-row"><span>Artificial brightness</span><span class="lp-result-val">${data.ab.toFixed(3)} mcd/m²</span></div>
+                ${data.bestBortle < data.bortle ? `<div class="lp-result-row"><span>Best month</span><span class="lp-result-val">Bortle ${data.bestBortle} · SQM ${data.bestSQM.toFixed(2)}</span></div>` : ''}
                 <div class="lp-result-row"><span>${t('lp_coords','Coords')}</span><span class="lp-result-val">${lat.toFixed(3)}°, ${lng.toFixed(3)}°</span></div>
                 <div class="lp-result-desc">${bDesc}</div>
-                <div style="font-size:10px;color:#444;margin-top:6px;">Source: VIIRS 2023 · lightpollutionmap.info</div>
+                <div style="font-size:10px;color:#444;margin-top:6px;">Falchi scatter model · VIIRS 2024 · lightpollutionmap.info</div>
             `);
         } catch(e) {
             popup.setContent(`
