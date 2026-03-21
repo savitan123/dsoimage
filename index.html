@@ -28,11 +28,18 @@
         <link href="css/style.css?v=124" rel="stylesheet" />
         <style>
             .slideshow-container {
-                position: absolute;
-                inset: 0;
+                position: relative;
+                width: 100%;
+                height: 250px;
                 overflow: hidden;
             }
-            .category-card { position: relative; overflow: hidden; }
+            .slideshow-container img {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
         </style>
         <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.min.js"></script>
 
@@ -353,8 +360,6 @@
                     img.alt = item[1];
                     img.decoding = 'async';
                     img.style.cssText = `
-                        position:absolute; inset:0; width:100%; height:100%;
-                        object-fit:cover; object-position:center;
                         opacity:${i === 0 ? 1 : 0};
                         transition:opacity 1.8s ease-in-out;
                         pointer-events:none;
