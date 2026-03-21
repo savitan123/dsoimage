@@ -26,6 +26,14 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.6.6/css/flag-icons.min.css" crossorigin="anonymous" />
         <link href="css/style.css?v=124" rel="stylesheet" />
+        <style>
+            .slideshow-container {
+                position: absolute;
+                inset: 0;
+                overflow: hidden;
+            }
+            .category-card { position: relative; overflow: hidden; }
+        </style>
         <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.min.js"></script>
 
         <!-- Aladin Lite V3 -->
@@ -191,27 +199,21 @@
                         </p>
                         <section class="category-grid">
                                 <a class="category-card" href="galaxies.html">
-                                        <img alt="Triangulum Galaxy (M33) - Deep Sky Galaxy Astrophotography"
-                                                decoding="async" loading="lazy"
-                                                src="images/preview/Triangulum_Galaxy.jpg" />
+                                        <div class="slideshow-container" id="slide-galaxies"></div>
                                         <div class="category-card-text">
                                                 <h2 data-i18n="cat_gal_title">Galaxies</h2>
                                                 <p data-i18n="cat_gal_desc">M31, M33, M81/M82, M101, M77 and more.</p>
                                         </div>
                                 </a>
                                 <a class="category-card" href="nebulae.html">
-                                        <img alt="Horsehead and Flame Nebula - Deep Sky Nebula Astrophotography"
-                                                decoding="async" loading="lazy"
-                                                src="images/preview/HorseHead_Flame_Nebula.jpg" />
+                                        <div class="slideshow-container" id="slide-nebulae"></div>
                                         <div class="category-card-text">
                                                 <h2 data-i18n="cat_neb_title">Nebulae</h2>
-                                                <p data-i18n="cat_neb_desc">Emission, reflection and narrowband targets.
-                                                </p>
+                                                <p data-i18n="cat_neb_desc">Emission, reflection and narrowband targets.</p>
                                         </div>
                                 </a>
                                 <a class="category-card" href="clusters.html">
-                                        <img alt="M13 Hercules Globular Cluster - Deep Sky Star Cluster Astrophotography"
-                                                decoding="async" loading="lazy" src="images/preview/M13_Crop.jpg" />
+                                        <div class="slideshow-container" id="slide-clusters"></div>
                                         <div class="category-card-text">
                                                 <h2 data-i18n="cat_cl_title">Star Clusters</h2>
                                                 <p data-i18n="cat_cl_desc">Globular and open clusters.</p>
@@ -300,6 +302,82 @@
                         <div class="search-results" id="search-results"></div>
                 </div>
         </div>
+        <script>
+        (function () {
+            const GALAXY_IMGS = [
+                ['images/preview/Triangulum_Galaxy.jpg',      'Triangulum Galaxy M33'],
+                ['images/preview/Andromeda_Galaxy.jpg',       'Andromeda Galaxy M31'],
+                ['images/preview/M81_M82_Galaxies.jpg',       'M81 & M82 Galaxies'],
+                ['images/preview/M51_Galaxy.jpg',             'Whirlpool Galaxy M51'],
+                ['images/preview/M106_Galaxy.jpg',            'M106 Galaxy'],
+                ['images/preview/Leo_Triplet.jpg',            'Leo Triplet'],
+                ['images/preview/M101.jpg',                   'Pinwheel Galaxy M101'],
+                ['images/preview/Needle_Galaxy.jpg',          'Needle Galaxy NGC 4565'],
+                ['images/preview/Fireworks_Galaxy.jpg',       'Fireworks Galaxy NGC 6946'],
+                ['images/preview/M64_Galaxy.jpg',             'Black Eye Galaxy M64'],
+            ];
+            const NEBULA_IMGS = [
+                ['images/preview/HorseHead_Flame_Nebula.jpg',         'Horsehead & Flame Nebula'],
+                ['images/preview/Orion_and_Running_Man_Nebulae.jpg',  'Orion & Running Man Nebulae'],
+                ['images/preview/Eagle_Nebula.jpg',                   'Eagle Nebula M16'],
+                ['images/preview/Rosette_Nebula.jpg',                 'Rosette Nebula'],
+                ['images/preview/north_america_nebula_rev3.jpg',      'North America Nebula'],
+                ['images/preview/Bubble_Nebula_HOO.jpg',              'Bubble Nebula'],
+                ['images/preview/Jellyfish_Nebula.jpg',               'Jellyfish Nebula IC 443'],
+                ['images/preview/veil_nebula.jpg',                    'Veil Nebula'],
+                ['images/preview/wizard_nebula_1.jpg',                'Wizard Nebula'],
+                ['images/preview/helix_nebula.jpg',                   'Helix Nebula'],
+                ['images/preview/California_Nebula.jpg',              'California Nebula'],
+                ['images/preview/Cygnus_wall_HA.jpg',                 'Cygnus Wall'],
+            ];
+            const CLUSTER_IMGS = [
+                ['images/preview/M13.jpg',                    'M13 Hercules Globular Cluster'],
+                ['images/preview/M13_Crop.jpg',               'M13 Crop'],
+                ['images/preview/M35_NGC2158_Open_Clusters.jpg', 'M35 & NGC 2158'],
+                ['images/preview/ngc_869_ngc_884.jpg',        'Double Cluster NGC 869/884'],
+                ['images/preview/Owl_Nebula.jpg',             'Owl Nebula M97 & M108'],
+                ['images/preview/M27.jpg',                    'Dumbbell Nebula M27'],
+                ['images/preview/M52_Star_Cluster_Bubble_Nebula.jpg', 'M52 & Bubble Nebula'],
+            ];
+
+            function buildSlideshow(containerId, images) {
+                const container = document.getElementById(containerId);
+                if (!container) return;
+
+                // Shuffle so first image is random
+                const shuffled = images.slice().sort(() => Math.random() - 0.5);
+
+                shuffled.forEach((item, i) => {
+                    const img = document.createElement('img');
+                    img.src = item[0];
+                    img.alt = item[1];
+                    img.decoding = 'async';
+                    img.style.cssText = `
+                        position:absolute; inset:0; width:100%; height:100%;
+                        object-fit:cover; object-position:center;
+                        opacity:${i === 0 ? 1 : 0};
+                        transition:opacity 1.8s ease-in-out;
+                        pointer-events:none;
+                    `;
+                    container.appendChild(img);
+                });
+
+                let current = 0;
+                const imgs = container.querySelectorAll('img');
+                setInterval(() => {
+                    imgs[current].style.opacity = '0';
+                    current = (current + 1) % imgs.length;
+                    imgs[current].style.opacity = '1';
+                }, 5000);
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+                buildSlideshow('slide-galaxies', GALAXY_IMGS);
+                buildSlideshow('slide-nebulae',  NEBULA_IMGS);
+                buildSlideshow('slide-clusters', CLUSTER_IMGS);
+            });
+        })();
+        </script>
         <script src="js/script.js?v=115"></script>
         <script src="js/stats.js"></script>
         <script src="js/apod.js"></script>
