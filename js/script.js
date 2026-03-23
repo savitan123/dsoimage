@@ -2677,3 +2677,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // NASA APOD is now served from the server-side cache.
 // See js/apod.js — it reads from data/apod_cache.json (updated daily by GitHub Actions).
+
+// ===============================
+// Image protection
+// ===============================
+document.addEventListener('DOMContentLoaded', () => {
+  // 1. Block right-click context menu on all images
+  document.addEventListener('contextmenu', e => {
+    if (e.target.tagName === 'IMG') e.preventDefault();
+  });
+
+  // 2. Disable drag on all images
+  document.querySelectorAll('img').forEach(img => {
+    img.setAttribute('draggable', 'false');
+  });
+
+  // 3. Also block drag-start event
+  document.addEventListener('dragstart', e => {
+    if (e.target.tagName === 'IMG') e.preventDefault();
+  });
+});

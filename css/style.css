@@ -2707,3 +2707,35 @@ body.no-scroll {
 [dir="rtl"] .page-hero figcaption {
   text-align: right;
 }
+
+/* =========================
+   Image protection overlay
+   Sits on top of images — right-click hits the overlay, not the image
+   ========================= */
+.gallery-item,
+.equipment-item,
+.page-hero,
+.category-card,
+.lightbox-content-wrap {
+  position: relative;
+}
+.gallery-item::after,
+.equipment-item::after,
+.page-hero::after,
+.category-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none; /* lets clicks pass through for links/lightbox */
+}
+/* On non-interactive containers, block pointer events to intercept right-click */
+.equipment-item::after,
+.page-hero::after {
+  pointer-events: auto;
+}
+img {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none; /* iOS long-press save dialog */
+}
