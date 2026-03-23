@@ -2696,4 +2696,18 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('dragstart', e => {
     if (e.target.tagName === 'IMG') e.preventDefault();
   });
+
+  // 4. Android long-press: prevent "Save image" popup
+  let _touchTimer = null;
+  document.addEventListener('touchstart', e => {
+    if (e.target.tagName === 'IMG') {
+      _touchTimer = setTimeout(() => { _touchTimer = null; }, 600);
+    }
+  }, { passive: true });
+  document.addEventListener('touchend', () => {
+    if (_touchTimer) { clearTimeout(_touchTimer); _touchTimer = null; }
+  });
+  document.addEventListener('touchmove', () => {
+    if (_touchTimer) { clearTimeout(_touchTimer); _touchTimer = null; }
+  }, { passive: true });
 });
