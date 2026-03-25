@@ -109,6 +109,10 @@ function initDSOImage() {
     const cleanName = aliases ? aliases.split(',')[0].trim() : title.replace(/\(.*\)/, "").trim();
     const newUrl = window.location.pathname + "?object=" + encodeURIComponent(cleanName);
 
+    // Update page title to include object name (helps SEO + browser tab)
+    if (!window._originalPageTitle) window._originalPageTitle = document.title;
+    document.title = cleanName + " — DSOImage by Shimon Avitan";
+
     // Check if current state is already this lightbox to avoid double push
     if (!history.state || !history.state.lightboxOpen) {
       history.pushState({ lightboxOpen: true, object: cleanName }, "", newUrl);
@@ -121,6 +125,8 @@ function initDSOImage() {
     document.body.classList.remove("no-scroll");
     lightboxImg.classList.remove("is-zoomed");
     isZoomed = false;
+    // Restore original page title
+    if (window._originalPageTitle) document.title = window._originalPageTitle;
   }
 
   // Handle Back Button (Popstate)
