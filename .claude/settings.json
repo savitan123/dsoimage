@@ -30,7 +30,12 @@
       "Bash(sed -i 's/tonights_best\\\\.js?v=8/tonights_best.js?v=9/g' *.html)",
       "Bash(grep -c \"fa-solid fa-moon\" c:/Users/Savit/Documents/dsoimage-site/*.html)",
       "Bash(grep -n \"id: ''Sun''\" c:/Users/Savit/Documents/dsoimage-site/js/tonights_best.js)",
-      "Bash(grep -rn \"style\\\\.css?v=116\" c:/Users/Savit/Documents/dsoimage-site/*.html)"
+      "Bash(grep -rn \"style\\\\.css?v=116\" c:/Users/Savit/Documents/dsoimage-site/*.html)",
+      "Bash(python3 -:*)",
+      "Bash(git stash:*)",
+      "Bash(node -e \":*)",
+      "Bash(python3 -c \":*)",
+      "Bash(python3 \"C:/Users/Savit/Documents/dsoimage-site/inject_he_content.py\")"
     ]
   }
 }
