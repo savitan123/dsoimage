@@ -221,7 +221,7 @@
   </url>
   <url>
     <loc>https://dsoimage.com/clusters.html</loc>
-    <lastmod>2026-03-20</lastmod>
+    <lastmod>2026-03-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -239,6 +239,10 @@
     <image:image>
       <image:loc>https://dsoimage.com/images/full/M35_NGC2158_Open_Clusters.jpg</image:loc>
       <image:caption>Messier 35 and NGC 2158</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dsoimage.com/images/full/M44.jpg</image:loc>
+      <image:caption>Beehive Cluster (M44)</image:caption>
     </image:image>
   </url>
   <url>

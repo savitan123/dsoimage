@@ -430,5 +430,13 @@
     "full": "images/full/M35_NGC2158_Open_Clusters.jpg",
     "page": "clusters.html",
     "cleanName": "M35"
+  },
+  {
+    "title": "Beehive Cluster (M44)",
+    "aliases": "M44, NGC 2632, Praesepe, Cr 189",
+    "thumb": "images/preview/M44.jpg",
+    "full": "images/full/M44.jpg",
+    "page": "clusters.html",
+    "cleanName": "M44"
   }
 ]
