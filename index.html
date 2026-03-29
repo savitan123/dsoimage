@@ -44,11 +44,7 @@
                 object-fit: cover;
             }
         </style>
-        <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.min.js"></script>
-
-        <!-- Aladin Lite V3 -->
-        <link rel="stylesheet" href="https://aladin.cds.unistra.fr/AladinLite/api/v3/latest/aladin.css" />
-        <script src="https://aladin.cds.unistra.fr/AladinLite/api/v3/latest/aladin.js" charset="utf-8"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.min.js"></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -341,12 +337,11 @@
                 ['images/preview/Cygnus_wall_HA.jpg',                 'Cygnus Wall'],
             ];
             const CLUSTER_IMGS = [
-                ['images/preview/M13.jpg',                    'M13 Hercules Globular Cluster'],
-                ['images/preview/M13_Crop.jpg',               'M13 Crop'],
+                ['images/preview/M13.jpg',                       'M13 Hercules Globular Cluster'],
+                ['images/preview/M13_Crop.jpg',                  'M13 Crop'],
+                ['images/preview/M44.jpg',                       'Beehive Cluster M44'],
                 ['images/preview/M35_NGC2158_Open_Clusters.jpg', 'M35 & NGC 2158'],
-                ['images/preview/ngc_869_ngc_884.jpg',        'Double Cluster NGC 869/884'],
-                ['images/preview/Owl_Nebula.jpg',             'Owl Nebula M97 & M108'],
-                ['images/preview/M27.jpg',                    'Dumbbell Nebula M27'],
+                ['images/preview/ngc_869_ngc_884.jpg',           'Double Cluster NGC 869/884'],
                 ['images/preview/M52_Star_Cluster_Bubble_Nebula.jpg', 'M52 & Bubble Nebula'],
             ];
 
@@ -359,7 +354,13 @@
 
                 shuffled.forEach((item, i) => {
                     const img = document.createElement('img');
-                    img.src = item[0];
+                    // Only eager-load the first visible image; defer the rest
+                    if (i === 0) {
+                        img.src = item[0];
+                    } else {
+                        img.dataset.src = item[0];
+                        img.loading = 'lazy';
+                    }
                     img.alt = item[1];
                     img.decoding = 'async';
                     img.style.cssText = `
@@ -375,6 +376,11 @@
                 setInterval(() => {
                     imgs[current].style.opacity = '0';
                     current = (current + 1) % imgs.length;
+                    // Swap data-src -> src on first use
+                    if (imgs[current].dataset.src) {
+                        imgs[current].src = imgs[current].dataset.src;
+                        delete imgs[current].dataset.src;
+                    }
                     imgs[current].style.opacity = '1';
                 }, 5000);
             }
