@@ -354,13 +354,7 @@
 
                 shuffled.forEach((item, i) => {
                     const img = document.createElement('img');
-                    // Only eager-load the first visible image; defer the rest
-                    if (i === 0) {
-                        img.src = item[0];
-                    } else {
-                        img.dataset.src = item[0];
-                        img.loading = 'lazy';
-                    }
+                    img.src = item[0];
                     img.alt = item[1];
                     img.decoding = 'async';
                     img.style.cssText = `
@@ -376,11 +370,6 @@
                 setInterval(() => {
                     imgs[current].style.opacity = '0';
                     current = (current + 1) % imgs.length;
-                    // Swap data-src -> src on first use
-                    if (imgs[current].dataset.src) {
-                        imgs[current].src = imgs[current].dataset.src;
-                        delete imgs[current].dataset.src;
-                    }
                     imgs[current].style.opacity = '1';
                 }, 5000);
             }
