@@ -3,11 +3,11 @@
   "phase": "Waxing Gibbous",
   "illumination": 100,
   "moonrise": "16:31",
-  "moonset": "03:22",
+  "moonset": "03:50",
   "closestphase": {
-    "phase": "Full Moon",
-    "date": "2026-04-02",
-    "time": "02:11"
+    "phase": "Last Quarter",
+    "date": "2026-04-10",
+    "time": "04:51"
   },
-  "updated": "2026-04-02T01:10:22Z"
+  "updated": "2026-04-02T05:27:12Z"
 }
