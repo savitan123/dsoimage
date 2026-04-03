@@ -1,7 +1,7 @@
 {
   "date": "2026-04-03",
-  "phase": "Full Moon",
-  "illumination": 98,
+  "phase": "Waning Gibbous",
+  "illumination": 97,
   "moonrise": "17:29",
   "moonset": "04:21",
   "closestphase": {
@@ -9,5 +9,5 @@
     "date": "2026-04-10",
     "time": "04:51"
   },
-  "updated": "2026-04-03T12:36:15Z"
+  "updated": "2026-04-03T16:27:09Z"
 }
