@@ -1804,8 +1804,13 @@ function sendImagingList() {
   lines.push(`\n${footer}`);
 
   const body = lines.join('\n');
-  const mailto = `mailto:?subject=${encodeURIComponent(subject + ' – ' + date)}&body=${encodeURIComponent(body)}`;
-  window.location.href = mailto;
+  const mailto = `mailto:?subject=${encodeURIComponent(subject + ' \u2013 ' + date)}&body=${encodeURIComponent(body)}`;
+  const a = document.createElement('a');
+  a.href = mailto;
+  a.style.display = 'none';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => document.body.removeChild(a), 300);
 }
 
 // Helper: Parse Times to Date objects relative to "Tonight"
