@@ -88,7 +88,26 @@
             overflow-x: auto !important;
         }
         #targets-table {
-            min-width: 420px;
+            min-width: 380px;
+        }
+        /* Mobile: shrink tool card padding and font */
+        @media (max-width: 600px) {
+            #suggester-tool {
+                padding: 16px 10px !important;
+            }
+            #targets-table {
+                font-size: 10px !important;
+                min-width: 320px;
+            }
+            #targets-table td, #targets-table th {
+                padding: 4px 2px !important;
+            }
+            .suggester-controls {
+                gap: 8px !important;
+            }
+            .suggester-select, .small-input {
+                font-size: 13px !important;
+            }
         }
         /* RTL: bar direction */
         [dir="rtl"] #send-list-bar {
