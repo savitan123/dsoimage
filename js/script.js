@@ -1776,9 +1776,18 @@ function updateSendBar() {
     const countEl = document.getElementById('send-list-count');
     const btnEl   = document.getElementById('send-list-btn');
     if (countEl) countEl.textContent = `${checked.length} ${countLabel}`;
-    if (btnEl)   btnEl.textContent   = btnLabel;
+    if (btnEl) {
+      btnEl.textContent = btnLabel;
+      // Re-attach click handler each time (textContent wipes child nodes but not event listeners,
+      // however we use a flag to avoid double-binding)
+      if (!btnEl._sendBound) {
+        btnEl.addEventListener('click', sendImagingList);
+        btnEl._sendBound = true;
+      }
+    }
   }
 }
+window.sendImagingList = sendImagingList;
 
 function sendImagingList() {
   const checked = document.querySelectorAll('.target-checkbox:checked');
