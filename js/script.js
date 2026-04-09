@@ -1776,15 +1776,7 @@ function updateSendBar() {
     const countEl = document.getElementById('send-list-count');
     const btnEl   = document.getElementById('send-list-btn');
     if (countEl) countEl.textContent = `${checked.length} ${countLabel}`;
-    if (btnEl) {
-      btnEl.textContent = btnLabel;
-      // Re-attach click handler each time (textContent wipes child nodes but not event listeners,
-      // however we use a flag to avoid double-binding)
-      if (!btnEl._sendBound) {
-        btnEl.addEventListener('click', sendImagingList);
-        btnEl._sendBound = true;
-      }
-    }
+    if (btnEl) btnEl.textContent = btnLabel;
   }
 }
 window.sendImagingList = sendImagingList;
@@ -2796,6 +2788,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('dragstart', e => {
     if (e.target.tagName === 'IMG') e.preventDefault();
   });
+
+  // Send Imaging List button — attach once at load, always present in DOM
+  const _sendBtn = document.getElementById('send-list-btn');
+  if (_sendBtn) _sendBtn.addEventListener('click', sendImagingList);
 
   // 4. Android long-press: prevent "Save image" popup
   let _touchTimer = null;
