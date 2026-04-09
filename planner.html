@@ -43,6 +43,46 @@
         @media (max-width: 768px) {
             #mode-control-group { flex-basis: auto !important; }
         }
+        /* Send imaging list action bar */
+        #send-list-bar {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 10px;
+            padding: 10px 14px;
+            background: rgba(255, 152, 0, 0.12);
+            border: 1px solid rgba(255, 152, 0, 0.4);
+            border-radius: 8px;
+        }
+        #send-list-count {
+            font-size: 13px;
+            color: #ff9800;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+        #send-list-btn {
+            background: linear-gradient(45deg, #ff9800, #ff5722);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 18px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: opacity 0.2s;
+            min-height: 40px;
+        }
+        #send-list-btn:hover { opacity: 0.85; }
+        @media (max-width: 500px) {
+            #send-list-bar { flex-direction: column; align-items: stretch; }
+            #send-list-btn { width: 100%; text-align: center; }
+        }
+        /* Highlight checked rows */
+        .target-row:has(.target-checkbox:checked) {
+            background: rgba(255, 152, 0, 0.07);
+        }
     </style>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-C93LG6YJGP"></script>
@@ -223,6 +263,10 @@
                             Click "Find Targets" to load database.<br />
                             (Location: Tel Aviv, IL estimated)
                         </div>
+                    </div>
+                    <div id="send-list-bar">
+                        <span id="send-list-count"></span>
+                        <button id="send-list-btn" data-i18n="send_list_btn" onclick="sendImagingList()">📧 Send Imaging List</button>
                     </div>
                 </div>
             </div>

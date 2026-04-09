@@ -1684,10 +1684,19 @@ function runSuggesterLogic(isBestMode, sortOverride = null) {
     if (resultsDiv) resultsDiv.innerHTML = `<div style="padding:20px; text-align:center;">No targets found matching criteria.</div>`;
   } else {
     // START TABLE
-    let html = `<table style="width:100%; border-collapse:collapse; font-size:11px; table-layout: auto;">
+    const _s = window.i18nStrings || {};
+    const _colSelect = _s.col_select || 'Add';
+    const _selectAll = _s.select_all || 'All';
+    let html = `<table id="targets-table" style="width:100%; border-collapse:collapse; font-size:11px; table-layout: auto;">
                 <tr style="border-bottom:1px solid #444; color:#888; font-size:10px;">
+                    <th style="padding:4px 6px; text-align:center; white-space:nowrap; width:36px;">
+                      <div style="display:flex;flex-direction:column;align-items:center;gap:1px;">
+                        <input type="checkbox" id="select-all-targets" title="${_selectAll}" style="width:16px;height:16px;cursor:pointer;accent-color:#ff9800;">
+                        <span style="font-size:9px;color:#888;">${_colSelect}</span>
+                      </div>
+                    </th>
                     <th style="padding:4px 2px; text-align:left; cursor:pointer;" onclick="handleHeaderSort('name_asc')" title="Sort by Name">Name ↕</th>
-                    <th style="padding:4px 2px; text-align:center; white-space:nowrap;">Check Altitude</th>
+                    <th style="padding:4px 2px; text-align:center; white-space:nowrap;">Chart</th>
                     <th style="padding:4px 2px; text-align:center; white-space:nowrap; cursor:pointer;" onclick="handleHeaderSort('type_asc')" title="Sort by Type">Type ↕</th>
                     <th style="padding:4px 2px; text-align:center; white-space:nowrap; cursor:pointer;" onclick="handleHeaderSort('mag_asc')" title="Sort by Brightness">Mag ↕</th>
                     <th style="padding:4px 2px; text-align:center; white-space:nowrap; cursor:pointer;" onclick="handleHeaderSort('size_desc')" title="Sort by Size">Size ↕</th>
@@ -1707,20 +1716,96 @@ function runSuggesterLogic(isBestMode, sortOverride = null) {
       const searchName = o.n;
       const safeTarget = searchName.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
 
-      html += `<tr style="border-bottom:1px solid #333;">
+      const safeCommon = (o.cn || '').replace(/'/g, "\\'");
+      const safeMag    = o.m === 99 ? '-' : o.m;
+      const safeType   = (o.t || '').replace(/'/g, "\\'");
+      const safeSize   = sizeStr.replace(/'/g, "\\'");
+      html += `<tr style="border-bottom:1px solid #333;" class="target-row">
+                    <td style="padding:6px 6px; text-align:center; width:36px;">
+                      <input type="checkbox" class="target-checkbox"
+                        data-name="${o.n}" data-common="${safeCommon}"
+                        data-type="${safeType}" data-mag="${safeMag}" data-size="${safeSize}"
+                        style="width:16px;height:16px;cursor:pointer;accent-color:#ff9800;">
+                    </td>
                     <td style="padding:6px 2px;"><a href="https://wikisky.org/?object=${searchName}" target="_blank" style="color:#1e90ff; text-decoration:none;">${displayName}</a></td>
                     <td style="padding:6px 2px; text-align:center;"><button onclick="openAltitudeModal('${safeTarget}','${_modalDate}')" style="background:transparent;border:1px solid #335;color:#7ab;cursor:pointer;font-size:11px;padding:2px 7px;border-radius:4px;white-space:nowrap;" title="Check altitude over night">📈 Chart</button></td>
                     <td style="padding:6px 2px; color:#ccc; text-align:center; white-space:nowrap;">${o.t}</td>
-                    <td style="padding:6px 2px; color:#ccc; text-align:center; white-space:nowrap;">${o.m === 99 ? '-' : o.m}</td>
+                    <td style="padding:6px 2px; color:#ccc; text-align:center; white-space:nowrap;">${safeMag}</td>
                     <td style="padding:6px 2px; color:#aaa; font-family:monospace; font-size:11px; text-align:center; white-space:nowrap;">${sizeStr}</td>
                  </tr>`;
     });
     html += `</table>`;
     if (resultsDiv) resultsDiv.innerHTML = html;
+
+    // Wire up select-all checkbox
+    const selectAllCb = document.getElementById('select-all-targets');
+    if (selectAllCb) {
+      selectAllCb.addEventListener('change', () => {
+        document.querySelectorAll('.target-checkbox').forEach(cb => cb.checked = selectAllCb.checked);
+        updateSendBar();
+      });
+    }
+    // Wire up individual checkboxes
+    document.querySelectorAll('.target-checkbox').forEach(cb => {
+      cb.addEventListener('change', () => {
+        const all = document.querySelectorAll('.target-checkbox');
+        const checked = document.querySelectorAll('.target-checkbox:checked');
+        if (selectAllCb) selectAllCb.indeterminate = checked.length > 0 && checked.length < all.length;
+        if (selectAllCb) selectAllCb.checked = checked.length === all.length;
+        updateSendBar();
+      });
+    });
+    updateSendBar();
   }
 
   if (loadingDiv) loadingDiv.style.display = "none";
   if (btn) btn.disabled = false;
+}
+
+function updateSendBar() {
+  const bar = document.getElementById('send-list-bar');
+  if (!bar) return;
+  const checked = document.querySelectorAll('.target-checkbox:checked');
+  const _s = window.i18nStrings || {};
+  const countLabel = _s.send_list_count || 'selected';
+  const btnLabel   = _s.send_list_btn   || '📧 Send Imaging List';
+  if (checked.length === 0) {
+    bar.style.display = 'none';
+  } else {
+    bar.style.display = 'flex';
+    const countEl = document.getElementById('send-list-count');
+    const btnEl   = document.getElementById('send-list-btn');
+    if (countEl) countEl.textContent = `${checked.length} ${countLabel}`;
+    if (btnEl)   btnEl.textContent   = btnLabel;
+  }
+}
+
+function sendImagingList() {
+  const checked = document.querySelectorAll('.target-checkbox:checked');
+  if (!checked.length) return;
+  const _s = window.i18nStrings || {};
+  const subject  = _s.email_subject || 'My DSO Imaging List';
+  const intro    = _s.email_intro   || 'My planned deep sky imaging targets:';
+  const footer   = _s.email_footer  || 'Generated by dsoimage.com/planner.html';
+  const typeLabel = _s.email_type   || 'Type';
+  const magLabel  = _s.email_mag    || 'Mag';
+  const sizeLabel = _s.email_size   || 'Size';
+
+  const date = new Date().toLocaleDateString('en-GB');
+  let lines = [`${intro}\n`];
+  checked.forEach((cb, i) => {
+    const name   = cb.dataset.name   || '';
+    const common = cb.dataset.common ? ` (${cb.dataset.common})` : '';
+    const type   = cb.dataset.type   || '-';
+    const mag    = cb.dataset.mag    || '-';
+    const size   = cb.dataset.size   || '-';
+    lines.push(`${i + 1}. ${name}${common}  |  ${typeLabel}: ${type}  |  ${magLabel}: ${mag}  |  ${sizeLabel}: ${size}`);
+  });
+  lines.push(`\n${footer}`);
+
+  const body = lines.join('\n');
+  const mailto = `mailto:?subject=${encodeURIComponent(subject + ' – ' + date)}&body=${encodeURIComponent(body)}`;
+  window.location.href = mailto;
 }
 
 // Helper: Parse Times to Date objects relative to "Tonight"
