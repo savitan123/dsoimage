@@ -80,8 +80,7 @@
         @media (max-width: 500px) {
             #send-list-bar { flex-direction: column; align-items: stretch; }
             #send-list-btn, #send-list-btn-mobile { width: 100%; text-align: center; }
-            #send-list-desktop { flex-direction: column; }
-            #send-list-email { width: 100% !important; }
+            #send-list-desktop { display: none !important; }
         }
         #send-list-email::placeholder { color: #666; }
         #send-list-email:focus { outline: 1px solid #ff9800; border-color: #ff9800; }
@@ -310,7 +309,7 @@
                                 style="padding:8px 12px; border-radius:6px; border:1px solid #555; background:#1a1a1a; color:#fff; font-size:14px; min-width:210px; height:40px;">
                             <a id="send-list-btn" href="#" data-i18n="send_list_btn" style="display:inline-block;text-decoration:none;">📧 Send Imaging List</a>
                         </div>
-                        <a id="send-list-btn-mobile" href="#" data-i18n="send_list_btn" style="display:none;text-decoration:none;">📧 Send Imaging List</a>
+                        <a id="send-list-btn-mobile" href="#" data-i18n="send_list_btn" style="display:inline-block;text-decoration:none;">📧 Send Imaging List</a>
                     </div>
                     <!-- Hidden form for desktop email via FormSubmit -->
                     <form id="imaging-list-form" action="" method="POST" style="display:none;">

@@ -1805,17 +1805,14 @@ function updateSendBar() {
     bar.style.display = 'flex';
     if (countEl) countEl.textContent = checked.length + ' ' + countLabel;
 
-    if (isMobile) {
-      // Mobile: show simple mailto button
-      const mobileBtn = document.getElementById('send-list-btn-mobile');
-      const desktopDiv = document.getElementById('send-list-desktop');
-      if (desktopDiv) desktopDiv.style.display = 'none';
-      if (mobileBtn) {
-        mobileBtn.style.display = 'inline-block';
-        mobileBtn.textContent = btnLabel;
-        mobileBtn.href = buildMailtoHref();
-      }
-    } else {
+    // Always update the mobile mailto button
+    const mobileBtn = document.getElementById('send-list-btn-mobile');
+    if (mobileBtn) {
+      mobileBtn.textContent = btnLabel;
+      mobileBtn.href = buildMailtoHref();
+    }
+
+    if (!isMobile) {
       // Desktop: show email input + send button
       const mobileBtn = document.getElementById('send-list-btn-mobile');
       const desktopDiv = document.getElementById('send-list-desktop');
