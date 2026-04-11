@@ -303,6 +303,13 @@
                         <span id="send-list-count"></span>
                         <a id="send-list-btn" href="#" data-i18n="send_list_btn" style="display:inline-block;text-decoration:none;">📧 Send Imaging List</a>
                     </div>
+                    <!-- Hidden form for desktop email via FormSubmit -->
+                    <form id="imaging-list-form" action="https://formsubmit.co/avitanshimon@gmail.com" method="POST" style="display:none;">
+                        <input type="hidden" name="_subject" id="form-subject" value="My DSO Imaging List">
+                        <input type="hidden" name="message" id="form-message" value="">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_next" value="https://dsoimage.com/planner.html">
+                    </form>
                 </div>
             </div>
             <hr style="border-color:#333; margin:40px 0;" />
