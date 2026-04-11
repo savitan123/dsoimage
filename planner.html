@@ -61,7 +61,7 @@
             font-weight: bold;
             white-space: nowrap;
         }
-        #send-list-btn {
+        #send-list-btn, #send-list-btn-mobile {
             background: linear-gradient(45deg, #ff9800, #ff5722);
             color: #fff !important;
             border: none;
@@ -76,11 +76,15 @@
             line-height: 40px;
             text-decoration: none !important;
         }
-        #send-list-btn:hover { opacity: 0.85; }
+        #send-list-btn:hover, #send-list-btn-mobile:hover { opacity: 0.85; }
         @media (max-width: 500px) {
             #send-list-bar { flex-direction: column; align-items: stretch; }
-            #send-list-btn { width: 100%; text-align: center; }
+            #send-list-btn, #send-list-btn-mobile { width: 100%; text-align: center; }
+            #send-list-desktop { flex-direction: column; }
+            #send-list-email { width: 100% !important; }
         }
+        #send-list-email::placeholder { color: #666; }
+        #send-list-email:focus { outline: 1px solid #ff9800; border-color: #ff9800; }
         /* Highlight checked rows */
         .target-row:has(.target-checkbox:checked) {
             background: rgba(255, 152, 0, 0.07);
@@ -301,14 +305,19 @@
                     </div>
                     <div id="send-list-bar">
                         <span id="send-list-count"></span>
-                        <a id="send-list-btn" href="#" data-i18n="send_list_btn" style="display:inline-block;text-decoration:none;">📧 Send Imaging List</a>
+                        <div id="send-list-desktop" style="display:none; align-items:center; gap:8px; flex-wrap:wrap;">
+                            <input type="email" id="send-list-email" placeholder="Your email address"
+                                style="padding:8px 12px; border-radius:6px; border:1px solid #555; background:#1a1a1a; color:#fff; font-size:14px; min-width:210px; height:40px;">
+                            <a id="send-list-btn" href="#" data-i18n="send_list_btn" style="display:inline-block;text-decoration:none;">📧 Send Imaging List</a>
+                        </div>
+                        <a id="send-list-btn-mobile" href="#" data-i18n="send_list_btn" style="display:none;text-decoration:none;">📧 Send Imaging List</a>
                     </div>
                     <!-- Hidden form for desktop email via FormSubmit -->
-                    <form id="imaging-list-form" action="https://formsubmit.co/avitanshimon@gmail.com" method="POST" style="display:none;">
+                    <form id="imaging-list-form" action="" method="POST" style="display:none;">
                         <input type="hidden" name="_subject" id="form-subject" value="My DSO Imaging List">
                         <input type="hidden" name="message" id="form-message" value="">
                         <input type="hidden" name="_captcha" value="false">
-                        <input type="hidden" name="_next" value="https://dsoimage.com/planner.html">
+                        <input type="hidden" name="_next" value="https://dsoimage.com/planner.html?sent=1">
                     </form>
                 </div>
             </div>

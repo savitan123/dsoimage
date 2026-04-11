@@ -1796,35 +1796,58 @@ function updateSendBar() {
   const _s = window.i18nStrings || {};
   const countLabel = _s.send_list_count || 'selected';
   const btnLabel   = _s.send_list_btn   || '📧 Send Imaging List';
-  const btnEl   = document.getElementById('send-list-btn');
-  const countEl = document.getElementById('send-list-count');
+  const countEl    = document.getElementById('send-list-count');
+  const isMobile   = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+
   if (checked.length === 0) {
     bar.style.display = 'none';
   } else {
     bar.style.display = 'flex';
     if (countEl) countEl.textContent = checked.length + ' ' + countLabel;
-    if (btnEl) {
-      btnEl.textContent = btnLabel;
-      const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
-      if (isMobile) {
-        // Mobile: native mailto link
-        btnEl.href = buildMailtoHref();
-        btnEl.onclick = null;
-      } else {
-        // Desktop: submit via FormSubmit so it opens the user's webmail/email app
-        btnEl.href = '#';
-        btnEl.onclick = function(e) {
-          e.preventDefault();
-          const body = buildEmailBody();
-          const subject = (window.i18nStrings && window.i18nStrings.email_subject) || 'My DSO Imaging List';
-          const date = new Date().toLocaleDateString('en-GB');
-          const subjEl = document.getElementById('form-subject');
-          const msgEl  = document.getElementById('form-message');
-          const form   = document.getElementById('imaging-list-form');
-          if (subjEl) subjEl.value = subject + ' - ' + date;
-          if (msgEl)  msgEl.value  = body;
-          if (form)   form.submit();
-        };
+
+    if (isMobile) {
+      // Mobile: show simple mailto button
+      const mobileBtn = document.getElementById('send-list-btn-mobile');
+      const desktopDiv = document.getElementById('send-list-desktop');
+      if (desktopDiv) desktopDiv.style.display = 'none';
+      if (mobileBtn) {
+        mobileBtn.style.display = 'inline-block';
+        mobileBtn.textContent = btnLabel;
+        mobileBtn.href = buildMailtoHref();
+      }
+    } else {
+      // Desktop: show email input + send button
+      const mobileBtn = document.getElementById('send-list-btn-mobile');
+      const desktopDiv = document.getElementById('send-list-desktop');
+      const desktopBtn = document.getElementById('send-list-btn');
+      if (mobileBtn) mobileBtn.style.display = 'none';
+      if (desktopDiv) desktopDiv.style.display = 'flex';
+      if (desktopBtn) {
+        desktopBtn.textContent = btnLabel;
+        if (!desktopBtn._bound) {
+          desktopBtn._bound = true;
+          desktopBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const emailInput = document.getElementById('send-list-email');
+            const userEmail  = emailInput ? emailInput.value.trim() : '';
+            if (!userEmail || !userEmail.includes('@')) {
+              if (emailInput) { emailInput.focus(); emailInput.style.borderColor = '#f44'; }
+              return;
+            }
+            if (emailInput) emailInput.style.borderColor = '#555';
+            const body    = buildEmailBody();
+            const subject = (_s.email_subject || 'My DSO Imaging List') + ' - ' + new Date().toLocaleDateString('en-GB');
+            const form    = document.getElementById('imaging-list-form');
+            const subjEl  = document.getElementById('form-subject');
+            const msgEl   = document.getElementById('form-message');
+            if (subjEl) subjEl.value = subject;
+            if (msgEl)  msgEl.value  = body;
+            if (form) {
+              form.action = 'https://formsubmit.co/' + encodeURIComponent(userEmail);
+              form.submit();
+            }
+          });
+        }
       }
     }
   }
