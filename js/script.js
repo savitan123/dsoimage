@@ -1762,28 +1762,9 @@ function runSuggesterLogic(isBestMode, sortOverride = null) {
   if (btn) btn.disabled = false;
 }
 
-function updateSendBar() {
-  const bar = document.getElementById('send-list-bar');
-  if (!bar) return;
+function buildMailtoHref() {
   const checked = document.querySelectorAll('.target-checkbox:checked');
-  const _s = window.i18nStrings || {};
-  const countLabel = _s.send_list_count || 'selected';
-  const btnLabel   = _s.send_list_btn   || '📧 Send Imaging List';
-  if (checked.length === 0) {
-    bar.style.display = 'none';
-  } else {
-    bar.style.display = 'flex';
-    const countEl = document.getElementById('send-list-count');
-    const btnEl   = document.getElementById('send-list-btn');
-    if (countEl) countEl.textContent = `${checked.length} ${countLabel}`;
-    if (btnEl) btnEl.textContent = btnLabel;
-  }
-}
-window.sendImagingList = sendImagingList;
-
-function sendImagingList() {
-  const checked = document.querySelectorAll('.target-checkbox:checked');
-  if (!checked.length) return;
+  if (!checked.length) return '#';
   const _s = window.i18nStrings || {};
   const subject   = _s.email_subject || 'My DSO Imaging List';
   const intro     = _s.email_intro   || 'My planned deep sky imaging targets:';
@@ -1791,30 +1772,37 @@ function sendImagingList() {
   const typeLabel = _s.email_type    || 'Type';
   const magLabel  = _s.email_mag     || 'Mag';
   const sizeLabel = _s.email_size    || 'Size';
-
   const date = new Date().toLocaleDateString('en-GB');
   let lines = [intro + '\n'];
   checked.forEach((cb, i) => {
     const name   = cb.dataset.name   || '';
     const common = cb.dataset.common ? ' (' + cb.dataset.common + ')' : '';
-    const type   = cb.dataset.type   || '-';
-    const mag    = cb.dataset.mag    || '-';
-    const size   = cb.dataset.size   || '-';
-    lines.push((i + 1) + '. ' + name + common + '  |  ' + typeLabel + ': ' + type + '  |  ' + magLabel + ': ' + mag + '  |  ' + sizeLabel + ': ' + size);
+    lines.push((i+1) + '. ' + name + common + '  |  ' + typeLabel + ': ' + (cb.dataset.type||'-') + '  |  ' + magLabel + ': ' + (cb.dataset.mag||'-') + '  |  ' + sizeLabel + ': ' + (cb.dataset.size||'-'));
   });
   lines.push('\n' + footer);
-
-  const body    = lines.join('\n');
-  const mailStr = 'mailto:?subject=' + encodeURIComponent(subject + ' - ' + date) + '&body=' + encodeURIComponent(body);
-
-  // Most reliable cross-browser mailto trigger
-  const link = document.getElementById('send-list-mailto') || document.createElement('a');
-  link.id   = 'send-list-mailto';
-  link.href = mailStr;
-  if (!link.parentNode) document.body.appendChild(link);
-  link.click();
+  return 'mailto:?subject=' + encodeURIComponent(subject + ' - ' + date) + '&body=' + encodeURIComponent(lines.join('\n'));
 }
-window.sendImagingList = sendImagingList;
+
+function updateSendBar() {
+  const bar = document.getElementById('send-list-bar');
+  if (!bar) return;
+  const checked = document.querySelectorAll('.target-checkbox:checked');
+  const _s = window.i18nStrings || {};
+  const countLabel = _s.send_list_count || 'selected';
+  const btnLabel   = _s.send_list_btn   || '📧 Send Imaging List';
+  const btnEl   = document.getElementById('send-list-btn');
+  const countEl = document.getElementById('send-list-count');
+  if (checked.length === 0) {
+    bar.style.display = 'none';
+  } else {
+    bar.style.display = 'flex';
+    if (countEl) countEl.textContent = checked.length + ' ' + countLabel;
+    if (btnEl) {
+      btnEl.textContent = btnLabel;
+      btnEl.href = buildMailtoHref();
+    }
+  }
+}
 
 // Helper: Parse Times to Date objects relative to "Tonight"
 function getWindowTimes(startStr, endStr, now) {
@@ -2795,10 +2783,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('dragstart', e => {
     if (e.target.tagName === 'IMG') e.preventDefault();
   });
-
-  // Send Imaging List button — attach once at load, always present in DOM
-  const _sendBtn = document.getElementById('send-list-btn');
-  if (_sendBtn) _sendBtn.addEventListener('click', sendImagingList);
 
   // 4. Android long-press: prevent "Save image" popup
   let _touchTimer = null;

@@ -63,7 +63,7 @@
         }
         #send-list-btn {
             background: linear-gradient(45deg, #ff9800, #ff5722);
-            color: #fff;
+            color: #fff !important;
             border: none;
             border-radius: 6px;
             padding: 8px 18px;
@@ -73,6 +73,8 @@
             white-space: nowrap;
             transition: opacity 0.2s;
             min-height: 40px;
+            line-height: 40px;
+            text-decoration: none !important;
         }
         #send-list-btn:hover { opacity: 0.85; }
         @media (max-width: 500px) {
@@ -299,7 +301,7 @@
                     </div>
                     <div id="send-list-bar">
                         <span id="send-list-count"></span>
-                        <button id="send-list-btn" data-i18n="send_list_btn" onclick="sendImagingList()">📧 Send Imaging List</button>
+                        <a id="send-list-btn" href="#" data-i18n="send_list_btn" style="display:inline-block;text-decoration:none;">📧 Send Imaging List</a>
                     </div>
                 </div>
             </div>
