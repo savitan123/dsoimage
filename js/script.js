@@ -1770,7 +1770,7 @@ function buildEmailBody() {
   const typeLabel = _s.email_type    || 'Type';
   const magLabel  = _s.email_mag     || 'Mag';
   const sizeLabel = _s.email_size    || 'Size';
-  let lines = [intro + '\n'];
+  let lines = ['Here is your imaging list you have picked:\n', intro + '\n'];
   checked.forEach((cb, i) => {
     const name   = cb.dataset.name   || '';
     const common = cb.dataset.common ? ' (' + cb.dataset.common + ')' : '';
