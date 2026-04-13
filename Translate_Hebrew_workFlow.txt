@@ -1,0 +1,64 @@
+Briefing for the Translation Agent
+How the i18n system works
+This project supports English and Hebrew (RTL). Translation is driven by two files:
+
+lang/en.json — all English strings
+lang/he.json — all Hebrew strings
+The script js/i18n.js runs on every page. On language switch it:
+
+Reads every element with data-i18n="some_key" attribute
+Looks up the key in the active JSON and replaces the text node only — icon <i> elements inside are preserved untouched
+Sets dir="rtl" on <html> when Hebrew is active (the CSS handles layout flip automatically)
+How to translate a page element — step by step
+Step 1 — Pick a unique key name. Convention: pageshortname_description, e.g. about_intro, weather_note.
+
+Step 2 — Add data-i18n="your_key" to the HTML element. If the element has an icon inside, keep the icon and put the text after it:
+
+
+<!-- Before -->
+<h2>About this site</h2>
+
+<!-- After -->
+<h2 data-i18n="about_heading">About this site</h2>
+
+<!-- With an icon — the icon must stay, only the text changes -->
+<label><i class="fa-solid fa-star"></i> Best objects tonight</label>
+<!-- becomes -->
+<label data-i18n="tb_label"><i class="fa-solid fa-star"></i> Best objects tonight</label>
+The i18n script finds the text node after the icon and swaps only that — the icon is never touched.
+
+Step 3 — Add the key to both JSON files:
+
+
+// lang/en.json
+"about_heading": "About this site",
+
+// lang/he.json  
+"about_heading": "אודות האתר",
+Step 4 — For <input placeholder="..."> or <textarea placeholder="...">, use the same data-i18n attribute — the script detects placeholder automatically:
+
+
+<input type="text" placeholder="Search..." data-i18n="search_placeholder" />
+Critical rules — do NOT break these
+Never use innerHTML or textContent on a container that has child elements (icons will be destroyed). The i18n.js script handles this safely — copy its pattern.
+Never hardcode Hebrew or English text directly in HTML for translatable content — always go through the key system.
+Menu items are already fully translated — do not touch the menu_* keys or the nav HTML.
+Do not change js/i18n.js — the engine is complete and working.
+RTL layout is handled by CSS ([dir="rtl"] rules in css/style.css) — you don't need to add any dir attributes manually.
+Keep JSON keys alphabetically sorted within their logical groups (not strictly required, but the file follows that convention).
+Version numbers on <link>/<script> tags (e.g. style.css?v=124) — do not change these, they are cache-busting versions managed separately.
+Pages most likely needing body-content translation
+Check these pages for <p>, <h2>, <label>, <span> elements that have no data-i18n attribute and contain user-visible English text:
+
+about.html
+knowledge.html
+processing.html
+equipment.html
+contact.html
+coordinate-converter.html
+weather.html
+planner.html
+The nav/menu on every page is already translated. Focus on body content only.
+
+That's everything the agent needs. The system is clean and consistent — just add data-i18n to elements, add the key pair to both JSONs, and it works automatically on both desktop and mobile in both languages.
+
