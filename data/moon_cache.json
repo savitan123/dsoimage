@@ -1,13 +1,13 @@
 {
   "date": "2026-04-24",
   "phase": "Waxing Crescent",
-  "illumination": 50,
+  "illumination": 52,
   "moonrise": "09:22",
   "moonset": "23:28",
   "closestphase": {
-    "phase": "First Quarter",
-    "date": "2026-04-24",
-    "time": "02:31"
+    "phase": "Full Moon",
+    "date": "2026-05-01",
+    "time": "17:23"
   },
-  "updated": "2026-04-24T01:22:36Z"
+  "updated": "2026-04-24T06:01:56Z"
 }
