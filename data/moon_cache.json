@@ -1,13 +1,13 @@
 {
   "date": "2026-05-01",
   "phase": "Waxing Gibbous",
-  "illumination": 99,
+  "illumination": 100,
   "moonrise": "16:18",
-  "moonset": "02:22",
+  "moonset": "02:55",
   "closestphase": {
     "phase": "Full Moon",
     "date": "2026-05-01",
     "time": "17:23"
   },
-  "updated": "2026-05-01T01:49:48Z"
+  "updated": "2026-05-01T06:30:28Z"
 }
