@@ -1,7 +1,7 @@
 {
   "date": "2026-05-02",
   "phase": "Full Moon",
-  "illumination": 100,
+  "illumination": 99,
   "moonrise": "17:17",
   "moonset": "03:32",
   "closestphase": {
@@ -9,5 +9,5 @@
     "date": "2026-05-09",
     "time": "21:10"
   },
-  "updated": "2026-05-02T05:59:33Z"
+  "updated": "2026-05-02T08:55:58Z"
 }
