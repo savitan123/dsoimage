@@ -1,7 +1,7 @@
 {
   "date": "2026-05-24",
   "phase": "First Quarter",
-  "illumination": 61,
+  "illumination": 63,
   "moonrise": "11:22",
   "moonset": "23:02",
   "closestphase": {
@@ -9,5 +9,5 @@
     "date": "2026-05-31",
     "time": "08:45"
   },
-  "updated": "2026-05-24T12:54:57Z"
+  "updated": "2026-05-24T16:48:58Z"
 }
