@@ -1,13 +1,13 @@
 {
   "date": "2026-06-08",
-  "phase": "Last Quarter",
-  "illumination": 51,
+  "phase": "Waning Crescent",
+  "illumination": 48,
   "moonrise": "22:09",
-  "moonset": "09:35",
+  "moonset": "10:35",
   "closestphase": {
-    "phase": "Last Quarter",
-    "date": "2026-06-08",
-    "time": "10:00"
+    "phase": "New Moon",
+    "date": "2026-06-15",
+    "time": "02:54"
   },
-  "updated": "2026-06-08T08:42:30Z"
+  "updated": "2026-06-08T15:22:33Z"
 }
