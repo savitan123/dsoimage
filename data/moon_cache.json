@@ -1,7 +1,7 @@
 {
   "date": "2026-06-15",
   "phase": "New Moon",
-  "illumination": 0,
+  "illumination": 1,
   "moonrise": "03:35",
   "moonset": "17:32",
   "closestphase": {
@@ -9,5 +9,5 @@
     "date": "2026-06-21",
     "time": "21:55"
   },
-  "updated": "2026-06-15T09:50:02Z"
+  "updated": "2026-06-15T16:50:24Z"
 }
