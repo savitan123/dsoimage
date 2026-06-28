@@ -1,6 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-const cheerio = require('cheerio'); // Assuming cheerio is or can be used, but let's use regex to be safe if node_modules aren't present.
 
 const siteUrl = 'https://dsoimage.com';
 const today = new Date().toISOString().split('T')[0];
@@ -10,18 +9,27 @@ const pages = [
     { file: 'galaxies.html', url: '/galaxies.html', priority: '0.8', changefreq: 'weekly' },
     { file: 'nebulae.html', url: '/nebulae.html', priority: '0.8', changefreq: 'weekly' },
     { file: 'clusters.html', url: '/clusters.html', priority: '0.8', changefreq: 'weekly' },
+    { file: 'on-site-photos.html', url: '/on-site-photos.html', priority: '0.8', changefreq: 'monthly' },
     { file: 'planner.html', url: '/planner.html', priority: '0.9', changefreq: 'weekly' },
     { file: 'apod.html', url: '/apod.html', priority: '0.8', changefreq: 'daily' },
     { file: 'tonights_best.html', url: '/tonights_best.html', priority: '0.8', changefreq: 'daily' },
     { file: 'iss.html', url: '/iss.html', priority: '0.9', changefreq: 'always' },
+    { file: 'sky-altitude.html', url: '/sky-altitude.html', priority: '0.8', changefreq: 'daily' },
     { file: 'coordinate-converter.html', url: '/coordinate-converter.html', priority: '0.8', changefreq: 'monthly' },
+    { file: 'catalog-explorer.html', url: '/catalog-explorer.html', priority: '0.9', changefreq: 'weekly' },
     { file: 'checklist.html', url: '/checklist.html', priority: '0.8', changefreq: 'monthly' },
     { file: 'live-sky-map.html', url: '/live-sky-map.html', priority: '0.8', changefreq: 'monthly' },
     { file: 'weather.html', url: '/weather.html', priority: '0.7', changefreq: 'daily' },
     { file: 'processing.html', url: '/processing.html', priority: '0.6', changefreq: 'monthly' },
     { file: 'equipment.html', url: '/equipment.html', priority: '0.6', changefreq: 'monthly' },
     { file: 'about.html', url: '/about.html', priority: '0.5', changefreq: 'monthly' },
-    { file: 'contact.html', url: '/contact.html', priority: '0.5', changefreq: 'monthly' }
+    { file: 'contact.html', url: '/contact.html', priority: '0.5', changefreq: 'monthly' },
+    { file: 'knowledge.html', url: '/knowledge.html', priority: '0.8', changefreq: 'weekly' },
+    { file: 'constellations-northern.html', url: '/constellations-northern.html', priority: '0.7', changefreq: 'monthly' },
+    { file: 'constellations-southern.html', url: '/constellations-southern.html', priority: '0.7', changefreq: 'monthly' },
+    { file: 'constellation.html', url: '/constellation.html', priority: '0.6', changefreq: 'monthly' },
+    { file: 'light-pollution.html', url: '/light-pollution.html', priority: '0.8', changefreq: 'weekly' },
+    { file: 'sitemap.html', url: '/sitemap.html', priority: '0.4', changefreq: 'monthly' }
 ];
 
 let xml = `<?xml version="1.0" encoding="UTF-8"?>
