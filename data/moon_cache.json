@@ -1,7 +1,7 @@
 {
   "date": "2026-07-10",
   "phase": "Waning Crescent",
-  "illumination": 26,
+  "illumination": 23,
   "moonrise": "23:07",
   "moonset": "12:48",
   "closestphase": {
@@ -9,5 +9,5 @@
     "date": "2026-07-14",
     "time": "09:43"
   },
-  "updated": "2026-07-10T01:28:31Z"
+  "updated": "2026-07-10T07:24:33Z"
 }
