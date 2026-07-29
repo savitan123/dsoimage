@@ -2,12 +2,12 @@
   "date": "2026-07-29",
   "phase": "Full Moon",
   "illumination": 100,
-  "moonrise": "16:45",
+  "moonrise": "17:17",
   "moonset": "03:27",
   "closestphase": {
-    "phase": "Full Moon",
-    "date": "2026-07-29",
-    "time": "14:35"
+    "phase": "Last Quarter",
+    "date": "2026-08-06",
+    "time": "02:21"
   },
-  "updated": "2026-07-29T13:40:25Z"
+  "updated": "2026-07-29T17:01:30Z"
 }
