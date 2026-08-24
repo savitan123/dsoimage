@@ -1,13 +1,13 @@
 {
-  "date": "2026-08-23",
+  "date": "2026-08-24",
   "phase": "Waxing Gibbous",
-  "illumination": 83,
+  "illumination": 84,
   "moonrise": "14:05",
-  "moonset": "23:19",
+  "moonset": "00:17",
   "closestphase": {
     "phase": "Full Moon",
     "date": "2026-08-28",
     "time": "04:18"
   },
-  "updated": "2026-08-23T20:08:36Z"
+  "updated": "2026-08-24T00:32:30Z"
 }
