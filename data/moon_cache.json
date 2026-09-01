@@ -1,13 +1,13 @@
 {
   "date": "2026-09-01",
   "phase": "Waning Gibbous",
-  "illumination": 79,
-  "moonrise": "18:19",
+  "illumination": 77,
+  "moonrise": "18:59",
   "moonset": "08:27",
   "closestphase": {
     "phase": "Last Quarter",
     "date": "2026-09-04",
     "time": "07:51"
   },
-  "updated": "2026-09-01T15:39:59Z"
+  "updated": "2026-09-01T18:55:44Z"
 }
