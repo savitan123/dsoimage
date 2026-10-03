@@ -1,13 +1,13 @@
 {
   "date": "2026-10-03",
   "phase": "Last Quarter",
-  "illumination": 52,
+  "illumination": 49,
   "moonrise": "20:47",
-  "moonset": "10:42",
+  "moonset": "11:33",
   "closestphase": {
-    "phase": "Last Quarter",
-    "date": "2026-10-03",
-    "time": "13:24"
+    "phase": "New Moon",
+    "date": "2026-10-10",
+    "time": "15:50"
   },
-  "updated": "2026-10-03T09:28:58Z"
+  "updated": "2026-10-03T15:19:17Z"
 }
