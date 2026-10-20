@@ -1,7 +1,7 @@
 {
-  "date": "2026-10-19",
+  "date": "2026-10-20",
   "phase": "Waxing Gibbous",
-  "illumination": 62,
+  "illumination": 64,
   "moonrise": "11:46",
   "moonset": "22:48",
   "closestphase": {
@@ -9,5 +9,5 @@
     "date": "2026-10-26",
     "time": "04:11"
   },
-  "updated": "2026-10-19T23:10:52Z"
+  "updated": "2026-10-20T02:22:22Z"
 }
