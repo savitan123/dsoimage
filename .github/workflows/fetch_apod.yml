@@ -50,12 +50,14 @@ jobs:
             exit 0
           fi
 
-          # Validate that the response contains a 'url' or 'thumbnail_url' field
+          # Validate that the response contains a valid image URL (not a placeholder/logo)
           URL_CHECK=$(cat /tmp/apod_response.json | python3 -c "
-          import json, sys
+          import json, sys, re
           data = json.load(sys.stdin)
           u = data.get('url') or data.get('thumbnail_url', '')
-          print('ok' if u else 'missing')
+          # Reject if URL is missing, or points to a known placeholder/theme asset path
+          bad = not u or '/wp-content/' in u or 'assets/images/nasa-logo' in u
+          print('missing' if bad else 'ok')
           ")
 
           if [ "$URL_CHECK" != "ok" ]; then

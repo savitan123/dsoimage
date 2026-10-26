@@ -142,8 +142,9 @@
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
 
-      // Basic sanity check — must have at least url or thumbnail_url
-      if (!data.url && !data.thumbnail_url) {
+      // Sanity check: must have a real image URL, not a placeholder or NASA logo
+      const urlOk = (u) => u && !u.includes('/wp-content/') && !u.includes('nasa-logo');
+      if (!urlOk(data.url) && !urlOk(data.thumbnail_url)) {
         renderApod(FALLBACK);
         return;
       }

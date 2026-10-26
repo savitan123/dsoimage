@@ -7,8 +7,14 @@ Disallow: /galaxies_temp.html
 Disallow: /nebulae_temp.html
 Disallow: /test-glossary.html
 
-# Block internal paths
+# Block internal paths and dev files
 Disallow: /.claude/
 Disallow: /.github/
+Disallow: /__pycache__/
+Disallow: /*.py$
+Disallow: /*.bak$
+Disallow: /*.txt$
+Disallow: /*.xml$
+Allow: /sitemap.xml
 
 Sitemap: https://dsoimage.com/sitemap.xml

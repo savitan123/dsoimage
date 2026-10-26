@@ -35,7 +35,15 @@
       "Bash(git stash:*)",
       "Bash(node -e \":*)",
       "Bash(python3 -c \":*)",
-      "Bash(python3 \"C:/Users/Savit/Documents/dsoimage-site/inject_he_content.py\")"
+      "Bash(python3 \"C:/Users/Savit/Documents/dsoimage-site/inject_he_content.py\")",
+      "Bash(node -e ' *)",
+      "Bash(grep -oP \"Ã[^\\\\s<\\\\\"]{1,8}\" \"C:/Users/Savit/Documents/common-centroid/layout-tool.html\")",
+      "PowerShell(Copy-Item \"C:\\\\Users\\\\Savit\\\\Documents\\\\common-centroid\\\\layout-tool.html\" \"C:\\\\Users\\\\Savit\\\\Documents\\\\common-centroid\\\\layout-tool-beta.html\")",
+      "Bash(read f *)",
+      "Bash([ ! -f \"/c/Users/Savit/Documents/dsoimage-site/$f\" ])",
+      "Bash(python3 -c ' *)",
+      "Bash(read page *)",
+      "Bash([ ! -f \"/c/Users/Savit/Documents/dsoimage-site/$page\" ])"
     ]
   }
 }

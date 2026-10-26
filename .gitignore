@@ -1,1 +1,25 @@
 images/full_wo_watermark/
+
+# Python artifacts
+__pycache__/
+*.pyc
+*.pyo
+
+# Backup and temp files
+*.bak
+*.log
+*.tmp
+temp_*.csv
+sesame_*.xml
+
+# Environment and secrets
+.env
+.env.*
+secrets.*
+
+# Node (if ever used)
+node_modules/
+
+# OS noise
+.DS_Store
+Thumbs.db
