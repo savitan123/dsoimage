@@ -2,10 +2,10 @@ name: Daily NASA APOD Cache
 
 on:
   schedule:
-    # Primary run at 06:00 UTC (shortly after NASA publishes the daily image)
-    - cron: '0 6 * * *'
-    # Retry run at 13:00 UTC in case the morning run was skipped or failed
-    - cron: '0 13 * * *'
+    # Primary run at 06:30 UTC (shortly after NASA publishes the daily image)
+    - cron: '30 6 * * *'
+    # Retry run at 14:00 UTC in case the morning run was skipped or failed
+    - cron: '0 14 * * *'
   workflow_dispatch: # Allow manual runs for testing
 
 jobs:
@@ -20,72 +20,165 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4.2.2
 
-      - name: Fetch APOD from NASA API
+      - name: Install Python dependencies
+        run: pip install requests beautifulsoup4 --quiet
+
+      - name: Fetch APOD (API + scrape fallback)
         id: fetch
         env:
           NASA_API_KEY: ${{ secrets.NASA_API_KEY }}
         run: |
-          # Use the secret key, fall back to DEMO_KEY only if the secret is not set
-          API_KEY="${NASA_API_KEY:-DEMO_KEY}"
+          python3 << 'PYEOF'
+          import os, json, re, sys, datetime
+          import requests
+          from bs4 import BeautifulSoup
 
-          echo "Fetching APOD with key: ${API_KEY:0:4}****"
+          CACHE_PATH = "data/apod_cache.json"
+          API_KEY = os.environ.get("NASA_API_KEY") or "DEMO_KEY"
 
-          # Try today first, then fall back up to 3 previous days if NASA's API is broken
-          HTTP_STATUS=0
-          for DAYS_BACK in 0 1 2 3; do
-            DATE_PARAM=$(date -u -d "-${DAYS_BACK} days" +%Y-%m-%d)
-            echo "Trying date: ${DATE_PARAM}"
-            HTTP_STATUS=$(curl -s -o /tmp/apod_response.json -w "%{http_code}" \
-              "https://api.nasa.gov/planetary/apod?api_key=${API_KEY}&date=${DATE_PARAM}&thumbs=true")
-            echo "HTTP status for ${DATE_PARAM}: $HTTP_STATUS"
-            if [ "$HTTP_STATUS" -eq 200 ]; then
-              echo "Success on ${DATE_PARAM}"
-              break
-            fi
-          done
+          def is_bad_url(u):
+              """Return True if the URL looks like a placeholder rather than a real image."""
+              if not u:
+                  return True
+              bad_patterns = ["/wp-content/themes/", "nasa-logo@", "nasa-logo.svg",
+                              "assets/images/nasa-logo"]
+              return any(p in u for p in bad_patterns)
 
-          if [ "$HTTP_STATUS" -ne 200 ]; then
-            echo "All date attempts failed — keeping existing cache."
-            cat /tmp/apod_response.json || true
-            exit 0
-          fi
+          def load_existing():
+              try:
+                  with open(CACHE_PATH) as f:
+                      return json.load(f)
+              except Exception:
+                  return {}
 
-          # Validate that the response contains a valid image URL (not a placeholder/logo)
-          URL_CHECK=$(cat /tmp/apod_response.json | python3 -c "
-          import json, sys, re
-          data = json.load(sys.stdin)
-          u = data.get('url') or data.get('thumbnail_url', '')
-          # Reject if URL is missing, or points to a known placeholder/theme asset path
-          bad = not u or '/wp-content/' in u or 'assets/images/nasa-logo' in u
-          print('missing' if bad else 'ok')
-          ")
+          # ── Strategy 1: Official NASA API ──────────────────────────────────────
+          def try_api():
+              for days_back in range(4):
+                  d = (datetime.date.today() - datetime.timedelta(days=days_back)).isoformat()
+                  try:
+                      r = requests.get(
+                          "https://api.nasa.gov/planetary/apod",
+                          params={"api_key": API_KEY, "date": d, "thumbs": "true"},
+                          timeout=20
+                      )
+                      if r.status_code == 200:
+                          data = r.json()
+                          url = data.get("url") or data.get("thumbnail_url", "")
+                          if not is_bad_url(url):
+                              print(f"[API] Success for {d}: {url[:60]}")
+                              return {
+                                  "date":          data.get("date", d),
+                                  "title":         data.get("title", ""),
+                                  "explanation":   data.get("explanation", ""),
+                                  "url":           data.get("url", ""),
+                                  "hdurl":         data.get("hdurl", "") or data.get("url", ""),
+                                  "media_type":    data.get("media_type", "image"),
+                                  "thumbnail_url": data.get("thumbnail_url", ""),
+                                  "copyright":     data.get("copyright", ""),
+                              }
+                          print(f"[API] Bad URL for {d}: {url[:80]}")
+                      else:
+                          print(f"[API] HTTP {r.status_code} for {d}")
+                  except Exception as e:
+                      print(f"[API] Error for {d}: {e}")
+              return None
 
-          if [ "$URL_CHECK" != "ok" ]; then
-            echo "Response missing URL field — keeping existing cache."
-            exit 0
-          fi
+          # ── Strategy 2: Scrape science.nasa.gov APOD page ─────────────────────
+          def try_scrape():
+              headers = {"User-Agent": "Mozilla/5.0 (compatible; DSOImage-bot/1.0)"}
+              urls_to_try = [
+                  "https://science.nasa.gov/universe/picture-of-the-day/",
+                  "https://apod.nasa.gov/apod/astropix.html",
+              ]
+              for page_url in urls_to_try:
+                  try:
+                      r = requests.get(page_url, headers=headers, timeout=30, allow_redirects=True)
+                      if r.status_code != 200:
+                          print(f"[Scrape] HTTP {r.status_code} for {page_url}")
+                          continue
+                      soup = BeautifulSoup(r.text, "html.parser")
 
-          # Pretty-print the JSON and save to the cache file
-          python3 -c "
-          import json, sys
-          data = json.load(open('/tmp/apod_response.json'))
-          # Keep only the fields the frontend needs
-          out = {
-            'date':          data.get('date', ''),
-            'title':         data.get('title', ''),
-            'explanation':   data.get('explanation', ''),
-            'url':           data.get('url', ''),
-            'hdurl':         data.get('hdurl', ''),
-            'media_type':    data.get('media_type', 'image'),
-            'thumbnail_url': data.get('thumbnail_url', ''),
-            'copyright':     data.get('copyright', '')
-          }
-          with open('data/apod_cache.json', 'w') as f:
-            json.dump(out, f, indent=2)
-          print('Cache written successfully.')
-          "
+                      # Try Open Graph image
+                      img_url = ""
+                      og_img = soup.find("meta", property="og:image")
+                      if og_img:
+                          img_url = og_img.get("content", "")
 
-          echo "Fetch and write succeeded."
+                      # If og:image is the NASA logo, look for real article image
+                      if is_bad_url(img_url):
+                          # Try JSON-LD
+                          for script in soup.find_all("script", type="application/ld+json"):
+                              try:
+                                  ld = json.loads(script.string or "")
+                                  graphs = ld.get("@graph", [ld])
+                                  for node in graphs:
+                                      img = (node.get("image") or {})
+                                      if isinstance(img, dict):
+                                          img = img.get("url", "")
+                                      if img and not is_bad_url(img):
+                                          img_url = img
+                                          break
+                              except Exception:
+                                  pass
+
+                          # Try first large article img
+                          if is_bad_url(img_url):
+                              for img_tag in soup.find_all("img"):
+                                  src = img_tag.get("src", "")
+                                  if src and not is_bad_url(src) and (
+                                          "apod" in src.lower() or
+                                          src.endswith((".jpg", ".jpeg", ".png")) and
+                                          "upload" in src.lower()
+                                  ):
+                                      img_url = src
+                                      break
+
+                      if is_bad_url(img_url):
+                          print(f"[Scrape] Could not find real image on {page_url}")
+                          continue
+
+                      # Get title
+                      og_title = soup.find("meta", property="og:title")
+                      title = og_title.get("content", "") if og_title else ""
+                      if not title:
+                          h1 = soup.find("h1")
+                          title = h1.get_text(strip=True) if h1 else "NASA Astronomy Picture of the Day"
+
+                      # Get description
+                      og_desc = soup.find("meta", property="og:description")
+                      explanation = og_desc.get("content", "") if og_desc else ""
+
+                      today = datetime.date.today().isoformat()
+                      print(f"[Scrape] Success from {page_url}: {img_url[:60]}")
+                      return {
+                          "date":          today,
+                          "title":         title,
+                          "explanation":   explanation,
+                          "url":           img_url,
+                          "hdurl":         img_url,
+                          "media_type":    "image",
+                          "thumbnail_url": "",
+                          "copyright":     "",
+                      }
+                  except Exception as e:
+                      print(f"[Scrape] Error for {page_url}: {e}")
+              return None
+
+          # ── Run strategies in order ────────────────────────────────────────────
+          result = try_api() or try_scrape()
+
+          if result:
+              existing = load_existing()
+              if existing.get("date") == result.get("date") and existing.get("url") == result.get("url"):
+                  print("Cache already up to date — no change needed.")
+              else:
+                  with open(CACHE_PATH, "w") as f:
+                      json.dump(result, f, indent=2)
+                  print(f"Cache updated: {result['date']} — {result['title']}")
+          else:
+              print("All strategies failed — keeping existing cache.")
+
+          PYEOF
 
       - name: Commit updated cache if changed
         run: |
